@@ -1,0 +1,12 @@
+C:\Users\Jonii\Desktop\Proyecto_Hotel_California\Proyecto_Hotel_California\bin\Debug\Proyecto_Hotel_California.exe.config
+C:\Users\Jonii\Desktop\Proyecto_Hotel_California\Proyecto_Hotel_California\bin\Debug\Proyecto_Hotel_California.exe
+C:\Users\Jonii\Desktop\Proyecto_Hotel_California\Proyecto_Hotel_California\bin\Debug\Proyecto_Hotel_California.pdb
+C:\Users\Jonii\Desktop\Proyecto_Hotel_California\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.csproj.AssemblyReference.cache
+C:\Users\Jonii\Desktop\Proyecto_Hotel_California\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.Form1.resources
+C:\Users\Jonii\Desktop\Proyecto_Hotel_California\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.Properties.Resources.resources
+C:\Users\Jonii\Desktop\Proyecto_Hotel_California\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.csproj.GenerateResource.cache
+C:\Users\Jonii\Desktop\Proyecto_Hotel_California\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.csproj.CoreCompileInputs.cache
+C:\Users\Jonii\Desktop\Proyecto_Hotel_California\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.exe
+C:\Users\Jonii\Desktop\Proyecto_Hotel_California\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.pdb
+C:\Users\Jonii\Desktop\Proyecto_Hotel_California\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.exe.config
+C:\Users\Jonii\Desktop\Proyecto_Hotel_California\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.Form2.resources
