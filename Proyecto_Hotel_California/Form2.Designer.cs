@@ -31,19 +31,19 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.PTitulo = new System.Windows.Forms.Panel();
             this.PLateral = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.BPagos = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.BInicio = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.BReservas = new System.Windows.Forms.Button();
             this.BHabitaciones = new System.Windows.Forms.Button();
             this.BEmpleados = new System.Windows.Forms.Button();
             this.BClientes = new System.Windows.Forms.Button();
             this.PContenedor = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.BInicio = new System.Windows.Forms.Button();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.BPagos = new System.Windows.Forms.Button();
             this.PLateral.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,6 +76,88 @@
             this.PLateral.Name = "PLateral";
             this.PLateral.Size = new System.Drawing.Size(150, 511);
             this.PLateral.TabIndex = 1;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel6.Location = new System.Drawing.Point(1, 306);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(5, 40);
+            this.panel6.TabIndex = 3;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel5.Location = new System.Drawing.Point(1, 76);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(5, 40);
+            this.panel5.TabIndex = 3;
+            // 
+            // BPagos
+            // 
+            this.BPagos.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BPagos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.BPagos.FlatAppearance.BorderSize = 0;
+            this.BPagos.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.BPagos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BPagos.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BPagos.Image = ((System.Drawing.Image)(resources.GetObject("BPagos.Image")));
+            this.BPagos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BPagos.Location = new System.Drawing.Point(4, 306);
+            this.BPagos.Name = "BPagos";
+            this.BPagos.Size = new System.Drawing.Size(146, 40);
+            this.BPagos.TabIndex = 2;
+            this.BPagos.Text = "Pagos";
+            this.BPagos.UseVisualStyleBackColor = false;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel4.Location = new System.Drawing.Point(1, 260);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(5, 40);
+            this.panel4.TabIndex = 1;
+            // 
+            // BInicio
+            // 
+            this.BInicio.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BInicio.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.BInicio.FlatAppearance.BorderSize = 0;
+            this.BInicio.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.BInicio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BInicio.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BInicio.Image = ((System.Drawing.Image)(resources.GetObject("BInicio.Image")));
+            this.BInicio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BInicio.Location = new System.Drawing.Point(4, 76);
+            this.BInicio.Name = "BInicio";
+            this.BInicio.Size = new System.Drawing.Size(146, 40);
+            this.BInicio.TabIndex = 2;
+            this.BInicio.Text = "Inicio";
+            this.BInicio.UseVisualStyleBackColor = false;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel3.Location = new System.Drawing.Point(1, 214);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(5, 40);
+            this.panel3.TabIndex = 1;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel2.Location = new System.Drawing.Point(1, 168);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(5, 40);
+            this.panel2.TabIndex = 1;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel1.Location = new System.Drawing.Point(1, 122);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(5, 40);
+            this.panel1.TabIndex = 0;
             // 
             // BReservas
             // 
@@ -146,88 +228,6 @@
             this.PContenedor.Name = "PContenedor";
             this.PContenedor.Size = new System.Drawing.Size(734, 511);
             this.PContenedor.TabIndex = 2;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel1.Location = new System.Drawing.Point(1, 122);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(5, 40);
-            this.panel1.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel2.Location = new System.Drawing.Point(1, 168);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(5, 40);
-            this.panel2.TabIndex = 1;
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel3.Location = new System.Drawing.Point(1, 214);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(5, 40);
-            this.panel3.TabIndex = 1;
-            // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel4.Location = new System.Drawing.Point(1, 260);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(5, 40);
-            this.panel4.TabIndex = 1;
-            // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel5.Location = new System.Drawing.Point(1, 76);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(5, 40);
-            this.panel5.TabIndex = 3;
-            // 
-            // BInicio
-            // 
-            this.BInicio.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.BInicio.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.BInicio.FlatAppearance.BorderSize = 0;
-            this.BInicio.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.BInicio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BInicio.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BInicio.Image = ((System.Drawing.Image)(resources.GetObject("BInicio.Image")));
-            this.BInicio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BInicio.Location = new System.Drawing.Point(4, 76);
-            this.BInicio.Name = "BInicio";
-            this.BInicio.Size = new System.Drawing.Size(146, 40);
-            this.BInicio.TabIndex = 2;
-            this.BInicio.Text = "Inicio";
-            this.BInicio.UseVisualStyleBackColor = false;
-            // 
-            // panel6
-            // 
-            this.panel6.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel6.Location = new System.Drawing.Point(1, 306);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(5, 40);
-            this.panel6.TabIndex = 3;
-            // 
-            // BPagos
-            // 
-            this.BPagos.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.BPagos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.BPagos.FlatAppearance.BorderSize = 0;
-            this.BPagos.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.BPagos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BPagos.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BPagos.Image = ((System.Drawing.Image)(resources.GetObject("BPagos.Image")));
-            this.BPagos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BPagos.Location = new System.Drawing.Point(4, 306);
-            this.BPagos.Name = "BPagos";
-            this.BPagos.Size = new System.Drawing.Size(146, 40);
-            this.BPagos.TabIndex = 2;
-            this.BPagos.Text = "Pagos";
-            this.BPagos.UseVisualStyleBackColor = false;
             // 
             // Form2
             // 
