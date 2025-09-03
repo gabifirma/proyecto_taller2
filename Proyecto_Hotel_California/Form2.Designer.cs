@@ -44,9 +44,7 @@
             this.BEmpleados = new System.Windows.Forms.Button();
             this.BClientes = new System.Windows.Forms.Button();
             this.PContenedor = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.PLateral.SuspendLayout();
-            this.PContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
             // PTitulo
@@ -225,21 +223,11 @@
             // PContenedor
             // 
             this.PContenedor.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.PContenedor.Controls.Add(this.label1);
             this.PContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PContenedor.Location = new System.Drawing.Point(150, 50);
             this.PContenedor.Name = "PContenedor";
             this.PContenedor.Size = new System.Drawing.Size(734, 511);
             this.PContenedor.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(423, 135);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
             // 
             // Form2
             // 
@@ -253,8 +241,6 @@
             this.Name = "Form2";
             this.Text = "Form2";
             this.PLateral.ResumeLayout(false);
-            this.PContenedor.ResumeLayout(false);
-            this.PContenedor.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -276,6 +262,5 @@
         private System.Windows.Forms.Button BInicio;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Button BPagos;
-        private System.Windows.Forms.Label label1;
     }
 }
