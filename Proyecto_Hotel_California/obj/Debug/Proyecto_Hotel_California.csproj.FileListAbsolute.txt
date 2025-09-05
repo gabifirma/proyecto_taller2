@@ -24,3 +24,4 @@ C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proy
 C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.csproj.CoreCompileInputs.cache
 C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.exe
 C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.pdb
+C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.Empleados.resources

@@ -204,6 +204,7 @@
             this.BEmpleados.TabIndex = 0;
             this.BEmpleados.Text = "Empleados";
             this.BEmpleados.UseVisualStyleBackColor = false;
+            this.BEmpleados.Click += new System.EventHandler(this.BEmpleados_Click);
             // 
             // BClientes
             // 

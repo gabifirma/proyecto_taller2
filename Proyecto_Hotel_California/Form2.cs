@@ -38,5 +38,10 @@ namespace Proyecto_Hotel_California
         {
             abrirFormHIjo(new Clientes());
         }
+
+        private void BEmpleados_Click(object sender, EventArgs e)
+        {
+            abrirFormHIjo(new Empleados());
+        }
     }
 }
