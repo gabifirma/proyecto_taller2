@@ -17,9 +17,26 @@ namespace Proyecto_Hotel_California
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void abrirFormHIjo(object formhijo)
         {
+            if (this.PContenedor.Controls.Count > 0)
+                this.PContenedor.Controls.RemoveAt(0);
+            Form fh = formhijo as Form;
+            fh.TopLevel = false;
+            fh.Dock = DockStyle.Fill;
+            this.PContenedor.Controls.Add(fh);
+            this.PContenedor.Tag = fh;
+            fh.Show();
+        }
 
+        private void BInicio_Click(object sender, EventArgs e)
+        {
+            abrirFormHIjo(new Home());
+        }
+
+        private void BClientes_Click(object sender, EventArgs e)
+        {
+            abrirFormHIjo(new Clientes());
         }
     }
 }

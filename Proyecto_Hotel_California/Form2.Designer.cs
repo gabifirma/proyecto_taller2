@@ -134,6 +134,7 @@
             this.BInicio.TabIndex = 2;
             this.BInicio.Text = "Inicio";
             this.BInicio.UseVisualStyleBackColor = false;
+            this.BInicio.Click += new System.EventHandler(this.BInicio_Click);
             // 
             // panel3
             // 
@@ -203,7 +204,6 @@
             this.BEmpleados.TabIndex = 0;
             this.BEmpleados.Text = "Empleados";
             this.BEmpleados.UseVisualStyleBackColor = false;
-            this.BEmpleados.Click += new System.EventHandler(this.button2_Click);
             // 
             // BClientes
             // 
@@ -219,6 +219,7 @@
             this.BClientes.TabIndex = 0;
             this.BClientes.Text = "Clientes";
             this.BClientes.UseVisualStyleBackColor = true;
+            this.BClientes.Click += new System.EventHandler(this.BClientes_Click);
             // 
             // PContenedor
             // 
