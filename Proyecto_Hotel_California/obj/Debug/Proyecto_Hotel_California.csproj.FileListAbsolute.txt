@@ -25,3 +25,6 @@ C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proy
 C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.exe
 C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.pdb
 C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.Empleados.resources
+C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.Habitaciones.resources
+C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.Pagos.resources
+C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.Reservas.resources

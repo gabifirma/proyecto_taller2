@@ -49,7 +49,7 @@
             // 
             // PTitulo
             // 
-            this.PTitulo.BackColor = System.Drawing.SystemColors.Highlight;
+            this.PTitulo.BackColor = System.Drawing.Color.Teal;
             this.PTitulo.Dock = System.Windows.Forms.DockStyle.Top;
             this.PTitulo.Location = new System.Drawing.Point(0, 0);
             this.PTitulo.Name = "PTitulo";
@@ -109,6 +109,7 @@
             this.BPagos.TabIndex = 2;
             this.BPagos.Text = "Pagos";
             this.BPagos.UseVisualStyleBackColor = false;
+            this.BPagos.Click += new System.EventHandler(this.BPagos_Click);
             // 
             // panel4
             // 
@@ -173,6 +174,7 @@
             this.BReservas.TabIndex = 2;
             this.BReservas.Text = "Reservas";
             this.BReservas.UseVisualStyleBackColor = true;
+            this.BReservas.Click += new System.EventHandler(this.BReservas_Click);
             // 
             // BHabitaciones
             // 
@@ -187,6 +189,7 @@
             this.BHabitaciones.TabIndex = 1;
             this.BHabitaciones.Text = "Habitaciones";
             this.BHabitaciones.UseVisualStyleBackColor = true;
+            this.BHabitaciones.Click += new System.EventHandler(this.BHabitaciones_Click);
             // 
             // BEmpleados
             // 
