@@ -82,6 +82,12 @@
     <Compile Include="Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
+    <Compile Include="IngresarEmp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IngresarEmp.Designer.cs">
+      <DependentUpon>IngresarEmp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pagos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IngresarEmp.resx">
+      <DependentUpon>IngresarEmp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pagos.resx">
       <DependentUpon>Pagos.cs</DependentUpon>

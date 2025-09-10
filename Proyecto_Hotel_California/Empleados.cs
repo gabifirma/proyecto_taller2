@@ -16,5 +16,11 @@ namespace Proyecto_Hotel_California
         {
             InitializeComponent();
         }
+
+        private void BAgregarEmp_Click(object sender, EventArgs e)
+        {
+            IngresarEmp ventana = new IngresarEmp();
+            ventana.ShowDialog();
+        }
     }
 }

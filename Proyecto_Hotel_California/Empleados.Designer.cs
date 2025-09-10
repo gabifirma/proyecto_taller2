@@ -37,6 +37,7 @@
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Activo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LTituloEmp = new System.Windows.Forms.Label();
+            this.BAgregarEmp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaEmpleados)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +53,7 @@
             this.Telefono,
             this.Email,
             this.Activo});
-            this.GrillaEmpleados.Location = new System.Drawing.Point(12, 144);
+            this.GrillaEmpleados.Location = new System.Drawing.Point(12, 135);
             this.GrillaEmpleados.Name = "GrillaEmpleados";
             this.GrillaEmpleados.Size = new System.Drawing.Size(710, 150);
             this.GrillaEmpleados.TabIndex = 0;
@@ -102,12 +103,23 @@
             this.LTituloEmp.TabIndex = 1;
             this.LTituloEmp.Text = "Grilla de Empleados";
             // 
+            // BAgregarEmp
+            // 
+            this.BAgregarEmp.Location = new System.Drawing.Point(12, 78);
+            this.BAgregarEmp.Name = "BAgregarEmp";
+            this.BAgregarEmp.Size = new System.Drawing.Size(95, 40);
+            this.BAgregarEmp.TabIndex = 2;
+            this.BAgregarEmp.Text = "Agregar empleado";
+            this.BAgregarEmp.UseVisualStyleBackColor = true;
+            this.BAgregarEmp.Click += new System.EventHandler(this.BAgregarEmp_Click);
+            // 
             // Empleados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(734, 511);
+            this.Controls.Add(this.BAgregarEmp);
             this.Controls.Add(this.LTituloEmp);
             this.Controls.Add(this.GrillaEmpleados);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -130,5 +142,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn Activo;
         private System.Windows.Forms.Label LTituloEmp;
+        private System.Windows.Forms.Button BAgregarEmp;
     }
 }

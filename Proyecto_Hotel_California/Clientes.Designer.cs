@@ -54,7 +54,7 @@
             this.Dirección,
             this.FechaAlta,
             this.Activo});
-            this.GrillaClientes.Location = new System.Drawing.Point(12, 185);
+            this.GrillaClientes.Location = new System.Drawing.Point(12, 229);
             this.GrillaClientes.Name = "GrillaClientes";
             this.GrillaClientes.Size = new System.Drawing.Size(710, 150);
             this.GrillaClientes.TabIndex = 1;
