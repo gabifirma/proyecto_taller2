@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -80,12 +81,47 @@ namespace Proyecto_Hotel_California
                 return;
             }
 
+            //true para hombre, false para mujer
+            Boolean sexo = RBHombre.Checked;
+
 
             //guardarlo todo en la base de datos
             if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && valorLegajo && SoloNumeros(TTelefono.Text) && valorEmail)
-            {               
-                MessageBox.Show("El empleado: " + TApellido.Text + " " + TNombre.Text + " se agregó correctamente.");
-                this.Close();
+            {
+                // Cambia la cadena de conexión por la de tu base de datos
+                string conexion = "Server=DESKTOP-9V9JJ39\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
+
+                using (SqlConnection conn = new SqlConnection(conexion))
+                {
+                    conn.Open();
+
+                    string query = "INSERT INTO Empleado (apellido, nombre, legajo, telefono, email, estado, sexo) " +
+                                   "VALUES (@Apellido, @Nombre, @Legajo, @Telefono, @Email, @Estado, @Sexo)";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Apellido", TApellido.Text);
+                        cmd.Parameters.AddWithValue("@Nombre", TNombre.Text);
+                        cmd.Parameters.AddWithValue("@Legajo", TLegajo.Text);
+                        cmd.Parameters.AddWithValue("@Telefono", TTelefono.Text);
+                        cmd.Parameters.AddWithValue("@Email", TEmail.Text);
+                        cmd.Parameters.AddWithValue("@Estado", true);
+                        cmd.Parameters.AddWithValue("@Sexo", sexo);
+
+                        int filas = cmd.ExecuteNonQuery();
+
+                        if (filas > 0)
+                        {
+                            MessageBox.Show("Empleado guardado correctamente en la base de datos.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se pudo guardar el empleado.");
+                        }
+                        MessageBox.Show("El empleado: " + TApellido.Text + " " + TNombre.Text + " se agregó correctamente.");
+                        this.Close();
+                    }
+                }
             }
         }
 

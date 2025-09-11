@@ -1,6 +1,6 @@
 ﻿namespace Proyecto_Hotel_California
 {
-    partial class Form2
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.PTitulo = new System.Windows.Forms.Panel();
             this.PLateral = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -234,7 +234,7 @@
             this.PContenedor.Size = new System.Drawing.Size(734, 511);
             this.PContenedor.TabIndex = 2;
             // 
-            // Form2
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -243,7 +243,7 @@
             this.Controls.Add(this.PContenedor);
             this.Controls.Add(this.PLateral);
             this.Controls.Add(this.PTitulo);
-            this.Name = "Form2";
+            this.Name = "Main";
             this.Text = "Form2";
             this.PLateral.ResumeLayout(false);
             this.ResumeLayout(false);
