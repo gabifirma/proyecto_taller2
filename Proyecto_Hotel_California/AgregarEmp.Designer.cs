@@ -1,6 +1,6 @@
 ﻿namespace Proyecto_Hotel_California
 {
-    partial class IngresarEmp
+    partial class AgregarEmp
     {
         /// <summary>
         /// Required designer variable.
@@ -58,9 +58,9 @@
             this.LTitulo.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LTitulo.Location = new System.Drawing.Point(137, 9);
             this.LTitulo.Name = "LTitulo";
-            this.LTitulo.Size = new System.Drawing.Size(372, 31);
+            this.LTitulo.Size = new System.Drawing.Size(370, 31);
             this.LTitulo.TabIndex = 0;
-            this.LTitulo.Text = "Ingrese los datos de la persona";
+            this.LTitulo.Text = "Ingrese los datos del empleado";
             // 
             // LApellido
             // 
@@ -76,7 +76,7 @@
             // 
             this.LNombre.AutoSize = true;
             this.LNombre.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LNombre.Location = new System.Drawing.Point(16, 85);
+            this.LNombre.Location = new System.Drawing.Point(13, 85);
             this.LNombre.Name = "LNombre";
             this.LNombre.Size = new System.Drawing.Size(66, 19);
             this.LNombre.TabIndex = 2;
@@ -129,6 +129,7 @@
             this.TApellido.Name = "TApellido";
             this.TApellido.Size = new System.Drawing.Size(242, 26);
             this.TApellido.TabIndex = 7;
+            this.TApellido.Leave += new System.EventHandler(this.TApellido_Leave);
             // 
             // TNombre
             // 
@@ -137,6 +138,7 @@
             this.TNombre.Name = "TNombre";
             this.TNombre.Size = new System.Drawing.Size(242, 26);
             this.TNombre.TabIndex = 8;
+            this.TNombre.Leave += new System.EventHandler(this.TNombre_Leave);
             // 
             // TTelefono
             // 
@@ -261,7 +263,7 @@
             this.BCancelar.UseVisualStyleBackColor = true;
             this.BCancelar.Click += new System.EventHandler(this.BCancelar_Click);
             // 
-            // IngresarEmp
+            // AgregarEmp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -286,7 +288,7 @@
             this.Controls.Add(this.LApellido);
             this.Controls.Add(this.LTitulo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "IngresarEmp";
+            this.Name = "AgregarEmp";
             this.Text = "Ingresar Empleado";
             this.PRol.ResumeLayout(false);
             this.PRol.PerformLayout();

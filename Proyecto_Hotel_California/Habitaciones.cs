@@ -16,5 +16,11 @@ namespace Proyecto_Hotel_California
         {
             InitializeComponent();
         }
+
+        private void BAgregarHab_Click(object sender, EventArgs e)
+        {
+            AgregarHab ventana = new AgregarHab();
+            ventana.ShowDialog();
+        }
     }
 }

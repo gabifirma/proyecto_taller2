@@ -19,8 +19,19 @@ namespace Proyecto_Hotel_California
 
         private void BAgregarEmp_Click(object sender, EventArgs e)
         {
-            IngresarEmp ventana = new IngresarEmp();
+            AgregarEmp ventana = new AgregarEmp();
             ventana.ShowDialog();
+        }
+
+        private void BEditarEmp_Click(object sender, EventArgs e)
+        {
+            EditarEmp ventana = new EditarEmp();
+            ventana.ShowDialog();
+        }
+
+        private void BEliminarEmp_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

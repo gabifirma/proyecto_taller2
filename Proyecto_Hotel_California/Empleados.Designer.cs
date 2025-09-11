@@ -35,15 +35,19 @@
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Activo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Estado = new System.Windows.Forms.DataGridViewButtonColumn();
             this.LTituloEmp = new System.Windows.Forms.Label();
             this.BAgregarEmp = new System.Windows.Forms.Button();
+            this.BEditarEmp = new System.Windows.Forms.Button();
+            this.BEliminarEmp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaEmpleados)).BeginInit();
             this.SuspendLayout();
             // 
             // GrillaEmpleados
             // 
+            this.GrillaEmpleados.AllowUserToAddRows = false;
             this.GrillaEmpleados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.GrillaEmpleados.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.GrillaEmpleados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GrillaEmpleados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id_empleado,
@@ -52,9 +56,11 @@
             this.Nombre,
             this.Telefono,
             this.Email,
-            this.Activo});
-            this.GrillaEmpleados.Location = new System.Drawing.Point(12, 135);
+            this.Estado});
+            this.GrillaEmpleados.EnableHeadersVisualStyles = false;
+            this.GrillaEmpleados.Location = new System.Drawing.Point(12, 173);
             this.GrillaEmpleados.Name = "GrillaEmpleados";
+            this.GrillaEmpleados.RowHeadersVisible = false;
             this.GrillaEmpleados.Size = new System.Drawing.Size(710, 150);
             this.GrillaEmpleados.TabIndex = 0;
             // 
@@ -88,10 +94,15 @@
             this.Email.HeaderText = "Email";
             this.Email.Name = "Email";
             // 
-            // Activo
+            // Estado
             // 
-            this.Activo.HeaderText = "Activo";
-            this.Activo.Name = "Activo";
+            this.Estado.HeaderText = "Estado";
+            this.Estado.Name = "Estado";
+            this.Estado.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Estado.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Estado.Text = "Activar/Desactivar";
+            this.Estado.ToolTipText = "Estado";
+            this.Estado.UseColumnTextForButtonValue = true;
             // 
             // LTituloEmp
             // 
@@ -105,13 +116,33 @@
             // 
             // BAgregarEmp
             // 
-            this.BAgregarEmp.Location = new System.Drawing.Point(12, 78);
+            this.BAgregarEmp.Location = new System.Drawing.Point(12, 116);
             this.BAgregarEmp.Name = "BAgregarEmp";
             this.BAgregarEmp.Size = new System.Drawing.Size(95, 40);
             this.BAgregarEmp.TabIndex = 2;
-            this.BAgregarEmp.Text = "Agregar empleado";
+            this.BAgregarEmp.Text = "Agregar";
             this.BAgregarEmp.UseVisualStyleBackColor = true;
             this.BAgregarEmp.Click += new System.EventHandler(this.BAgregarEmp_Click);
+            // 
+            // BEditarEmp
+            // 
+            this.BEditarEmp.Location = new System.Drawing.Point(113, 116);
+            this.BEditarEmp.Name = "BEditarEmp";
+            this.BEditarEmp.Size = new System.Drawing.Size(95, 40);
+            this.BEditarEmp.TabIndex = 3;
+            this.BEditarEmp.Text = "Editar";
+            this.BEditarEmp.UseVisualStyleBackColor = true;
+            this.BEditarEmp.Click += new System.EventHandler(this.BEditarEmp_Click);
+            // 
+            // BEliminarEmp
+            // 
+            this.BEliminarEmp.Location = new System.Drawing.Point(214, 116);
+            this.BEliminarEmp.Name = "BEliminarEmp";
+            this.BEliminarEmp.Size = new System.Drawing.Size(95, 40);
+            this.BEliminarEmp.TabIndex = 4;
+            this.BEliminarEmp.Text = "Eliminar";
+            this.BEliminarEmp.UseVisualStyleBackColor = true;
+            this.BEliminarEmp.Click += new System.EventHandler(this.BEliminarEmp_Click);
             // 
             // Empleados
             // 
@@ -119,6 +150,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(734, 511);
+            this.Controls.Add(this.BEliminarEmp);
+            this.Controls.Add(this.BEditarEmp);
             this.Controls.Add(this.BAgregarEmp);
             this.Controls.Add(this.LTituloEmp);
             this.Controls.Add(this.GrillaEmpleados);
@@ -134,14 +167,16 @@
         #endregion
 
         private System.Windows.Forms.DataGridView GrillaEmpleados;
+        private System.Windows.Forms.Label LTituloEmp;
+        private System.Windows.Forms.Button BAgregarEmp;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_empleado;
         private System.Windows.Forms.DataGridViewTextBoxColumn Legajo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Activo;
-        private System.Windows.Forms.Label LTituloEmp;
-        private System.Windows.Forms.Button BAgregarEmp;
+        private System.Windows.Forms.DataGridViewButtonColumn Estado;
+        private System.Windows.Forms.Button BEditarEmp;
+        private System.Windows.Forms.Button BEliminarEmp;
     }
 }

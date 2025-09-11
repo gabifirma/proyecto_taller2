@@ -5,15 +5,17 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
+
 
 namespace Proyecto_Hotel_California
 {
-    public partial class IngresarEmp : Form
+    public partial class AgregarEmp : Form
     {
-        public IngresarEmp()
+        public AgregarEmp()
         {
             InitializeComponent();
         }
@@ -35,11 +37,6 @@ namespace Proyecto_Hotel_California
             Boolean valorLegajo = int.TryParse(TLegajo.Text, out int legajo);
             Boolean valorTelefono = !String.IsNullOrEmpty(TTelefono.Text);
             Boolean valorEmail = !String.IsNullOrEmpty(TEmail.Text);
-
-            if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && valorLegajo && SoloNumeros(TTelefono.Text) && valorEmail)
-            {
-                MessageBox.Show("El empleado: " + TApellido.Text + " " + TNombre.Text + " se agregó correctamente.");
-            }
 
             if (!valorApellido)
             {
@@ -82,11 +79,37 @@ namespace Proyecto_Hotel_California
                 MessageBox.Show("El LEGAJO o esta vacío o no es un número");
                 return;
             }
+
+
+            //guardarlo todo en la base de datos
+            if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && valorLegajo && SoloNumeros(TTelefono.Text) && valorEmail)
+            {               
+                MessageBox.Show("El empleado: " + TApellido.Text + " " + TNombre.Text + " se agregó correctamente.");
+                this.Close();
+            }
         }
 
         private void BCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void TApellido_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(TApellido.Text))
+            {
+                string texto = TApellido.Text.ToLower(); // todo en minúscula
+                TApellido.Text = char.ToUpper(texto[0]) + texto.Substring(1); // primera en mayúscula
+            }
+        }
+
+        private void TNombre_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(TNombre.Text))
+            {
+                string texto = TNombre.Text.ToLower(); // todo en minúscula
+                TNombre.Text = char.ToUpper(texto[0]) + texto.Substring(1); // primera en mayúscula
+            }
         }
     }
 }

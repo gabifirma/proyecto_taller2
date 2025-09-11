@@ -46,11 +46,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgregarHab.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgregarHab.Designer.cs">
+      <DependentUpon>AgregarHab.cs</DependentUpon>
+    </Compile>
     <Compile Include="Clientes.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Clientes.Designer.cs">
       <DependentUpon>Clientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditarEmp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditarEmp.Designer.cs">
+      <DependentUpon>EditarEmp.cs</DependentUpon>
     </Compile>
     <Compile Include="Empleados.cs">
       <SubType>Form</SubType>
@@ -82,11 +94,11 @@
     <Compile Include="Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
-    <Compile Include="IngresarEmp.cs">
+    <Compile Include="AgregarEmp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="IngresarEmp.Designer.cs">
-      <DependentUpon>IngresarEmp.cs</DependentUpon>
+    <Compile Include="AgregarEmp.Designer.cs">
+      <DependentUpon>AgregarEmp.cs</DependentUpon>
     </Compile>
     <Compile Include="Pagos.cs">
       <SubType>Form</SubType>
@@ -102,8 +114,14 @@
     <Compile Include="Reservas.Designer.cs">
       <DependentUpon>Reservas.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AgregarHab.resx">
+      <DependentUpon>AgregarHab.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditarEmp.resx">
+      <DependentUpon>EditarEmp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Empleados.resx">
       <DependentUpon>Empleados.cs</DependentUpon>
@@ -120,8 +138,8 @@
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IngresarEmp.resx">
-      <DependentUpon>IngresarEmp.cs</DependentUpon>
+    <EmbeddedResource Include="AgregarEmp.resx">
+      <DependentUpon>AgregarEmp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pagos.resx">
       <DependentUpon>Pagos.cs</DependentUpon>

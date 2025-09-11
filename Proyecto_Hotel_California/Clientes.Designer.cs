@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.GrillaClientes = new System.Windows.Forms.DataGridView();
+            this.LTituloClientes = new System.Windows.Forms.Label();
             this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -36,13 +37,13 @@
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Dirección = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FechaAlta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Activo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LTituloClientes = new System.Windows.Forms.Label();
+            this.Activo = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaClientes)).BeginInit();
             this.SuspendLayout();
             // 
             // GrillaClientes
             // 
+            this.GrillaClientes.AllowUserToAddRows = false;
             this.GrillaClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GrillaClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GrillaClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -54,10 +55,21 @@
             this.Dirección,
             this.FechaAlta,
             this.Activo});
-            this.GrillaClientes.Location = new System.Drawing.Point(12, 229);
+            this.GrillaClientes.Location = new System.Drawing.Point(12, 150);
             this.GrillaClientes.Name = "GrillaClientes";
+            this.GrillaClientes.RowHeadersVisible = false;
             this.GrillaClientes.Size = new System.Drawing.Size(710, 150);
             this.GrillaClientes.TabIndex = 1;
+            // 
+            // LTituloClientes
+            // 
+            this.LTituloClientes.AutoSize = true;
+            this.LTituloClientes.Font = new System.Drawing.Font("Times New Roman", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LTituloClientes.Location = new System.Drawing.Point(271, 31);
+            this.LTituloClientes.Name = "LTituloClientes";
+            this.LTituloClientes.Size = new System.Drawing.Size(187, 28);
+            this.LTituloClientes.TabIndex = 2;
+            this.LTituloClientes.Text = "Grilla de Clientes";
             // 
             // DNI
             // 
@@ -96,18 +108,12 @@
             // 
             // Activo
             // 
-            this.Activo.HeaderText = "Activo";
+            this.Activo.HeaderText = "Estado";
             this.Activo.Name = "Activo";
-            // 
-            // LTituloClientes
-            // 
-            this.LTituloClientes.AutoSize = true;
-            this.LTituloClientes.Font = new System.Drawing.Font("Times New Roman", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LTituloClientes.Location = new System.Drawing.Point(271, 31);
-            this.LTituloClientes.Name = "LTituloClientes";
-            this.LTituloClientes.Size = new System.Drawing.Size(187, 28);
-            this.LTituloClientes.TabIndex = 2;
-            this.LTituloClientes.Text = "Grilla de Clientes";
+            this.Activo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Activo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Activo.Text = "Cambiar Estado";
+            this.Activo.ToolTipText = "Estado";
             // 
             // Clientes
             // 
@@ -128,6 +134,7 @@
 
         #endregion
         private System.Windows.Forms.DataGridView GrillaClientes;
+        private System.Windows.Forms.Label LTituloClientes;
         private System.Windows.Forms.DataGridViewTextBoxColumn DNI;
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
@@ -135,7 +142,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn Dirección;
         private System.Windows.Forms.DataGridViewTextBoxColumn FechaAlta;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Activo;
-        private System.Windows.Forms.Label LTituloClientes;
+        private System.Windows.Forms.DataGridViewButtonColumn Activo;
     }
 }

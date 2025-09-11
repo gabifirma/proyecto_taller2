@@ -28,4 +28,6 @@ C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proy
 C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.Habitaciones.resources
 C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.Pagos.resources
 C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.Reservas.resources
-C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.IngresarEmp.resources
+C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.AgregarHab.resources
+C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.EditarEmp.resources
+C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.AgregarEmp.resources
