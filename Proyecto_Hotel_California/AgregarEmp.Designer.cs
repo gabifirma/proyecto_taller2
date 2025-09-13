@@ -34,14 +34,11 @@
             this.LTelefono = new System.Windows.Forms.Label();
             this.LEmail = new System.Windows.Forms.Label();
             this.LLegajo = new System.Windows.Forms.Label();
-            this.LSexo = new System.Windows.Forms.Label();
             this.TApellido = new System.Windows.Forms.TextBox();
             this.TNombre = new System.Windows.Forms.TextBox();
             this.TTelefono = new System.Windows.Forms.TextBox();
             this.TEmail = new System.Windows.Forms.TextBox();
             this.TLegajo = new System.Windows.Forms.TextBox();
-            this.RBHombre = new System.Windows.Forms.RadioButton();
-            this.RBMujer = new System.Windows.Forms.RadioButton();
             this.LRol = new System.Windows.Forms.Label();
             this.RBSuper = new System.Windows.Forms.RadioButton();
             this.RBAdmin = new System.Windows.Forms.RadioButton();
@@ -96,7 +93,7 @@
             // 
             this.LEmail.AutoSize = true;
             this.LEmail.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LEmail.Location = new System.Drawing.Point(15, 197);
+            this.LEmail.Location = new System.Drawing.Point(15, 152);
             this.LEmail.Name = "LEmail";
             this.LEmail.Size = new System.Drawing.Size(47, 19);
             this.LEmail.TabIndex = 4;
@@ -106,21 +103,11 @@
             // 
             this.LLegajo.AutoSize = true;
             this.LLegajo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LLegajo.Location = new System.Drawing.Point(16, 232);
+            this.LLegajo.Location = new System.Drawing.Point(16, 187);
             this.LLegajo.Name = "LLegajo";
             this.LLegajo.Size = new System.Drawing.Size(54, 19);
             this.LLegajo.TabIndex = 5;
             this.LLegajo.Text = "Legajo";
-            // 
-            // LSexo
-            // 
-            this.LSexo.AutoSize = true;
-            this.LSexo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LSexo.Location = new System.Drawing.Point(16, 158);
-            this.LSexo.Name = "LSexo";
-            this.LSexo.Size = new System.Drawing.Size(40, 19);
-            this.LSexo.TabIndex = 6;
-            this.LSexo.Text = "Sexo";
             // 
             // TApellido
             // 
@@ -151,7 +138,7 @@
             // TEmail
             // 
             this.TEmail.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TEmail.Location = new System.Drawing.Point(82, 194);
+            this.TEmail.Location = new System.Drawing.Point(82, 149);
             this.TEmail.Name = "TEmail";
             this.TEmail.Size = new System.Drawing.Size(242, 26);
             this.TEmail.TabIndex = 10;
@@ -159,40 +146,16 @@
             // TLegajo
             // 
             this.TLegajo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TLegajo.Location = new System.Drawing.Point(82, 229);
+            this.TLegajo.Location = new System.Drawing.Point(82, 184);
             this.TLegajo.Name = "TLegajo";
             this.TLegajo.Size = new System.Drawing.Size(242, 26);
             this.TLegajo.TabIndex = 11;
-            // 
-            // RBHombre
-            // 
-            this.RBHombre.AutoSize = true;
-            this.RBHombre.Checked = true;
-            this.RBHombre.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBHombre.Location = new System.Drawing.Point(82, 158);
-            this.RBHombre.Name = "RBHombre";
-            this.RBHombre.Size = new System.Drawing.Size(78, 23);
-            this.RBHombre.TabIndex = 12;
-            this.RBHombre.TabStop = true;
-            this.RBHombre.Text = "Hombre";
-            this.RBHombre.UseVisualStyleBackColor = true;
-            // 
-            // RBMujer
-            // 
-            this.RBMujer.AutoSize = true;
-            this.RBMujer.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBMujer.Location = new System.Drawing.Point(192, 158);
-            this.RBMujer.Name = "RBMujer";
-            this.RBMujer.Size = new System.Drawing.Size(66, 23);
-            this.RBMujer.TabIndex = 13;
-            this.RBMujer.Text = "Mujer";
-            this.RBMujer.UseVisualStyleBackColor = true;
             // 
             // LRol
             // 
             this.LRol.AutoSize = true;
             this.LRol.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LRol.Location = new System.Drawing.Point(16, 286);
+            this.LRol.Location = new System.Drawing.Point(16, 241);
             this.LRol.Name = "LRol";
             this.LRol.Size = new System.Drawing.Size(30, 19);
             this.LRol.TabIndex = 14;
@@ -238,7 +201,7 @@
             this.PRol.Controls.Add(this.RBAdmin);
             this.PRol.Controls.Add(this.RBRecep);
             this.PRol.Controls.Add(this.RBSuper);
-            this.PRol.Location = new System.Drawing.Point(82, 278);
+            this.PRol.Location = new System.Drawing.Point(82, 233);
             this.PRol.Name = "PRol";
             this.PRol.Size = new System.Drawing.Size(403, 34);
             this.PRol.TabIndex = 18;
@@ -273,14 +236,11 @@
             this.Controls.Add(this.BFin);
             this.Controls.Add(this.PRol);
             this.Controls.Add(this.LRol);
-            this.Controls.Add(this.RBMujer);
-            this.Controls.Add(this.RBHombre);
             this.Controls.Add(this.TLegajo);
             this.Controls.Add(this.TEmail);
             this.Controls.Add(this.TTelefono);
             this.Controls.Add(this.TNombre);
             this.Controls.Add(this.TApellido);
-            this.Controls.Add(this.LSexo);
             this.Controls.Add(this.LLegajo);
             this.Controls.Add(this.LEmail);
             this.Controls.Add(this.LTelefono);
@@ -305,14 +265,11 @@
         private System.Windows.Forms.Label LTelefono;
         private System.Windows.Forms.Label LEmail;
         private System.Windows.Forms.Label LLegajo;
-        private System.Windows.Forms.Label LSexo;
         private System.Windows.Forms.TextBox TApellido;
         private System.Windows.Forms.TextBox TNombre;
         private System.Windows.Forms.TextBox TTelefono;
         private System.Windows.Forms.TextBox TEmail;
         private System.Windows.Forms.TextBox TLegajo;
-        private System.Windows.Forms.RadioButton RBHombre;
-        private System.Windows.Forms.RadioButton RBMujer;
         private System.Windows.Forms.Label LRol;
         private System.Windows.Forms.RadioButton RBSuper;
         private System.Windows.Forms.RadioButton RBAdmin;

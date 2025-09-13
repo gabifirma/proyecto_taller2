@@ -22,5 +22,11 @@ namespace Proyecto_Hotel_California
             AgregarHab ventana = new AgregarHab();
             ventana.ShowDialog();
         }
+
+        private void BEditarHab_Click(object sender, EventArgs e)
+        {
+            EditarHab ventana = new EditarHab();
+            ventana.ShowDialog();
+        }
     }
 }

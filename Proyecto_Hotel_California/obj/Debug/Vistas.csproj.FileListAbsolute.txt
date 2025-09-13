@@ -19,3 +19,4 @@ C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Vist
 C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Vistas.csproj.CoreCompileInputs.cache
 C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.exe
 C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.pdb
+C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Proyecto_Hotel_California.EditarHab.resources

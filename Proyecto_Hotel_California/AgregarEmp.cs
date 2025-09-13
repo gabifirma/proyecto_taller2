@@ -81,10 +81,6 @@ namespace Proyecto_Hotel_California
                 return;
             }
 
-            //true para hombre, false para mujer
-            Boolean sexo = RBHombre.Checked;
-
-
             //guardarlo todo en la base de datos
             if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && valorLegajo && SoloNumeros(TTelefono.Text) && valorEmail)
             {
@@ -95,8 +91,8 @@ namespace Proyecto_Hotel_California
                 {
                     conn.Open();
 
-                    string query = "INSERT INTO Empleado (apellido, nombre, legajo, telefono, email, estado, sexo) " +
-                                   "VALUES (@Apellido, @Nombre, @Legajo, @Telefono, @Email, @Estado, @Sexo)";
+                    string query = "INSERT INTO Empleado (apellido, nombre, legajo, telefono, email, estado) " +
+                                   "VALUES (@Apellido, @Nombre, @Legajo, @Telefono, @Email, @Estado)";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -106,19 +102,18 @@ namespace Proyecto_Hotel_California
                         cmd.Parameters.AddWithValue("@Telefono", TTelefono.Text);
                         cmd.Parameters.AddWithValue("@Email", TEmail.Text);
                         cmd.Parameters.AddWithValue("@Estado", true);
-                        cmd.Parameters.AddWithValue("@Sexo", sexo);
 
                         int filas = cmd.ExecuteNonQuery();
 
                         if (filas > 0)
                         {
                             MessageBox.Show("Empleado guardado correctamente en la base de datos.");
+                            
                         }
                         else
                         {
                             MessageBox.Show("No se pudo guardar el empleado.");
                         }
-                        MessageBox.Show("El empleado: " + TApellido.Text + " " + TNombre.Text + " se agregó correctamente.");
                         this.Close();
                     }
                 }

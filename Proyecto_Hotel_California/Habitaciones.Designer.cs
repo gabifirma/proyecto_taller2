@@ -36,18 +36,16 @@
             this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.capacidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BDeshabilitarHab = new System.Windows.Forms.Button();
             this.BEditarHab = new System.Windows.Forms.Button();
             this.BAgregarHab = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaHabitaciones)).BeginInit();
             this.SuspendLayout();
             // 
             // LTituloHabitaciones
             // 
             this.LTituloHabitaciones.AutoSize = true;
-            this.LTituloHabitaciones.Font = new System.Drawing.Font("Times New Roman", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LTituloHabitaciones.Font = new System.Drawing.Font("Times New Roman", 18F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
+                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LTituloHabitaciones.Location = new System.Drawing.Point(234, 36);
             this.LTituloHabitaciones.Name = "LTituloHabitaciones";
             this.LTituloHabitaciones.Size = new System.Drawing.Size(238, 28);
@@ -67,7 +65,7 @@
             this.nombre,
             this.capacidad,
             this.descripcion});
-            this.GrillaHabitaciones.Location = new System.Drawing.Point(12, 118);
+            this.GrillaHabitaciones.Location = new System.Drawing.Point(12, 144);
             this.GrillaHabitaciones.Name = "GrillaHabitaciones";
             this.GrillaHabitaciones.RowHeadersVisible = false;
             this.GrillaHabitaciones.Size = new System.Drawing.Size(710, 183);
@@ -103,50 +101,25 @@
             this.descripcion.HeaderText = "Descripción";
             this.descripcion.Name = "descripcion";
             // 
-            // BDeshabilitarHab
-            // 
-            this.BDeshabilitarHab.Location = new System.Drawing.Point(17, 400);
-            this.BDeshabilitarHab.Name = "BDeshabilitarHab";
-            this.BDeshabilitarHab.Size = new System.Drawing.Size(97, 20);
-            this.BDeshabilitarHab.TabIndex = 7;
-            this.BDeshabilitarHab.Text = "Deshabilitar";
-            this.BDeshabilitarHab.UseVisualStyleBackColor = true;
-            // 
             // BEditarHab
             // 
-            this.BEditarHab.Location = new System.Drawing.Point(113, 72);
+            this.BEditarHab.Location = new System.Drawing.Point(113, 88);
             this.BEditarHab.Name = "BEditarHab";
             this.BEditarHab.Size = new System.Drawing.Size(95, 40);
             this.BEditarHab.TabIndex = 6;
             this.BEditarHab.Text = "Editar";
             this.BEditarHab.UseVisualStyleBackColor = true;
+            this.BEditarHab.Click += new System.EventHandler(this.BEditarHab_Click);
             // 
             // BAgregarHab
             // 
-            this.BAgregarHab.Location = new System.Drawing.Point(12, 72);
+            this.BAgregarHab.Location = new System.Drawing.Point(12, 88);
             this.BAgregarHab.Name = "BAgregarHab";
             this.BAgregarHab.Size = new System.Drawing.Size(95, 40);
             this.BAgregarHab.TabIndex = 5;
             this.BAgregarHab.Text = "Agregar";
             this.BAgregarHab.UseVisualStyleBackColor = true;
             this.BAgregarHab.Click += new System.EventHandler(this.BAgregarHab_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(17, 365);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(97, 20);
-            this.textBox1.TabIndex = 8;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 323);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(167, 19);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Deshabilitar Habitación";
             // 
             // Habitaciones
             // 
@@ -155,9 +128,6 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(734, 511);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.BDeshabilitarHab);
             this.Controls.Add(this.BEditarHab);
             this.Controls.Add(this.BAgregarHab);
             this.Controls.Add(this.GrillaHabitaciones);
@@ -182,10 +152,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn capacidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
-        private System.Windows.Forms.Button BDeshabilitarHab;
         private System.Windows.Forms.Button BEditarHab;
         private System.Windows.Forms.Button BAgregarHab;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
     }
 }

@@ -30,11 +30,6 @@
         {
             this.BCancelar = new System.Windows.Forms.Button();
             this.BFin = new System.Windows.Forms.Button();
-            this.PRol = new System.Windows.Forms.Panel();
-            this.RBAdmin = new System.Windows.Forms.RadioButton();
-            this.RBRecep = new System.Windows.Forms.RadioButton();
-            this.RBSuper = new System.Windows.Forms.RadioButton();
-            this.LRol = new System.Windows.Forms.Label();
             this.TLegajo = new System.Windows.Forms.TextBox();
             this.TEmail = new System.Windows.Forms.TextBox();
             this.TTelefono = new System.Windows.Forms.TextBox();
@@ -46,12 +41,20 @@
             this.LNombre = new System.Windows.Forms.Label();
             this.LApellido = new System.Windows.Forms.Label();
             this.LTitulo = new System.Windows.Forms.Label();
-            this.PRol.SuspendLayout();
+            this.LEstado = new System.Windows.Forms.Label();
+            this.PEstado = new System.Windows.Forms.Panel();
+            this.RBDesactivado = new System.Windows.Forms.RadioButton();
+            this.RBActivado = new System.Windows.Forms.RadioButton();
+            this.LIdempleado = new System.Windows.Forms.Label();
+            this.LID = new System.Windows.Forms.Label();
+            this.LMantenerAct = new System.Windows.Forms.Label();
+            this.LMantenerIna = new System.Windows.Forms.Label();
+            this.PEstado.SuspendLayout();
             this.SuspendLayout();
             // 
             // BCancelar
             // 
-            this.BCancelar.Location = new System.Drawing.Point(200, 312);
+            this.BCancelar.Location = new System.Drawing.Point(197, 353);
             this.BCancelar.Name = "BCancelar";
             this.BCancelar.Size = new System.Drawing.Size(75, 23);
             this.BCancelar.TabIndex = 38;
@@ -61,7 +64,7 @@
             // 
             // BFin
             // 
-            this.BFin.Location = new System.Drawing.Point(356, 312);
+            this.BFin.Location = new System.Drawing.Point(353, 353);
             this.BFin.Name = "BFin";
             this.BFin.Size = new System.Drawing.Size(75, 23);
             this.BFin.TabIndex = 37;
@@ -69,65 +72,10 @@
             this.BFin.UseVisualStyleBackColor = true;
             this.BFin.Click += new System.EventHandler(this.BFin_Click);
             // 
-            // PRol
-            // 
-            this.PRol.Controls.Add(this.RBAdmin);
-            this.PRol.Controls.Add(this.RBRecep);
-            this.PRol.Controls.Add(this.RBSuper);
-            this.PRol.Location = new System.Drawing.Point(90, 227);
-            this.PRol.Name = "PRol";
-            this.PRol.Size = new System.Drawing.Size(403, 34);
-            this.PRol.TabIndex = 36;
-            // 
-            // RBAdmin
-            // 
-            this.RBAdmin.AutoSize = true;
-            this.RBAdmin.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBAdmin.Location = new System.Drawing.Point(266, 8);
-            this.RBAdmin.Name = "RBAdmin";
-            this.RBAdmin.Size = new System.Drawing.Size(120, 23);
-            this.RBAdmin.TabIndex = 16;
-            this.RBAdmin.Text = "Administrador";
-            this.RBAdmin.UseVisualStyleBackColor = true;
-            // 
-            // RBRecep
-            // 
-            this.RBRecep.AutoSize = true;
-            this.RBRecep.Checked = true;
-            this.RBRecep.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBRecep.Location = new System.Drawing.Point(8, 8);
-            this.RBRecep.Name = "RBRecep";
-            this.RBRecep.Size = new System.Drawing.Size(115, 23);
-            this.RBRecep.TabIndex = 17;
-            this.RBRecep.TabStop = true;
-            this.RBRecep.Text = "Recepcionista";
-            this.RBRecep.UseVisualStyleBackColor = true;
-            // 
-            // RBSuper
-            // 
-            this.RBSuper.AutoSize = true;
-            this.RBSuper.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBSuper.Location = new System.Drawing.Point(146, 8);
-            this.RBSuper.Name = "RBSuper";
-            this.RBSuper.Size = new System.Drawing.Size(96, 23);
-            this.RBSuper.TabIndex = 15;
-            this.RBSuper.Text = "Supervisor";
-            this.RBSuper.UseVisualStyleBackColor = true;
-            // 
-            // LRol
-            // 
-            this.LRol.AutoSize = true;
-            this.LRol.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LRol.Location = new System.Drawing.Point(24, 235);
-            this.LRol.Name = "LRol";
-            this.LRol.Size = new System.Drawing.Size(30, 19);
-            this.LRol.TabIndex = 35;
-            this.LRol.Text = "Rol";
-            // 
             // TLegajo
             // 
             this.TLegajo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TLegajo.Location = new System.Drawing.Point(90, 195);
+            this.TLegajo.Location = new System.Drawing.Point(87, 236);
             this.TLegajo.Name = "TLegajo";
             this.TLegajo.Size = new System.Drawing.Size(242, 26);
             this.TLegajo.TabIndex = 32;
@@ -135,7 +83,7 @@
             // TEmail
             // 
             this.TEmail.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TEmail.Location = new System.Drawing.Point(90, 163);
+            this.TEmail.Location = new System.Drawing.Point(87, 204);
             this.TEmail.Name = "TEmail";
             this.TEmail.Size = new System.Drawing.Size(242, 26);
             this.TEmail.TabIndex = 31;
@@ -143,7 +91,7 @@
             // TTelefono
             // 
             this.TTelefono.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TTelefono.Location = new System.Drawing.Point(90, 131);
+            this.TTelefono.Location = new System.Drawing.Point(87, 172);
             this.TTelefono.Name = "TTelefono";
             this.TTelefono.Size = new System.Drawing.Size(242, 26);
             this.TTelefono.TabIndex = 30;
@@ -151,7 +99,7 @@
             // TNombre
             // 
             this.TNombre.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TNombre.Location = new System.Drawing.Point(90, 99);
+            this.TNombre.Location = new System.Drawing.Point(87, 140);
             this.TNombre.Name = "TNombre";
             this.TNombre.Size = new System.Drawing.Size(242, 26);
             this.TNombre.TabIndex = 29;
@@ -160,7 +108,7 @@
             // TApellido
             // 
             this.TApellido.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TApellido.Location = new System.Drawing.Point(90, 67);
+            this.TApellido.Location = new System.Drawing.Point(87, 108);
             this.TApellido.Name = "TApellido";
             this.TApellido.Size = new System.Drawing.Size(242, 26);
             this.TApellido.TabIndex = 28;
@@ -170,7 +118,7 @@
             // 
             this.LLegajo.AutoSize = true;
             this.LLegajo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LLegajo.Location = new System.Drawing.Point(24, 198);
+            this.LLegajo.Location = new System.Drawing.Point(21, 239);
             this.LLegajo.Name = "LLegajo";
             this.LLegajo.Size = new System.Drawing.Size(54, 19);
             this.LLegajo.TabIndex = 26;
@@ -180,7 +128,7 @@
             // 
             this.LEmail.AutoSize = true;
             this.LEmail.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LEmail.Location = new System.Drawing.Point(23, 166);
+            this.LEmail.Location = new System.Drawing.Point(20, 207);
             this.LEmail.Name = "LEmail";
             this.LEmail.Size = new System.Drawing.Size(47, 19);
             this.LEmail.TabIndex = 25;
@@ -190,7 +138,7 @@
             // 
             this.LTelefono.AutoSize = true;
             this.LTelefono.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LTelefono.Location = new System.Drawing.Point(21, 134);
+            this.LTelefono.Location = new System.Drawing.Point(18, 175);
             this.LTelefono.Name = "LTelefono";
             this.LTelefono.Size = new System.Drawing.Size(64, 19);
             this.LTelefono.TabIndex = 24;
@@ -200,17 +148,17 @@
             // 
             this.LNombre.AutoSize = true;
             this.LNombre.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LNombre.Location = new System.Drawing.Point(24, 102);
+            this.LNombre.Location = new System.Drawing.Point(21, 143);
             this.LNombre.Name = "LNombre";
-            this.LNombre.Size = new System.Drawing.Size(66, 19);
+            this.LNombre.Size = new System.Drawing.Size(60, 19);
             this.LNombre.TabIndex = 23;
-            this.LNombre.Text = "Nombres";
+            this.LNombre.Text = "Nombre";
             // 
             // LApellido
             // 
             this.LApellido.AutoSize = true;
             this.LApellido.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LApellido.Location = new System.Drawing.Point(23, 70);
+            this.LApellido.Location = new System.Drawing.Point(20, 111);
             this.LApellido.Name = "LApellido";
             this.LApellido.Size = new System.Drawing.Size(62, 19);
             this.LApellido.TabIndex = 22;
@@ -219,23 +167,111 @@
             // LTitulo
             // 
             this.LTitulo.AutoSize = true;
-            this.LTitulo.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LTitulo.Location = new System.Drawing.Point(145, 26);
+            this.LTitulo.Font = new System.Drawing.Font("Times New Roman", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LTitulo.Location = new System.Drawing.Point(194, 20);
             this.LTitulo.Name = "LTitulo";
             this.LTitulo.Size = new System.Drawing.Size(369, 31);
             this.LTitulo.TabIndex = 21;
             this.LTitulo.Text = "Edición de datos del empleado";
+            // 
+            // LEstado
+            // 
+            this.LEstado.AutoSize = true;
+            this.LEstado.Font = new System.Drawing.Font("Times New Roman", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LEstado.Location = new System.Drawing.Point(450, 108);
+            this.LEstado.Name = "LEstado";
+            this.LEstado.Size = new System.Drawing.Size(189, 23);
+            this.LEstado.TabIndex = 39;
+            this.LEstado.Text = "Estado del empleado";
+            // 
+            // PEstado
+            // 
+            this.PEstado.Controls.Add(this.RBDesactivado);
+            this.PEstado.Controls.Add(this.RBActivado);
+            this.PEstado.Location = new System.Drawing.Point(416, 140);
+            this.PEstado.Name = "PEstado";
+            this.PEstado.Size = new System.Drawing.Size(249, 35);
+            this.PEstado.TabIndex = 40;
+            // 
+            // RBDesactivado
+            // 
+            this.RBDesactivado.AutoSize = true;
+            this.RBDesactivado.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RBDesactivado.Location = new System.Drawing.Point(133, 3);
+            this.RBDesactivado.Name = "RBDesactivado";
+            this.RBDesactivado.Size = new System.Drawing.Size(107, 23);
+            this.RBDesactivado.TabIndex = 1;
+            this.RBDesactivado.TabStop = true;
+            this.RBDesactivado.Text = "Desactivado";
+            this.RBDesactivado.UseVisualStyleBackColor = true;
+            // 
+            // RBActivado
+            // 
+            this.RBActivado.AutoSize = true;
+            this.RBActivado.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RBActivado.Location = new System.Drawing.Point(29, 3);
+            this.RBActivado.Name = "RBActivado";
+            this.RBActivado.Size = new System.Drawing.Size(85, 23);
+            this.RBActivado.TabIndex = 0;
+            this.RBActivado.TabStop = true;
+            this.RBActivado.Text = "Activado";
+            this.RBActivado.UseVisualStyleBackColor = true;
+            // 
+            // LIdempleado
+            // 
+            this.LIdempleado.AutoSize = true;
+            this.LIdempleado.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LIdempleado.Location = new System.Drawing.Point(21, 77);
+            this.LIdempleado.Name = "LIdempleado";
+            this.LIdempleado.Size = new System.Drawing.Size(123, 19);
+            this.LIdempleado.TabIndex = 41;
+            this.LIdempleado.Text = "ID del empleado: ";
+            // 
+            // LID
+            // 
+            this.LID.AutoSize = true;
+            this.LID.Font = new System.Drawing.Font("Times New Roman", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LID.ForeColor = System.Drawing.Color.White;
+            this.LID.Location = new System.Drawing.Point(150, 77);
+            this.LID.Name = "LID";
+            this.LID.Size = new System.Drawing.Size(27, 19);
+            this.LID.TabIndex = 42;
+            this.LID.Text = "ID";
+            // 
+            // LMantenerAct
+            // 
+            this.LMantenerAct.AutoSize = true;
+            this.LMantenerAct.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LMantenerAct.Location = new System.Drawing.Point(416, 182);
+            this.LMantenerAct.Name = "LMantenerAct";
+            this.LMantenerAct.Size = new System.Drawing.Size(178, 15);
+            this.LMantenerAct.TabIndex = 43;
+            this.LMantenerAct.Text = "* Activado para mantener activo";
+            // 
+            // LMantenerIna
+            // 
+            this.LMantenerIna.AutoSize = true;
+            this.LMantenerIna.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LMantenerIna.Location = new System.Drawing.Point(416, 207);
+            this.LMantenerIna.Name = "LMantenerIna";
+            this.LMantenerIna.Size = new System.Drawing.Size(208, 15);
+            this.LMantenerIna.TabIndex = 44;
+            this.LMantenerIna.Text = "* Desactivado para mantener inactivo";
             // 
             // EditarEmp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(714, 420);
+            this.Controls.Add(this.LMantenerIna);
+            this.Controls.Add(this.LMantenerAct);
+            this.Controls.Add(this.LID);
+            this.Controls.Add(this.LIdempleado);
+            this.Controls.Add(this.PEstado);
+            this.Controls.Add(this.LEstado);
             this.Controls.Add(this.BCancelar);
             this.Controls.Add(this.BFin);
-            this.Controls.Add(this.PRol);
-            this.Controls.Add(this.LRol);
             this.Controls.Add(this.TLegajo);
             this.Controls.Add(this.TEmail);
             this.Controls.Add(this.TTelefono);
@@ -250,8 +286,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "EditarEmp";
             this.Text = "EditarEmp";
-            this.PRol.ResumeLayout(false);
-            this.PRol.PerformLayout();
+            this.PEstado.ResumeLayout(false);
+            this.PEstado.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,11 +297,6 @@
 
         private System.Windows.Forms.Button BCancelar;
         private System.Windows.Forms.Button BFin;
-        private System.Windows.Forms.Panel PRol;
-        private System.Windows.Forms.RadioButton RBAdmin;
-        private System.Windows.Forms.RadioButton RBRecep;
-        private System.Windows.Forms.RadioButton RBSuper;
-        private System.Windows.Forms.Label LRol;
         private System.Windows.Forms.TextBox TLegajo;
         private System.Windows.Forms.TextBox TEmail;
         private System.Windows.Forms.TextBox TTelefono;
@@ -277,5 +308,13 @@
         private System.Windows.Forms.Label LNombre;
         private System.Windows.Forms.Label LApellido;
         private System.Windows.Forms.Label LTitulo;
+        private System.Windows.Forms.Label LEstado;
+        private System.Windows.Forms.Panel PEstado;
+        private System.Windows.Forms.RadioButton RBDesactivado;
+        private System.Windows.Forms.RadioButton RBActivado;
+        private System.Windows.Forms.Label LIdempleado;
+        private System.Windows.Forms.Label LID;
+        private System.Windows.Forms.Label LMantenerAct;
+        private System.Windows.Forms.Label LMantenerIna;
     }
 }

@@ -124,7 +124,8 @@
             // LTituloClientes
             // 
             this.LTituloClientes.AutoSize = true;
-            this.LTituloClientes.Font = new System.Drawing.Font("Times New Roman", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LTituloClientes.Font = new System.Drawing.Font("Times New Roman", 18F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
+                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LTituloClientes.Location = new System.Drawing.Point(286, 20);
             this.LTituloClientes.Name = "LTituloClientes";
             this.LTituloClientes.Size = new System.Drawing.Size(187, 28);
@@ -241,7 +242,7 @@
             // 
             // BBuscar
             // 
-            this.BBuscar.Location = new System.Drawing.Point(606, 120);
+            this.BBuscar.Location = new System.Drawing.Point(591, 110);
             this.BBuscar.Name = "BBuscar";
             this.BBuscar.Size = new System.Drawing.Size(84, 34);
             this.BBuscar.TabIndex = 16;

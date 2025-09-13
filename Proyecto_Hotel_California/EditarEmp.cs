@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,54 @@ namespace Proyecto_Hotel_California
 {
     public partial class EditarEmp : Form
     {
-        public EditarEmp()
+        private int empleadoId;
+        public EditarEmp(int id)
         {
             InitializeComponent();
+            empleadoId = id;
+            CargarEmpleado();
         }
+
+        private void CargarEmpleado()
+        {
+            string conexion = "Server=DESKTOP-9V9JJ39\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
+
+            using (SqlConnection conn = new SqlConnection(conexion))
+            {
+                conn.Open();
+                string query = "SELECT apellido, nombre, legajo, telefono, email, estado FROM Empleado WHERE id_empleado = @Id";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Id", empleadoId);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        LID.Text = empleadoId.ToString();
+                        TApellido.Text = reader["Apellido"].ToString();
+                        TNombre.Text = reader["Nombre"].ToString();
+                        TLegajo.Text = reader["Legajo"].ToString();
+                        TTelefono.Text = reader["Telefono"].ToString();
+                        TEmail.Text = reader["Email"].ToString();
+                        if (reader["estado"].Equals(true))
+                        {
+                            RBActivado.Checked = true;                          
+                        }
+                        else
+                        {
+                            RBDesactivado.Checked = true;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontró el empleado con ese ID.");
+                        this.Close();
+                    }
+                }
+            }
+        }
+
         private bool SoloLetras(string texto)
         {
             return Regex.IsMatch(texto, @"^[a-zA-Z]+$");
@@ -34,33 +79,9 @@ namespace Proyecto_Hotel_California
 
         private void BFin_Click(object sender, EventArgs e)
         {
-            Boolean valorApellido = !String.IsNullOrEmpty(TApellido.Text);
-            Boolean valorNombre = !String.IsNullOrEmpty(TNombre.Text);
-            Boolean valorLegajo = int.TryParse(TLegajo.Text, out int legajo);
-            Boolean valorTelefono = !String.IsNullOrEmpty(TTelefono.Text);
-            Boolean valorEmail = !String.IsNullOrEmpty(TEmail.Text);
-
-            if (!valorApellido)
-            {
-                MessageBox.Show("El campo APELLIDO no puede estar vacío.");
-                return;
-            }
-
-            if (!valorNombre)
-            {
-                MessageBox.Show("El campo NOMBRE no puede estar vacío.");
-                return;
-            }
-
             if (!SoloLetras(TApellido.Text) || !SoloLetras(TNombre.Text))
             {
                 MessageBox.Show("Solo se permiten letras para nombre y apellido");
-                return;
-            }
-
-            if (!valorTelefono)
-            {
-                MessageBox.Show("El campo TELÉFONO no puede estar vacío");
                 return;
             }
 
@@ -70,23 +91,54 @@ namespace Proyecto_Hotel_California
                 return;
             }
 
-            if (!valorEmail)
+            if (!SoloNumeros(TLegajo.Text))
             {
-                MessageBox.Show("Campo EMAIL vacío");
+                MessageBox.Show("Solo se permiten números para legajo");
                 return;
             }
-
-            if (!valorLegajo)
-            {
-                MessageBox.Show("El LEGAJO o esta vacío o no es un número");
-                return;
-            }
-
 
             //guardarlo todo en la base de datos
-            if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && valorLegajo && SoloNumeros(TTelefono.Text) && valorEmail)
+            if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && SoloNumeros(TLegajo.Text) && SoloNumeros(TTelefono.Text))
             {
-                MessageBox.Show("Los datos se editaron correctamente.");
+                string conexion = "Server=DESKTOP-9V9JJ39\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
+
+                using (SqlConnection conn = new SqlConnection(conexion))
+                {
+                    conn.Open();
+                    string query = @"UPDATE Empleado 
+                         SET apellido=@Apellido, nombre=@Nombre, legajo=@Legajo, telefono=@Telefono, email=@Email, estado=@Estado
+                         WHERE id_empleado=@Id";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Apellido", TApellido.Text);
+                        cmd.Parameters.AddWithValue("@Nombre", TNombre.Text);
+                        cmd.Parameters.AddWithValue("@Legajo", TLegajo.Text);
+                        cmd.Parameters.AddWithValue("@Telefono", TTelefono.Text);
+                        cmd.Parameters.AddWithValue("@Email", TEmail.Text);
+                        cmd.Parameters.AddWithValue("@Id", empleadoId);
+                        if (RBActivado.Checked)
+                        {
+                            cmd.Parameters.AddWithValue("@Estado", true);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@Estado", false);
+                        }
+
+                        int filas = cmd.ExecuteNonQuery();
+
+                        if (filas > 0)
+                        {
+                            MessageBox.Show("Empleado actualizado correctamente.");
+                            this.Close(); // cierra el form de edición
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se pudo actualizar el empleado.");
+                        }
+                    }
+                }
             }
         }
 
