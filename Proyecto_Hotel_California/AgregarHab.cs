@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Proyecto_Hotel_California
 {
@@ -41,8 +43,60 @@ namespace Proyecto_Hotel_California
 
             if (valorPiso && valorNum)
             {
-                MessageBox.Show("La habitación se agregó correctamente.");
-                this.Close();
+                // Cambia la cadena de conexión por la de tu base de datos
+                string conexion = "Server=DESKTOP-9V9JJ39\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
+
+                using (SqlConnection conn = new SqlConnection(conexion))
+                {
+                    conn.Open();
+
+                    string query = "INSERT INTO Habitacion (numero_hab, piso, id_tipo, id_estado) " +
+                                   "VALUES (@Numero_hab, @Piso, @Id_tipo, @Id_estado)";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Numero_hab", TNumero.Text);
+                        cmd.Parameters.AddWithValue("@Piso", TPiso.Text);
+                        if (RBSingle.Checked)
+                        {
+                            cmd.Parameters.AddWithValue("@Id_tipo", 1);
+                        }
+                        else if (RBDoble.Checked)
+                        {
+                            cmd.Parameters.AddWithValue("@Id_tipo", 2);
+                        }
+                        else if (RBSuite.Checked)
+                        {
+                            cmd.Parameters.AddWithValue("@Id_tipo", 3);
+                        }
+
+                        if (RBDisp.Checked)
+                        {
+                            cmd.Parameters.AddWithValue("@Id_estado", 1);
+                        }
+                        else if (RBOcup.Checked)
+                        {
+                            cmd.Parameters.AddWithValue("@Id_estado", 2);
+                        }
+                        else if (RBInha.Checked)
+                        {
+                            cmd.Parameters.AddWithValue("@Id_estado", 3);
+                        }
+
+                        int filas = cmd.ExecuteNonQuery();
+
+                        if (filas > 0)
+                        {
+                            MessageBox.Show("Empleado guardado correctamente en la base de datos.");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se pudo guardar el empleado.");
+                        }
+                        this.Close();
+                    }
+                }
             }
         }
     }
