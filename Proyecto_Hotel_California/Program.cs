@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
 using System.Windows.Forms;
 
-namespace Proyecto_Hotel_California
+namespace HotelCalifornia
 {
     internal static class Program
     {
@@ -16,7 +13,28 @@ namespace Proyecto_Hotel_California
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());
+            
+            try
+            {
+                // Inicializar la base de datos
+                if (DatabaseHelper.TestConnection())
+                {
+                    DatabaseHelper.InitializeDatabase();
+                    Application.Run(new LoginForm());
+                }
+                else
+                {
+                    // Si no hay base de datos, usar login simple
+                    MessageBox.Show("No se pudo conectar a la base de datos. Usando modo sin base de datos.", 
+                                  "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Application.Run(new LoginForm());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al inicializar la aplicación: {ex.Message}", 
+                              "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
