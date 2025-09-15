@@ -1,3 +1,4 @@
+using Proyecto_Hotel_California;
 using System;
 using System.Windows.Forms;
 
@@ -47,9 +48,9 @@ namespace HotelCalifornia
                 // Mostrar mensaje de bienvenida
                 MessageBox.Show($"¡Bienvenido, {usuarioAutenticado.NombreCompleto}!\nRol: {usuarioAutenticado.TipoUsuario}", 
                               "Login Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+
                 // Abrir formulario principal
-                MainForm mainForm = new MainForm();
+                Main mainForm = new Main();
                 mainForm.Show();
                 this.Hide();
             }
