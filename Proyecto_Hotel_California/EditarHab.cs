@@ -21,5 +21,10 @@ namespace Proyecto_Hotel_California
         {
             this.Close();
         }
+
+        private void BFin_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

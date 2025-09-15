@@ -32,10 +32,8 @@
             this.PTitulo = new System.Windows.Forms.Panel();
             this.PLateral = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
             this.BPagos = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.BInicio = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -44,6 +42,8 @@
             this.BEmpleados = new System.Windows.Forms.Button();
             this.BClientes = new System.Windows.Forms.Button();
             this.PContenedor = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.BInicio = new System.Windows.Forms.Button();
             this.PLateral.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,14 +85,6 @@
             this.panel6.Size = new System.Drawing.Size(5, 40);
             this.panel6.TabIndex = 3;
             // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel5.Location = new System.Drawing.Point(1, 76);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(5, 40);
-            this.panel5.TabIndex = 3;
-            // 
             // BPagos
             // 
             this.BPagos.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -118,24 +110,6 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(5, 40);
             this.panel4.TabIndex = 1;
-            // 
-            // BInicio
-            // 
-            this.BInicio.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.BInicio.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.BInicio.FlatAppearance.BorderSize = 0;
-            this.BInicio.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.BInicio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BInicio.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BInicio.Image = ((System.Drawing.Image)(resources.GetObject("BInicio.Image")));
-            this.BInicio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BInicio.Location = new System.Drawing.Point(4, 76);
-            this.BInicio.Name = "BInicio";
-            this.BInicio.Size = new System.Drawing.Size(146, 40);
-            this.BInicio.TabIndex = 2;
-            this.BInicio.Text = "Inicio";
-            this.BInicio.UseVisualStyleBackColor = false;
-            this.BInicio.Click += new System.EventHandler(this.BInicio_Click);
             // 
             // panel3
             // 
@@ -234,6 +208,32 @@
             this.PContenedor.Size = new System.Drawing.Size(734, 511);
             this.PContenedor.TabIndex = 2;
             // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel5.Location = new System.Drawing.Point(1, 76);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(5, 40);
+            this.panel5.TabIndex = 3;
+            // 
+            // BInicio
+            // 
+            this.BInicio.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BInicio.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.BInicio.FlatAppearance.BorderSize = 0;
+            this.BInicio.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.BInicio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BInicio.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BInicio.Image = ((System.Drawing.Image)(resources.GetObject("BInicio.Image")));
+            this.BInicio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BInicio.Location = new System.Drawing.Point(4, 76);
+            this.BInicio.Name = "BInicio";
+            this.BInicio.Size = new System.Drawing.Size(146, 40);
+            this.BInicio.TabIndex = 2;
+            this.BInicio.Text = "Inicio";
+            this.BInicio.UseVisualStyleBackColor = false;
+            this.BInicio.Click += new System.EventHandler(this.BInicio_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -263,9 +263,9 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Button BInicio;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Button BPagos;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Button BInicio;
     }
 }

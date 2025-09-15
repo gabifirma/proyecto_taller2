@@ -87,12 +87,12 @@ namespace Proyecto_Hotel_California
 
                         if (filas > 0)
                         {
-                            MessageBox.Show("Empleado guardado correctamente en la base de datos.");
+                            MessageBox.Show("Habitación guardada correctamente en la base de datos.");
 
                         }
                         else
                         {
-                            MessageBox.Show("No se pudo guardar el empleado.");
+                            MessageBox.Show("No se pudo guardar la habitación.");
                         }
                         this.Close();
                     }

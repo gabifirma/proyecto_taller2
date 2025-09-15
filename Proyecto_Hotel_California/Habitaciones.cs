@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,40 @@ namespace Proyecto_Hotel_California
         {
             EditarHab ventana = new EditarHab();
             ventana.ShowDialog();
+        }
+
+        private void Habitaciones_Load(object sender, EventArgs e)
+        {
+            string conexion = "Server=DESKTOP-9V9JJ39\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
+
+            using (SqlConnection conn = new SqlConnection(conexion))
+            {
+                conn.Open();
+                string query = @"SELECT 
+                    h.numero_hab, 
+                    h.piso, 
+                    h.id_estado, 
+                    t.nombre, 
+                    t.capacidad, 
+                    t.descripcion,
+                    t.base_precio
+                 FROM Habitacion h
+                 INNER JOIN TipoHabitacion t ON h.id_tipo = t.id_tipo";
+
+                SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                GrillaHabitaciones.AutoGenerateColumns = false;
+                GrillaHabitaciones.Columns["numero_hab"].DataPropertyName = "numero_hab";
+                GrillaHabitaciones.Columns["piso"].DataPropertyName = "piso";
+                GrillaHabitaciones.Columns["id_estado"].DataPropertyName = "id_estado";
+                GrillaHabitaciones.Columns["nombre"].DataPropertyName = "nombre";
+                GrillaHabitaciones.Columns["capacidad"].DataPropertyName = "capacidad";
+                GrillaHabitaciones.Columns["descripcion"].DataPropertyName = "descripcion";
+                GrillaHabitaciones.Columns["base_precio"].DataPropertyName = "base_precio";
+                GrillaHabitaciones.DataSource = dt;
+            }
         }
     }
 }

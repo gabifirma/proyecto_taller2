@@ -30,14 +30,15 @@
         {
             this.LTituloHabitaciones = new System.Windows.Forms.Label();
             this.GrillaHabitaciones = new System.Windows.Forms.DataGridView();
-            this.num_habitacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BEditarHab = new System.Windows.Forms.Button();
+            this.BAgregarHab = new System.Windows.Forms.Button();
+            this.numero_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.piso = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id_estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.capacidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BEditarHab = new System.Windows.Forms.Button();
-            this.BAgregarHab = new System.Windows.Forms.Button();
+            this.base_precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaHabitaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,22 +60,43 @@
             this.GrillaHabitaciones.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.GrillaHabitaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GrillaHabitaciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.num_habitacion,
+            this.numero_hab,
             this.piso,
             this.id_estado,
             this.nombre,
             this.capacidad,
-            this.descripcion});
+            this.descripcion,
+            this.base_precio});
             this.GrillaHabitaciones.Location = new System.Drawing.Point(12, 144);
             this.GrillaHabitaciones.Name = "GrillaHabitaciones";
             this.GrillaHabitaciones.RowHeadersVisible = false;
             this.GrillaHabitaciones.Size = new System.Drawing.Size(710, 183);
             this.GrillaHabitaciones.TabIndex = 1;
             // 
-            // num_habitacion
+            // BEditarHab
             // 
-            this.num_habitacion.HeaderText = "Número Hab.";
-            this.num_habitacion.Name = "num_habitacion";
+            this.BEditarHab.Location = new System.Drawing.Point(113, 88);
+            this.BEditarHab.Name = "BEditarHab";
+            this.BEditarHab.Size = new System.Drawing.Size(95, 40);
+            this.BEditarHab.TabIndex = 6;
+            this.BEditarHab.Text = "Editar";
+            this.BEditarHab.UseVisualStyleBackColor = true;
+            this.BEditarHab.Click += new System.EventHandler(this.BEditarHab_Click);
+            // 
+            // BAgregarHab
+            // 
+            this.BAgregarHab.Location = new System.Drawing.Point(12, 88);
+            this.BAgregarHab.Name = "BAgregarHab";
+            this.BAgregarHab.Size = new System.Drawing.Size(95, 40);
+            this.BAgregarHab.TabIndex = 5;
+            this.BAgregarHab.Text = "Agregar";
+            this.BAgregarHab.UseVisualStyleBackColor = true;
+            this.BAgregarHab.Click += new System.EventHandler(this.BAgregarHab_Click);
+            // 
+            // numero_hab
+            // 
+            this.numero_hab.HeaderText = "Número Hab.";
+            this.numero_hab.Name = "numero_hab";
             // 
             // piso
             // 
@@ -101,25 +123,10 @@
             this.descripcion.HeaderText = "Descripción";
             this.descripcion.Name = "descripcion";
             // 
-            // BEditarHab
+            // base_precio
             // 
-            this.BEditarHab.Location = new System.Drawing.Point(113, 88);
-            this.BEditarHab.Name = "BEditarHab";
-            this.BEditarHab.Size = new System.Drawing.Size(95, 40);
-            this.BEditarHab.TabIndex = 6;
-            this.BEditarHab.Text = "Editar";
-            this.BEditarHab.UseVisualStyleBackColor = true;
-            this.BEditarHab.Click += new System.EventHandler(this.BEditarHab_Click);
-            // 
-            // BAgregarHab
-            // 
-            this.BAgregarHab.Location = new System.Drawing.Point(12, 88);
-            this.BAgregarHab.Name = "BAgregarHab";
-            this.BAgregarHab.Size = new System.Drawing.Size(95, 40);
-            this.BAgregarHab.TabIndex = 5;
-            this.BAgregarHab.Text = "Agregar";
-            this.BAgregarHab.UseVisualStyleBackColor = true;
-            this.BAgregarHab.Click += new System.EventHandler(this.BAgregarHab_Click);
+            this.base_precio.HeaderText = "Precio Base";
+            this.base_precio.Name = "base_precio";
             // 
             // Habitaciones
             // 
@@ -136,6 +143,7 @@
             this.Name = "Habitaciones";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Habitaciones";
+            this.Load += new System.EventHandler(this.Habitaciones_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GrillaHabitaciones)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -146,13 +154,14 @@
 
         private System.Windows.Forms.Label LTituloHabitaciones;
         private System.Windows.Forms.DataGridView GrillaHabitaciones;
-        private System.Windows.Forms.DataGridViewTextBoxColumn num_habitacion;
+        private System.Windows.Forms.Button BEditarHab;
+        private System.Windows.Forms.Button BAgregarHab;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numero_hab;
         private System.Windows.Forms.DataGridViewTextBoxColumn piso;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_estado;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn capacidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
-        private System.Windows.Forms.Button BEditarHab;
-        private System.Windows.Forms.Button BAgregarHab;
+        private System.Windows.Forms.DataGridViewTextBoxColumn base_precio;
     }
 }

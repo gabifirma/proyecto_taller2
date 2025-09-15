@@ -34,7 +34,7 @@
             this.RBInha = new System.Windows.Forms.RadioButton();
             this.RBDisp = new System.Windows.Forms.RadioButton();
             this.RBOcup = new System.Windows.Forms.RadioButton();
-            this.LRol = new System.Windows.Forms.Label();
+            this.LEstado = new System.Windows.Forms.Label();
             this.RBDoble = new System.Windows.Forms.RadioButton();
             this.RBSingle = new System.Windows.Forms.RadioButton();
             this.TPiso = new System.Windows.Forms.TextBox();
@@ -112,15 +112,15 @@
             this.RBOcup.Text = "Ocupado";
             this.RBOcup.UseVisualStyleBackColor = true;
             // 
-            // LRol
+            // LEstado
             // 
-            this.LRol.AutoSize = true;
-            this.LRol.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LRol.Location = new System.Drawing.Point(11, 151);
-            this.LRol.Name = "LRol";
-            this.LRol.Size = new System.Drawing.Size(30, 19);
-            this.LRol.TabIndex = 35;
-            this.LRol.Text = "Rol";
+            this.LEstado.AutoSize = true;
+            this.LEstado.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LEstado.Location = new System.Drawing.Point(11, 151);
+            this.LEstado.Name = "LEstado";
+            this.LEstado.Size = new System.Drawing.Size(54, 19);
+            this.LEstado.TabIndex = 35;
+            this.LEstado.Text = "Estado";
             // 
             // RBDoble
             // 
@@ -223,7 +223,7 @@
             this.Controls.Add(this.BCancelar);
             this.Controls.Add(this.BFin);
             this.Controls.Add(this.PRol);
-            this.Controls.Add(this.LRol);
+            this.Controls.Add(this.LEstado);
             this.Controls.Add(this.RBDoble);
             this.Controls.Add(this.RBSingle);
             this.Controls.Add(this.TPiso);
@@ -249,7 +249,7 @@
         private System.Windows.Forms.RadioButton RBInha;
         private System.Windows.Forms.RadioButton RBDisp;
         private System.Windows.Forms.RadioButton RBOcup;
-        private System.Windows.Forms.Label LRol;
+        private System.Windows.Forms.Label LEstado;
         private System.Windows.Forms.RadioButton RBDoble;
         private System.Windows.Forms.RadioButton RBSingle;
         private System.Windows.Forms.TextBox TPiso;
