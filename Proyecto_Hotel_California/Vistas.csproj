@@ -47,12 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AgregarHab.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AgregarHab.Designer.cs">
-      <DependentUpon>AgregarHab.cs</DependentUpon>
-    </Compile>
     <Compile Include="Clientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,18 +96,6 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="Home.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Home.Designer.cs">
-      <DependentUpon>Home.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AgregarEmp.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AgregarEmp.Designer.cs">
-      <DependentUpon>AgregarEmp.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,9 +116,6 @@
     </Compile>
     <Compile Include="UserSession.cs" />
     <Compile Include="Usuario.cs" />
-    <EmbeddedResource Include="AgregarHab.resx">
-      <DependentUpon>AgregarHab.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
     </EmbeddedResource>
@@ -160,12 +139,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Home.resx">
-      <DependentUpon>Home.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AgregarEmp.resx">
-      <DependentUpon>AgregarEmp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pagos.resx">
       <DependentUpon>Pagos.cs</DependentUpon>

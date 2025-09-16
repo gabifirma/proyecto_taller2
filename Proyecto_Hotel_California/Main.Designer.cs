@@ -42,8 +42,6 @@
             this.BEmpleados = new System.Windows.Forms.Button();
             this.BClientes = new System.Windows.Forms.Button();
             this.PContenedor = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.BInicio = new System.Windows.Forms.Button();
             this.PLateral.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,17 +51,15 @@
             this.PTitulo.Dock = System.Windows.Forms.DockStyle.Top;
             this.PTitulo.Location = new System.Drawing.Point(0, 0);
             this.PTitulo.Name = "PTitulo";
-            this.PTitulo.Size = new System.Drawing.Size(884, 50);
+            this.PTitulo.Size = new System.Drawing.Size(1015, 50);
             this.PTitulo.TabIndex = 0;
             // 
             // PLateral
             // 
             this.PLateral.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.PLateral.Controls.Add(this.panel6);
-            this.PLateral.Controls.Add(this.panel5);
             this.PLateral.Controls.Add(this.BPagos);
             this.PLateral.Controls.Add(this.panel4);
-            this.PLateral.Controls.Add(this.BInicio);
             this.PLateral.Controls.Add(this.panel3);
             this.PLateral.Controls.Add(this.panel2);
             this.PLateral.Controls.Add(this.panel1);
@@ -205,46 +201,21 @@
             this.PContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PContenedor.Location = new System.Drawing.Point(150, 50);
             this.PContenedor.Name = "PContenedor";
-            this.PContenedor.Size = new System.Drawing.Size(734, 511);
+            this.PContenedor.Size = new System.Drawing.Size(865, 511);
             this.PContenedor.TabIndex = 2;
-            // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel5.Location = new System.Drawing.Point(1, 76);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(5, 40);
-            this.panel5.TabIndex = 3;
-            // 
-            // BInicio
-            // 
-            this.BInicio.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.BInicio.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.BInicio.FlatAppearance.BorderSize = 0;
-            this.BInicio.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.BInicio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BInicio.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BInicio.Image = ((System.Drawing.Image)(resources.GetObject("BInicio.Image")));
-            this.BInicio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BInicio.Location = new System.Drawing.Point(4, 76);
-            this.BInicio.Name = "BInicio";
-            this.BInicio.Size = new System.Drawing.Size(146, 40);
-            this.BInicio.TabIndex = 2;
-            this.BInicio.Text = "Inicio";
-            this.BInicio.UseVisualStyleBackColor = false;
-            this.BInicio.Click += new System.EventHandler(this.BInicio_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.ClientSize = new System.Drawing.Size(884, 561);
+            this.ClientSize = new System.Drawing.Size(1015, 561);
             this.Controls.Add(this.PContenedor);
             this.Controls.Add(this.PLateral);
             this.Controls.Add(this.PTitulo);
             this.Name = "Main";
             this.Text = "Form2";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.PLateral.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -265,7 +236,5 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Button BPagos;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Button BInicio;
     }
 }

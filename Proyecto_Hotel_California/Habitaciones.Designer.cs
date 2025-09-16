@@ -30,8 +30,6 @@
         {
             this.LTituloHabitaciones = new System.Windows.Forms.Label();
             this.GrillaHabitaciones = new System.Windows.Forms.DataGridView();
-            this.BEditarHab = new System.Windows.Forms.Button();
-            this.BAgregarHab = new System.Windows.Forms.Button();
             this.numero_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.piso = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id_estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,17 +37,33 @@
             this.capacidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.base_precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BEditarHab = new System.Windows.Forms.Button();
+            this.BAgregarHab = new System.Windows.Forms.Button();
+            this.RBSuite = new System.Windows.Forms.RadioButton();
+            this.PRol = new System.Windows.Forms.Panel();
+            this.RBInha = new System.Windows.Forms.RadioButton();
+            this.RBDisp = new System.Windows.Forms.RadioButton();
+            this.RBOcup = new System.Windows.Forms.RadioButton();
+            this.LEstado = new System.Windows.Forms.Label();
+            this.RBDoble = new System.Windows.Forms.RadioButton();
+            this.RBSingle = new System.Windows.Forms.RadioButton();
+            this.TPiso = new System.Windows.Forms.TextBox();
+            this.TNumero = new System.Windows.Forms.TextBox();
+            this.LTipo = new System.Windows.Forms.Label();
+            this.LPiso = new System.Windows.Forms.Label();
+            this.LNumero = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaHabitaciones)).BeginInit();
+            this.PRol.SuspendLayout();
             this.SuspendLayout();
             // 
             // LTituloHabitaciones
             // 
             this.LTituloHabitaciones.AutoSize = true;
-            this.LTituloHabitaciones.Font = new System.Drawing.Font("Times New Roman", 18F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
+            this.LTituloHabitaciones.Font = new System.Drawing.Font("Times New Roman", 21.75F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
                 | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LTituloHabitaciones.Location = new System.Drawing.Point(234, 36);
+            this.LTituloHabitaciones.Location = new System.Drawing.Point(12, 9);
             this.LTituloHabitaciones.Name = "LTituloHabitaciones";
-            this.LTituloHabitaciones.Size = new System.Drawing.Size(238, 28);
+            this.LTituloHabitaciones.Size = new System.Drawing.Size(288, 33);
             this.LTituloHabitaciones.TabIndex = 0;
             this.LTituloHabitaciones.Text = "Grilla de Habitaciones";
             // 
@@ -67,31 +81,11 @@
             this.capacidad,
             this.descripcion,
             this.base_precio});
-            this.GrillaHabitaciones.Location = new System.Drawing.Point(12, 144);
+            this.GrillaHabitaciones.Location = new System.Drawing.Point(12, 315);
             this.GrillaHabitaciones.Name = "GrillaHabitaciones";
             this.GrillaHabitaciones.RowHeadersVisible = false;
-            this.GrillaHabitaciones.Size = new System.Drawing.Size(710, 183);
+            this.GrillaHabitaciones.Size = new System.Drawing.Size(840, 183);
             this.GrillaHabitaciones.TabIndex = 1;
-            // 
-            // BEditarHab
-            // 
-            this.BEditarHab.Location = new System.Drawing.Point(113, 88);
-            this.BEditarHab.Name = "BEditarHab";
-            this.BEditarHab.Size = new System.Drawing.Size(95, 40);
-            this.BEditarHab.TabIndex = 6;
-            this.BEditarHab.Text = "Editar";
-            this.BEditarHab.UseVisualStyleBackColor = true;
-            this.BEditarHab.Click += new System.EventHandler(this.BEditarHab_Click);
-            // 
-            // BAgregarHab
-            // 
-            this.BAgregarHab.Location = new System.Drawing.Point(12, 88);
-            this.BAgregarHab.Name = "BAgregarHab";
-            this.BAgregarHab.Size = new System.Drawing.Size(95, 40);
-            this.BAgregarHab.TabIndex = 5;
-            this.BAgregarHab.Text = "Agregar";
-            this.BAgregarHab.UseVisualStyleBackColor = true;
-            this.BAgregarHab.Click += new System.EventHandler(this.BAgregarHab_Click);
             // 
             // numero_hab
             // 
@@ -128,13 +122,179 @@
             this.base_precio.HeaderText = "Precio Base";
             this.base_precio.Name = "base_precio";
             // 
+            // BEditarHab
+            // 
+            this.BEditarHab.Location = new System.Drawing.Point(184, 151);
+            this.BEditarHab.Name = "BEditarHab";
+            this.BEditarHab.Size = new System.Drawing.Size(95, 40);
+            this.BEditarHab.TabIndex = 6;
+            this.BEditarHab.Text = "Editar";
+            this.BEditarHab.UseVisualStyleBackColor = true;
+            this.BEditarHab.Click += new System.EventHandler(this.BEditarHab_Click);
+            // 
+            // BAgregarHab
+            // 
+            this.BAgregarHab.Location = new System.Drawing.Point(80, 151);
+            this.BAgregarHab.Name = "BAgregarHab";
+            this.BAgregarHab.Size = new System.Drawing.Size(95, 40);
+            this.BAgregarHab.TabIndex = 5;
+            this.BAgregarHab.Text = "Agregar";
+            this.BAgregarHab.UseVisualStyleBackColor = true;
+            this.BAgregarHab.Click += new System.EventHandler(this.BAgregarHab_Click);
+            // 
+            // RBSuite
+            // 
+            this.RBSuite.AutoSize = true;
+            this.RBSuite.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RBSuite.Location = new System.Drawing.Point(615, 64);
+            this.RBSuite.Name = "RBSuite";
+            this.RBSuite.Size = new System.Drawing.Size(59, 23);
+            this.RBSuite.TabIndex = 51;
+            this.RBSuite.Text = "Suite";
+            this.RBSuite.UseVisualStyleBackColor = true;
+            // 
+            // PRol
+            // 
+            this.PRol.Controls.Add(this.RBInha);
+            this.PRol.Controls.Add(this.RBDisp);
+            this.PRol.Controls.Add(this.RBOcup);
+            this.PRol.Location = new System.Drawing.Point(80, 111);
+            this.PRol.Name = "PRol";
+            this.PRol.Size = new System.Drawing.Size(315, 34);
+            this.PRol.TabIndex = 48;
+            // 
+            // RBInha
+            // 
+            this.RBInha.AutoSize = true;
+            this.RBInha.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RBInha.Location = new System.Drawing.Point(195, 6);
+            this.RBInha.Name = "RBInha";
+            this.RBInha.Size = new System.Drawing.Size(105, 23);
+            this.RBInha.TabIndex = 16;
+            this.RBInha.Text = "Inhabilitado";
+            this.RBInha.UseVisualStyleBackColor = true;
+            // 
+            // RBDisp
+            // 
+            this.RBDisp.AutoSize = true;
+            this.RBDisp.Checked = true;
+            this.RBDisp.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RBDisp.Location = new System.Drawing.Point(3, 8);
+            this.RBDisp.Name = "RBDisp";
+            this.RBDisp.Size = new System.Drawing.Size(95, 23);
+            this.RBDisp.TabIndex = 17;
+            this.RBDisp.TabStop = true;
+            this.RBDisp.Text = "Disponible";
+            this.RBDisp.UseVisualStyleBackColor = true;
+            // 
+            // RBOcup
+            // 
+            this.RBOcup.AutoSize = true;
+            this.RBOcup.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RBOcup.Location = new System.Drawing.Point(104, 4);
+            this.RBOcup.Name = "RBOcup";
+            this.RBOcup.Size = new System.Drawing.Size(85, 23);
+            this.RBOcup.TabIndex = 15;
+            this.RBOcup.Text = "Ocupado";
+            this.RBOcup.UseVisualStyleBackColor = true;
+            // 
+            // LEstado
+            // 
+            this.LEstado.AutoSize = true;
+            this.LEstado.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LEstado.Location = new System.Drawing.Point(14, 119);
+            this.LEstado.Name = "LEstado";
+            this.LEstado.Size = new System.Drawing.Size(54, 19);
+            this.LEstado.TabIndex = 47;
+            this.LEstado.Text = "Estado";
+            // 
+            // RBDoble
+            // 
+            this.RBDoble.AutoSize = true;
+            this.RBDoble.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RBDoble.Location = new System.Drawing.Point(526, 64);
+            this.RBDoble.Name = "RBDoble";
+            this.RBDoble.Size = new System.Drawing.Size(65, 23);
+            this.RBDoble.TabIndex = 46;
+            this.RBDoble.Text = "Doble";
+            this.RBDoble.UseVisualStyleBackColor = true;
+            // 
+            // RBSingle
+            // 
+            this.RBSingle.AutoSize = true;
+            this.RBSingle.Checked = true;
+            this.RBSingle.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RBSingle.Location = new System.Drawing.Point(432, 64);
+            this.RBSingle.Name = "RBSingle";
+            this.RBSingle.Size = new System.Drawing.Size(66, 23);
+            this.RBSingle.TabIndex = 45;
+            this.RBSingle.TabStop = true;
+            this.RBSingle.Text = "Single";
+            this.RBSingle.UseVisualStyleBackColor = true;
+            // 
+            // TPiso
+            // 
+            this.TPiso.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TPiso.Location = new System.Drawing.Point(256, 61);
+            this.TPiso.Name = "TPiso";
+            this.TPiso.Size = new System.Drawing.Size(78, 26);
+            this.TPiso.TabIndex = 44;
+            // 
+            // TNumero
+            // 
+            this.TNumero.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TNumero.Location = new System.Drawing.Point(80, 61);
+            this.TNumero.Name = "TNumero";
+            this.TNumero.Size = new System.Drawing.Size(78, 26);
+            this.TNumero.TabIndex = 43;
+            // 
+            // LTipo
+            // 
+            this.LTipo.AutoSize = true;
+            this.LTipo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LTipo.Location = new System.Drawing.Point(366, 64);
+            this.LTipo.Name = "LTipo";
+            this.LTipo.Size = new System.Drawing.Size(37, 19);
+            this.LTipo.TabIndex = 42;
+            this.LTipo.Text = "Tipo";
+            // 
+            // LPiso
+            // 
+            this.LPiso.AutoSize = true;
+            this.LPiso.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LPiso.Location = new System.Drawing.Point(202, 64);
+            this.LPiso.Name = "LPiso";
+            this.LPiso.Size = new System.Drawing.Size(37, 19);
+            this.LPiso.TabIndex = 41;
+            this.LPiso.Text = "Piso";
+            // 
+            // LNumero
+            // 
+            this.LNumero.AutoSize = true;
+            this.LNumero.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LNumero.Location = new System.Drawing.Point(13, 64);
+            this.LNumero.Name = "LNumero";
+            this.LNumero.Size = new System.Drawing.Size(60, 19);
+            this.LNumero.TabIndex = 40;
+            this.LNumero.Text = "Número";
+            // 
             // Habitaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Highlight;
-            this.ClientSize = new System.Drawing.Size(734, 511);
+            this.ClientSize = new System.Drawing.Size(864, 510);
+            this.Controls.Add(this.RBSuite);
+            this.Controls.Add(this.PRol);
+            this.Controls.Add(this.LEstado);
+            this.Controls.Add(this.RBDoble);
+            this.Controls.Add(this.RBSingle);
+            this.Controls.Add(this.TPiso);
+            this.Controls.Add(this.TNumero);
+            this.Controls.Add(this.LTipo);
+            this.Controls.Add(this.LPiso);
+            this.Controls.Add(this.LNumero);
             this.Controls.Add(this.BEditarHab);
             this.Controls.Add(this.BAgregarHab);
             this.Controls.Add(this.GrillaHabitaciones);
@@ -145,6 +305,8 @@
             this.Text = "Habitaciones";
             this.Load += new System.EventHandler(this.Habitaciones_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GrillaHabitaciones)).EndInit();
+            this.PRol.ResumeLayout(false);
+            this.PRol.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,5 +325,18 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn capacidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn base_precio;
+        private System.Windows.Forms.RadioButton RBSuite;
+        private System.Windows.Forms.Panel PRol;
+        private System.Windows.Forms.RadioButton RBInha;
+        private System.Windows.Forms.RadioButton RBDisp;
+        private System.Windows.Forms.RadioButton RBOcup;
+        private System.Windows.Forms.Label LEstado;
+        private System.Windows.Forms.RadioButton RBDoble;
+        private System.Windows.Forms.RadioButton RBSingle;
+        private System.Windows.Forms.TextBox TPiso;
+        private System.Windows.Forms.TextBox TNumero;
+        private System.Windows.Forms.Label LTipo;
+        private System.Windows.Forms.Label LPiso;
+        private System.Windows.Forms.Label LNumero;
     }
 }

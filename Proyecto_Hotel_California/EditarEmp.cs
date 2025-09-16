@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelCalifornia;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,34 +15,31 @@ namespace Proyecto_Hotel_California
 {
     public partial class EditarEmp : Form
     {
-        private int empleadoId;
-        public EditarEmp(int id)
+        private int empleadoLegajo;
+        public EditarEmp(int legajo)
         {
             InitializeComponent();
-            empleadoId = id;
+            empleadoLegajo = legajo;
             CargarEmpleado();
         }
 
         private void CargarEmpleado()
         {
-            string conexion = "Server=DESKTOP-9V9JJ39\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
-
-            using (SqlConnection conn = new SqlConnection(conexion))
+            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
                 conn.Open();
-                string query = "SELECT apellido, nombre, legajo, telefono, email, estado FROM Empleado WHERE id_empleado = @Id";
+                string query = "SELECT apellido, nombre, legajo, telefono, email, estado FROM Empleado WHERE legajo = @Legajo";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@Id", empleadoId);
+                    cmd.Parameters.AddWithValue("@Legajo", empleadoLegajo);
 
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
-                        LID.Text = empleadoId.ToString();
+                        LMostrarLeg.Text = reader["Legajo"].ToString();
                         TApellido.Text = reader["Apellido"].ToString();
-                        TNombre.Text = reader["Nombre"].ToString();
-                        TLegajo.Text = reader["Legajo"].ToString();
+                        TNombre.Text = reader["Nombre"].ToString();                        
                         TTelefono.Text = reader["Telefono"].ToString();
                         TEmail.Text = reader["Email"].ToString();
                         if (reader["estado"].Equals(true))
@@ -91,32 +89,23 @@ namespace Proyecto_Hotel_California
                 return;
             }
 
-            if (!SoloNumeros(TLegajo.Text))
-            {
-                MessageBox.Show("Solo se permiten números para legajo");
-                return;
-            }
-
             //guardarlo todo en la base de datos
-            if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && SoloNumeros(TLegajo.Text) && SoloNumeros(TTelefono.Text))
+            if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && SoloNumeros(TTelefono.Text))
             {
-                string conexion = "Server=DESKTOP-9V9JJ39\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
-
-                using (SqlConnection conn = new SqlConnection(conexion))
+                using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
                 {
                     conn.Open();
                     string query = @"UPDATE Empleado 
-                         SET apellido=@Apellido, nombre=@Nombre, legajo=@Legajo, telefono=@Telefono, email=@Email, estado=@Estado
-                         WHERE id_empleado=@Id";
+                         SET apellido=@Apellido, nombre=@Nombre, telefono=@Telefono, email=@Email, estado=@Estado
+                         WHERE legajo=@Legajo";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Apellido", TApellido.Text);
                         cmd.Parameters.AddWithValue("@Nombre", TNombre.Text);
-                        cmd.Parameters.AddWithValue("@Legajo", TLegajo.Text);
                         cmd.Parameters.AddWithValue("@Telefono", TTelefono.Text);
                         cmd.Parameters.AddWithValue("@Email", TEmail.Text);
-                        cmd.Parameters.AddWithValue("@Id", empleadoId);
+                        cmd.Parameters.AddWithValue("@Legajo", LMostrarLeg.Text);
                         if (RBActivado.Checked)
                         {
                             cmd.Parameters.AddWithValue("@Estado", true);
@@ -132,6 +121,7 @@ namespace Proyecto_Hotel_California
                         {
                             MessageBox.Show("Empleado actualizado correctamente.");
                             this.Close(); // cierra el form de edición
+                            CargarEmpleado(); // recarga la lista de empleados en el form principal
                         }
                         else
                         {
