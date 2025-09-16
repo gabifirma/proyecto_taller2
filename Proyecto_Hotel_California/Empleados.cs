@@ -61,10 +61,10 @@ namespace Proyecto_Hotel_California
             EditarEmp formEditar = new EditarEmp(idEmpleado);
             formEditar.ShowDialog(); // abre en modo modal
         }
-
+        
         private void Empleados_Load(object sender, EventArgs e)
         {
-            string conexion = "Server=DESKTOP-9V9JJ39\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
+            string conexion = "Server=DESKTOP-1Q3KGFE\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
 
             using (SqlConnection conn = new SqlConnection(conexion))
             {

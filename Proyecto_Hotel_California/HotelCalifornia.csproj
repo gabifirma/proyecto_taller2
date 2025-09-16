@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -22,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -45,7 +48,6 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Data.SqlClient" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -55,12 +57,87 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reservas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reservas.Designer.cs">
+      <DependentUpon>Reservas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pagos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pagos.Designer.cs">
+      <DependentUpon>Pagos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CrearReservaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrearReservaForm.Designer.cs">
+      <DependentUpon>CrearReservaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CrearPagoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrearPagoForm.Designer.cs">
+      <DependentUpon>CrearPagoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Home.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Home.Designer.cs">
+      <DependentUpon>Home.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Clientes.Designer.cs">
+      <DependentUpon>Clientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Empleados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Empleados.Designer.cs">
+      <DependentUpon>Empleados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Habitaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Habitaciones.Designer.cs">
+      <DependentUpon>Habitaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AgregarEmp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgregarEmp.Designer.cs">
+      <DependentUpon>AgregarEmp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditarEmp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditarEmp.Designer.cs">
+      <DependentUpon>EditarEmp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AgregarHab.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgregarHab.Designer.cs">
+      <DependentUpon>AgregarHab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditarHab.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditarHab.Designer.cs">
+      <DependentUpon>EditarHab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Reserva.cs" />
+    <Compile Include="Models\Pago.cs" />
+    <Compile Include="Services\DataService.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="UserSession.cs" />
     <Compile Include="DatabaseHelper.cs" />
@@ -68,6 +145,48 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reservas.resx">
+      <DependentUpon>Reservas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pagos.resx">
+      <DependentUpon>Pagos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Home.resx">
+      <DependentUpon>Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Clientes.resx">
+      <DependentUpon>Clientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Empleados.resx">
+      <DependentUpon>Empleados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Habitaciones.resx">
+      <DependentUpon>Habitaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AgregarEmp.resx">
+      <DependentUpon>AgregarEmp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditarEmp.resx">
+      <DependentUpon>EditarEmp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AgregarHab.resx">
+      <DependentUpon>AgregarHab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditarHab.resx">
+      <DependentUpon>EditarHab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

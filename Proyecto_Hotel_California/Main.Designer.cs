@@ -1,4 +1,4 @@
-﻿namespace Proyecto_Hotel_California
+namespace Proyecto_Hotel_California
 {
     partial class Main
     {
@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.PTitulo = new System.Windows.Forms.Panel();
             this.PLateral = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.BLogout = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
             this.BPagos = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -59,6 +61,8 @@
             // PLateral
             // 
             this.PLateral.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.PLateral.Controls.Add(this.panel7);
+            this.PLateral.Controls.Add(this.BLogout);
             this.PLateral.Controls.Add(this.panel6);
             this.PLateral.Controls.Add(this.panel5);
             this.PLateral.Controls.Add(this.BPagos);
@@ -76,6 +80,31 @@
             this.PLateral.Name = "PLateral";
             this.PLateral.Size = new System.Drawing.Size(150, 511);
             this.PLateral.TabIndex = 1;
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel7.Location = new System.Drawing.Point(1, 352);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(5, 40);
+            this.panel7.TabIndex = 4;
+            // 
+            // BLogout
+            // 
+            this.BLogout.BackColor = System.Drawing.Color.IndianRed;
+            this.BLogout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.BLogout.FlatAppearance.BorderSize = 0;
+            this.BLogout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Crimson;
+            this.BLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BLogout.ForeColor = System.Drawing.Color.White;
+            this.BLogout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BLogout.Location = new System.Drawing.Point(4, 352);
+            this.BLogout.Name = "BLogout";
+            this.BLogout.Size = new System.Drawing.Size(146, 40);
+            this.BLogout.TabIndex = 5;
+            this.BLogout.Text = "Cerrar Sesión";
+            this.BLogout.UseVisualStyleBackColor = false;
+            this.BLogout.Click += new System.EventHandler(this.BLogout_Click);
             // 
             // panel6
             // 
@@ -267,5 +296,7 @@
         private System.Windows.Forms.Button BPagos;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button BInicio;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Button BLogout;
     }
 }
