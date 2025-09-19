@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,14 +9,16 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using Proyecto_Hotel_California.Styles;
 
 namespace Proyecto_Hotel_California
 {
-    public partial class Clientes : Form
+    public partial class Clientes : BaseResponsiveForm
     {
         public Clientes()
         {
             InitializeComponent();
+            // La clase base BaseResponsiveForm se encarga del responsive design automáticamente
         }
 
         private bool SoloLetras(string texto)

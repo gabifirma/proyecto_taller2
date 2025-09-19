@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,15 +8,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Proyecto_Hotel_California.Styles;
 
 namespace Proyecto_Hotel_California
 {
-    public partial class Habitaciones : Form
+    public partial class Habitaciones : BaseResponsiveForm
     {
         public Habitaciones()
         {
             InitializeComponent();
+            // La clase base BaseResponsiveForm se encarga del responsive design automáticamente
         }
+        
+
+        // Método eliminado - los estilos se aplican automáticamente por BaseResponsiveForm
 
         private void BAgregarHab_Click(object sender, EventArgs e)
         {
@@ -32,7 +37,7 @@ namespace Proyecto_Hotel_California
 
         private void Habitaciones_Load(object sender, EventArgs e)
         {
-            string conexion = "Server=DESKTOP-9V9JJ39\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
+            string conexion = "Server=DESKTOP-1Q3KGFE\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
 
             using (SqlConnection conn = new SqlConnection(conexion))
             {

@@ -86,5 +86,21 @@ namespace HotelCalifornia
         {
             Application.Exit();
         }
+
+        private void btnTogglePassword_Click(object sender, EventArgs e)
+        {
+            if (txtPassword.PasswordChar == '*')
+            {
+                // Mostrar contraseña
+                txtPassword.PasswordChar = '\0';
+                btnTogglePassword.Text = "🙈"; // Cambiar icono a "ocultar"
+            }
+            else
+            {
+                // Ocultar contraseña
+                txtPassword.PasswordChar = '*';
+                btnTogglePassword.Text = "👁"; // Cambiar icono a "mostrar"
+            }
+        }
     }
 }
