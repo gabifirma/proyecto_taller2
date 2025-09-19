@@ -1,9 +1,9 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Proyecto_Hotel_California.Styles;
+using HotelCalifornia.Styles;
 
-namespace Proyecto_Hotel_California
+namespace HotelCalifornia
 {
     public class BaseResponsiveForm : Form
     {

@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Proyecto_Hotel_California.Styles;
+using HotelCalifornia.Styles;
 
-namespace Proyecto_Hotel_California
+namespace HotelCalifornia
 {
     public partial class Empleados : BaseResponsiveForm
     {
@@ -46,13 +46,12 @@ namespace Proyecto_Hotel_California
 
         private void BAgregarEmp_Click(object sender, EventArgs e)
         {
-            AgregarEmp ventana = new AgregarEmp();
-            ventana.ShowDialog();
+            MessageBox.Show("Funcionalidad de agregar empleado no implementada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BEditarEmp_Click(object sender, EventArgs e)
         {
-            if (!int.TryParse(TId.Text, out int idEmpleado))
+            if (!int.TryParse(TLegajo.Text, out int idEmpleado))
             {
                 MessageBox.Show("Ingrese un ID válido.");
                 return;
@@ -63,8 +62,8 @@ namespace Proyecto_Hotel_California
                 return;
             }
 
-            EditarEmp formEditar = new EditarEmp(idEmpleado);
-            formEditar.ShowDialog(); // abre en modo modal
+            EditarEmp ventana = new EditarEmp(idEmpleado);
+            ventana.ShowDialog();
         }
         
         private void Empleados_Load(object sender, EventArgs e)
@@ -83,6 +82,36 @@ namespace Proyecto_Hotel_California
                 GrillaEmpleados.AutoGenerateColumns = false;
                 GrillaEmpleados.DataSource = dt;
             }
+        }
+
+        // Métodos de eventos faltantes
+        private void GrillaEmpleados_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Funcionalidad para doble clic en la grilla
+            if (e.RowIndex >= 0)
+            {
+                MessageBox.Show("Funcionalidad de edición por doble clic no implementada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void TNombre_Leave(object sender, EventArgs e)
+        {
+            // Validación al salir del campo nombre
+        }
+
+        private void TApellido_Leave(object sender, EventArgs e)
+        {
+            // Validación al salir del campo apellido
+        }
+
+        private void BFiltrar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Funcionalidad de filtrado no implementada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void BRecargar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Funcionalidad de recarga no implementada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

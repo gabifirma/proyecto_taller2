@@ -6,12 +6,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{ABEF4330-A579-4BB0-AF63-1DEAFDA6EE35}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Proyecto_Hotel_California</RootNamespace>
-    <AssemblyName>Proyecto_Hotel_California</AssemblyName>
+    <RootNamespace>HotelCalifornia</RootNamespace>
+    <AssemblyName>HotelCalifornia</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -116,6 +117,25 @@
     </Compile>
     <Compile Include="UserSession.cs" />
     <Compile Include="Usuario.cs" />
+    <Compile Include="Models\Reserva.cs" />
+    <Compile Include="Models\Pago.cs" />
+    <Compile Include="Services\DataService.cs" />
+    <Compile Include="CrearReservaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrearReservaForm.Designer.cs">
+      <DependentUpon>CrearReservaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CrearPagoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrearPagoForm.Designer.cs">
+      <DependentUpon>CrearPagoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseResponsiveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Styles\AppStyles.cs" />
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
     </EmbeddedResource>

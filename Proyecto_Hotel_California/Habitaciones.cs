@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Proyecto_Hotel_California.Styles;
+using HotelCalifornia.Styles;
 
-namespace Proyecto_Hotel_California
+namespace HotelCalifornia
 {
     public partial class Habitaciones : BaseResponsiveForm
     {
@@ -25,8 +25,7 @@ namespace Proyecto_Hotel_California
 
         private void BAgregarHab_Click(object sender, EventArgs e)
         {
-            AgregarHab ventana = new AgregarHab();
-            ventana.ShowDialog();
+            MessageBox.Show("Funcionalidad de agregar habitación no implementada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BEditarHab_Click(object sender, EventArgs e)

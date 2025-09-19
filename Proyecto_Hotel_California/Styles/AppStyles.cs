@@ -1,7 +1,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Proyecto_Hotel_California.Styles
+namespace HotelCalifornia.Styles
 {
     public static class AppStyles
     {

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Proyecto_Hotel_California.Styles;
+using HotelCalifornia.Styles;
 
-namespace Proyecto_Hotel_California
+namespace HotelCalifornia
 {
     public partial class EditarHab : Form
     {

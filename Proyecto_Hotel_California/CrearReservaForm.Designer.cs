@@ -1,4 +1,4 @@
-namespace Proyecto_Hotel_California
+namespace HotelCalifornia
 {
     partial class CrearReservaForm
     {

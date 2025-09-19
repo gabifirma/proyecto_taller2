@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using HotelCalifornia.Models;
 using HotelCalifornia.Services;
 
-namespace Proyecto_Hotel_California
+namespace HotelCalifornia
 {
     public partial class CrearPagoForm : Form
     {

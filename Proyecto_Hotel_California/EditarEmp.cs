@@ -9,9 +9,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Proyecto_Hotel_California.Styles;
+using HotelCalifornia.Styles;
 
-namespace Proyecto_Hotel_California
+namespace HotelCalifornia
 {
     public partial class EditarEmp : Form
     {
@@ -96,10 +96,10 @@ namespace Proyecto_Hotel_California
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
-                        LID.Text = empleadoId.ToString();
+                        // Mostrar ID del empleado en el título o label
                         TApellido.Text = reader["Apellido"].ToString();
                         TNombre.Text = reader["Nombre"].ToString();
-                        TLegajo.Text = reader["Legajo"].ToString();
+                        LMostrarLeg.Text = reader["Legajo"].ToString();
                         TTelefono.Text = reader["Telefono"].ToString();
                         TEmail.Text = reader["Email"].ToString();
                         if (reader["estado"].Equals(true))
@@ -149,14 +149,10 @@ namespace Proyecto_Hotel_California
                 return;
             }
 
-            if (!SoloNumeros(TLegajo.Text))
-            {
-                MessageBox.Show("Solo se permiten números para legajo");
-                return;
-            }
+            // El legajo no es editable, se muestra en LMostrarLeg
 
             //guardarlo todo en la base de datos
-            if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && SoloNumeros(TLegajo.Text) && SoloNumeros(TTelefono.Text))
+            if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && SoloNumeros(TTelefono.Text))
             {
                 string conexion = "Server=DESKTOP-9V9JJ39\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
 
@@ -171,7 +167,7 @@ namespace Proyecto_Hotel_California
                     {
                         cmd.Parameters.AddWithValue("@Apellido", TApellido.Text);
                         cmd.Parameters.AddWithValue("@Nombre", TNombre.Text);
-                        cmd.Parameters.AddWithValue("@Legajo", TLegajo.Text);
+                        cmd.Parameters.AddWithValue("@Legajo", LMostrarLeg.Text); // Legajo no editable
                         cmd.Parameters.AddWithValue("@Telefono", TTelefono.Text);
                         cmd.Parameters.AddWithValue("@Email", TEmail.Text);
                         cmd.Parameters.AddWithValue("@Id", empleadoId);
