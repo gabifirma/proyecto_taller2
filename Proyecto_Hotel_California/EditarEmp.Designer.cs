@@ -30,7 +30,6 @@
         {
             this.BCancelar = new System.Windows.Forms.Button();
             this.BFin = new System.Windows.Forms.Button();
-            this.TLegajo = new System.Windows.Forms.TextBox();
             this.TEmail = new System.Windows.Forms.TextBox();
             this.TTelefono = new System.Windows.Forms.TextBox();
             this.TNombre = new System.Windows.Forms.TextBox();
@@ -45,8 +44,7 @@
             this.PEstado = new System.Windows.Forms.Panel();
             this.RBDesactivado = new System.Windows.Forms.RadioButton();
             this.RBActivado = new System.Windows.Forms.RadioButton();
-            this.LIdempleado = new System.Windows.Forms.Label();
-            this.LID = new System.Windows.Forms.Label();
+            this.LMostrarLeg = new System.Windows.Forms.Label();
             this.LMantenerAct = new System.Windows.Forms.Label();
             this.LMantenerIna = new System.Windows.Forms.Label();
             this.PEstado.SuspendLayout();
@@ -54,9 +52,9 @@
             // 
             // BCancelar
             // 
-            this.BCancelar.Location = new System.Drawing.Point(197, 353);
+            this.BCancelar.Location = new System.Drawing.Point(178, 341);
             this.BCancelar.Name = "BCancelar";
-            this.BCancelar.Size = new System.Drawing.Size(75, 23);
+            this.BCancelar.Size = new System.Drawing.Size(94, 35);
             this.BCancelar.TabIndex = 38;
             this.BCancelar.Text = "Cancelar";
             this.BCancelar.UseVisualStyleBackColor = true;
@@ -64,21 +62,13 @@
             // 
             // BFin
             // 
-            this.BFin.Location = new System.Drawing.Point(353, 353);
+            this.BFin.Location = new System.Drawing.Point(330, 341);
             this.BFin.Name = "BFin";
-            this.BFin.Size = new System.Drawing.Size(75, 23);
+            this.BFin.Size = new System.Drawing.Size(92, 35);
             this.BFin.TabIndex = 37;
             this.BFin.Text = "Finalizar";
             this.BFin.UseVisualStyleBackColor = true;
             this.BFin.Click += new System.EventHandler(this.BFin_Click);
-            // 
-            // TLegajo
-            // 
-            this.TLegajo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TLegajo.Location = new System.Drawing.Point(87, 236);
-            this.TLegajo.Name = "TLegajo";
-            this.TLegajo.Size = new System.Drawing.Size(242, 26);
-            this.TLegajo.TabIndex = 32;
             // 
             // TEmail
             // 
@@ -118,11 +108,11 @@
             // 
             this.LLegajo.AutoSize = true;
             this.LLegajo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LLegajo.Location = new System.Drawing.Point(21, 239);
+            this.LLegajo.Location = new System.Drawing.Point(21, 77);
             this.LLegajo.Name = "LLegajo";
-            this.LLegajo.Size = new System.Drawing.Size(54, 19);
+            this.LLegajo.Size = new System.Drawing.Size(63, 19);
             this.LLegajo.TabIndex = 26;
-            this.LLegajo.Text = "Legajo";
+            this.LLegajo.Text = "Legajo: ";
             // 
             // LEmail
             // 
@@ -168,7 +158,7 @@
             // 
             this.LTitulo.AutoSize = true;
             this.LTitulo.Font = new System.Drawing.Font("Times New Roman", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LTitulo.Location = new System.Drawing.Point(194, 20);
+            this.LTitulo.Location = new System.Drawing.Point(12, 9);
             this.LTitulo.Name = "LTitulo";
             this.LTitulo.Size = new System.Drawing.Size(369, 31);
             this.LTitulo.TabIndex = 21;
@@ -217,26 +207,16 @@
             this.RBActivado.Text = "Activado";
             this.RBActivado.UseVisualStyleBackColor = true;
             // 
-            // LIdempleado
+            // LMostrarLeg
             // 
-            this.LIdempleado.AutoSize = true;
-            this.LIdempleado.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LIdempleado.Location = new System.Drawing.Point(21, 77);
-            this.LIdempleado.Name = "LIdempleado";
-            this.LIdempleado.Size = new System.Drawing.Size(123, 19);
-            this.LIdempleado.TabIndex = 41;
-            this.LIdempleado.Text = "ID del empleado: ";
-            // 
-            // LID
-            // 
-            this.LID.AutoSize = true;
-            this.LID.Font = new System.Drawing.Font("Times New Roman", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LID.ForeColor = System.Drawing.Color.White;
-            this.LID.Location = new System.Drawing.Point(150, 77);
-            this.LID.Name = "LID";
-            this.LID.Size = new System.Drawing.Size(27, 19);
-            this.LID.TabIndex = 42;
-            this.LID.Text = "ID";
+            this.LMostrarLeg.AutoSize = true;
+            this.LMostrarLeg.Font = new System.Drawing.Font("Times New Roman", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LMostrarLeg.ForeColor = System.Drawing.Color.White;
+            this.LMostrarLeg.Location = new System.Drawing.Point(90, 77);
+            this.LMostrarLeg.Name = "LMostrarLeg";
+            this.LMostrarLeg.Size = new System.Drawing.Size(55, 19);
+            this.LMostrarLeg.TabIndex = 42;
+            this.LMostrarLeg.Text = "Legajo";
             // 
             // LMantenerAct
             // 
@@ -264,15 +244,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(714, 420);
+            this.ControlBox = false;
             this.Controls.Add(this.LMantenerIna);
             this.Controls.Add(this.LMantenerAct);
-            this.Controls.Add(this.LID);
-            this.Controls.Add(this.LIdempleado);
+            this.Controls.Add(this.LMostrarLeg);
             this.Controls.Add(this.PEstado);
             this.Controls.Add(this.LEstado);
             this.Controls.Add(this.BCancelar);
             this.Controls.Add(this.BFin);
-            this.Controls.Add(this.TLegajo);
             this.Controls.Add(this.TEmail);
             this.Controls.Add(this.TTelefono);
             this.Controls.Add(this.TNombre);
@@ -284,6 +263,7 @@
             this.Controls.Add(this.LApellido);
             this.Controls.Add(this.LTitulo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "EditarEmp";
             this.Text = "EditarEmp";
             this.PEstado.ResumeLayout(false);
@@ -297,7 +277,6 @@
 
         private System.Windows.Forms.Button BCancelar;
         private System.Windows.Forms.Button BFin;
-        private System.Windows.Forms.TextBox TLegajo;
         private System.Windows.Forms.TextBox TEmail;
         private System.Windows.Forms.TextBox TTelefono;
         private System.Windows.Forms.TextBox TNombre;
@@ -312,8 +291,7 @@
         private System.Windows.Forms.Panel PEstado;
         private System.Windows.Forms.RadioButton RBDesactivado;
         private System.Windows.Forms.RadioButton RBActivado;
-        private System.Windows.Forms.Label LIdempleado;
-        private System.Windows.Forms.Label LID;
+        private System.Windows.Forms.Label LMostrarLeg;
         private System.Windows.Forms.Label LMantenerAct;
         private System.Windows.Forms.Label LMantenerIna;
     }

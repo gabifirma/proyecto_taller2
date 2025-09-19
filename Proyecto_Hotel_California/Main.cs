@@ -61,11 +61,6 @@ namespace Proyecto_Hotel_California
             }
         }
 
-        private void BInicio_Click(object sender, EventArgs e)
-        {
-            abrirFormHIjo(new Home());
-        }
-
         private void BClientes_Click(object sender, EventArgs e)
         {
             abrirFormHIjo(new Clientes());
