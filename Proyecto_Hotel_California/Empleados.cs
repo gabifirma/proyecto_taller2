@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,15 +8,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Proyecto_Hotel_California.Styles;
 
 namespace Proyecto_Hotel_California
 {
-    public partial class Empleados : Form
+    public partial class Empleados : BaseResponsiveForm
     {
         public Empleados()
         {
             InitializeComponent();
+            // La clase base BaseResponsiveForm se encarga del responsive design automáticamente
         }
+        
+
+        // Método eliminado - los estilos se aplican automáticamente por BaseResponsiveForm
 
         private bool EmpleadoExiste(int idEmpleado)
         {

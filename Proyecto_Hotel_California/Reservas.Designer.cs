@@ -61,7 +61,7 @@ namespace Proyecto_Hotel_California
             // 
             this.GrillaReservas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GrillaReservas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GrillaReservas.Location = new System.Drawing.Point(12, 200);
+            this.GrillaReservas.Location = new System.Drawing.Point(12, 210);
             this.GrillaReservas.Name = "GrillaReservas";
             this.GrillaReservas.ReadOnly = true;
             this.GrillaReservas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -83,7 +83,7 @@ namespace Proyecto_Hotel_California
             this.groupBoxFiltros.Controls.Add(this.txtBuscarCliente);
             this.groupBoxFiltros.Location = new System.Drawing.Point(12, 50);
             this.groupBoxFiltros.Name = "groupBoxFiltros";
-            this.groupBoxFiltros.Size = new System.Drawing.Size(580, 100);
+            this.groupBoxFiltros.Size = new System.Drawing.Size(600, 110);
             this.groupBoxFiltros.TabIndex = 2;
             this.groupBoxFiltros.TabStop = false;
             this.groupBoxFiltros.Text = "Filtros de Búsqueda";
@@ -104,39 +104,39 @@ namespace Proyecto_Hotel_California
             this.lblBuscarCliente.TabIndex = 1;
             this.lblBuscarCliente.Text = "Cliente:";
             // 
-            // dtpFechaInicio
-            // 
-            this.dtpFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaInicio.Location = new System.Drawing.Point(310, 25);
-            this.dtpFechaInicio.Name = "dtpFechaInicio";
-            this.dtpFechaInicio.Size = new System.Drawing.Size(100, 20);
-            this.dtpFechaInicio.TabIndex = 2;
-            // 
-            // dtpFechaFin
-            // 
-            this.dtpFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaFin.Location = new System.Drawing.Point(470, 25);
-            this.dtpFechaFin.Name = "dtpFechaFin";
-            this.dtpFechaFin.Size = new System.Drawing.Size(100, 20);
-            this.dtpFechaFin.TabIndex = 3;
-            // 
             // lblFechaInicio
             // 
             this.lblFechaInicio.AutoSize = true;
-            this.lblFechaInicio.Location = new System.Drawing.Point(245, 28);
+            this.lblFechaInicio.Location = new System.Drawing.Point(270, 25);
             this.lblFechaInicio.Name = "lblFechaInicio";
             this.lblFechaInicio.Size = new System.Drawing.Size(68, 13);
             this.lblFechaInicio.TabIndex = 4;
             this.lblFechaInicio.Text = "Fecha Inicio:";
             // 
+            // dtpFechaInicio
+            // 
+            this.dtpFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaInicio.Location = new System.Drawing.Point(270, 45);
+            this.dtpFechaInicio.Name = "dtpFechaInicio";
+            this.dtpFechaInicio.Size = new System.Drawing.Size(100, 20);
+            this.dtpFechaInicio.TabIndex = 2;
+            // 
             // lblFechaFin
             // 
             this.lblFechaFin.AutoSize = true;
-            this.lblFechaFin.Location = new System.Drawing.Point(420, 28);
+            this.lblFechaFin.Location = new System.Drawing.Point(390, 25);
             this.lblFechaFin.Name = "lblFechaFin";
             this.lblFechaFin.Size = new System.Drawing.Size(57, 13);
             this.lblFechaFin.TabIndex = 5;
             this.lblFechaFin.Text = "Fecha Fin:";
+            // 
+            // dtpFechaFin
+            // 
+            this.dtpFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaFin.Location = new System.Drawing.Point(390, 45);
+            this.dtpFechaFin.Name = "dtpFechaFin";
+            this.dtpFechaFin.Size = new System.Drawing.Size(100, 20);
+            this.dtpFechaFin.TabIndex = 3;
             // 
             // cmbEstado
             // 
@@ -166,7 +166,7 @@ namespace Proyecto_Hotel_California
             this.btnBuscar.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
-            this.btnBuscar.Location = new System.Drawing.Point(310, 55);
+            this.btnBuscar.Location = new System.Drawing.Point(510, 45);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 25);
             this.btnBuscar.TabIndex = 8;
@@ -179,7 +179,7 @@ namespace Proyecto_Hotel_California
             this.btnLimpiarFiltros.BackColor = System.Drawing.SystemColors.ControlDark;
             this.btnLimpiarFiltros.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimpiarFiltros.ForeColor = System.Drawing.Color.White;
-            this.btnLimpiarFiltros.Location = new System.Drawing.Point(400, 55);
+            this.btnLimpiarFiltros.Location = new System.Drawing.Point(510, 75);
             this.btnLimpiarFiltros.Name = "btnLimpiarFiltros";
             this.btnLimpiarFiltros.Size = new System.Drawing.Size(75, 25);
             this.btnLimpiarFiltros.TabIndex = 9;

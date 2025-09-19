@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HotelCalifornia;
-using HotelCalifornia.Services;
+using Proyecto_Hotel_California.Styles;
 
 namespace Proyecto_Hotel_California
 {
@@ -17,9 +17,15 @@ namespace Proyecto_Hotel_California
         public Main()
         {
             InitializeComponent();
+            ApplyStyles();
             ConfigureMenuByRole();
             UpdateHeader();
-            DataService.InitializeData();
+            DatabaseHelper.InitializeDatabase();
+        }
+
+        private void ApplyStyles()
+        {
+            AppStyles.ApplyFormStyle(this);
         }
 
         private void abrirFormHIjo(object formhijo)
@@ -32,6 +38,27 @@ namespace Proyecto_Hotel_California
             this.PContenedor.Controls.Add(fh);
             this.PContenedor.Tag = fh;
             fh.Show();
+            
+            // Si es el formulario Home, forzar refresh después de mostrarlo
+            if (fh is Home homeForm)
+            {
+                // Usar múltiples intentos para asegurar que se cargue correctamente
+                Timer refreshTimer = new Timer();
+                refreshTimer.Interval = 100;
+                int attempts = 0;
+                refreshTimer.Tick += (s, e) =>
+                {
+                    attempts++;
+                    homeForm.ForceRefresh();
+                    
+                    if (attempts >= 2) // Intentar 2 veces
+                    {
+                        refreshTimer.Stop();
+                        refreshTimer.Dispose();
+                    }
+                };
+                refreshTimer.Start();
+            }
         }
 
         private void BInicio_Click(object sender, EventArgs e)

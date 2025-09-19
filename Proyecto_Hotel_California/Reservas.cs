@@ -9,17 +9,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HotelCalifornia.Models;
 using HotelCalifornia.Services;
-using HotelCalifornia;
+using Proyecto_Hotel_California.Styles;
 
 namespace Proyecto_Hotel_California
 {
-    public partial class Reservas : Form
+    public partial class Reservas : BaseResponsiveForm
     {
         private List<Reserva> reservasActuales;
 
         public Reservas()
         {
             InitializeComponent();
+            // La clase base BaseResponsiveForm se encarga del responsive design automáticamente
+            this.WindowState = FormWindowState.Maximized;
         }
 
         private void Reservas_Load(object sender, EventArgs e)
@@ -28,11 +30,39 @@ namespace Proyecto_Hotel_California
             LoadReservas();
         }
 
+        private void Reservas_Resize(object sender, EventArgs e)
+        {
+            AdjustControlsForResize();
+        }
+
+        private void AdjustControlsForResize()
+        {
+            if (this.WindowState == FormWindowState.Minimized) return;
+
+            // Ajustar el título
+            LTituloReservas.Left = (this.ClientSize.Width - LTituloReservas.Width) / 2;
+
+            // Ajustar el grupo de filtros
+            groupBoxFiltros.Width = this.ClientSize.Width - 40;
+
+            // Ajustar la grilla
+            GrillaReservas.Width = this.ClientSize.Width - 24;
+            GrillaReservas.Height = this.ClientSize.Height - GrillaReservas.Top - 80;
+
+            // Ajustar botones
+            int buttonY = this.ClientSize.Height - 60;
+            btnNuevaReserva.Top = buttonY;
+            btnVerPagos.Top = buttonY;
+            btnVerPagos.Left = this.ClientSize.Width - btnVerPagos.Width - 20;
+        }
+
         private void InitializeForm()
         {
             // Configurar fechas por defecto
             dtpFechaInicio.Value = DateTime.Now.AddDays(-30);
             dtpFechaFin.Value = DateTime.Now.AddDays(30);
+            cmbEstado.Items.Clear();
+            cmbEstado.Items.AddRange(new string[] { "Todos", "Confirmada", "Pendiente", "Anulada" });
             cmbEstado.SelectedIndex = 0; // "Todos"
             
             // Configurar DataGridView
@@ -49,7 +79,7 @@ namespace Proyecto_Hotel_California
                 Name = "Id",
                 HeaderText = "ID",
                 DataPropertyName = "Id",
-                Width = 60
+                Width = 80
             });
 
             GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn
@@ -91,6 +121,22 @@ namespace Proyecto_Hotel_California
                 Name = "Estado",
                 HeaderText = "Estado",
                 DataPropertyName = "Estado",
+                Width = 100
+            });
+
+            GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "MetodoPago",
+                HeaderText = "Método Pago",
+                DataPropertyName = "MetodoPago",
+                Width = 100
+            });
+
+            GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "CantidadHuespedes",
+                HeaderText = "Huéspedes",
+                DataPropertyName = "CantidadHuespedes",
                 Width = 80
             });
 
@@ -102,39 +148,48 @@ namespace Proyecto_Hotel_California
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" },
                 Width = 100
             });
+
+            // Configurar para redimensionamiento automático
+            GrillaReservas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void LoadReservas()
         {
             try
             {
+                // Usar DataService para obtener las reservas
                 reservasActuales = DataService.GetReservas();
                 GrillaReservas.DataSource = reservasActuales;
                 
                 // Colorear filas según estado
-                foreach (DataGridViewRow row in GrillaReservas.Rows)
-                {
-                    if (row.DataBoundItem is Reserva reserva)
-                    {
-                        switch (reserva.Estado)
-                        {
-                            case "Confirmada":
-                                row.DefaultCellStyle.BackColor = Color.LightGreen;
-                                break;
-                            case "Pendiente":
-                                row.DefaultCellStyle.BackColor = Color.LightYellow;
-                                break;
-                            case "Anulada":
-                                row.DefaultCellStyle.BackColor = Color.LightCoral;
-                                break;
-                        }
-                    }
-                }
+                ApplyRowColors();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar reservas: {ex.Message}", "Error", 
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ApplyRowColors()
+        {
+            foreach (DataGridViewRow row in GrillaReservas.Rows)
+            {
+                if (row.DataBoundItem is Reserva reserva)
+                {
+                    switch (reserva.Estado)
+                    {
+                        case "Confirmada":
+                            row.DefaultCellStyle.BackColor = Color.LightGreen;
+                            break;
+                        case "Pendiente":
+                            row.DefaultCellStyle.BackColor = Color.LightYellow;
+                            break;
+                        case "Anulada":
+                            row.DefaultCellStyle.BackColor = Color.LightCoral;
+                            break;
+                    }
+                }
             }
         }
 
@@ -151,29 +206,12 @@ namespace Proyecto_Hotel_California
                 string estado = cmbEstado.SelectedItem?.ToString();
                 if (estado == "Todos") estado = null;
 
+                // Usar el método de filtrado del DataService
                 var reservasFiltradas = DataService.FilterReservas(cliente, fechaInicio, fechaFin, estado);
-                reservasActuales = reservasFiltradas;
                 GrillaReservas.DataSource = reservasFiltradas;
 
                 // Aplicar colores nuevamente
-                foreach (DataGridViewRow row in GrillaReservas.Rows)
-                {
-                    if (row.DataBoundItem is Reserva reserva)
-                    {
-                        switch (reserva.Estado)
-                        {
-                            case "Confirmada":
-                                row.DefaultCellStyle.BackColor = Color.LightGreen;
-                                break;
-                            case "Pendiente":
-                                row.DefaultCellStyle.BackColor = Color.LightYellow;
-                                break;
-                            case "Anulada":
-                                row.DefaultCellStyle.BackColor = Color.LightCoral;
-                                break;
-                        }
-                    }
-                }
+                ApplyRowColors();
             }
             catch (Exception ex)
             {
@@ -192,6 +230,8 @@ namespace Proyecto_Hotel_California
             txtBuscarCliente.Clear();
             dtpFechaInicio.Value = DateTime.Now.AddDays(-30);
             dtpFechaFin.Value = DateTime.Now.AddDays(30);
+            dtpFechaInicio.Checked = false;
+            dtpFechaFin.Checked = false;
             cmbEstado.SelectedIndex = 0;
             LoadReservas();
         }
@@ -200,12 +240,16 @@ namespace Proyecto_Hotel_California
         {
             try
             {
-                CrearReservaForm crearForm = new CrearReservaForm();
-                if (crearForm.ShowDialog() == DialogResult.OK)
+                // Abrir el formulario de crear reserva
+                using (var crearReservaForm = new CrearReservaForm())
                 {
-                    LoadReservas(); // Recargar la lista después de crear
-                    MessageBox.Show("Reserva creada exitosamente.", "Éxito", 
-                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (crearReservaForm.ShowDialog() == DialogResult.OK)
+                    {
+                        // Recargar las reservas después de crear una nueva
+                        LoadReservas();
+                        MessageBox.Show("Reserva creada exitosamente.", "Éxito", 
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
             catch (Exception ex)
@@ -227,6 +271,8 @@ namespace Proyecto_Hotel_California
             try
             {
                 var reservaSeleccionada = (Reserva)GrillaReservas.SelectedRows[0].DataBoundItem;
+                
+                // Obtener pagos reales usando DataService
                 var pagos = DataService.GetPagosByReservaId(reservaSeleccionada.Id);
 
                 string mensaje = $"Pagos para la reserva {reservaSeleccionada.Id} - {reservaSeleccionada.Cliente}:\n\n";

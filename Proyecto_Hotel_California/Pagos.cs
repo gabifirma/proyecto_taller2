@@ -9,17 +9,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HotelCalifornia.Models;
 using HotelCalifornia.Services;
-using HotelCalifornia;
+using Proyecto_Hotel_California.Styles;
 
 namespace Proyecto_Hotel_California
 {
-    public partial class Pagos : Form
+    public partial class Pagos : BaseResponsiveForm
     {
         private List<Pago> pagosActuales;
 
         public Pagos()
         {
             InitializeComponent();
+            // La clase base BaseResponsiveForm se encarga del responsive design automáticamente
+            this.WindowState = FormWindowState.Maximized;
         }
 
         private void Pagos_Load(object sender, EventArgs e)
@@ -28,11 +30,51 @@ namespace Proyecto_Hotel_California
             LoadPagos();
         }
 
+        private void Pagos_Resize(object sender, EventArgs e)
+        {
+            AdjustControlsForResize();
+        }
+
+        private void AdjustControlsForResize()
+        {
+            if (this.WindowState == FormWindowState.Minimized) return;
+
+            // Ajustar el título
+            LTituloPagos.Left = (this.ClientSize.Width - LTituloPagos.Width) / 2;
+
+            // Ajustar el grupo de filtros
+            var groupBoxFiltros = this.Controls.OfType<GroupBox>().FirstOrDefault();
+            if (groupBoxFiltros != null)
+            {
+                groupBoxFiltros.Width = this.ClientSize.Width - 40;
+            }
+
+            // Ajustar la grilla
+            GrillaPagos.Width = this.ClientSize.Width - 24;
+            GrillaPagos.Height = this.ClientSize.Height - GrillaPagos.Top - 80;
+
+            // Ajustar botones
+            int buttonY = this.ClientSize.Height - 60;
+            var btnNuevoPago = this.Controls.OfType<Button>().FirstOrDefault(b => b.Name == "btnNuevoPago");
+            if (btnNuevoPago != null)
+            {
+                btnNuevoPago.Top = buttonY;
+            }
+        }
+
         private void InitializeForm()
         {
             // Configurar fecha por defecto
             dtpFechaPago.Value = DateTime.Now;
+            dtpFechaPago.Checked = false;
+            
+            // Configurar combos
+            cmbEstado.Items.Clear();
+            cmbEstado.Items.AddRange(new string[] { "Todos", "Confirmado", "Pendiente", "Reembolsado" });
             cmbEstado.SelectedIndex = 0; // "Todos"
+            
+            cmbMetodoPago.Items.Clear();
+            cmbMetodoPago.Items.AddRange(new string[] { "Todos", "Tarjeta", "Efectivo", "Transferencia" });
             cmbMetodoPago.SelectedIndex = 0; // "Todos"
             
             // Configurar DataGridView
@@ -49,7 +91,7 @@ namespace Proyecto_Hotel_California
                 Name = "Id",
                 HeaderText = "ID",
                 DataPropertyName = "Id",
-                Width = 60
+                Width = 80
             });
 
             GrillaPagos.Columns.Add(new DataGridViewTextBoxColumn
@@ -57,7 +99,7 @@ namespace Proyecto_Hotel_California
                 Name = "ReservaId",
                 HeaderText = "Reserva",
                 DataPropertyName = "ReservaId",
-                Width = 80
+                Width = 100
             });
 
             GrillaPagos.Columns.Add(new DataGridViewTextBoxColumn
@@ -95,19 +137,23 @@ namespace Proyecto_Hotel_California
             });
 
             // Agregar columna para mostrar cliente
-            var clienteColumn = new DataGridViewTextBoxColumn
+            GrillaPagos.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Cliente",
                 HeaderText = "Cliente",
+                DataPropertyName = "Cliente",
                 Width = 150
-            };
-            GrillaPagos.Columns.Add(clienteColumn);
+            });
+
+            // Configurar para redimensionamiento automático
+            GrillaPagos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void LoadPagos()
         {
             try
             {
+                // Usar DataService para obtener los pagos
                 pagosActuales = DataService.GetPagos();
                 var reservas = DataService.GetReservas();
                 
@@ -126,30 +172,35 @@ namespace Proyecto_Hotel_California
                 GrillaPagos.DataSource = pagosConCliente;
                 
                 // Colorear filas según estado
-                foreach (DataGridViewRow row in GrillaPagos.Rows)
-                {
-                    if (row.Cells["Estado"].Value != null)
-                    {
-                        string estado = row.Cells["Estado"].Value.ToString();
-                        switch (estado)
-                        {
-                            case "Confirmado":
-                                row.DefaultCellStyle.BackColor = Color.LightGreen;
-                                break;
-                            case "Pendiente":
-                                row.DefaultCellStyle.BackColor = Color.LightYellow;
-                                break;
-                            case "Reembolsado":
-                                row.DefaultCellStyle.BackColor = Color.LightCoral;
-                                break;
-                        }
-                    }
-                }
+                ApplyRowColors();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar pagos: {ex.Message}", "Error", 
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ApplyRowColors()
+        {
+            foreach (DataGridViewRow row in GrillaPagos.Rows)
+            {
+                if (row.Cells["Estado"].Value != null)
+                {
+                    string estado = row.Cells["Estado"].Value.ToString();
+                    switch (estado)
+                    {
+                        case "Confirmado":
+                            row.DefaultCellStyle.BackColor = Color.LightGreen;
+                            break;
+                        case "Pendiente":
+                            row.DefaultCellStyle.BackColor = Color.LightYellow;
+                            break;
+                        case "Reembolsado":
+                            row.DefaultCellStyle.BackColor = Color.LightCoral;
+                            break;
+                    }
+                }
             }
         }
 
@@ -167,6 +218,7 @@ namespace Proyecto_Hotel_California
                 string metodoPago = cmbMetodoPago.SelectedItem?.ToString();
                 if (metodoPago == "Todos") metodoPago = null;
 
+                // Usar el método de filtrado del DataService
                 var pagosFiltrados = DataService.FilterPagos(cliente, fecha, estado, metodoPago);
                 var reservas = DataService.GetReservas();
                 
@@ -184,25 +236,7 @@ namespace Proyecto_Hotel_California
                 GrillaPagos.DataSource = pagosConCliente;
 
                 // Aplicar colores nuevamente
-                foreach (DataGridViewRow row in GrillaPagos.Rows)
-                {
-                    if (row.Cells["Estado"].Value != null)
-                    {
-                        string estadoRow = row.Cells["Estado"].Value.ToString();
-                        switch (estadoRow)
-                        {
-                            case "Confirmado":
-                                row.DefaultCellStyle.BackColor = Color.LightGreen;
-                                break;
-                            case "Pendiente":
-                                row.DefaultCellStyle.BackColor = Color.LightYellow;
-                                break;
-                            case "Reembolsado":
-                                row.DefaultCellStyle.BackColor = Color.LightCoral;
-                                break;
-                        }
-                    }
-                }
+                ApplyRowColors();
             }
             catch (Exception ex)
             {
@@ -220,6 +254,7 @@ namespace Proyecto_Hotel_California
         {
             txtBuscarCliente.Clear();
             dtpFechaPago.Value = DateTime.Now;
+            dtpFechaPago.Checked = false;
             cmbEstado.SelectedIndex = 0;
             cmbMetodoPago.SelectedIndex = 0;
             LoadPagos();
@@ -229,12 +264,16 @@ namespace Proyecto_Hotel_California
         {
             try
             {
-                CrearPagoForm crearForm = new CrearPagoForm();
-                if (crearForm.ShowDialog() == DialogResult.OK)
+                // Abrir el formulario de crear pago
+                using (var crearPagoForm = new CrearPagoForm())
                 {
-                    LoadPagos(); // Recargar la lista después de crear
-                    MessageBox.Show("Pago registrado exitosamente.", "Éxito", 
-                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (crearPagoForm.ShowDialog() == DialogResult.OK)
+                    {
+                        // Recargar los pagos después de crear uno nuevo
+                        LoadPagos();
+                        MessageBox.Show("Pago registrado exitosamente.", "Éxito", 
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
             catch (Exception ex)
