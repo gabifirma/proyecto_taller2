@@ -9,11 +9,6 @@ namespace HotelCalifornia
     {
         private static string connectionString = ConfigurationManager.ConnectionStrings["HotelConnectionString"].ConnectionString;
 
-        public static string GetConnectionString()
-        {
-            return connectionString;
-        }
-
         public static bool TestConnection()
         {
             try
@@ -127,6 +122,7 @@ namespace HotelCalifornia
             {
                 // Si hay error de base de datos, retornar null
             }
+
             return null;
         }
     }

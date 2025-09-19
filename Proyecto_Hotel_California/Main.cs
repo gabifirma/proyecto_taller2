@@ -29,6 +29,11 @@ namespace Proyecto_Hotel_California
             fh.Show();
         }
 
+        private void BInicio_Click(object sender, EventArgs e)
+        {
+            abrirFormHIjo(new Home());
+        }
+
         private void BClientes_Click(object sender, EventArgs e)
         {
             abrirFormHIjo(new Clientes());

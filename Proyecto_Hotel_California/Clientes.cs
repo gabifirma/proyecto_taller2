@@ -31,7 +31,60 @@ namespace Proyecto_Hotel_California
 
         private void BBuscar_Click(object sender, EventArgs e)
         {
-            
+            // Validar solo si hay texto
+            if (!string.IsNullOrEmpty(TApellido.Text) && !SoloLetras(TApellido.Text))
+            {
+                MessageBox.Show("Solo se permiten letras para apellido");
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(TNombre.Text) && !SoloLetras(TNombre.Text))
+            {
+                MessageBox.Show("Solo se permiten letras para nombre");
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(TTelefono.Text) && !SoloNumeros(TTelefono.Text))
+            {
+                MessageBox.Show("Solo se permiten números para teléfono");
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(TDni.Text) && !int.TryParse(TDni.Text, out _))
+            {
+                MessageBox.Show("El DNI debe ser numérico");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(TApellido.Text) && string.IsNullOrEmpty(TNombre.Text) && 
+                string.IsNullOrEmpty(TTelefono.Text) && string.IsNullOrEmpty(TDni.Text) && 
+                string.IsNullOrEmpty(TEmail.Text))
+            {
+                MessageBox.Show("Debe ingresar al menos un criterio de búsqueda");
+                return;
+            }
+            else
+            {
+
+            }
+        }
+
+        private void TNombre_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(TApellido.Text))
+            {
+                string texto = TNombre.Text.ToLower(); // todo en minúscula
+                TNombre.Text = char.ToUpper(texto[0]) + texto.Substring(1); // primera en mayúscula
+            }
+        }
+
+        private void TApellido_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(TApellido.Text))
+            {
+                string texto = TApellido.Text.ToLower(); // todo en minúscula
+                TApellido.Text = char.ToUpper(texto[0]) + texto.Substring(1); // primera en mayúscula
+            }
         }
     }
 }
