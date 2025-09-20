@@ -15,11 +15,11 @@ namespace HotelCalifornia
 {
     public partial class EditarEmp : Form
     {
-        private int empleadoId;
-        public EditarEmp(int id)
+        private int empleadoLegajo;
+        public EditarEmp(int legajo)
         {
             InitializeComponent();
-            empleadoId = id;
+            empleadoLegajo = legajo;
             ApplyStyles();
             CargarEmpleado();
         }
@@ -82,16 +82,14 @@ namespace HotelCalifornia
 
         private void CargarEmpleado()
         {
-            string conexion = "Server=DESKTOP-9V9JJ39\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
-
-            using (SqlConnection conn = new SqlConnection(conexion))
+            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
                 conn.Open();
-                string query = "SELECT apellido, nombre, legajo, telefono, email, estado FROM Empleado WHERE id_empleado = @Id";
+                string query = "SELECT apellido, nombre, legajo, telefono, email, estado FROM Empleado WHERE legajo = @Legajo";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@Id", empleadoId);
+                    cmd.Parameters.AddWithValue("@Legajo", empleadoLegajo);
 
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
@@ -154,14 +152,12 @@ namespace HotelCalifornia
             //guardarlo todo en la base de datos
             if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && SoloNumeros(TTelefono.Text))
             {
-                string conexion = "Server=DESKTOP-9V9JJ39\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
-
-                using (SqlConnection conn = new SqlConnection(conexion))
+                using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
                 {
                     conn.Open();
                     string query = @"UPDATE Empleado 
                          SET apellido=@Apellido, nombre=@Nombre, legajo=@Legajo, telefono=@Telefono, email=@Email, estado=@Estado
-                         WHERE id_empleado=@Id";
+                         WHERE legajo=@Legajo";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -170,7 +166,6 @@ namespace HotelCalifornia
                         cmd.Parameters.AddWithValue("@Legajo", LMostrarLeg.Text); // Legajo no editable
                         cmd.Parameters.AddWithValue("@Telefono", TTelefono.Text);
                         cmd.Parameters.AddWithValue("@Email", TEmail.Text);
-                        cmd.Parameters.AddWithValue("@Id", empleadoId);
                         if (RBActivado.Checked)
                         {
                             cmd.Parameters.AddWithValue("@Estado", true);

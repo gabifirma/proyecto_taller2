@@ -211,7 +211,7 @@ namespace HotelCalifornia
             // 
             this.LMostrarLeg.AutoSize = true;
             this.LMostrarLeg.Font = new System.Drawing.Font("Times New Roman", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LMostrarLeg.ForeColor = System.Drawing.Color.White;
+            this.LMostrarLeg.ForeColor = System.Drawing.Color.Black;
             this.LMostrarLeg.Location = new System.Drawing.Point(90, 77);
             this.LMostrarLeg.Name = "LMostrarLeg";
             this.LMostrarLeg.Size = new System.Drawing.Size(55, 19);
