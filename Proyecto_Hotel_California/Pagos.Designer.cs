@@ -41,6 +41,8 @@ namespace Proyecto_Hotel_California
             this.dtpFechaPago = new System.Windows.Forms.DateTimePicker();
             this.lblBuscarCliente = new System.Windows.Forms.Label();
             this.txtBuscarCliente = new System.Windows.Forms.TextBox();
+            this.lblEstadoActivacion = new System.Windows.Forms.Label();
+            this.cmbEstadoActivacion = new System.Windows.Forms.ComboBox();
             this.btnNuevoPago = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaPagos)).BeginInit();
             this.groupBoxFiltros.SuspendLayout();
@@ -51,7 +53,7 @@ namespace Proyecto_Hotel_California
             this.GrillaPagos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GrillaPagos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GrillaPagos.Location = new System.Drawing.Point(14, 262);
-            this.GrillaPagos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.GrillaPagos.Margin = new System.Windows.Forms.Padding(4);
             this.GrillaPagos.Name = "GrillaPagos";
             this.GrillaPagos.ReadOnly = true;
             this.GrillaPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -72,6 +74,8 @@ namespace Proyecto_Hotel_California
             // 
             // groupBoxFiltros
             // 
+            this.groupBoxFiltros.Controls.Add(this.cmbEstadoActivacion);
+            this.groupBoxFiltros.Controls.Add(this.lblEstadoActivacion);
             this.groupBoxFiltros.Controls.Add(this.btnLimpiarFiltros);
             this.groupBoxFiltros.Controls.Add(this.btnBuscar);
             this.groupBoxFiltros.Controls.Add(this.lblMetodoPago);
@@ -83,9 +87,9 @@ namespace Proyecto_Hotel_California
             this.groupBoxFiltros.Controls.Add(this.lblBuscarCliente);
             this.groupBoxFiltros.Controls.Add(this.txtBuscarCliente);
             this.groupBoxFiltros.Location = new System.Drawing.Point(14, 65);
-            this.groupBoxFiltros.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxFiltros.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxFiltros.Name = "groupBoxFiltros";
-            this.groupBoxFiltros.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxFiltros.Padding = new System.Windows.Forms.Padding(4);
             this.groupBoxFiltros.Size = new System.Drawing.Size(677, 131);
             this.groupBoxFiltros.TabIndex = 2;
             this.groupBoxFiltros.TabStop = false;
@@ -97,7 +101,7 @@ namespace Proyecto_Hotel_California
             this.btnLimpiarFiltros.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimpiarFiltros.ForeColor = System.Drawing.Color.White;
             this.btnLimpiarFiltros.Location = new System.Drawing.Point(572, 33);
-            this.btnLimpiarFiltros.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLimpiarFiltros.Margin = new System.Windows.Forms.Padding(4);
             this.btnLimpiarFiltros.Name = "btnLimpiarFiltros";
             this.btnLimpiarFiltros.Size = new System.Drawing.Size(88, 33);
             this.btnLimpiarFiltros.TabIndex = 9;
@@ -111,7 +115,7 @@ namespace Proyecto_Hotel_California
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
             this.btnBuscar.Location = new System.Drawing.Point(467, 33);
-            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(88, 33);
             this.btnBuscar.TabIndex = 8;
@@ -140,7 +144,7 @@ namespace Proyecto_Hotel_California
             "Transferencia",
             "Cheque"});
             this.cmbMetodoPago.Location = new System.Drawing.Point(327, 73);
-            this.cmbMetodoPago.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbMetodoPago.Margin = new System.Windows.Forms.Padding(4);
             this.cmbMetodoPago.Name = "cmbMetodoPago";
             this.cmbMetodoPago.Size = new System.Drawing.Size(116, 25);
             this.cmbMetodoPago.TabIndex = 6;
@@ -165,7 +169,7 @@ namespace Proyecto_Hotel_California
             "Pendiente",
             "Reembolsado"});
             this.cmbEstado.Location = new System.Drawing.Point(93, 72);
-            this.cmbEstado.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbEstado.Margin = new System.Windows.Forms.Padding(4);
             this.cmbEstado.Name = "cmbEstado";
             this.cmbEstado.Size = new System.Drawing.Size(139, 25);
             this.cmbEstado.TabIndex = 4;
@@ -184,7 +188,7 @@ namespace Proyecto_Hotel_California
             // 
             this.dtpFechaPago.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFechaPago.Location = new System.Drawing.Point(327, 33);
-            this.dtpFechaPago.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpFechaPago.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFechaPago.Name = "dtpFechaPago";
             this.dtpFechaPago.Size = new System.Drawing.Size(116, 25);
             this.dtpFechaPago.TabIndex = 2;
@@ -202,10 +206,34 @@ namespace Proyecto_Hotel_California
             // txtBuscarCliente
             // 
             this.txtBuscarCliente.Location = new System.Drawing.Point(93, 33);
-            this.txtBuscarCliente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBuscarCliente.Margin = new System.Windows.Forms.Padding(4);
             this.txtBuscarCliente.Name = "txtBuscarCliente";
             this.txtBuscarCliente.Size = new System.Drawing.Size(139, 25);
             this.txtBuscarCliente.TabIndex = 0;
+            // 
+            // lblEstadoActivacion
+            // 
+            this.lblEstadoActivacion.AutoSize = true;
+            this.lblEstadoActivacion.Location = new System.Drawing.Point(18, 112);
+            this.lblEstadoActivacion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEstadoActivacion.Name = "lblEstadoActivacion";
+            this.lblEstadoActivacion.Size = new System.Drawing.Size(74, 19);
+            this.lblEstadoActivacion.TabIndex = 10;
+            this.lblEstadoActivacion.Text = "Activación:";
+            // 
+            // cmbEstadoActivacion
+            // 
+            this.cmbEstadoActivacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEstadoActivacion.FormattingEnabled = true;
+            this.cmbEstadoActivacion.Items.AddRange(new object[] {
+            "Todos",
+            "Activos",
+            "Inactivos"});
+            this.cmbEstadoActivacion.Location = new System.Drawing.Point(112, 112);
+            this.cmbEstadoActivacion.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbEstadoActivacion.Name = "cmbEstadoActivacion";
+            this.cmbEstadoActivacion.Size = new System.Drawing.Size(120, 25);
+            this.cmbEstadoActivacion.TabIndex = 11;
             // 
             // btnNuevoPago
             // 
@@ -213,7 +241,7 @@ namespace Proyecto_Hotel_California
             this.btnNuevoPago.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevoPago.ForeColor = System.Drawing.Color.White;
             this.btnNuevoPago.Location = new System.Drawing.Point(700, 92);
-            this.btnNuevoPago.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNuevoPago.Margin = new System.Windows.Forms.Padding(4);
             this.btnNuevoPago.Name = "btnNuevoPago";
             this.btnNuevoPago.Size = new System.Drawing.Size(140, 46);
             this.btnNuevoPago.TabIndex = 3;
@@ -234,7 +262,7 @@ namespace Proyecto_Hotel_California
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Pagos";
             this.Text = "Pagos";
             this.Load += new System.EventHandler(this.Pagos_Load);
@@ -261,6 +289,8 @@ namespace Proyecto_Hotel_California
         private System.Windows.Forms.Label lblMetodoPago;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnLimpiarFiltros;
+        private System.Windows.Forms.Label lblEstadoActivacion;
+        private System.Windows.Forms.ComboBox cmbEstadoActivacion;
         private System.Windows.Forms.Button btnNuevoPago;
     }
 }

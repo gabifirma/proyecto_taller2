@@ -1,4 +1,4 @@
-﻿namespace Proyecto_Hotel_California
+namespace Proyecto_Hotel_California
 {
     partial class Habitaciones
     {
