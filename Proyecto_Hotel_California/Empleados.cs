@@ -68,9 +68,7 @@ namespace HotelCalifornia
         
         private void Empleados_Load(object sender, EventArgs e)
         {
-            string conexion = "Server=DESKTOP-1Q3KGFE\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
-
-            using (SqlConnection conn = new SqlConnection(conexion))
+            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
                 conn.Open();
                 string query = "SELECT id_empleado, apellido, nombre, legajo, telefono, email, estado FROM Empleado";

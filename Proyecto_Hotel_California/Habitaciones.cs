@@ -36,9 +36,9 @@ namespace HotelCalifornia
 
         private void Habitaciones_Load(object sender, EventArgs e)
         {
-            string conexion = "Server=DESKTOP-1Q3KGFE\\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;";
+ 
 
-            using (SqlConnection conn = new SqlConnection(conexion))
+            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
                 conn.Open();
                 string query = @"SELECT 

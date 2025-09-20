@@ -67,6 +67,10 @@ namespace HotelCalifornia
                             CreateDefaultUsers(connection);
                         }
                     }
+
+                    // Crear tabla de clientes y datos de ejemplo
+                    CreateClientesTable(connection);
+                    CreateSampleClientes(connection);
                 }
             }
             catch (Exception ex)
@@ -128,6 +132,76 @@ namespace HotelCalifornia
                 // Si hay error de base de datos, retornar null
             }
             return null;
+        }
+
+        private static void CreateClientesTable(SqlConnection connection)
+        {
+            string createTableQuery = @"
+                IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Cliente' AND xtype='U')
+                CREATE TABLE Cliente (
+                    id_cliente INT IDENTITY(1,1) PRIMARY KEY,
+                    nombre NVARCHAR(50) NOT NULL,
+                    apellido NVARCHAR(50) NOT NULL,
+                    dni NVARCHAR(20) NOT NULL UNIQUE,
+                    telefono NVARCHAR(20),
+                    email NVARCHAR(100),
+                    direccion NVARCHAR(200),
+                    fecha_registro DATETIME NOT NULL DEFAULT GETDATE(),
+                    activo BIT NOT NULL DEFAULT 1
+                )";
+
+            using (SqlCommand command = new SqlCommand(createTableQuery, connection))
+            {
+                command.ExecuteNonQuery();
+            }
+        }
+
+        private static void CreateSampleClientes(SqlConnection connection)
+        {
+            // Verificar si ya existen clientes
+            string checkClientesQuery = "SELECT COUNT(*) FROM Cliente";
+            using (SqlCommand command = new SqlCommand(checkClientesQuery, connection))
+            {
+                int clienteCount = (int)command.ExecuteScalar();
+                if (clienteCount == 0)
+                {
+                    string insertClientesQuery = @"
+                        INSERT INTO Cliente (nombre, apellido, dni, telefono, email, direccion, fecha_registro, activo)
+                        VALUES 
+                        ('Juan', 'Pérez', '12345678', '011-1234-5678', 'juan.perez@email.com', 'Av. Corrientes 1234, CABA', GETDATE(), 1),
+                        ('María', 'González', '23456789', '011-2345-6789', 'maria.gonzalez@email.com', 'Av. Santa Fe 2345, CABA', GETDATE(), 1),
+                        ('Carlos', 'Rodríguez', '34567890', '011-3456-7890', 'carlos.rodriguez@email.com', 'Av. Rivadavia 3456, CABA', GETDATE(), 1),
+                        ('Ana', 'Martínez', '45678901', '011-4567-8901', 'ana.martinez@email.com', 'Av. Cabildo 4567, CABA', GETDATE(), 1),
+                        ('Luis', 'López', '56789012', '011-5678-9012', 'luis.lopez@email.com', 'Av. Las Heras 5678, CABA', GETDATE(), 1),
+                        ('Laura', 'Fernández', '67890123', '011-6789-0123', 'laura.fernandez@email.com', 'Av. Pueyrredón 6789, CABA', GETDATE(), 1),
+                        ('Roberto', 'García', '78901234', '011-7890-1234', 'roberto.garcia@email.com', 'Av. Callao 7890, CABA', GETDATE(), 1),
+                        ('Patricia', 'Sánchez', '89012345', '011-8901-2345', 'patricia.sanchez@email.com', 'Av. Scalabrini Ortiz 8901, CABA', GETDATE(), 1),
+                        ('Miguel', 'Torres', '90123456', '011-9012-3456', 'miguel.torres@email.com', 'Av. Juan B. Justo 9012, CABA', GETDATE(), 1),
+                        ('Carmen', 'Ruiz', '01234567', '011-0123-4567', 'carmen.ruiz@email.com', 'Av. Belgrano 0123, CABA', GETDATE(), 1)";
+
+                    using (SqlCommand insertCommand = new SqlCommand(insertClientesQuery, connection))
+                    {
+                        insertCommand.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        public static void InsertSampleClientesManually()
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    CreateClientesTable(connection);
+                    CreateSampleClientes(connection);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al insertar clientes de ejemplo: {ex.Message}");
+            }
         }
     }
 }

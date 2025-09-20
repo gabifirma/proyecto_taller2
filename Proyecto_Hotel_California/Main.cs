@@ -265,7 +265,7 @@ namespace HotelCalifornia
 
                 case "Supervisor":
                     // Supervisor: acceso a empleados y reservas
-                    BEmpleados.Visible = true;
+                    BEmpleados.Visible = false;
                     BReservas.Visible = true;
                     BPagos.Visible = true;
                     BClientes.Visible = true;
@@ -276,8 +276,8 @@ namespace HotelCalifornia
                     // Recepcionista: NO ver empleados, sí reservas y pagos
                     BEmpleados.Visible = false;
                     BReservas.Visible = true;
-                    BPagos.Visible = true;
-                    BClientes.Visible = true;
+                    BPagos.Visible = false;
+                    BClientes.Visible = false;
                     BHabitaciones.Visible = true;
                     break;
 
