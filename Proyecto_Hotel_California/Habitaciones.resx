@@ -138,25 +138,24 @@
   <metadata name="base_precio.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="numero_hab.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="piso.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="id_estado.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="nombre.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="capacidad.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="descripcion.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="base_precio.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="BEditarHab.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAACXSURBVEhL7ZNBCoMwFERzyeJCL+AdhPY+HseD1H0L7Txx
+        4C+yit9dHgwmEd7EqKVzsii7MhyzZF7K78xXmZQ0LP8oaxinPEnc+cyCcMn7mF0gysmmUMLumfNOmonH
+        ghR5LON+M1Huc6YkVc6XMrIgHoqP5clCK11epcur3CoHJMQ/EVfLKb+MCyB158YFMWlyuFXeqVDKH1Yr
+        ZbH8kAd4AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="BAgregarHab.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAADxSURBVEhLxZVdEsFAEIRzB5wD706GQykePbgGzoAbUPqT
+        pMr+TBIToau+Klb3jN1KdopfayLWYif2H0JmJcYiq4W4irs4ilyRJsiQvQhqBeKfU/wkpiw4NRNnQZNg
+        J2yN7hj6ihrUWr6+VeL82GKbRhVt4iS25cdSh4o2EQqChpJ6XRu4fe6gocTnDhpKfO6gocQXL/CkbET8
+        Mt0q4nW870/X/xtYcvvcQUOJzx00lPjcQUOJr2vQfVUMftl987qei4cIrut64DAs+jSheHbgIMYcP9Cd
+        LcYvUxtkyGZHZi26sjXOL1ekCTJkzaE/gIriCWKXjk/0CfM3AAAAAElFTkSuQmCC
+</value>
+  </data>
 </root>

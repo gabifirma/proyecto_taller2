@@ -28,6 +28,7 @@ namespace HotelCalifornia
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditarEmp));
             this.BCancelar = new System.Windows.Forms.Button();
             this.BFin = new System.Windows.Forms.Button();
             this.TEmail = new System.Windows.Forms.TextBox();
@@ -52,6 +53,8 @@ namespace HotelCalifornia
             // 
             // BCancelar
             // 
+            this.BCancelar.Image = ((System.Drawing.Image)(resources.GetObject("BCancelar.Image")));
+            this.BCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BCancelar.Location = new System.Drawing.Point(178, 341);
             this.BCancelar.Name = "BCancelar";
             this.BCancelar.Size = new System.Drawing.Size(94, 35);
@@ -62,6 +65,8 @@ namespace HotelCalifornia
             // 
             // BFin
             // 
+            this.BFin.Image = ((System.Drawing.Image)(resources.GetObject("BFin.Image")));
+            this.BFin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BFin.Location = new System.Drawing.Point(330, 341);
             this.BFin.Name = "BFin";
             this.BFin.Size = new System.Drawing.Size(92, 35);

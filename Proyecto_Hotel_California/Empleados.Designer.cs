@@ -28,6 +28,7 @@ namespace HotelCalifornia
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Empleados));
             this.GrillaEmpleados = new System.Windows.Forms.DataGridView();
             this.Legajo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -130,10 +131,12 @@ namespace HotelCalifornia
             // 
             // BAgregarEmp
             // 
+            this.BAgregarEmp.Image = ((System.Drawing.Image)(resources.GetObject("BAgregarEmp.Image")));
+            this.BAgregarEmp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BAgregarEmp.Location = new System.Drawing.Point(812, 72);
             this.BAgregarEmp.Margin = new System.Windows.Forms.Padding(4);
             this.BAgregarEmp.Name = "BAgregarEmp";
-            this.BAgregarEmp.Size = new System.Drawing.Size(182, 52);
+            this.BAgregarEmp.Size = new System.Drawing.Size(144, 52);
             this.BAgregarEmp.TabIndex = 2;
             this.BAgregarEmp.Text = "Agregar";
             this.BAgregarEmp.UseVisualStyleBackColor = true;
@@ -243,6 +246,8 @@ namespace HotelCalifornia
             // 
             // BBuscar
             // 
+            this.BBuscar.Image = ((System.Drawing.Image)(resources.GetObject("BBuscar.Image")));
+            this.BBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BBuscar.Location = new System.Drawing.Point(360, 286);
             this.BBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.BBuscar.Name = "BBuscar";
@@ -254,6 +259,8 @@ namespace HotelCalifornia
             // 
             // BRecargar
             // 
+            this.BRecargar.Image = ((System.Drawing.Image)(resources.GetObject("BRecargar.Image")));
+            this.BRecargar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BRecargar.Location = new System.Drawing.Point(476, 286);
             this.BRecargar.Margin = new System.Windows.Forms.Padding(4);
             this.BRecargar.Name = "BRecargar";

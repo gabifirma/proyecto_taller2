@@ -28,6 +28,7 @@ namespace HotelCalifornia
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pagos));
             this.GrillaPagos = new System.Windows.Forms.DataGridView();
             this.LTituloPagos = new System.Windows.Forms.Label();
             this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
@@ -51,7 +52,7 @@ namespace HotelCalifornia
             this.GrillaPagos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GrillaPagos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GrillaPagos.Location = new System.Drawing.Point(14, 262);
-            this.GrillaPagos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.GrillaPagos.Margin = new System.Windows.Forms.Padding(4);
             this.GrillaPagos.Name = "GrillaPagos";
             this.GrillaPagos.ReadOnly = true;
             this.GrillaPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -83,9 +84,9 @@ namespace HotelCalifornia
             this.groupBoxFiltros.Controls.Add(this.lblBuscarCliente);
             this.groupBoxFiltros.Controls.Add(this.txtBuscarCliente);
             this.groupBoxFiltros.Location = new System.Drawing.Point(14, 65);
-            this.groupBoxFiltros.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxFiltros.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxFiltros.Name = "groupBoxFiltros";
-            this.groupBoxFiltros.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxFiltros.Padding = new System.Windows.Forms.Padding(4);
             this.groupBoxFiltros.Size = new System.Drawing.Size(677, 131);
             this.groupBoxFiltros.TabIndex = 2;
             this.groupBoxFiltros.TabStop = false;
@@ -96,12 +97,15 @@ namespace HotelCalifornia
             this.btnLimpiarFiltros.BackColor = System.Drawing.SystemColors.ControlDark;
             this.btnLimpiarFiltros.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimpiarFiltros.ForeColor = System.Drawing.Color.White;
+            this.btnLimpiarFiltros.Image = ((System.Drawing.Image)(resources.GetObject("btnLimpiarFiltros.Image")));
+            this.btnLimpiarFiltros.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLimpiarFiltros.Location = new System.Drawing.Point(572, 33);
-            this.btnLimpiarFiltros.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLimpiarFiltros.Margin = new System.Windows.Forms.Padding(4);
             this.btnLimpiarFiltros.Name = "btnLimpiarFiltros";
             this.btnLimpiarFiltros.Size = new System.Drawing.Size(88, 33);
             this.btnLimpiarFiltros.TabIndex = 9;
             this.btnLimpiarFiltros.Text = "Limpiar";
+            this.btnLimpiarFiltros.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLimpiarFiltros.UseVisualStyleBackColor = false;
             this.btnLimpiarFiltros.Click += new System.EventHandler(this.btnLimpiarFiltros_Click);
             // 
@@ -110,12 +114,15 @@ namespace HotelCalifornia
             this.btnBuscar.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
+            this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
+            this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnBuscar.Location = new System.Drawing.Point(467, 33);
-            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(88, 33);
             this.btnBuscar.TabIndex = 8;
             this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
@@ -140,7 +147,7 @@ namespace HotelCalifornia
             "Transferencia",
             "Cheque"});
             this.cmbMetodoPago.Location = new System.Drawing.Point(327, 73);
-            this.cmbMetodoPago.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbMetodoPago.Margin = new System.Windows.Forms.Padding(4);
             this.cmbMetodoPago.Name = "cmbMetodoPago";
             this.cmbMetodoPago.Size = new System.Drawing.Size(116, 25);
             this.cmbMetodoPago.TabIndex = 6;
@@ -165,7 +172,7 @@ namespace HotelCalifornia
             "Pendiente",
             "Reembolsado"});
             this.cmbEstado.Location = new System.Drawing.Point(93, 72);
-            this.cmbEstado.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbEstado.Margin = new System.Windows.Forms.Padding(4);
             this.cmbEstado.Name = "cmbEstado";
             this.cmbEstado.Size = new System.Drawing.Size(139, 25);
             this.cmbEstado.TabIndex = 4;
@@ -184,7 +191,7 @@ namespace HotelCalifornia
             // 
             this.dtpFechaPago.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFechaPago.Location = new System.Drawing.Point(327, 33);
-            this.dtpFechaPago.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpFechaPago.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFechaPago.Name = "dtpFechaPago";
             this.dtpFechaPago.Size = new System.Drawing.Size(116, 25);
             this.dtpFechaPago.TabIndex = 2;
@@ -202,7 +209,7 @@ namespace HotelCalifornia
             // txtBuscarCliente
             // 
             this.txtBuscarCliente.Location = new System.Drawing.Point(93, 33);
-            this.txtBuscarCliente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBuscarCliente.Margin = new System.Windows.Forms.Padding(4);
             this.txtBuscarCliente.Name = "txtBuscarCliente";
             this.txtBuscarCliente.Size = new System.Drawing.Size(139, 25);
             this.txtBuscarCliente.TabIndex = 0;
@@ -212,8 +219,10 @@ namespace HotelCalifornia
             this.btnNuevoPago.BackColor = System.Drawing.Color.Green;
             this.btnNuevoPago.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevoPago.ForeColor = System.Drawing.Color.White;
+            this.btnNuevoPago.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevoPago.Image")));
+            this.btnNuevoPago.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNuevoPago.Location = new System.Drawing.Point(700, 92);
-            this.btnNuevoPago.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNuevoPago.Margin = new System.Windows.Forms.Padding(4);
             this.btnNuevoPago.Name = "btnNuevoPago";
             this.btnNuevoPago.Size = new System.Drawing.Size(140, 46);
             this.btnNuevoPago.TabIndex = 3;
@@ -234,7 +243,7 @@ namespace HotelCalifornia
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Pagos";
             this.Text = "Pagos";
             this.Load += new System.EventHandler(this.Pagos_Load);

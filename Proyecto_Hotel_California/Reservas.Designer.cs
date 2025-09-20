@@ -28,10 +28,13 @@ namespace HotelCalifornia
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reservas));
             this.LTituloReservas = new System.Windows.Forms.Label();
             this.GrillaReservas = new System.Windows.Forms.DataGridView();
             this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
+            this.btnVerPagos = new System.Windows.Forms.Button();
             this.btnLimpiarFiltros = new System.Windows.Forms.Button();
+            this.btnNuevaReserva = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblEstado = new System.Windows.Forms.Label();
             this.cmbEstado = new System.Windows.Forms.ComboBox();
@@ -41,8 +44,6 @@ namespace HotelCalifornia
             this.dtpFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.lblBuscarCliente = new System.Windows.Forms.Label();
             this.txtBuscarCliente = new System.Windows.Forms.TextBox();
-            this.btnNuevaReserva = new System.Windows.Forms.Button();
-            this.btnVerPagos = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaReservas)).BeginInit();
             this.groupBoxFiltros.SuspendLayout();
             this.SuspendLayout();
@@ -94,31 +95,70 @@ namespace HotelCalifornia
             this.groupBoxFiltros.TabStop = false;
             this.groupBoxFiltros.Text = "Filtros de Búsqueda";
             // 
+            // btnVerPagos
+            // 
+            this.btnVerPagos.BackColor = System.Drawing.Color.Orange;
+            this.btnVerPagos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVerPagos.ForeColor = System.Drawing.Color.White;
+            this.btnVerPagos.Image = ((System.Drawing.Image)(resources.GetObject("btnVerPagos.Image")));
+            this.btnVerPagos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVerPagos.Location = new System.Drawing.Point(560, 95);
+            this.btnVerPagos.Margin = new System.Windows.Forms.Padding(4);
+            this.btnVerPagos.Name = "btnVerPagos";
+            this.btnVerPagos.Size = new System.Drawing.Size(140, 46);
+            this.btnVerPagos.TabIndex = 4;
+            this.btnVerPagos.Text = "Ver Pagos";
+            this.btnVerPagos.UseVisualStyleBackColor = false;
+            this.btnVerPagos.Click += new System.EventHandler(this.btnVerPagos_Click);
+            // 
             // btnLimpiarFiltros
             // 
             this.btnLimpiarFiltros.BackColor = System.Drawing.SystemColors.ControlDark;
             this.btnLimpiarFiltros.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimpiarFiltros.ForeColor = System.Drawing.Color.White;
+            this.btnLimpiarFiltros.Image = ((System.Drawing.Image)(resources.GetObject("btnLimpiarFiltros.Image")));
+            this.btnLimpiarFiltros.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLimpiarFiltros.Location = new System.Drawing.Point(424, 105);
             this.btnLimpiarFiltros.Margin = new System.Windows.Forms.Padding(4);
             this.btnLimpiarFiltros.Name = "btnLimpiarFiltros";
             this.btnLimpiarFiltros.Size = new System.Drawing.Size(88, 33);
             this.btnLimpiarFiltros.TabIndex = 9;
             this.btnLimpiarFiltros.Text = "Limpiar";
+            this.btnLimpiarFiltros.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLimpiarFiltros.UseVisualStyleBackColor = false;
             this.btnLimpiarFiltros.Click += new System.EventHandler(this.btnLimpiarFiltros_Click);
+            // 
+            // btnNuevaReserva
+            // 
+            this.btnNuevaReserva.BackColor = System.Drawing.Color.Green;
+            this.btnNuevaReserva.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNuevaReserva.ForeColor = System.Drawing.Color.White;
+            this.btnNuevaReserva.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevaReserva.Image")));
+            this.btnNuevaReserva.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNuevaReserva.Location = new System.Drawing.Point(560, 32);
+            this.btnNuevaReserva.Margin = new System.Windows.Forms.Padding(4);
+            this.btnNuevaReserva.Name = "btnNuevaReserva";
+            this.btnNuevaReserva.Size = new System.Drawing.Size(140, 46);
+            this.btnNuevaReserva.TabIndex = 3;
+            this.btnNuevaReserva.Text = "Nueva Reserva";
+            this.btnNuevaReserva.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNuevaReserva.UseVisualStyleBackColor = false;
+            this.btnNuevaReserva.Click += new System.EventHandler(this.btnNuevaReserva_Click);
             // 
             // btnBuscar
             // 
             this.btnBuscar.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
+            this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
+            this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnBuscar.Location = new System.Drawing.Point(284, 105);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(88, 33);
             this.btnBuscar.TabIndex = 8;
             this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
@@ -202,34 +242,6 @@ namespace HotelCalifornia
             this.txtBuscarCliente.Name = "txtBuscarCliente";
             this.txtBuscarCliente.Size = new System.Drawing.Size(174, 25);
             this.txtBuscarCliente.TabIndex = 0;
-            // 
-            // btnNuevaReserva
-            // 
-            this.btnNuevaReserva.BackColor = System.Drawing.Color.Green;
-            this.btnNuevaReserva.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNuevaReserva.ForeColor = System.Drawing.Color.White;
-            this.btnNuevaReserva.Location = new System.Drawing.Point(560, 32);
-            this.btnNuevaReserva.Margin = new System.Windows.Forms.Padding(4);
-            this.btnNuevaReserva.Name = "btnNuevaReserva";
-            this.btnNuevaReserva.Size = new System.Drawing.Size(140, 46);
-            this.btnNuevaReserva.TabIndex = 3;
-            this.btnNuevaReserva.Text = "Nueva Reserva";
-            this.btnNuevaReserva.UseVisualStyleBackColor = false;
-            this.btnNuevaReserva.Click += new System.EventHandler(this.btnNuevaReserva_Click);
-            // 
-            // btnVerPagos
-            // 
-            this.btnVerPagos.BackColor = System.Drawing.Color.Orange;
-            this.btnVerPagos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVerPagos.ForeColor = System.Drawing.Color.White;
-            this.btnVerPagos.Location = new System.Drawing.Point(560, 95);
-            this.btnVerPagos.Margin = new System.Windows.Forms.Padding(4);
-            this.btnVerPagos.Name = "btnVerPagos";
-            this.btnVerPagos.Size = new System.Drawing.Size(140, 46);
-            this.btnVerPagos.TabIndex = 4;
-            this.btnVerPagos.Text = "Ver Pagos";
-            this.btnVerPagos.UseVisualStyleBackColor = false;
-            this.btnVerPagos.Click += new System.EventHandler(this.btnVerPagos_Click);
             // 
             // Reservas
             // 
