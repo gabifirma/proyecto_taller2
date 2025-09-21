@@ -21,19 +21,18 @@ namespace HotelCalifornia
             // La clase base BaseResponsiveForm se encarga del responsive design automáticamente
         }
 
-        private bool SoloLetras(string texto)
-        {
-            return Regex.IsMatch(texto, @"^[a-zA-Z]+$");
-        }
-
-        private bool SoloNumeros(string texto)
-        {
-            return Regex.IsMatch(texto, @"^[0-9]+$");
-        }
-
         private void BBuscar_Click(object sender, EventArgs e)
         {
-            
+        }
+
+        private void Clientes_Load(object sender, EventArgs e)
+        {
+            // Agrego datos de ejemplo
+            GrillaClientes.Rows.Add("40101101", "Pérez", "Juan", "3794001122", "juan@hotmail.com", "Las Heras 1200, Corrientes", "2025-10-12");
+            GrillaClientes.Rows.Add("40101102", "Gomez", "Maria", "3794001133", "maria@hotmail.com", "Ex Via 750, Corrientes", "2025-06-30");
+            GrillaClientes.Rows.Add("40101103", "Lopez", "Carlos", "3794001144", "Carlos@gmail.com", "Yrigoyen 2750, Goya", "2025-01-23");
+            GrillaClientes.Rows.Add("40101104", "Ibarra", "Rita", "3794001155", "rita@gmail.com", "Maipu 600, Itati", "2025-07-09");
+
         }
     }
 }

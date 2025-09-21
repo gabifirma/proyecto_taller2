@@ -61,12 +61,14 @@ namespace HotelCalifornia
             // 
             // GrillaReservas
             // 
+            this.GrillaReservas.AllowUserToDeleteRows = false;
             this.GrillaReservas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GrillaReservas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GrillaReservas.Location = new System.Drawing.Point(14, 275);
             this.GrillaReservas.Margin = new System.Windows.Forms.Padding(4);
             this.GrillaReservas.Name = "GrillaReservas";
             this.GrillaReservas.ReadOnly = true;
+            this.GrillaReservas.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.GrillaReservas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.GrillaReservas.Size = new System.Drawing.Size(828, 327);
             this.GrillaReservas.TabIndex = 1;

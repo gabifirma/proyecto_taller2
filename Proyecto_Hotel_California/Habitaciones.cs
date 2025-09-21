@@ -36,8 +36,6 @@ namespace HotelCalifornia
 
         private void Habitaciones_Load(object sender, EventArgs e)
         {
- 
-
             using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
                 conn.Open();

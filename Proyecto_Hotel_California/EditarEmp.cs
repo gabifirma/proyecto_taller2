@@ -117,17 +117,17 @@ namespace HotelCalifornia
                 }
             }
         }
-
+        //valido que solo se ingresen letras en nombre y apellido
         private bool SoloLetras(string texto)
         {
             return Regex.IsMatch(texto, @"^[a-zA-Z]+$");
         }
-
+        //valido que solo se ingresen numeros en telefono
         private bool SoloNumeros(string texto)
         {
             return Regex.IsMatch(texto, @"^[0-9]+$");
         }
-
+        //boton cancelar
         private void BCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -135,12 +135,13 @@ namespace HotelCalifornia
 
         private void BFin_Click(object sender, EventArgs e)
         {
+            //validaciones de apellido y nombre
             if (!SoloLetras(TApellido.Text) || !SoloLetras(TNombre.Text))
             {
                 MessageBox.Show("Solo se permiten letras para nombre y apellido");
                 return;
             }
-
+            //validacion de telefono
             if (!SoloNumeros(TTelefono.Text))
             {
                 MessageBox.Show("Solo se permiten números para teléfono");
@@ -157,7 +158,7 @@ namespace HotelCalifornia
                     conn.Open();
                     string query = @"UPDATE Empleado 
                          SET apellido=@Apellido, nombre=@Nombre, legajo=@Legajo, telefono=@Telefono, email=@Email, estado=@Estado
-                         WHERE legajo=@Legajo";
+                         WHERE legajo=@Legajo"; //Busco por legajo y no por id
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -174,7 +175,7 @@ namespace HotelCalifornia
                         {
                             cmd.Parameters.AddWithValue("@Estado", false);
                         }
-
+                        
                         int filas = cmd.ExecuteNonQuery();
 
                         if (filas > 0)
