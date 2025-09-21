@@ -139,19 +139,10 @@
     <value>True</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="BEditarHab.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DwAACw8BkvkDpQAAAJdJREFUSEvtk0EKgzAURHPJ4kIv4B2E9j4ex4PUfQvtPHHgL7KK310eDCYR3sSo
-        pXOyKLsyHLNkXsrvzFeZlDQs/yhrGKc8Sdz5zIJwyfuYXSDKyaZQwu6Z806aiceCFHks434zUe5zpiRV
-        zpcysiAeio/lyUIrXV6ly6vcKgckxD8RV8spv4wLIHXnxgUxaXK4Vd6pUMofVitlsfyQB3gAAAAASUVO
-        RK5CYII=
-</value>
-  </data>
   <data name="BAgregarHab.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DwAACw8BkvkDpQAAAPFJREFUSEvFlV0SwUAQhHMHnAPvToZDKR49uAbOgBtQ+pOkyv5MEhOhq74qVveM
+        DQAACw0B7QfALAAAAPFJREFUSEvFlV0SwUAQhHMHnAPvToZDKR49uAbOgBtQ+pOkyv5MEhOhq74qVveM
         3Up2il9rItZiJ/YfQmYlxiKrhbiKuziKXJEmyJC9CGoF4p9T/CSmLDg1E2dBk2AnbI3uGPqKGtRavr5V
         4vzYYptGFW3iJLblx1KHijYRCoKGknpdG7h97qChxOcOGkp87qChxBcv8KRsRPwy3SridbzvT9f/G1hy
         +9xBQ4nPHTSU+NxBQ4mva9B9VQx+2X3zup6Lhwiu63rgMCz6NKF4duAgxhw/0J0txi9TG2TIZkdmLbqy

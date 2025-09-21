@@ -25,13 +25,76 @@ namespace HotelCalifornia
 
         private void BAgregarHab_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Funcionalidad de agregar habitación no implementada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+            Boolean valorPiso = int.TryParse(TPiso.Text, out int piso);
+            Boolean valorNum = int.TryParse(TNumero.Text, out int num);
 
-        private void BEditarHab_Click(object sender, EventArgs e)
-        {
-            EditarHab ventana = new EditarHab();
-            ventana.ShowDialog();
+            if (!valorNum)
+            {
+                MessageBox.Show("El NÚMERO o esta vacío o no es un número");
+                return;
+            }
+
+            if (!valorPiso)
+            {
+                MessageBox.Show("El PISO o esta vacío o no es un número");
+                return;
+            }
+
+            if (valorPiso && valorNum)
+            {
+                // Cambia la cadena de conexión por la de tu base de datos
+                using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
+                {
+                    conn.Open();
+
+                    string query = "INSERT INTO Habitacion (numero_hab, piso, id_tipo, id_estado) " +
+                                   "VALUES (@Numero_hab, @Piso, @Id_tipo, @Id_estado)";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Numero_hab", TNumero.Text);
+                        cmd.Parameters.AddWithValue("@Piso", TPiso.Text);
+                        if (RBSingle.Checked)
+                        {
+                            cmd.Parameters.AddWithValue("@Id_tipo", 1);
+                        }
+                        else if (RBDoble.Checked)
+                        {
+                            cmd.Parameters.AddWithValue("@Id_tipo", 2);
+                        }
+                        else if (RBSuite.Checked)
+                        {
+                            cmd.Parameters.AddWithValue("@Id_tipo", 3);
+                        }
+
+                        if (RBDisp.Checked)
+                        {
+                            cmd.Parameters.AddWithValue("@Id_estado", 1);
+                        }
+                        else if (RBOcup.Checked)
+                        {
+                            cmd.Parameters.AddWithValue("@Id_estado", 2);
+                        }
+                        else if (RBInha.Checked)
+                        {
+                            cmd.Parameters.AddWithValue("@Id_estado", 3);
+                        }
+
+                        int filas = cmd.ExecuteNonQuery();
+
+                        if (filas > 0)
+                        {
+                            MessageBox.Show("Habitación guardada correctamente en la base de datos.");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se pudo guardar la habitación.");
+                        }
+                        this.Close();
+                    }
+                }
+            }
         }
 
         private void Habitaciones_Load(object sender, EventArgs e)
@@ -63,6 +126,19 @@ namespace HotelCalifornia
                 GrillaHabitaciones.Columns["descripcion"].DataPropertyName = "descripcion";
                 GrillaHabitaciones.Columns["base_precio"].DataPropertyName = "base_precio";
                 GrillaHabitaciones.DataSource = dt;
+            }
+        }
+
+        private void GrillaHabitaciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // para evitar encabezados
+            {
+                // Obtener el valor de la columna numero_hab de la fila seleccionada
+                int habitacionNumero = Convert.ToInt32(GrillaHabitaciones.Rows[e.RowIndex].Cells["numero_hab"].Value);
+
+                // Abrir el formulario de edición y pasarle el numero de habitación
+                EditarHab frm = new EditarHab(habitacionNumero);
+                frm.ShowDialog();
             }
         }
     }

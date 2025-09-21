@@ -29,6 +29,13 @@ namespace HotelCalifornia
         private void InitializeComponent()
         {
             this.GrillaClientes = new System.Windows.Forms.DataGridView();
+            this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Teléfono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Dirección = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaAlta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LTituloClientes = new System.Windows.Forms.Label();
             this.LBuscar = new System.Windows.Forms.Label();
             this.TBuscar = new System.Windows.Forms.TextBox();
@@ -37,13 +44,6 @@ namespace HotelCalifornia
             this.DTDesde = new System.Windows.Forms.DateTimePicker();
             this.DTHasta = new System.Windows.Forms.DateTimePicker();
             this.LHasta = new System.Windows.Forms.Label();
-            this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Teléfono = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Dirección = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FechaAlta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,6 +67,48 @@ namespace HotelCalifornia
             this.GrillaClientes.RowHeadersVisible = false;
             this.GrillaClientes.Size = new System.Drawing.Size(980, 417);
             this.GrillaClientes.TabIndex = 1;
+            // 
+            // DNI
+            // 
+            this.DNI.HeaderText = "DNI";
+            this.DNI.Name = "DNI";
+            this.DNI.ReadOnly = true;
+            // 
+            // Apellido
+            // 
+            this.Apellido.HeaderText = "Apellido";
+            this.Apellido.Name = "Apellido";
+            this.Apellido.ReadOnly = true;
+            // 
+            // Nombre
+            // 
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // Teléfono
+            // 
+            this.Teléfono.HeaderText = "Teléfono";
+            this.Teléfono.Name = "Teléfono";
+            this.Teléfono.ReadOnly = true;
+            // 
+            // Email
+            // 
+            this.Email.HeaderText = "Email";
+            this.Email.Name = "Email";
+            this.Email.ReadOnly = true;
+            // 
+            // Dirección
+            // 
+            this.Dirección.HeaderText = "Dirección";
+            this.Dirección.Name = "Dirección";
+            this.Dirección.ReadOnly = true;
+            // 
+            // FechaAlta
+            // 
+            this.FechaAlta.HeaderText = "Fecha de Alta";
+            this.FechaAlta.Name = "FechaAlta";
+            this.FechaAlta.ReadOnly = true;
             // 
             // LTituloClientes
             // 
@@ -102,7 +144,7 @@ namespace HotelCalifornia
             // 
             // BBuscar
             // 
-            this.BBuscar.Location = new System.Drawing.Point(806, 102);
+            this.BBuscar.Location = new System.Drawing.Point(765, 112);
             this.BBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.BBuscar.Name = "BBuscar";
             this.BBuscar.Size = new System.Drawing.Size(133, 46);
@@ -148,48 +190,6 @@ namespace HotelCalifornia
             this.LHasta.Size = new System.Drawing.Size(58, 22);
             this.LHasta.TabIndex = 18;
             this.LHasta.Text = "Hasta";
-            // 
-            // DNI
-            // 
-            this.DNI.HeaderText = "DNI";
-            this.DNI.Name = "DNI";
-            this.DNI.ReadOnly = true;
-            // 
-            // Apellido
-            // 
-            this.Apellido.HeaderText = "Apellido";
-            this.Apellido.Name = "Apellido";
-            this.Apellido.ReadOnly = true;
-            // 
-            // Nombre
-            // 
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            // 
-            // Teléfono
-            // 
-            this.Teléfono.HeaderText = "Teléfono";
-            this.Teléfono.Name = "Teléfono";
-            this.Teléfono.ReadOnly = true;
-            // 
-            // Email
-            // 
-            this.Email.HeaderText = "Email";
-            this.Email.Name = "Email";
-            this.Email.ReadOnly = true;
-            // 
-            // Dirección
-            // 
-            this.Dirección.HeaderText = "Dirección";
-            this.Dirección.Name = "Dirección";
-            this.Dirección.ReadOnly = true;
-            // 
-            // FechaAlta
-            // 
-            this.FechaAlta.HeaderText = "Fecha de Alta";
-            this.FechaAlta.Name = "FechaAlta";
-            this.FechaAlta.ReadOnly = true;
             // 
             // Clientes
             // 

@@ -38,12 +38,12 @@ namespace HotelCalifornia
             this.LEstado = new System.Windows.Forms.Label();
             this.RBDoble = new System.Windows.Forms.RadioButton();
             this.RBSingle = new System.Windows.Forms.RadioButton();
-            this.TPiso = new System.Windows.Forms.TextBox();
-            this.TNumero = new System.Windows.Forms.TextBox();
             this.LTipo = new System.Windows.Forms.Label();
             this.LPiso = new System.Windows.Forms.Label();
             this.LNumero = new System.Windows.Forms.Label();
             this.LTitulo = new System.Windows.Forms.Label();
+            this.LNum = new System.Windows.Forms.Label();
+            this.LNumPiso = new System.Windows.Forms.Label();
             this.PRol.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -157,22 +157,6 @@ namespace HotelCalifornia
             this.RBSingle.Text = "Single";
             this.RBSingle.UseVisualStyleBackColor = true;
             // 
-            // TPiso
-            // 
-            this.TPiso.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TPiso.Location = new System.Drawing.Point(263, 67);
-            this.TPiso.Name = "TPiso";
-            this.TPiso.Size = new System.Drawing.Size(78, 26);
-            this.TPiso.TabIndex = 45;
-            // 
-            // TNumero
-            // 
-            this.TNumero.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TNumero.Location = new System.Drawing.Point(87, 67);
-            this.TNumero.Name = "TNumero";
-            this.TNumero.Size = new System.Drawing.Size(78, 26);
-            this.TNumero.TabIndex = 44;
-            // 
             // LTipo
             // 
             this.LTipo.AutoSize = true;
@@ -189,9 +173,9 @@ namespace HotelCalifornia
             this.LPiso.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LPiso.Location = new System.Drawing.Point(209, 70);
             this.LPiso.Name = "LPiso";
-            this.LPiso.Size = new System.Drawing.Size(37, 19);
+            this.LPiso.Size = new System.Drawing.Size(46, 19);
             this.LPiso.TabIndex = 42;
-            this.LPiso.Text = "Piso";
+            this.LPiso.Text = "Piso: ";
             // 
             // LNumero
             // 
@@ -199,9 +183,9 @@ namespace HotelCalifornia
             this.LNumero.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LNumero.Location = new System.Drawing.Point(20, 70);
             this.LNumero.Name = "LNumero";
-            this.LNumero.Size = new System.Drawing.Size(60, 19);
+            this.LNumero.Size = new System.Drawing.Size(69, 19);
             this.LNumero.TabIndex = 41;
-            this.LNumero.Text = "Número";
+            this.LNumero.Text = "Número: ";
             // 
             // LTitulo
             // 
@@ -213,12 +197,34 @@ namespace HotelCalifornia
             this.LTitulo.TabIndex = 40;
             this.LTitulo.Text = "Editar datos de la habitación";
             // 
+            // LNum
+            // 
+            this.LNum.AutoSize = true;
+            this.LNum.Font = new System.Drawing.Font("Times New Roman", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LNum.Location = new System.Drawing.Point(95, 70);
+            this.LNum.Name = "LNum";
+            this.LNum.Size = new System.Drawing.Size(60, 19);
+            this.LNum.TabIndex = 53;
+            this.LNum.Text = "Número";
+            // 
+            // LNumPiso
+            // 
+            this.LNumPiso.AutoSize = true;
+            this.LNumPiso.Font = new System.Drawing.Font("Times New Roman", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LNumPiso.Location = new System.Drawing.Point(260, 70);
+            this.LNumPiso.Name = "LNumPiso";
+            this.LNumPiso.Size = new System.Drawing.Size(37, 19);
+            this.LNumPiso.TabIndex = 54;
+            this.LNumPiso.Text = "Piso";
+            // 
             // EditarHab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(584, 361);
+            this.Controls.Add(this.LNumPiso);
+            this.Controls.Add(this.LNum);
             this.Controls.Add(this.RBSuite);
             this.Controls.Add(this.BCancelar);
             this.Controls.Add(this.BFin);
@@ -226,8 +232,6 @@ namespace HotelCalifornia
             this.Controls.Add(this.LEstado);
             this.Controls.Add(this.RBDoble);
             this.Controls.Add(this.RBSingle);
-            this.Controls.Add(this.TPiso);
-            this.Controls.Add(this.TNumero);
             this.Controls.Add(this.LTipo);
             this.Controls.Add(this.LPiso);
             this.Controls.Add(this.LNumero);
@@ -253,11 +257,11 @@ namespace HotelCalifornia
         private System.Windows.Forms.Label LEstado;
         private System.Windows.Forms.RadioButton RBDoble;
         private System.Windows.Forms.RadioButton RBSingle;
-        private System.Windows.Forms.TextBox TPiso;
-        private System.Windows.Forms.TextBox TNumero;
         private System.Windows.Forms.Label LTipo;
         private System.Windows.Forms.Label LPiso;
         private System.Windows.Forms.Label LNumero;
         private System.Windows.Forms.Label LTitulo;
+        private System.Windows.Forms.Label LNum;
+        private System.Windows.Forms.Label LNumPiso;
     }
 }

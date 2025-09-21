@@ -38,7 +38,6 @@ namespace HotelCalifornia
             this.capacidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.base_precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BEditarHab = new System.Windows.Forms.Button();
             this.BAgregarHab = new System.Windows.Forms.Button();
             this.RBSuite = new System.Windows.Forms.RadioButton();
             this.PRol = new System.Windows.Forms.Panel();
@@ -91,9 +90,11 @@ namespace HotelCalifornia
             this.GrillaHabitaciones.RowHeadersVisible = false;
             this.GrillaHabitaciones.Size = new System.Drawing.Size(980, 239);
             this.GrillaHabitaciones.TabIndex = 1;
+            this.GrillaHabitaciones.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaHabitaciones_CellDoubleClick);
             // 
             // numero_hab
             // 
+            this.numero_hab.DataPropertyName = "numero_hab";
             this.numero_hab.HeaderText = "Número Hab.";
             this.numero_hab.Name = "numero_hab";
             this.numero_hab.ReadOnly = true;
@@ -133,19 +134,6 @@ namespace HotelCalifornia
             this.base_precio.HeaderText = "Precio Base";
             this.base_precio.Name = "base_precio";
             this.base_precio.ReadOnly = true;
-            // 
-            // BEditarHab
-            // 
-            this.BEditarHab.Image = ((System.Drawing.Image)(resources.GetObject("BEditarHab.Image")));
-            this.BEditarHab.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BEditarHab.Location = new System.Drawing.Point(215, 197);
-            this.BEditarHab.Margin = new System.Windows.Forms.Padding(4);
-            this.BEditarHab.Name = "BEditarHab";
-            this.BEditarHab.Size = new System.Drawing.Size(111, 52);
-            this.BEditarHab.TabIndex = 6;
-            this.BEditarHab.Text = "Editar";
-            this.BEditarHab.UseVisualStyleBackColor = true;
-            this.BEditarHab.Click += new System.EventHandler(this.BEditarHab_Click);
             // 
             // BAgregarHab
             // 
@@ -326,7 +314,6 @@ namespace HotelCalifornia
             this.Controls.Add(this.LTipo);
             this.Controls.Add(this.LPiso);
             this.Controls.Add(this.LNumero);
-            this.Controls.Add(this.BEditarHab);
             this.Controls.Add(this.BAgregarHab);
             this.Controls.Add(this.GrillaHabitaciones);
             this.Controls.Add(this.LTituloHabitaciones);
@@ -350,15 +337,7 @@ namespace HotelCalifornia
 
         private System.Windows.Forms.Label LTituloHabitaciones;
         private System.Windows.Forms.DataGridView GrillaHabitaciones;
-        private System.Windows.Forms.Button BEditarHab;
         private System.Windows.Forms.Button BAgregarHab;
-        private System.Windows.Forms.DataGridViewTextBoxColumn numero_hab;
-        private System.Windows.Forms.DataGridViewTextBoxColumn piso;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_estado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn capacidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn base_precio;
         private System.Windows.Forms.RadioButton RBSuite;
         private System.Windows.Forms.Panel PRol;
         private System.Windows.Forms.RadioButton RBInha;
@@ -372,5 +351,12 @@ namespace HotelCalifornia
         private System.Windows.Forms.Label LTipo;
         private System.Windows.Forms.Label LPiso;
         private System.Windows.Forms.Label LNumero;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numero_hab;
+        private System.Windows.Forms.DataGridViewTextBoxColumn piso;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_estado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn capacidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn base_precio;
     }
 }
