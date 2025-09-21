@@ -42,6 +42,8 @@ namespace HotelCalifornia
             this.dtpFechaPago = new System.Windows.Forms.DateTimePicker();
             this.lblBuscarCliente = new System.Windows.Forms.Label();
             this.txtBuscarCliente = new System.Windows.Forms.TextBox();
+            this.lblEstadoActivacion = new System.Windows.Forms.Label();
+            this.cmbEstadoActivacion = new System.Windows.Forms.ComboBox();
             this.btnNuevoPago = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaPagos)).BeginInit();
             this.groupBoxFiltros.SuspendLayout();
@@ -73,6 +75,8 @@ namespace HotelCalifornia
             // 
             // groupBoxFiltros
             // 
+            this.groupBoxFiltros.Controls.Add(this.cmbEstadoActivacion);
+            this.groupBoxFiltros.Controls.Add(this.lblEstadoActivacion);
             this.groupBoxFiltros.Controls.Add(this.btnLimpiarFiltros);
             this.groupBoxFiltros.Controls.Add(this.btnBuscar);
             this.groupBoxFiltros.Controls.Add(this.lblMetodoPago);
@@ -214,6 +218,30 @@ namespace HotelCalifornia
             this.txtBuscarCliente.Size = new System.Drawing.Size(139, 25);
             this.txtBuscarCliente.TabIndex = 0;
             // 
+            // lblEstadoActivacion
+            // 
+            this.lblEstadoActivacion.AutoSize = true;
+            this.lblEstadoActivacion.Location = new System.Drawing.Point(18, 112);
+            this.lblEstadoActivacion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEstadoActivacion.Name = "lblEstadoActivacion";
+            this.lblEstadoActivacion.Size = new System.Drawing.Size(74, 19);
+            this.lblEstadoActivacion.TabIndex = 10;
+            this.lblEstadoActivacion.Text = "Activación:";
+            // 
+            // cmbEstadoActivacion
+            // 
+            this.cmbEstadoActivacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEstadoActivacion.FormattingEnabled = true;
+            this.cmbEstadoActivacion.Items.AddRange(new object[] {
+            "Todos",
+            "Activos",
+            "Inactivos"});
+            this.cmbEstadoActivacion.Location = new System.Drawing.Point(112, 112);
+            this.cmbEstadoActivacion.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbEstadoActivacion.Name = "cmbEstadoActivacion";
+            this.cmbEstadoActivacion.Size = new System.Drawing.Size(120, 25);
+            this.cmbEstadoActivacion.TabIndex = 11;
+            // 
             // btnNuevoPago
             // 
             this.btnNuevoPago.BackColor = System.Drawing.Color.Green;
@@ -270,6 +298,8 @@ namespace HotelCalifornia
         private System.Windows.Forms.Label lblMetodoPago;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnLimpiarFiltros;
+        private System.Windows.Forms.Label lblEstadoActivacion;
+        private System.Windows.Forms.ComboBox cmbEstadoActivacion;
         private System.Windows.Forms.Button btnNuevoPago;
     }
 }

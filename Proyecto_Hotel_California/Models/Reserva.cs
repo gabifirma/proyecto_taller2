@@ -14,10 +14,16 @@ namespace HotelCalifornia.Models
         public int CantidadHuespedes { get; set; }
         public decimal MontoEstimado { get; set; }
         public DateTime FechaCreacion { get; set; }
+        
+        // Propiedades para eliminación lógica
+        public bool Activo { get; set; }
+        public DateTime? FechaDesactivacion { get; set; }
+        public string MotivoDesactivacion { get; set; }
 
         public Reserva()
         {
             FechaCreacion = DateTime.Now;
+            Activo = true; // Por defecto activo
         }
 
         public Reserva(string id, string cliente, DateTime fechaCheckIn, DateTime fechaCheckOut, 
@@ -33,6 +39,22 @@ namespace HotelCalifornia.Models
             CantidadHuespedes = cantidadHuespedes;
             MontoEstimado = montoEstimado;
             FechaCreacion = DateTime.Now;
+            Activo = true; // Por defecto activo
+        }
+
+        // Métodos para eliminación lógica
+        public void Desactivar(string motivo)
+        {
+            Activo = false;
+            FechaDesactivacion = DateTime.Now;
+            MotivoDesactivacion = motivo;
+        }
+
+        public void Reactivar()
+        {
+            Activo = true;
+            FechaDesactivacion = null;
+            MotivoDesactivacion = null;
         }
     }
 }

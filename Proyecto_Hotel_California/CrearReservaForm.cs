@@ -121,6 +121,50 @@ namespace HotelCalifornia
             dtpCheckOut.MinDate = dtpCheckIn.Value.AddDays(1);
         }
 
+        public void ConfigurarParaEdicion(Reserva reserva)
+        {
+            // Cambiar el texto del botón
+            btnGuardar.Text = "Actualizar";
+
+            // Llenar los campos con los datos de la reserva
+            txtCliente.Text = reserva.Cliente;
+            dtpCheckIn.Value = reserva.FechaCheckIn;
+            dtpCheckOut.Value = reserva.FechaCheckOut;
+
+            // Seleccionar servicio
+            for (int i = 0; i < cmbServicio.Items.Count; i++)
+            {
+                if (cmbServicio.Items[i].ToString() == reserva.Servicio)
+                {
+                    cmbServicio.SelectedIndex = i;
+                    break;
+                }
+            }
+
+            // Seleccionar método de pago
+            for (int i = 0; i < cmbMetodoPago.Items.Count; i++)
+            {
+                if (cmbMetodoPago.Items[i].ToString() == reserva.MetodoPago)
+                {
+                    cmbMetodoPago.SelectedIndex = i;
+                    break;
+                }
+            }
+
+            // Configurar cantidad de huéspedes
+            numCantidadHuespedes.Value = reserva.CantidadHuespedes;
+
+            // Calcular y mostrar monto
+            CalcularMonto(null, null);
+            txtMontoEstimado.Text = reserva.MontoEstimado.ToString("F2");
+
+            // Guardar el ID para actualizar
+            this.Tag = reserva.Id;
+
+            // Actualizar título
+            this.Text = $"Editar Reserva - {reserva.Id}";
+        }
+
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if (isProcessing) return;
@@ -134,47 +178,72 @@ namespace HotelCalifornia
                 btnGuardar.Enabled = false;
                 btnGuardar.Text = "Guardando...";
 
-                // Crear nueva reserva
-                var nuevaReserva = new Reserva
-                {
-                    Id = DataService.GenerateReservaId(),
-                    Cliente = txtCliente.Text.Trim(),
-                    FechaCheckIn = dtpCheckIn.Value,
-                    FechaCheckOut = dtpCheckOut.Value,
-                    Servicio = cmbServicio.SelectedItem.ToString(),
-                    Estado = "Pendiente",
-                    MetodoPago = cmbMetodoPago.SelectedItem.ToString(),
-                    CantidadHuespedes = (int)numCantidadHuespedes.Value,
-                    MontoEstimado = decimal.Parse(txtMontoEstimado.Text)
-                };
+                string reservaId = this.Tag as string;
 
-                // Validaciones de negocio
-                if (!ValidarDisponibilidad(nuevaReserva))
+                if (!string.IsNullOrEmpty(reservaId))
                 {
-                    MessageBox.Show("No hay disponibilidad para el servicio seleccionado en las fechas indicadas.", 
-                                  "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    // Modo edición
+                    var reservaExistente = DataService.GetReservaById(reservaId);
+                    if (reservaExistente != null)
+                    {
+                        // Actualizar los campos editables
+                        reservaExistente.Cliente = txtCliente.Text.Trim();
+                        reservaExistente.FechaCheckIn = dtpCheckIn.Value;
+                        reservaExistente.FechaCheckOut = dtpCheckOut.Value;
+                        reservaExistente.Servicio = cmbServicio.SelectedItem.ToString();
+                        reservaExistente.MetodoPago = cmbMetodoPago.SelectedItem.ToString();
+                        reservaExistente.CantidadHuespedes = (int)numCantidadHuespedes.Value;
+                        reservaExistente.MontoEstimado = decimal.Parse(txtMontoEstimado.Text);
+
+                        // Actualizar en DataService
+                        DataService.UpdateReserva(reservaExistente);
+
+                        MessageBox.Show($"Reserva {reservaId} actualizada exitosamente.", "Éxito",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
+                else
+                {
+                    // Modo creación (código existente)
+                    var nuevaReserva = new Reserva
+                    {
+                        Id = DataService.GenerateReservaId(),
+                        Cliente = txtCliente.Text.Trim(),
+                        FechaCheckIn = dtpCheckIn.Value,
+                        FechaCheckOut = dtpCheckOut.Value,
+                        Servicio = cmbServicio.SelectedItem.ToString(),
+                        Estado = "Pendiente",
+                        MetodoPago = cmbMetodoPago.SelectedItem.ToString(),
+                        CantidadHuespedes = (int)numCantidadHuespedes.Value,
+                        MontoEstimado = decimal.Parse(txtMontoEstimado.Text)
+                    };
 
-                // Guardar reserva
-                DataService.AddReserva(nuevaReserva);
+                    if (!ValidarDisponibilidad(nuevaReserva))
+                    {
+                        MessageBox.Show("No hay disponibilidad para el servicio seleccionado en las fechas indicadas.",
+                                      "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
 
-                MessageBox.Show($"Reserva {nuevaReserva.Id} creada exitosamente.", "Éxito", 
-                              MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DataService.AddReserva(nuevaReserva);
+
+                    MessageBox.Show($"Reserva {nuevaReserva.Id} creada exitosamente.", "Éxito",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
 
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al crear reserva: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al guardar reserva: {ex.Message}", "Error",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 isProcessing = false;
                 btnGuardar.Enabled = true;
-                btnGuardar.Text = "Guardar";
+                btnGuardar.Text = this.Tag != null ? "Actualizar" : "Guardar";
             }
         }
 

@@ -107,6 +107,60 @@ namespace HotelCalifornia
             }
         }
 
+        public void ConfigurarParaEdicion(Pago pago)
+        {
+            // Cambiar el texto del botón
+            btnGuardar.Text = "Actualizar";
+
+            // Llenar los campos con los datos del pago
+            var reserva = DataService.GetReservaById(pago.ReservaId);
+            if (reserva != null)
+            {
+                // Seleccionar reserva
+                for (int i = 0; i < cmbReserva.Items.Count; i++)
+                {
+                    var item = (dynamic)cmbReserva.Items[i];
+                    if (item.Id == pago.ReservaId)
+                    {
+                        cmbReserva.SelectedIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            // Configurar fecha
+            dtpFechaPago.Value = pago.FechaPago;
+
+            // Configurar monto
+            txtMonto.Text = pago.Monto.ToString("F2");
+
+            // Seleccionar método de pago
+            for (int i = 0; i < cmbMetodoPago.Items.Count; i++)
+            {
+                if (cmbMetodoPago.Items[i].ToString() == pago.MetodoPago)
+                {
+                    cmbMetodoPago.SelectedIndex = i;
+                    break;
+                }
+            }
+
+            // Seleccionar estado
+            for (int i = 0; i < cmbEstado.Items.Count; i++)
+            {
+                if (cmbEstado.Items[i].ToString() == pago.Estado)
+                {
+                    cmbEstado.SelectedIndex = i;
+                    break;
+                }
+            }
+
+            // Guardar el ID para actualizar
+            this.Tag = pago.Id;
+
+            // Actualizar título
+            this.Text = $"Editar Pago - {pago.Id}";
+        }
+
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if (isProcessing) return;
@@ -120,42 +174,65 @@ namespace HotelCalifornia
                 btnGuardar.Enabled = false;
                 btnGuardar.Text = "Guardando...";
 
-                // Crear nuevo pago
-                var nuevoPago = new Pago
-                {
-                    Id = DataService.GeneratePagoId(),
-                    ReservaId = cmbReserva.SelectedValue.ToString(),
-                    FechaPago = dtpFechaPago.Value,
-                    Monto = decimal.Parse(txtMonto.Text),
-                    MetodoPago = cmbMetodoPago.SelectedItem.ToString(),
-                    Estado = cmbEstado.SelectedItem.ToString()
-                };
+                string pagoId = this.Tag as string;
 
-                // Validaciones de negocio
-                if (!ValidarPago(nuevoPago))
+                if (!string.IsNullOrEmpty(pagoId))
                 {
-                    return;
+                    // Modo edición
+                    var pagoExistente = DataService.GetPagoById(pagoId);
+                    if (pagoExistente != null)
+                    {
+                        // Actualizar los campos editables
+                        pagoExistente.ReservaId = cmbReserva.SelectedValue.ToString();
+                        pagoExistente.FechaPago = dtpFechaPago.Value;
+                        pagoExistente.Monto = decimal.Parse(txtMonto.Text);
+                        pagoExistente.MetodoPago = cmbMetodoPago.SelectedItem.ToString();
+                        pagoExistente.Estado = cmbEstado.SelectedItem.ToString();
+
+                        // Actualizar en DataService
+                        DataService.UpdatePago(pagoExistente);
+
+                        MessageBox.Show($"Pago {pagoId} actualizado exitosamente.", "Éxito",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
+                else
+                {
+                    // Modo creación (código existente)
+                    var nuevoPago = new Pago
+                    {
+                        Id = DataService.GeneratePagoId(),
+                        ReservaId = cmbReserva.SelectedValue.ToString(),
+                        FechaPago = dtpFechaPago.Value,
+                        Monto = decimal.Parse(txtMonto.Text),
+                        MetodoPago = cmbMetodoPago.SelectedItem.ToString(),
+                        Estado = cmbEstado.SelectedItem.ToString()
+                    };
 
-                // Guardar pago
-                DataService.AddPago(nuevoPago);
+                    if (!ValidarPago(nuevoPago))
+                    {
+                        return;
+                    }
 
-                MessageBox.Show($"Pago {nuevoPago.Id} registrado exitosamente.", "Éxito", 
-                              MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DataService.AddPago(nuevoPago);
+
+                    MessageBox.Show($"Pago {nuevoPago.Id} registrado exitosamente.", "Éxito",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
 
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al registrar pago: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al guardar pago: {ex.Message}", "Error",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 isProcessing = false;
                 btnGuardar.Enabled = true;
-                btnGuardar.Text = "Guardar";
+                btnGuardar.Text = this.Tag != null ? "Actualizar" : "Guardar";
             }
         }
 

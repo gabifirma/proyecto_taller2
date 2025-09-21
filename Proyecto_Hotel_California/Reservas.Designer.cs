@@ -1,4 +1,4 @@
-namespace HotelCalifornia
+namespace Proyecto_Hotel_California
 {
     partial class Reservas
     {
@@ -28,7 +28,6 @@ namespace HotelCalifornia
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reservas));
             this.LTituloReservas = new System.Windows.Forms.Label();
             this.GrillaReservas = new System.Windows.Forms.DataGridView();
             this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
@@ -44,6 +43,8 @@ namespace HotelCalifornia
             this.dtpFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.lblBuscarCliente = new System.Windows.Forms.Label();
             this.txtBuscarCliente = new System.Windows.Forms.TextBox();
+            this.lblEstadoActivacion = new System.Windows.Forms.Label();
+            this.cmbEstadoActivacion = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaReservas)).BeginInit();
             this.groupBoxFiltros.SuspendLayout();
             this.SuspendLayout();
@@ -86,11 +87,13 @@ namespace HotelCalifornia
             this.groupBoxFiltros.Controls.Add(this.dtpFechaInicio);
             this.groupBoxFiltros.Controls.Add(this.lblBuscarCliente);
             this.groupBoxFiltros.Controls.Add(this.txtBuscarCliente);
+            this.groupBoxFiltros.Controls.Add(this.lblEstadoActivacion);
+            this.groupBoxFiltros.Controls.Add(this.cmbEstadoActivacion);
             this.groupBoxFiltros.Location = new System.Drawing.Point(14, 65);
             this.groupBoxFiltros.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxFiltros.Name = "groupBoxFiltros";
             this.groupBoxFiltros.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBoxFiltros.Size = new System.Drawing.Size(700, 144);
+            this.groupBoxFiltros.Size = new System.Drawing.Size(759, 171);
             this.groupBoxFiltros.TabIndex = 2;
             this.groupBoxFiltros.TabStop = false;
             this.groupBoxFiltros.Text = "Filtros de Búsqueda";
@@ -100,8 +103,6 @@ namespace HotelCalifornia
             this.btnVerPagos.BackColor = System.Drawing.Color.Orange;
             this.btnVerPagos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVerPagos.ForeColor = System.Drawing.Color.White;
-            this.btnVerPagos.Image = ((System.Drawing.Image)(resources.GetObject("btnVerPagos.Image")));
-            this.btnVerPagos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnVerPagos.Location = new System.Drawing.Point(560, 95);
             this.btnVerPagos.Margin = new System.Windows.Forms.Padding(4);
             this.btnVerPagos.Name = "btnVerPagos";
@@ -116,15 +117,12 @@ namespace HotelCalifornia
             this.btnLimpiarFiltros.BackColor = System.Drawing.SystemColors.ControlDark;
             this.btnLimpiarFiltros.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimpiarFiltros.ForeColor = System.Drawing.Color.White;
-            this.btnLimpiarFiltros.Image = ((System.Drawing.Image)(resources.GetObject("btnLimpiarFiltros.Image")));
-            this.btnLimpiarFiltros.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLimpiarFiltros.Location = new System.Drawing.Point(424, 105);
             this.btnLimpiarFiltros.Margin = new System.Windows.Forms.Padding(4);
             this.btnLimpiarFiltros.Name = "btnLimpiarFiltros";
             this.btnLimpiarFiltros.Size = new System.Drawing.Size(88, 33);
             this.btnLimpiarFiltros.TabIndex = 9;
             this.btnLimpiarFiltros.Text = "Limpiar";
-            this.btnLimpiarFiltros.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLimpiarFiltros.UseVisualStyleBackColor = false;
             this.btnLimpiarFiltros.Click += new System.EventHandler(this.btnLimpiarFiltros_Click);
             // 
@@ -133,15 +131,12 @@ namespace HotelCalifornia
             this.btnNuevaReserva.BackColor = System.Drawing.Color.Green;
             this.btnNuevaReserva.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevaReserva.ForeColor = System.Drawing.Color.White;
-            this.btnNuevaReserva.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevaReserva.Image")));
-            this.btnNuevaReserva.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNuevaReserva.Location = new System.Drawing.Point(560, 32);
             this.btnNuevaReserva.Margin = new System.Windows.Forms.Padding(4);
             this.btnNuevaReserva.Name = "btnNuevaReserva";
             this.btnNuevaReserva.Size = new System.Drawing.Size(140, 46);
             this.btnNuevaReserva.TabIndex = 3;
             this.btnNuevaReserva.Text = "Nueva Reserva";
-            this.btnNuevaReserva.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNuevaReserva.UseVisualStyleBackColor = false;
             this.btnNuevaReserva.Click += new System.EventHandler(this.btnNuevaReserva_Click);
             // 
@@ -150,15 +145,12 @@ namespace HotelCalifornia
             this.btnBuscar.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
-            this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.Location = new System.Drawing.Point(284, 105);
+            this.btnBuscar.Location = new System.Drawing.Point(288, 105);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(88, 33);
             this.btnBuscar.TabIndex = 8;
             this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
@@ -243,6 +235,30 @@ namespace HotelCalifornia
             this.txtBuscarCliente.Size = new System.Drawing.Size(174, 25);
             this.txtBuscarCliente.TabIndex = 0;
             // 
+            // lblEstadoActivacion
+            // 
+            this.lblEstadoActivacion.AutoSize = true;
+            this.lblEstadoActivacion.Location = new System.Drawing.Point(18, 122);
+            this.lblEstadoActivacion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEstadoActivacion.Name = "lblEstadoActivacion";
+            this.lblEstadoActivacion.Size = new System.Drawing.Size(74, 19);
+            this.lblEstadoActivacion.TabIndex = 10;
+            this.lblEstadoActivacion.Text = "Activación:";
+            // 
+            // cmbEstadoActivacion
+            // 
+            this.cmbEstadoActivacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEstadoActivacion.FormattingEnabled = true;
+            this.cmbEstadoActivacion.Items.AddRange(new object[] {
+            "Todos",
+            "Activos",
+            "Inactivos"});
+            this.cmbEstadoActivacion.Location = new System.Drawing.Point(147, 122);
+            this.cmbEstadoActivacion.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbEstadoActivacion.Name = "cmbEstadoActivacion";
+            this.cmbEstadoActivacion.Size = new System.Drawing.Size(120, 25);
+            this.cmbEstadoActivacion.TabIndex = 11;
+            // 
             // Reservas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -282,6 +298,8 @@ namespace HotelCalifornia
         private System.Windows.Forms.Label lblEstado;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnLimpiarFiltros;
+        private System.Windows.Forms.Label lblEstadoActivacion;
+        private System.Windows.Forms.ComboBox cmbEstadoActivacion;
         private System.Windows.Forms.Button btnNuevaReserva;
         private System.Windows.Forms.Button btnVerPagos;
     }
