@@ -2,20 +2,83 @@ using System;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using System.Windows.Forms;
 
 namespace HotelCalifornia
 {
     public class DatabaseHelper
     {
-        private static string connectionString = ConfigurationManager.ConnectionStrings["HotelConnectionString"].ConnectionString;
+        private static string connectionString;
+        private static bool connectionInitialized = false;
+
+        static DatabaseHelper()
+        {
+            InitializeConnection();
+        }
+
+        private static void InitializeConnection()
+        {
+            if (connectionInitialized) return;
+
+            // Lista de cadenas de conexión a probar
+            string[] connectionStrings = {
+                ConfigurationManager.ConnectionStrings["HotelConnectionString"]?.ConnectionString,
+                ConfigurationManager.ConnectionStrings["HotelConnectionStringAlt"]?.ConnectionString
+            };
+
+            foreach (string connStr in connectionStrings)
+            {
+                if (string.IsNullOrEmpty(connStr)) continue;
+
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(connStr))
+                    {
+                        connection.Open();
+                        connectionString = connStr;
+                        connectionInitialized = true;
+                        // Conexión exitosa - se puede agregar logging aquí si es necesario
+                        Console.WriteLine("Conectado exitosamente a: " + GetServerName(connStr));
+                        return;
+                    }
+                }
+                catch (Exception)
+                {
+                    // Continuar con la siguiente cadena de conexión
+                    continue;
+                }
+            }
+
+            // Si llegamos aquí, ninguna conexión funcionó
+            connectionString = connectionStrings[0]; // Usar la primera como fallback
+            connectionInitialized = true;
+        }
+
+        private static string GetServerName(string connectionStr)
+        {
+            try
+            {
+                var builder = new SqlConnectionStringBuilder(connectionStr);
+                return builder.DataSource;
+            }
+            catch
+            {
+                return "Servidor desconocido";
+            }
+        }
 
         public static string GetConnectionString()
         {
+            if (!connectionInitialized)
+                InitializeConnection();
             return connectionString;
         }
 
         public static bool TestConnection()
         {
+            if (!connectionInitialized)
+                InitializeConnection();
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -33,6 +96,9 @@ namespace HotelCalifornia
 
         public static void InitializeDatabase()
         {
+            if (!connectionInitialized)
+                InitializeConnection();
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -96,6 +162,9 @@ namespace HotelCalifornia
 
         public static Usuario AuthenticateUser(string nombreUsuario, string contraseña)
         {
+            if (!connectionInitialized)
+                InitializeConnection();
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -189,6 +258,9 @@ namespace HotelCalifornia
 
         public static void InsertSampleClientesManually()
         {
+            if (!connectionInitialized)
+                InitializeConnection();
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -200,7 +272,36 @@ namespace HotelCalifornia
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al insertar clientes de ejemplo: {ex.Message}");
+                throw new Exception("Error al insertar clientes de ejemplo: " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Fuerza la reinicialización de la conexión para probar todas las bases de datos disponibles
+        /// </summary>
+        public static void ResetConnection()
+        {
+            connectionInitialized = false;
+            connectionString = null;
+            InitializeConnection();
+        }
+
+        /// <summary>
+        /// Obtiene información sobre la conexión actual
+        /// </summary>
+        public static string GetCurrentConnectionInfo()
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            try
+            {
+                var builder = new SqlConnectionStringBuilder(connectionString);
+                return "Servidor: " + builder.DataSource + ", Base de datos: " + builder.InitialCatalog;
+            }
+            catch
+            {
+                return "Información de conexión no disponible";
             }
         }
     }

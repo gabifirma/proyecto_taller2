@@ -32,7 +32,7 @@ namespace HotelCalifornia
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al inicializar la aplicación: {ex.Message}", 
+                MessageBox.Show("Error al inicializar la aplicación: " + ex.Message, 
                               "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

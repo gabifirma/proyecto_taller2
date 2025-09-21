@@ -13,6 +13,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <LangVersion>8.0</LangVersion>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,6 +49,9 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Resources.Extensions">
+      <HintPath>$(ProgramFiles)\dotnet\shared\Microsoft.NETCore.App\6.0.0\System.Resources.Extensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -138,6 +142,10 @@
     <Compile Include="Models\Reserva.cs" />
     <Compile Include="Models\Pago.cs" />
     <Compile Include="Services\DataService.cs" />
+    <Compile Include="Styles\AppStyles.cs" />
+    <Compile Include="BaseResponsiveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Usuario.cs" />
     <Compile Include="UserSession.cs" />
     <Compile Include="DatabaseHelper.cs" />

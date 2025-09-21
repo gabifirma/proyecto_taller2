@@ -5,7 +5,7 @@ namespace HotelCalifornia
     public static class UserSession
     {
         public static Usuario CurrentUser { get; set; }
-        public static bool IsLoggedIn => CurrentUser != null;
+        public static bool IsLoggedIn { get { return CurrentUser != null; } }
 
         public static void Login(Usuario usuario)
         {
