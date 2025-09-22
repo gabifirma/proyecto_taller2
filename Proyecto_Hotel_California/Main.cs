@@ -12,8 +12,18 @@ using HotelCalifornia.Styles;
 
 namespace HotelCalifornia
 {
+    /// <summary>
+    /// Formulario principal del sistema Hotel California.
+    /// Actúa como contenedor MDI para todos los demás formularios y maneja la navegación principal.
+    /// Incluye un dashboard con estadísticas y controla el acceso según el rol del usuario.
+    /// </summary>
     public partial class Main : Form
     {
+        /// <summary>
+        /// Constructor del formulario principal.
+        /// Inicializa los componentes, aplica estilos, configura el menú según el rol del usuario
+        /// y establece la conexión con la base de datos.
+        /// </summary>
         public Main()
         {
             InitializeComponent();
@@ -23,28 +33,40 @@ namespace HotelCalifornia
             DatabaseHelper.InitializeDatabase();
         }
 
+        /// <summary>
+        /// Aplica los estilos visuales al formulario principal
+        /// </summary>
         private void ApplyStyles()
         {
             AppStyles.ApplyFormStyle(this);
         }
 
+        /// <summary>
+        /// Abre un formulario hijo dentro del contenedor principal (MDI)
+        /// </summary>
+        /// <param name="formhijo">Formulario a mostrar como hijo</param>
         private void abrirFormHIjo(object formhijo)
         {
+            // Limpiar el contenedor si ya tiene un formulario
             if (this.PContenedor.Controls.Count > 0)
                 this.PContenedor.Controls.RemoveAt(0);
+            
+            // Configurar el formulario hijo para que se muestre dentro del contenedor
             Form fh = formhijo as Form;
             fh.TopLevel = false;
             fh.Dock = DockStyle.Fill;
             this.PContenedor.Controls.Add(fh);
             this.PContenedor.Tag = fh;
             fh.Show();
-            
-            // Home form functionality removed - form doesn't exist
         }
 
+        /// <summary>
+        /// Maneja el evento click del botón Inicio.
+        /// Muestra el dashboard principal con estadísticas del hotel.
+        /// </summary>
         private void BInicio_Click(object sender, EventArgs e)
         {
-            // Clear the container - show main dashboard
+            // Limpiar el contenedor para mostrar el dashboard principal
             if (this.PContenedor.Controls.Count > 0)
                 this.PContenedor.Controls.RemoveAt(0);
             
@@ -52,6 +74,10 @@ namespace HotelCalifornia
             MostrarPanelEstadisticas();
         }
 
+        /// <summary>
+        /// Crea y muestra el panel de estadísticas del dashboard principal.
+        /// Incluye tarjetas con métricas del hotel e información del usuario actual.
+        /// </summary>
         private void MostrarPanelEstadisticas()
         {
             // Crear panel principal para las estadísticas
@@ -59,7 +85,7 @@ namespace HotelCalifornia
             panelStats.Dock = DockStyle.Fill;
             panelStats.BackColor = AppStyles.BackgroundColor;
             
-            // Título principal
+            // Título principal del dashboard
             Label lblTitulo = new Label();
             lblTitulo.Text = "Dashboard - Hotel California";
             lblTitulo.Font = AppStyles.TitleFont;
@@ -68,16 +94,16 @@ namespace HotelCalifornia
             lblTitulo.Size = new Size(400, 40);
             panelStats.Controls.Add(lblTitulo);
 
-            // Obtener estadísticas de la base de datos
+            // Obtener estadísticas actuales de la base de datos
             var stats = ObtenerEstadisticas();
 
-            // Panel para las tarjetas de estadísticas
+            // Panel contenedor para las tarjetas de estadísticas
             Panel panelTarjetas = new Panel();
             panelTarjetas.Location = new Point(30, 80);
             panelTarjetas.Size = new Size(800, 200);
             panelTarjetas.BackColor = Color.Transparent;
 
-            // Crear tarjetas de estadísticas
+            // Crear tarjetas individuales con las métricas principales
             CrearTarjetaEstadistica(panelTarjetas, "Total Reservas", stats.TotalReservas.ToString(), AppStyles.PrimaryColor, new Point(0, 0));
             CrearTarjetaEstadistica(panelTarjetas, "Reservas Activas", stats.ReservasActivas.ToString(), AppStyles.SuccessColor, new Point(200, 0));
             CrearTarjetaEstadistica(panelTarjetas, "Total Clientes", stats.TotalClientes.ToString(), AppStyles.SecondaryColor, new Point(400, 0));
@@ -85,7 +111,7 @@ namespace HotelCalifornia
 
             panelStats.Controls.Add(panelTarjetas);
 
-            // Panel para información adicional
+            // Panel para información del sistema y usuario actual
             Panel panelInfo = new Panel();
             panelInfo.Location = new Point(30, 300);
             panelInfo.Size = new Size(800, 150);
@@ -100,6 +126,7 @@ namespace HotelCalifornia
             lblInfo.Size = new Size(300, 30);
             panelInfo.Controls.Add(lblInfo);
 
+            // Mostrar información del usuario actual y fecha/hora
             Label lblDetalles = new Label();
             lblDetalles.Text = $"Usuario: {UserSession.CurrentUser?.NombreCompleto ?? "N/A"}\n" +
                               $"Rol: {UserSession.CurrentUser?.TipoUsuario ?? "N/A"}\n" +
@@ -112,18 +139,28 @@ namespace HotelCalifornia
 
             panelStats.Controls.Add(panelInfo);
 
-            // Agregar el panel al contenedor
+            // Agregar el panel completo al contenedor principal
             this.PContenedor.Controls.Add(panelStats);
         }
 
+        /// <summary>
+        /// Crea una tarjeta visual para mostrar una estadística específica
+        /// </summary>
+        /// <param name="contenedor">Panel contenedor donde se agregará la tarjeta</param>
+        /// <param name="titulo">Título de la estadística</param>
+        /// <param name="valor">Valor numérico a mostrar</param>
+        /// <param name="color">Color del valor numérico</param>
+        /// <param name="ubicacion">Posición de la tarjeta en el contenedor</param>
         private void CrearTarjetaEstadistica(Panel contenedor, string titulo, string valor, Color color, Point ubicacion)
         {
+            // Crear panel para la tarjeta individual
             Panel tarjeta = new Panel();
             tarjeta.Size = new Size(180, 120);
             tarjeta.Location = ubicacion;
             tarjeta.BackColor = AppStyles.SurfaceColor;
             tarjeta.BorderStyle = BorderStyle.FixedSingle;
 
+            // Etiqueta para el título de la estadística
             Label lblTitulo = new Label();
             lblTitulo.Text = titulo;
             lblTitulo.Font = AppStyles.SmallFont;
@@ -133,6 +170,7 @@ namespace HotelCalifornia
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
             tarjeta.Controls.Add(lblTitulo);
 
+            // Etiqueta para el valor numérico (grande y destacado)
             Label lblValor = new Label();
             lblValor.Text = valor;
             lblValor.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
@@ -142,6 +180,7 @@ namespace HotelCalifornia
             lblValor.TextAlign = ContentAlignment.MiddleCenter;
             tarjeta.Controls.Add(lblValor);
 
+            // Agregar la tarjeta al contenedor
             contenedor.Controls.Add(tarjeta);
         }
 
@@ -206,13 +245,22 @@ namespace HotelCalifornia
             }
         }
 
+        /// <summary>
+        /// Maneja el evento click del botón Clientes.
+        /// Abre el formulario de gestión de clientes.
+        /// </summary>
         private void BClientes_Click(object sender, EventArgs e)
         {
             abrirFormHIjo(new Clientes());
         }
 
+        /// <summary>
+        /// Maneja el evento click del botón Empleados.
+        /// Verifica permisos antes de abrir el formulario de gestión de empleados.
+        /// </summary>
         private void BEmpleados_Click(object sender, EventArgs e)
         {
+            // Verificar que el usuario tenga permisos de supervisor o superior
             if (!UserSession.HasPermission("supervisor"))
             {
                 MessageBox.Show("No tiene permisos para acceder a esta sección.", 
@@ -222,26 +270,42 @@ namespace HotelCalifornia
             abrirFormHIjo(new Empleados());
         }
 
+        /// <summary>
+        /// Maneja el evento click del botón Habitaciones.
+        /// Abre el formulario de gestión de habitaciones.
+        /// </summary>
         private void BHabitaciones_Click(object sender, EventArgs e)
         {
             abrirFormHIjo(new Habitaciones());
         }
 
+        /// <summary>
+        /// Maneja el evento click del botón Reservas.
+        /// Abre el formulario de gestión de reservas.
+        /// </summary>
         private void BReservas_Click(object sender, EventArgs e)
         {
             abrirFormHIjo(new Reservas());
         }
 
+        /// <summary>
+        /// Maneja el evento click del botón Pagos.
+        /// Abre el formulario de gestión de pagos.
+        /// </summary>
         private void BPagos_Click(object sender, EventArgs e)
         {
             abrirFormHIjo(new Pagos());
         }
 
+        /// <summary>
+        /// Configura la visibilidad de los botones del menú según el rol del usuario actual.
+        /// Implementa el control de acceso basado en roles (RBAC).
+        /// </summary>
         private void ConfigureMenuByRole()
         {
             if (!UserSession.IsLoggedIn)
             {
-                // Si no hay sesión, ocultar todo
+                // Si no hay sesión activa, ocultar todos los botones
                 BEmpleados.Visible = false;
                 BReservas.Visible = false;
                 BPagos.Visible = false;
@@ -255,7 +319,7 @@ namespace HotelCalifornia
             switch (userRole)
             {
                 case "Administrador":
-                    // Administrador: acceso completo
+                    // Administrador: acceso completo a todas las funcionalidades
                     BEmpleados.Visible = true;
                     BReservas.Visible = true;
                     BPagos.Visible = true;
@@ -264,7 +328,7 @@ namespace HotelCalifornia
                     break;
 
                 case "Supervisor":
-                    // Supervisor: acceso a empleados y reservas
+                    // Supervisor: acceso a la mayoría de funciones excepto empleados
                     BEmpleados.Visible = false;
                     BReservas.Visible = true;
                     BPagos.Visible = true;
@@ -273,7 +337,7 @@ namespace HotelCalifornia
                     break;
 
                 case "Recepcionista":
-                    // Recepcionista: NO ver empleados, sí reservas y pagos
+                    // Recepcionista: acceso limitado solo a reservas y habitaciones
                     BEmpleados.Visible = false;
                     BReservas.Visible = true;
                     BPagos.Visible = false;
@@ -282,7 +346,7 @@ namespace HotelCalifornia
                     break;
 
                 default:
-                    // Por defecto, ocultar todo
+                    // Por defecto, ocultar todo si el rol no es reconocido
                     BEmpleados.Visible = false;
                     BReservas.Visible = false;
                     BPagos.Visible = false;
@@ -292,6 +356,9 @@ namespace HotelCalifornia
             }
         }
 
+        /// <summary>
+        /// Actualiza el título de la ventana principal con información del usuario actual
+        /// </summary>
         private void UpdateHeader()
         {
             if (UserSession.IsLoggedIn)
@@ -304,6 +371,10 @@ namespace HotelCalifornia
             }
         }
 
+        /// <summary>
+        /// Maneja el evento click del botón Logout.
+        /// Confirma con el usuario y cierra la sesión actual.
+        /// </summary>
         private void BLogout_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("¿Está seguro que desea cerrar sesión?", 
@@ -313,11 +384,12 @@ namespace HotelCalifornia
 
             if (result == DialogResult.Yes)
             {
+                // Cerrar la sesión actual
                 UserSession.Logout();
                 MessageBox.Show("Sesión cerrada exitosamente.", "Información", 
                               MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
-                // Cerrar el formulario actual y mostrar login
+                // Cerrar el formulario actual y mostrar el formulario de login
                 this.Hide();
                 LoginForm loginForm = new LoginForm();
                 loginForm.ShowDialog();

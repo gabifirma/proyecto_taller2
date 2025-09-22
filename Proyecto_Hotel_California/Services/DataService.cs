@@ -5,17 +5,27 @@ using HotelCalifornia.Models;
 
 namespace HotelCalifornia.Services
 {
+    /// <summary>
+    /// Servicio de datos que maneja las operaciones CRUD para reservas y pagos.
+    /// Utiliza listas en memoria para almacenar los datos de forma temporal.
+    /// En una implementación de producción, esto debería conectarse a una base de datos.
+    /// </summary>
     public static class DataService
     {
+        // Listas privadas que actúan como almacenamiento en memoria
         private static List<Reserva> _reservas = new List<Reserva>();
         private static List<Pago> _pagos = new List<Pago>();
         private static bool _initialized = false;
 
+        /// <summary>
+        /// Inicializa el servicio de datos con información de ejemplo.
+        /// Solo se ejecuta una vez para evitar duplicar los datos.
+        /// </summary>
         public static void InitializeData()
         {
             if (_initialized) return;
 
-            // Inicializar reservas de ejemplo
+            // Inicializar reservas de ejemplo para demostración
             _reservas.AddRange(new List<Reserva>
             {
                 new Reserva("R1", "Juan Pérez", new DateTime(2025, 9, 10), new DateTime(2025, 9, 12), 
@@ -26,7 +36,7 @@ namespace HotelCalifornia.Services
                            "Habitación Individual", "Pendiente", "Transferencia", 1, 900.00m)
             });
 
-            // Inicializar pagos de ejemplo
+            // Inicializar pagos de ejemplo correspondientes a las reservas
             _pagos.AddRange(new List<Pago>
             {
                 new Pago("P1", "R1", new DateTime(2025, 9, 9), 1200.00m, "Tarjeta", "Reembolsado"),
@@ -37,19 +47,32 @@ namespace HotelCalifornia.Services
             _initialized = true;
         }
 
-        // Métodos para Reservas
+        #region Métodos para Reservas
+
+        /// <summary>
+        /// Obtiene todas las reservas almacenadas en el sistema
+        /// </summary>
+        /// <returns>Lista completa de reservas</returns>
         public static List<Reserva> GetReservas()
         {
             InitializeData();
             return _reservas.ToList();
         }
 
+        /// <summary>
+        /// Agrega una nueva reserva al sistema
+        /// </summary>
+        /// <param name="reserva">Reserva a agregar</param>
         public static void AddReserva(Reserva reserva)
         {
             InitializeData();
             _reservas.Add(reserva);
         }
 
+        /// <summary>
+        /// Actualiza una reserva existente en el sistema
+        /// </summary>
+        /// <param name="reserva">Reserva con los datos actualizados</param>
         public static void UpdateReserva(Reserva reserva)
         {
             InitializeData();
@@ -61,18 +84,35 @@ namespace HotelCalifornia.Services
             }
         }
 
+        /// <summary>
+        /// Elimina una reserva del sistema por su ID
+        /// </summary>
+        /// <param name="id">ID de la reserva a eliminar</param>
         public static void DeleteReserva(string id)
         {
             InitializeData();
             _reservas.RemoveAll(r => r.Id == id);
         }
 
+        /// <summary>
+        /// Busca una reserva específica por su ID
+        /// </summary>
+        /// <param name="id">ID de la reserva a buscar</param>
+        /// <returns>La reserva encontrada o null si no existe</returns>
         public static Reserva GetReservaById(string id)
         {
             InitializeData();
             return _reservas.FirstOrDefault(r => r.Id == id);
         }
 
+        /// <summary>
+        /// Filtra las reservas según los criterios especificados
+        /// </summary>
+        /// <param name="cliente">Nombre del cliente a buscar (búsqueda parcial)</param>
+        /// <param name="fechaInicio">Fecha mínima de check-in</param>
+        /// <param name="fechaFin">Fecha máxima de check-out</param>
+        /// <param name="estado">Estado específico de la reserva</param>
+        /// <returns>Lista de reservas que cumplen con los criterios</returns>
         public static List<Reserva> FilterReservas(string cliente = null, DateTime? fechaInicio = null, 
                                                   DateTime? fechaFin = null, string estado = null)
         {
@@ -94,19 +134,34 @@ namespace HotelCalifornia.Services
             return query.ToList();
         }
 
-        // Métodos para Pagos
+        #endregion
+
+        #region Métodos para Pagos
+
+        /// <summary>
+        /// Obtiene todos los pagos almacenados en el sistema
+        /// </summary>
+        /// <returns>Lista completa de pagos</returns>
         public static List<Pago> GetPagos()
         {
             InitializeData();
             return _pagos.ToList();
         }
 
+        /// <summary>
+        /// Agrega un nuevo pago al sistema
+        /// </summary>
+        /// <param name="pago">Pago a agregar</param>
         public static void AddPago(Pago pago)
         {
             InitializeData();
             _pagos.Add(pago);
         }
 
+        /// <summary>
+        /// Actualiza un pago existente en el sistema
+        /// </summary>
+        /// <param name="pago">Pago con los datos actualizados</param>
         public static void UpdatePago(Pago pago)
         {
             InitializeData();
@@ -118,18 +173,35 @@ namespace HotelCalifornia.Services
             }
         }
 
+        /// <summary>
+        /// Elimina un pago del sistema por su ID
+        /// </summary>
+        /// <param name="id">ID del pago a eliminar</param>
         public static void DeletePago(string id)
         {
             InitializeData();
             _pagos.RemoveAll(p => p.Id == id);
         }
 
+        /// <summary>
+        /// Obtiene todos los pagos asociados a una reserva específica
+        /// </summary>
+        /// <param name="reservaId">ID de la reserva</param>
+        /// <returns>Lista de pagos de la reserva</returns>
         public static List<Pago> GetPagosByReservaId(string reservaId)
         {
             InitializeData();
             return _pagos.Where(p => p.ReservaId == reservaId).ToList();
         }
 
+        /// <summary>
+        /// Filtra los pagos según los criterios especificados
+        /// </summary>
+        /// <param name="cliente">Nombre del cliente a buscar (búsqueda parcial)</param>
+        /// <param name="fecha">Fecha específica del pago</param>
+        /// <param name="estado">Estado específico del pago</param>
+        /// <param name="metodoPago">Método de pago específico</param>
+        /// <returns>Lista de pagos que cumplen con los criterios</returns>
         public static List<Pago> FilterPagos(string cliente = null, DateTime? fecha = null, 
                                            string estado = null, string metodoPago = null)
         {
@@ -138,6 +210,7 @@ namespace HotelCalifornia.Services
 
             if (!string.IsNullOrEmpty(cliente))
             {
+                // Buscar reservas del cliente y filtrar pagos por esas reservas
                 var reservasCliente = _reservas.Where(r => r.Cliente.ToLower().Contains(cliente.ToLower()))
                                               .Select(r => r.Id).ToList();
                 query = query.Where(p => reservasCliente.Contains(p.ReservaId));
@@ -155,6 +228,14 @@ namespace HotelCalifornia.Services
             return query.ToList();
         }
 
+        #endregion
+
+        #region Métodos de Utilidad
+
+        /// <summary>
+        /// Genera un nuevo ID único para una reserva
+        /// </summary>
+        /// <returns>ID de reserva en formato "R{número}"</returns>
         public static string GenerateReservaId()
         {
             InitializeData();
@@ -166,6 +247,10 @@ namespace HotelCalifornia.Services
             return $"R{nextNumber}";
         }
 
+        /// <summary>
+        /// Genera un nuevo ID único para un pago
+        /// </summary>
+        /// <returns>ID de pago en formato "P{número}"</returns>
         public static string GeneratePagoId()
         {
             InitializeData();
@@ -176,5 +261,7 @@ namespace HotelCalifornia.Services
             }
             return $"P{nextNumber}";
         }
+
+        #endregion
     }
 }

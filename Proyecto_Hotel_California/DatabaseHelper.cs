@@ -6,26 +6,38 @@ using System.Windows.Forms;
 
 namespace HotelCalifornia
 {
+    /// <summary>
+    /// Clase helper para manejar todas las operaciones de base de datos del Hotel California.
+    /// Gestiona la conexión, inicialización de tablas y operaciones CRUD básicas.
+    /// </summary>
     public class DatabaseHelper
     {
+        // Variables estáticas para manejar la conexión de forma singleton
         private static string connectionString;
         private static bool connectionInitialized = false;
 
+        /// <summary>
+        /// Constructor estático que inicializa la conexión automáticamente
+        /// </summary>
         static DatabaseHelper()
         {
             InitializeConnection();
         }
 
+        /// <summary>
+        /// Inicializa la conexión a la base de datos probando múltiples cadenas de conexión
+        /// </summary>
         private static void InitializeConnection()
         {
             if (connectionInitialized) return;
 
-            // Lista de cadenas de conexión a probar
+            // Lista de cadenas de conexión a probar desde el archivo de configuración
             string[] connectionStrings = {
                 ConfigurationManager.ConnectionStrings["HotelConnectionString"]?.ConnectionString,
                 ConfigurationManager.ConnectionStrings["HotelConnectionStringAlt"]?.ConnectionString
             };
 
+            // Probar cada cadena de conexión hasta encontrar una que funcione
             foreach (string connStr in connectionStrings)
             {
                 if (string.IsNullOrEmpty(connStr)) continue;
@@ -44,16 +56,21 @@ namespace HotelCalifornia
                 }
                 catch (Exception)
                 {
-                    // Continuar con la siguiente cadena de conexión
+                    // Continuar con la siguiente cadena de conexión si esta falla
                     continue;
                 }
             }
 
-            // Si llegamos aquí, ninguna conexión funcionó
-            connectionString = connectionStrings[0]; // Usar la primera como fallback
+            // Si llegamos aquí, ninguna conexión funcionó - usar la primera como fallback
+            connectionString = connectionStrings[0];
             connectionInitialized = true;
         }
 
+        /// <summary>
+        /// Extrae el nombre del servidor de una cadena de conexión
+        /// </summary>
+        /// <param name="connectionStr">Cadena de conexión</param>
+        /// <returns>Nombre del servidor o mensaje por defecto si hay error</returns>
         private static string GetServerName(string connectionStr)
         {
             try
@@ -67,6 +84,10 @@ namespace HotelCalifornia
             }
         }
 
+        /// <summary>
+        /// Obtiene la cadena de conexión actualmente configurada
+        /// </summary>
+        /// <returns>Cadena de conexión a la base de datos</returns>
         public static string GetConnectionString()
         {
             if (!connectionInitialized)
@@ -74,6 +95,10 @@ namespace HotelCalifornia
             return connectionString;
         }
 
+        /// <summary>
+        /// Prueba la conexión a la base de datos
+        /// </summary>
+        /// <returns>True si la conexión es exitosa, False en caso contrario</returns>
         public static bool TestConnection()
         {
             if (!connectionInitialized)
@@ -89,11 +114,14 @@ namespace HotelCalifornia
             }
             catch (Exception ex)
             {
-                // Si no puede conectar, usar modo sin base de datos
+                // Si no puede conectar, retornar false para usar modo sin base de datos
                 return false;
             }
         }
 
+        /// <summary>
+        /// Inicializa la base de datos creando las tablas necesarias y datos por defecto
+        /// </summary>
         public static void InitializeDatabase()
         {
             if (!connectionInitialized)
@@ -141,10 +169,14 @@ namespace HotelCalifornia
             }
             catch (Exception ex)
             {
-                // Si hay error, continuar sin base de datos
+                // Si hay error, continuar sin base de datos (modo offline)
             }
         }
 
+        /// <summary>
+        /// Crea los usuarios por defecto del sistema
+        /// </summary>
+        /// <param name="connection">Conexión activa a la base de datos</param>
         private static void CreateDefaultUsers(SqlConnection connection)
         {
             string insertUsersQuery = @"
@@ -160,6 +192,12 @@ namespace HotelCalifornia
             }
         }
 
+        /// <summary>
+        /// Autentica un usuario verificando sus credenciales en la base de datos
+        /// </summary>
+        /// <param name="nombreUsuario">Nombre de usuario</param>
+        /// <param name="contraseña">Contraseña del usuario</param>
+        /// <returns>Objeto Usuario si las credenciales son válidas, null en caso contrario</returns>
         public static Usuario AuthenticateUser(string nombreUsuario, string contraseña)
         {
             if (!connectionInitialized)
