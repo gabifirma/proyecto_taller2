@@ -37,10 +37,12 @@ namespace HotelCalifornia
             // Configurar servicios
             cmbServicio.Items.AddRange(new string[]
             {
-                "Habitación Individual",
-                "Habitación Doble", 
-                "Suite",
-                "Suite Presidencial"
+                "101    (Habitación Single)",
+                "102    (Habitación Doble)", 
+                "103    (Suite)",
+                "201    (Suite)",
+                "202    (Habitación Doble)",
+                "203    (Habitación Single)",
             });
 
             // Configurar métodos de pago
@@ -81,17 +83,23 @@ namespace HotelCalifornia
                 decimal precioPorNoche = 0;
                 switch (servicio)
                 {
-                    case "Habitación Individual":
-                        precioPorNoche = 150.00m;
+                    case "101    (Habitación Single)":
+                        precioPorNoche = 1200.00m;
                         break;
-                    case "Habitación Doble":
-                        precioPorNoche = 250.00m;
+                    case "102    (Habitación Doble)":
+                        precioPorNoche = 2500.00m;
                         break;
-                    case "Suite":
-                        precioPorNoche = 450.00m;
+                    case "103    (Suite)":
+                        precioPorNoche = 4500.00m;
                         break;
-                    case "Suite Presidencial":
-                        precioPorNoche = 800.00m;
+                    case "201    (Suite)":
+                        precioPorNoche = 4500.00m;
+                        break;
+                    case "202    (Habitación Doble)":
+                        precioPorNoche = 2500.00m;
+                        break;
+                    case "203    (Habitación Single)":
+                        precioPorNoche = 1200.00m;
                         break;
                 }
 
@@ -208,7 +216,7 @@ namespace HotelCalifornia
             // Validar servicio
             if (cmbServicio.SelectedItem == null)
             {
-                MostrarError(lblServicio, "Debe seleccionar un servicio");
+                MostrarError(LNumHab, "Debe seleccionar un servicio");
                 esValido = false;
             }
 
@@ -243,10 +251,9 @@ namespace HotelCalifornia
             // Capacidad máxima por servicio (simulada)
             int capacidadMaxima = nuevaReserva.Servicio switch
             {
-                "Habitación Individual" => 5,
+                "Habitación Single" => 5,
                 "Habitación Doble" => 3,
                 "Suite" => 2,
-                "Suite Presidencial" => 1,
                 _ => 1
             };
 
@@ -265,8 +272,8 @@ namespace HotelCalifornia
             lblCliente.Text = "Cliente:";
             lblCheckIn.ForeColor = SystemColors.ControlText;
             lblCheckIn.Text = "Check-In:";
-            lblServicio.ForeColor = SystemColors.ControlText;
-            lblServicio.Text = "Servicio:";
+            LNumHab.ForeColor = SystemColors.ControlText;
+            LNumHab.Text = "Servicio:";
             lblMetodoPago.ForeColor = SystemColors.ControlText;
             lblMetodoPago.Text = "Método de Pago:";
             lblCantidadHuespedes.ForeColor = SystemColors.ControlText;

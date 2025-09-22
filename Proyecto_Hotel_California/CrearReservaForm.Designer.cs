@@ -35,7 +35,6 @@ namespace HotelCalifornia
             this.dtpCheckIn = new System.Windows.Forms.DateTimePicker();
             this.lblCheckOut = new System.Windows.Forms.Label();
             this.dtpCheckOut = new System.Windows.Forms.DateTimePicker();
-            this.lblServicio = new System.Windows.Forms.Label();
             this.cmbServicio = new System.Windows.Forms.ComboBox();
             this.lblMetodoPago = new System.Windows.Forms.Label();
             this.cmbMetodoPago = new System.Windows.Forms.ComboBox();
@@ -45,6 +44,7 @@ namespace HotelCalifornia
             this.txtMontoEstimado = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.LNumHab = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numCantidadHuespedes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,14 +54,14 @@ namespace HotelCalifornia
             this.lblTitulo.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.Location = new System.Drawing.Point(150, 20);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(180, 25);
+            this.lblTitulo.Size = new System.Drawing.Size(155, 25);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Nueva Reserva";
             // 
             // lblCliente
             // 
             this.lblCliente.AutoSize = true;
-            this.lblCliente.Location = new System.Drawing.Point(30, 70);
+            this.lblCliente.Location = new System.Drawing.Point(30, 73);
             this.lblCliente.Name = "lblCliente";
             this.lblCliente.Size = new System.Drawing.Size(42, 13);
             this.lblCliente.TabIndex = 1;
@@ -69,7 +69,7 @@ namespace HotelCalifornia
             // 
             // txtCliente
             // 
-            this.txtCliente.Location = new System.Drawing.Point(150, 67);
+            this.txtCliente.Location = new System.Drawing.Point(150, 70);
             this.txtCliente.Name = "txtCliente";
             this.txtCliente.Size = new System.Drawing.Size(250, 20);
             this.txtCliente.TabIndex = 2;
@@ -77,16 +77,16 @@ namespace HotelCalifornia
             // lblCheckIn
             // 
             this.lblCheckIn.AutoSize = true;
-            this.lblCheckIn.Location = new System.Drawing.Point(30, 110);
+            this.lblCheckIn.Location = new System.Drawing.Point(30, 113);
             this.lblCheckIn.Name = "lblCheckIn";
-            this.lblCheckIn.Size = new System.Drawing.Size(54, 13);
+            this.lblCheckIn.Size = new System.Drawing.Size(53, 13);
             this.lblCheckIn.TabIndex = 3;
             this.lblCheckIn.Text = "Check-In:";
             // 
             // dtpCheckIn
             // 
             this.dtpCheckIn.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpCheckIn.Location = new System.Drawing.Point(150, 107);
+            this.dtpCheckIn.Location = new System.Drawing.Point(150, 110);
             this.dtpCheckIn.Name = "dtpCheckIn";
             this.dtpCheckIn.Size = new System.Drawing.Size(120, 20);
             this.dtpCheckIn.TabIndex = 4;
@@ -95,34 +95,25 @@ namespace HotelCalifornia
             // lblCheckOut
             // 
             this.lblCheckOut.AutoSize = true;
-            this.lblCheckOut.Location = new System.Drawing.Point(280, 110);
+            this.lblCheckOut.Location = new System.Drawing.Point(280, 113);
             this.lblCheckOut.Name = "lblCheckOut";
-            this.lblCheckOut.Size = new System.Drawing.Size(63, 13);
+            this.lblCheckOut.Size = new System.Drawing.Size(61, 13);
             this.lblCheckOut.TabIndex = 5;
             this.lblCheckOut.Text = "Check-Out:";
             // 
             // dtpCheckOut
             // 
             this.dtpCheckOut.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpCheckOut.Location = new System.Drawing.Point(350, 107);
+            this.dtpCheckOut.Location = new System.Drawing.Point(350, 110);
             this.dtpCheckOut.Name = "dtpCheckOut";
             this.dtpCheckOut.Size = new System.Drawing.Size(120, 20);
             this.dtpCheckOut.TabIndex = 6;
-            // 
-            // lblServicio
-            // 
-            this.lblServicio.AutoSize = true;
-            this.lblServicio.Location = new System.Drawing.Point(30, 150);
-            this.lblServicio.Name = "lblServicio";
-            this.lblServicio.Size = new System.Drawing.Size(48, 13);
-            this.lblServicio.TabIndex = 7;
-            this.lblServicio.Text = "Servicio:";
             // 
             // cmbServicio
             // 
             this.cmbServicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbServicio.FormattingEnabled = true;
-            this.cmbServicio.Location = new System.Drawing.Point(150, 147);
+            this.cmbServicio.Location = new System.Drawing.Point(150, 150);
             this.cmbServicio.Name = "cmbServicio";
             this.cmbServicio.Size = new System.Drawing.Size(200, 21);
             this.cmbServicio.TabIndex = 8;
@@ -130,9 +121,9 @@ namespace HotelCalifornia
             // lblMetodoPago
             // 
             this.lblMetodoPago.AutoSize = true;
-            this.lblMetodoPago.Location = new System.Drawing.Point(30, 190);
+            this.lblMetodoPago.Location = new System.Drawing.Point(30, 195);
             this.lblMetodoPago.Name = "lblMetodoPago";
-            this.lblMetodoPago.Size = new System.Drawing.Size(85, 13);
+            this.lblMetodoPago.Size = new System.Drawing.Size(89, 13);
             this.lblMetodoPago.TabIndex = 9;
             this.lblMetodoPago.Text = "Método de Pago:";
             // 
@@ -140,7 +131,7 @@ namespace HotelCalifornia
             // 
             this.cmbMetodoPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbMetodoPago.FormattingEnabled = true;
-            this.cmbMetodoPago.Location = new System.Drawing.Point(150, 187);
+            this.cmbMetodoPago.Location = new System.Drawing.Point(150, 192);
             this.cmbMetodoPago.Name = "cmbMetodoPago";
             this.cmbMetodoPago.Size = new System.Drawing.Size(150, 21);
             this.cmbMetodoPago.TabIndex = 10;
@@ -148,15 +139,15 @@ namespace HotelCalifornia
             // lblCantidadHuespedes
             // 
             this.lblCantidadHuespedes.AutoSize = true;
-            this.lblCantidadHuespedes.Location = new System.Drawing.Point(30, 230);
+            this.lblCantidadHuespedes.Location = new System.Drawing.Point(30, 235);
             this.lblCantidadHuespedes.Name = "lblCantidadHuespedes";
-            this.lblCantidadHuespedes.Size = new System.Drawing.Size(110, 13);
+            this.lblCantidadHuespedes.Size = new System.Drawing.Size(109, 13);
             this.lblCantidadHuespedes.TabIndex = 11;
             this.lblCantidadHuespedes.Text = "Cantidad Huéspedes:";
             // 
             // numCantidadHuespedes
             // 
-            this.numCantidadHuespedes.Location = new System.Drawing.Point(150, 228);
+            this.numCantidadHuespedes.Location = new System.Drawing.Point(150, 233);
             this.numCantidadHuespedes.Name = "numCantidadHuespedes";
             this.numCantidadHuespedes.Size = new System.Drawing.Size(80, 20);
             this.numCantidadHuespedes.TabIndex = 12;
@@ -164,15 +155,15 @@ namespace HotelCalifornia
             // lblMontoEstimado
             // 
             this.lblMontoEstimado.AutoSize = true;
-            this.lblMontoEstimado.Location = new System.Drawing.Point(30, 270);
+            this.lblMontoEstimado.Location = new System.Drawing.Point(30, 275);
             this.lblMontoEstimado.Name = "lblMontoEstimado";
-            this.lblMontoEstimado.Size = new System.Drawing.Size(85, 13);
+            this.lblMontoEstimado.Size = new System.Drawing.Size(86, 13);
             this.lblMontoEstimado.TabIndex = 13;
             this.lblMontoEstimado.Text = "Monto Estimado:";
             // 
             // txtMontoEstimado
             // 
-            this.txtMontoEstimado.Location = new System.Drawing.Point(150, 267);
+            this.txtMontoEstimado.Location = new System.Drawing.Point(150, 272);
             this.txtMontoEstimado.Name = "txtMontoEstimado";
             this.txtMontoEstimado.ReadOnly = true;
             this.txtMontoEstimado.Size = new System.Drawing.Size(120, 20);
@@ -205,12 +196,22 @@ namespace HotelCalifornia
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // LNumHab
+            // 
+            this.LNumHab.AutoSize = true;
+            this.LNumHab.Location = new System.Drawing.Point(30, 153);
+            this.LNumHab.Name = "LNumHab";
+            this.LNumHab.Size = new System.Drawing.Size(114, 13);
+            this.LNumHab.TabIndex = 17;
+            this.LNumHab.Text = "Nro. Habitación (Tipo):";
+            // 
             // CrearReservaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(500, 380);
+            this.Controls.Add(this.LNumHab);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.txtMontoEstimado);
@@ -220,7 +221,6 @@ namespace HotelCalifornia
             this.Controls.Add(this.cmbMetodoPago);
             this.Controls.Add(this.lblMetodoPago);
             this.Controls.Add(this.cmbServicio);
-            this.Controls.Add(this.lblServicio);
             this.Controls.Add(this.dtpCheckOut);
             this.Controls.Add(this.lblCheckOut);
             this.Controls.Add(this.dtpCheckIn);
@@ -250,7 +250,6 @@ namespace HotelCalifornia
         private System.Windows.Forms.DateTimePicker dtpCheckIn;
         private System.Windows.Forms.Label lblCheckOut;
         private System.Windows.Forms.DateTimePicker dtpCheckOut;
-        private System.Windows.Forms.Label lblServicio;
         private System.Windows.Forms.ComboBox cmbServicio;
         private System.Windows.Forms.Label lblMetodoPago;
         private System.Windows.Forms.ComboBox cmbMetodoPago;
@@ -260,5 +259,6 @@ namespace HotelCalifornia
         private System.Windows.Forms.TextBox txtMontoEstimado;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Label LNumHab;
     }
 }

@@ -139,6 +139,9 @@
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CrearReservaForm.resx">
+      <DependentUpon>CrearReservaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditarEmp.resx">
       <DependentUpon>EditarEmp.cs</DependentUpon>
     </EmbeddedResource>

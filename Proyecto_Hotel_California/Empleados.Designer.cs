@@ -52,9 +52,6 @@ namespace HotelCalifornia
             this.BRecargar = new System.Windows.Forms.Button();
             this.TLegajo = new System.Windows.Forms.TextBox();
             this.LLegajo = new System.Windows.Forms.Label();
-            this.RInactivo = new System.Windows.Forms.RadioButton();
-            this.RActivo = new System.Windows.Forms.RadioButton();
-            this.LEstado = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaEmpleados)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,36 +85,42 @@ namespace HotelCalifornia
             this.Legajo.DataPropertyName = "legajo";
             this.Legajo.HeaderText = "Legajo";
             this.Legajo.Name = "Legajo";
+            this.Legajo.ReadOnly = true;
             // 
             // Apellido
             // 
             this.Apellido.DataPropertyName = "apellido";
             this.Apellido.HeaderText = "Apellido";
             this.Apellido.Name = "Apellido";
+            this.Apellido.ReadOnly = true;
             // 
             // Nombre
             // 
             this.Nombre.DataPropertyName = "nombre";
             this.Nombre.HeaderText = "Nombre";
             this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
             // 
             // Telefono
             // 
             this.Telefono.DataPropertyName = "telefono";
             this.Telefono.HeaderText = "Teléfono";
             this.Telefono.Name = "Telefono";
+            this.Telefono.ReadOnly = true;
             // 
             // Email
             // 
             this.Email.DataPropertyName = "email";
             this.Email.HeaderText = "Email";
             this.Email.Name = "Email";
+            this.Email.ReadOnly = true;
             // 
             // Estado
             // 
             this.Estado.DataPropertyName = "estado";
             this.Estado.HeaderText = "Estado";
             this.Estado.Name = "Estado";
+            this.Estado.ReadOnly = true;
             this.Estado.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Estado.ToolTipText = "Estado";
             // 
@@ -294,52 +297,12 @@ namespace HotelCalifornia
             this.LLegajo.TabIndex = 43;
             this.LLegajo.Text = "Legajo";
             // 
-            // RInactivo
-            // 
-            this.RInactivo.AutoSize = true;
-            this.RInactivo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RInactivo.Location = new System.Drawing.Point(812, 288);
-            this.RInactivo.Margin = new System.Windows.Forms.Padding(4);
-            this.RInactivo.Name = "RInactivo";
-            this.RInactivo.Size = new System.Drawing.Size(81, 23);
-            this.RInactivo.TabIndex = 47;
-            this.RInactivo.Text = "Inactivo";
-            this.RInactivo.UseVisualStyleBackColor = true;
-            // 
-            // RActivo
-            // 
-            this.RActivo.AutoSize = true;
-            this.RActivo.Checked = true;
-            this.RActivo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RActivo.Location = new System.Drawing.Point(713, 288);
-            this.RActivo.Margin = new System.Windows.Forms.Padding(4);
-            this.RActivo.Name = "RActivo";
-            this.RActivo.Size = new System.Drawing.Size(70, 23);
-            this.RActivo.TabIndex = 46;
-            this.RActivo.TabStop = true;
-            this.RActivo.Text = "Activo";
-            this.RActivo.UseVisualStyleBackColor = true;
-            // 
-            // LEstado
-            // 
-            this.LEstado.AutoSize = true;
-            this.LEstado.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LEstado.Location = new System.Drawing.Point(617, 288);
-            this.LEstado.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LEstado.Name = "LEstado";
-            this.LEstado.Size = new System.Drawing.Size(67, 22);
-            this.LEstado.TabIndex = 45;
-            this.LEstado.Text = "Estado";
-            // 
             // Empleados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(1008, 667);
-            this.Controls.Add(this.RInactivo);
-            this.Controls.Add(this.RActivo);
-            this.Controls.Add(this.LEstado);
             this.Controls.Add(this.TLegajo);
             this.Controls.Add(this.LLegajo);
             this.Controls.Add(this.BRecargar);
@@ -395,8 +358,5 @@ namespace HotelCalifornia
         private System.Windows.Forms.Button BRecargar;
         private System.Windows.Forms.TextBox TLegajo;
         private System.Windows.Forms.Label LLegajo;
-        private System.Windows.Forms.RadioButton RInactivo;
-        private System.Windows.Forms.RadioButton RActivo;
-        private System.Windows.Forms.Label LEstado;
     }
 }

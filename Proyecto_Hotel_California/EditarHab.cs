@@ -92,7 +92,7 @@ namespace HotelCalifornia
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
-                        // Mostrar ID del empleado en el título o label
+                        // Mostrar Numero de la habitacion en el título o label
                         LNum.Text = reader["Numero_hab"].ToString();
                         LNumPiso.Text = reader["Piso"].ToString();
                         if (reader["Id_tipo"].Equals(1))

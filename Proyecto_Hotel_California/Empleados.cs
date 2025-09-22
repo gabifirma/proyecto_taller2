@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace HotelCalifornia
 {
@@ -45,6 +46,14 @@ namespace HotelCalifornia
                     }
                 }
             }
+        }
+
+        private bool EsEmailValido(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email)) return false;
+
+            string patron = @"^(?!.*\.\.)[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$";
+            return Regex.IsMatch(email, patron);
         }
 
         private bool SoloLetras(string texto)
@@ -104,6 +113,12 @@ namespace HotelCalifornia
             if (!valorLegajo)
             {
                 MessageBox.Show("El LEGAJO o esta vacío o no es un número");
+                return;
+            }
+
+            if (!EsEmailValido(TEmail.Text))
+            {
+                MessageBox.Show("El EMAIL no tiene un formato válido");
                 return;
             }
 

@@ -110,8 +110,8 @@ namespace HotelCalifornia
 
             GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn
             {
-                Name = "Servicio",
-                HeaderText = "Servicio",
+                Name = "Num_hab_tipo",
+                HeaderText = "Nro. Habitación (Tipo)",
                 DataPropertyName = "Servicio",
                 Width = 120
             });
