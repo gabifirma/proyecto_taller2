@@ -13,24 +13,40 @@ using HotelCalifornia.Styles;
 
 namespace HotelCalifornia
 {
+    /// <summary>
+    /// Formulario para la gestión de clientes del hotel.
+    /// Permite visualizar, buscar y filtrar la información de los clientes registrados.
+    /// Hereda de BaseResponsiveForm para tener diseño responsivo automático.
+    /// </summary>
     public partial class Clientes : BaseResponsiveForm
     {
+        /// <summary>
+        /// Constructor del formulario de clientes.
+        /// Inicializa los componentes y configura el diseño responsivo.
+        /// </summary>
         public Clientes()
         {
             InitializeComponent();
             // La clase base BaseResponsiveForm se encarga del responsive design automáticamente
         }
 
+        /// <summary>
+        /// Realiza la búsqueda y filtrado de clientes en la grilla.
+        /// Filtra por texto en cualquier campo y por rango de fechas.
+        /// </summary>
+        /// <param name="texto">Texto a buscar en cualquier campo del cliente</param>
+        /// <param name="desde">Fecha inicial del rango de búsqueda</param>
+        /// <param name="hasta">Fecha final del rango de búsqueda</param>
         private void Buscar(string texto, DateTime desde, DateTime hasta)
         {
             foreach (DataGridViewRow fila in GrillaClientes.Rows)
             {
-                if (fila.IsNewRow) continue; // salta la fila vacía del DataGridView
+                if (fila.IsNewRow) continue; // Saltar la fila vacía del DataGridView
 
-                // Toma la fecha de la última columna
+                // Obtener la fecha de registro del cliente (última columna)
                 DateTime fecha = DateTime.Parse(fila.Cells[6].Value.ToString());
 
-                // Verifica si alguna celda contiene el texto
+                // Verificar si alguna celda contiene el texto buscado
                 bool coincideTexto = false;
                 foreach (DataGridViewCell celda in fila.Cells)
                 {
@@ -41,7 +57,7 @@ namespace HotelCalifornia
                     }
                 }
 
-                // Mostrar u ocultar fila según condiciones
+                // Validar que el rango de fechas sea correcto
                 if (desde > hasta)
                 {
                     MessageBox.Show("La fecha 'Desde' no puede ser mayor que la fecha 'Hasta'.", 

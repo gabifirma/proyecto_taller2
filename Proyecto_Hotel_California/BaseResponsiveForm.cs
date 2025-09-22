@@ -5,34 +5,52 @@ using HotelCalifornia.Styles;
 
 namespace HotelCalifornia
 {
+    /// <summary>
+    /// Formulario base que proporciona funcionalidad de diseño responsivo automático.
+    /// Todos los formularios del sistema deben heredar de esta clase para mantener
+    /// consistencia visual y comportamiento responsivo.
+    /// </summary>
     public class BaseResponsiveForm : Form
     {
+        // Variables privadas para el control del redimensionamiento
         private Timer resizeTimer;
         private Size lastSize = Size.Empty;
         private bool isAdjusting = false;
 
+        /// <summary>
+        /// Constructor del formulario base responsivo.
+        /// Configura los estilos de renderizado y eventos necesarios para el diseño responsivo.
+        /// </summary>
         public BaseResponsiveForm()
         {
-            // Configurar para reducir parpadeo y mejorar performance
+            // Configurar estilos para reducir parpadeo y mejorar rendimiento
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | 
                          ControlStyles.UserPaint | 
                          ControlStyles.DoubleBuffer | 
                          ControlStyles.ResizeRedraw, true);
 
-            // Eventos para responsive design
+            // Configurar eventos para el diseño responsivo
             this.Resize += BaseResponsiveForm_Resize;
             this.Load += BaseResponsiveForm_Load;
         }
 
+        /// <summary>
+        /// Maneja el evento Load del formulario.
+        /// Aplica el diseño responsivo inicial cuando se carga el formulario.
+        /// </summary>
         private void BaseResponsiveForm_Load(object sender, EventArgs e)
         {
             ApplyResponsiveLayout();
         }
 
+        /// <summary>
+        /// Maneja el evento Resize del formulario.
+        /// Actualmente desactivado para evitar problemas de rendimiento.
+        /// </summary>
         private void BaseResponsiveForm_Resize(object sender, EventArgs e)
         {
-            // Desactivado el resize automático para evitar problemas
-            // Solo aplicar estilos una vez al cargar
+            // Desactivado el redimensionamiento automático para evitar problemas
+            // Solo aplicar estilos una vez al cargar el formulario
         }
 
         private void ApplyResponsiveLayoutDelayed()
