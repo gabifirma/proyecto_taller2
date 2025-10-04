@@ -10,7 +10,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
 
 namespace HotelCalifornia
 {
@@ -70,7 +69,6 @@ namespace HotelCalifornia
         {
             Boolean valorApellido = !String.IsNullOrEmpty(TApellido.Text);
             Boolean valorNombre = !String.IsNullOrEmpty(TNombre.Text);
-            Boolean valorLegajo = int.TryParse(TLegajo.Text, out int legajo);
             Boolean valorTelefono = !String.IsNullOrEmpty(TTelefono.Text);
             Boolean valorEmail = !String.IsNullOrEmpty(TEmail.Text);
 
@@ -110,12 +108,6 @@ namespace HotelCalifornia
                 return;
             }
 
-            if (!valorLegajo)
-            {
-                MessageBox.Show("El LEGAJO o esta vacío o no es un número");
-                return;
-            }
-
             if (!EsEmailValido(TEmail.Text))
             {
                 MessageBox.Show("El EMAIL no tiene un formato válido");
@@ -123,40 +115,19 @@ namespace HotelCalifornia
             }
 
             //guardarlo todo en la base de datos
-            if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && valorLegajo && SoloNumeros(TTelefono.Text) && valorEmail)
+            if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && SoloNumeros(TTelefono.Text) && valorEmail)
             {
                 using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
                 {
                     conn.Open();
 
-                    // Primero verificamos si el legajo ya existe
-                    string checkQuery = "SELECT COUNT(*) FROM Empleado WHERE legajo = @Legajo";
-                    using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn))
-                    {
-                        checkCmd.Parameters.AddWithValue("@Legajo", TLegajo.Text);
-                        int count = (int)checkCmd.ExecuteScalar();
-
-                        if (count > 0)
-                        {
-                            MessageBox.Show("El legajo ya existe. Ingrese un valor único.");
-                            return;
-                        }
-                    }
-                }
-
-                    // Cambia la cadena de conexión por la de tu base de datos
-                using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
-                {
-                    conn.Open();
-
-                    string query = "INSERT INTO Empleado (apellido, nombre, legajo, telefono, email, estado) " +
-                                    "VALUES (@Apellido, @Nombre, @Legajo, @Telefono, @Email, @Estado)";
+                    string query = "INSERT INTO Empleado (apellido, nombre, telefono, email, estado) " +
+                                    "VALUES (@Apellido, @Nombre, @Telefono, @Email, @Estado)";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Apellido", TApellido.Text);
                         cmd.Parameters.AddWithValue("@Nombre", TNombre.Text);
-                        cmd.Parameters.AddWithValue("@Legajo", TLegajo.Text);
                         cmd.Parameters.AddWithValue("@Telefono", TTelefono.Text);
                         cmd.Parameters.AddWithValue("@Email", TEmail.Text);
                         cmd.Parameters.AddWithValue("@Estado", true);

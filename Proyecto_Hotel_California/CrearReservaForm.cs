@@ -1,289 +1,388 @@
+using HotelCalifornia.Models;
+using HotelCalifornia.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HotelCalifornia.Models;
-using HotelCalifornia.Services;
 
 namespace HotelCalifornia
 {
     public partial class CrearReservaForm : Form
     {
-        private bool isProcessing = false;
 
         public CrearReservaForm()
         {
             InitializeComponent();
+            cargarHabitaciones();
         }
 
-        private void CrearReservaForm_Load(object sender, EventArgs e)
+        // Cargar habitaciones disponibles en la grilla
+        private void cargarHabitaciones()
         {
-            InitializeForm();
-        }
-
-        private void InitializeForm()
-        {
-            // Configurar fechas por defecto
-            dtpCheckIn.Value = DateTime.Now.AddDays(1);
-            dtpCheckOut.Value = DateTime.Now.AddDays(2);
-            dtpCheckIn.MinDate = DateTime.Now;
-            dtpCheckOut.MinDate = DateTime.Now.AddDays(1);
-
-            // Configurar servicios
-            cmbServicio.Items.AddRange(new string[]
+            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
-                "101    (Habitación Single)",
-                "102    (Habitación Doble)", 
-                "103    (Suite)",
-                "201    (Suite)",
-                "202    (Habitación Doble)",
-                "203    (Habitación Single)",
-            });
+                conn.Open(); 
+                string query = @"SELECT 
+                    h.numero_hab, 
+                    h.piso, 
+                    h.id_estado, 
+                    t.nombre, 
+                    t.capacidad, 
+                    t.descripcion,
+                    t.base_precio
+                    FROM Habitacion h
+                    INNER JOIN TipoHabitacion t ON h.id_tipo = t.id_tipo
+                    WHERE h.id_estado = 1";
 
-            // Configurar métodos de pago
-            cmbMetodoPago.Items.AddRange(new string[]
-            {
-                "Efectivo",
-                "Tarjeta",
-                "Transferencia",
-                "Cheque"
-            });
+                SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
 
-            // Configurar cantidad de huéspedes
-            numCantidadHuespedes.Minimum = 1;
-            numCantidadHuespedes.Maximum = 10;
-            numCantidadHuespedes.Value = 1;
-
-            // Eventos para cálculo automático
-            cmbServicio.SelectedIndexChanged += CalcularMonto;
-            dtpCheckIn.ValueChanged += CalcularMonto;
-            dtpCheckOut.ValueChanged += CalcularMonto;
-            numCantidadHuespedes.ValueChanged += CalcularMonto;
-        }
-
-        private void CalcularMonto(object sender, EventArgs e)
-        {
-            try
-            {
-                if (cmbServicio.SelectedItem == null || dtpCheckOut.Value <= dtpCheckIn.Value)
-                {
-                    txtMontoEstimado.Text = "0.00";
-                    return;
-                }
-
-                string servicio = cmbServicio.SelectedItem.ToString();
-                int dias = (dtpCheckOut.Value - dtpCheckIn.Value).Days;
-                int huespedes = (int)numCantidadHuespedes.Value;
-
-                decimal precioPorNoche = 0;
-                switch (servicio)
-                {
-                    case "101    (Habitación Single)":
-                        precioPorNoche = 1200.00m;
-                        break;
-                    case "102    (Habitación Doble)":
-                        precioPorNoche = 2500.00m;
-                        break;
-                    case "103    (Suite)":
-                        precioPorNoche = 4500.00m;
-                        break;
-                    case "201    (Suite)":
-                        precioPorNoche = 4500.00m;
-                        break;
-                    case "202    (Habitación Doble)":
-                        precioPorNoche = 2500.00m;
-                        break;
-                    case "203    (Habitación Single)":
-                        precioPorNoche = 1200.00m;
-                        break;
-                }
-
-                decimal montoTotal = precioPorNoche * dias;
-                
-                // Aplicar recargo por huéspedes adicionales
-                if (huespedes > 2)
-                {
-                    montoTotal += (huespedes - 2) * 50.00m * dias;
-                }
-
-                txtMontoEstimado.Text = montoTotal.ToString("F2");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error calculando monto: {ex.Message}");
-            }
-        }
-
-        private void dtpCheckIn_ValueChanged(object sender, EventArgs e)
-        {
-            // Asegurar que check-out sea después de check-in
-            if (dtpCheckOut.Value <= dtpCheckIn.Value)
-            {
-                dtpCheckOut.Value = dtpCheckIn.Value.AddDays(1);
-            }
-            dtpCheckOut.MinDate = dtpCheckIn.Value.AddDays(1);
-        }
-
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            if (isProcessing) return;
-
-            try
-            {
-                // Validar campos
-                if (!ValidarCampos()) return;
-
-                isProcessing = true;
-                btnGuardar.Enabled = false;
-                btnGuardar.Text = "Guardando...";
-
-                // Crear nueva reserva
-                var nuevaReserva = new Reserva
-                {
-                    Id = DataService.GenerateReservaId(),
-                    Cliente = txtCliente.Text.Trim(),
-                    FechaCheckIn = dtpCheckIn.Value,
-                    FechaCheckOut = dtpCheckOut.Value,
-                    Servicio = cmbServicio.SelectedItem.ToString(),
-                    Estado = "Pendiente",
-                    MetodoPago = cmbMetodoPago.SelectedItem.ToString(),
-                    CantidadHuespedes = (int)numCantidadHuespedes.Value,
-                    MontoEstimado = decimal.Parse(txtMontoEstimado.Text)
-                };
-
-                // Validaciones de negocio
-                if (!ValidarDisponibilidad(nuevaReserva))
-                {
-                    MessageBox.Show("No hay disponibilidad para el servicio seleccionado en las fechas indicadas.", 
-                                  "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                // Guardar reserva
-                DataService.AddReserva(nuevaReserva);
-
-                MessageBox.Show($"Reserva {nuevaReserva.Id} creada exitosamente.", "Éxito", 
-                              MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al crear reserva: {ex.Message}", "Error", 
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                isProcessing = false;
-                btnGuardar.Enabled = true;
-                btnGuardar.Text = "Guardar";
+                GrillaHabDisp.AutoGenerateColumns = false;
+                GrillaHabDisp.Columns["numero_hab"].DataPropertyName = "numero_hab";
+                GrillaHabDisp.Columns["piso"].DataPropertyName = "piso";
+                GrillaHabDisp.Columns["nombre"].DataPropertyName = "nombre";
+                GrillaHabDisp.Columns["capacidad"].DataPropertyName = "capacidad";
+                GrillaHabDisp.Columns["descripcion"].DataPropertyName = "descripcion";
+                GrillaHabDisp.Columns["base_precio"].DataPropertyName = "base_precio";
+                GrillaHabDisp.DataSource = dt;
             }
         }
 
         private bool ValidarCampos()
         {
-            // Limpiar errores previos
-            LimpiarErrores();
-
-            bool esValido = true;
-
-            // Validar cliente
-            if (string.IsNullOrWhiteSpace(txtCliente.Text))
+            if (string.IsNullOrEmpty(TApellido.Text) || string.IsNullOrEmpty(TNombre.Text))
             {
-                MostrarError(lblCliente, "El cliente es obligatorio");
-                esValido = false;
+                MessageBox.Show("Debe ingresar nombre y apellido.");
+                return false;
             }
 
-            // Validar fechas
-            if (dtpCheckIn.Value >= dtpCheckOut.Value)
+            if (!SoloLetras(TApellido.Text) || !SoloLetras(TNombre.Text))
             {
-                MostrarError(lblCheckIn, "La fecha de check-in debe ser anterior al check-out");
-                esValido = false;
+                MessageBox.Show("Solo se permiten letras para nombre y apellido.");
+                return false;
             }
 
-            if (dtpCheckIn.Value < DateTime.Now.Date)
+            if (!SoloNumeros(TTelefono.Text))
             {
-                MostrarError(lblCheckIn, "La fecha de check-in no puede ser en el pasado");
-                esValido = false;
+                MessageBox.Show("Solo se permiten números en el teléfono.");
+                return false;
             }
 
-            // Validar servicio
-            if (cmbServicio.SelectedItem == null)
+            if (!EsEmailValido(TEmail.Text))
             {
-                MostrarError(LNumHab, "Debe seleccionar un servicio");
-                esValido = false;
+                MessageBox.Show("El correo electrónico no tiene un formato válido.");
+                return false;
             }
 
-            // Validar método de pago
-            if (cmbMetodoPago.SelectedItem == null)
-            {
-                MostrarError(lblMetodoPago, "Debe seleccionar un método de pago");
-                esValido = false;
-            }
-
-            // Validar cantidad de huéspedes
-            if (numCantidadHuespedes.Value <= 0)
-            {
-                MostrarError(lblCantidadHuespedes, "La cantidad de huéspedes debe ser mayor a 0");
-                esValido = false;
-            }
-
-            return esValido;
+            return true;
         }
 
-        private bool ValidarDisponibilidad(Reserva nuevaReserva)
+        private bool EsEmailValido(string email)
         {
-            // Simulación de validación de disponibilidad
-            var reservasExistentes = DataService.GetReservas()
-                .Where(r => r.Servicio == nuevaReserva.Servicio && 
-                           r.Estado != "Anulada" &&
-                           ((nuevaReserva.FechaCheckIn >= r.FechaCheckIn && nuevaReserva.FechaCheckIn < r.FechaCheckOut) ||
-                            (nuevaReserva.FechaCheckOut > r.FechaCheckIn && nuevaReserva.FechaCheckOut <= r.FechaCheckOut) ||
-                            (nuevaReserva.FechaCheckIn <= r.FechaCheckIn && nuevaReserva.FechaCheckOut >= r.FechaCheckOut)))
-                .ToList();
+            if (string.IsNullOrWhiteSpace(email)) return false;
 
-            // Capacidad máxima por servicio (simulada)
-            int capacidadMaxima = nuevaReserva.Servicio switch
+            string patron = @"^(?!.*\.\.)[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$";
+            return Regex.IsMatch(email, patron);
+        }
+
+        private bool SoloLetras(string texto)
+        {
+            return Regex.IsMatch(texto, @"^[a-zA-Z]+$");
+        }
+
+        private bool SoloNumeros(string texto)
+        {
+            return Regex.IsMatch(texto, @"^[0-9]+$");
+        }
+
+        private void CrearReservaForm_Load(object sender, EventArgs e)
+        {
+            cargarHabitaciones();
+
+        }
+
+       private void GrillaHabDisp_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == GrillaHabDisp.Columns["Reservar"].Index)
             {
-                "Habitación Single" => 5,
-                "Habitación Doble" => 3,
-                "Suite" => 2,
-                _ => 1
-            };
+                DataGridViewCheckBoxCell checkCell = (DataGridViewCheckBoxCell)GrillaHabDisp.Rows[e.RowIndex].Cells["Reservar"];
+                bool valorActual = Convert.ToBoolean(checkCell.Value ?? false);
+                checkCell.Value = !valorActual;
+                
+                // Desmarcar otras filas
+                foreach (DataGridViewRow row in GrillaHabDisp.Rows)
+                {
+                    if (row.Index != e.RowIndex)
+                        row.Cells["Reservar"].Value = false;
+                }
 
-            return reservasExistentes.Count < capacidadMaxima;
+                CalcularMontoEstimado();
+            }
+        }
+    
+        private decimal ObtenerPrecioServicio(int idServicio)
+        {
+            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
+            {
+                conn.Open();
+                string query = "SELECT precio_base FROM Servicio WHERE id_servicio = @id";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", idServicio);
+
+                object resultado = cmd.ExecuteScalar();
+                if (resultado != null && resultado != DBNull.Value)
+                {
+                    return Convert.ToDecimal(resultado);
+                }
+                else
+                {
+                    return 0; // Si el servicio no existe o no tiene precio
+                }
+            }
         }
 
-        private void MostrarError(Label label, string mensaje)
+        private void CalcularMontoEstimado()
         {
-            label.ForeColor = Color.Red;
-            label.Text = label.Text.Split(':')[0] + ": " + mensaje;
+            decimal monto = 0;
+
+            // Buscar la habitación seleccionada
+            foreach (DataGridViewRow row in GrillaHabDisp.Rows)
+            {
+                bool seleccionada = Convert.ToBoolean(row.Cells["Reservar"].Value);
+                if (seleccionada)
+                {
+                    decimal precioBase = Convert.ToDecimal(row.Cells["base_precio"].Value);
+                    int noches = CBCantNoches.SelectedItem != null ? Convert.ToInt32(CBCantNoches.SelectedItem) : 0;
+                    monto += precioBase * noches;
+                    break;
+                }
+            }
+
+            // Sumar servicios según su ID
+            if (CHJacuzzi.Checked)
+                monto += ObtenerPrecioServicio(1); // Jacuzzi
+            if (CHMinibar.Checked)
+                monto += ObtenerPrecioServicio(2); // Minibar
+            if (CHPool.Checked)
+                monto += ObtenerPrecioServicio(3); // Pool
+
+            TMonto.Text = monto.ToString("0.00");
         }
 
-        private void LimpiarErrores()
+        private int ObtenerHabitacionSeleccionada()
         {
-            lblCliente.ForeColor = SystemColors.ControlText;
-            lblCliente.Text = "Cliente:";
-            lblCheckIn.ForeColor = SystemColors.ControlText;
-            lblCheckIn.Text = "Check-In:";
-            LNumHab.ForeColor = SystemColors.ControlText;
-            LNumHab.Text = "Servicio:";
-            lblMetodoPago.ForeColor = SystemColors.ControlText;
-            lblMetodoPago.Text = "Método de Pago:";
-            lblCantidadHuespedes.ForeColor = SystemColors.ControlText;
-            lblCantidadHuespedes.Text = "Cantidad Huéspedes:";
+            foreach (DataGridViewRow row in GrillaHabDisp.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells["Reservar"].Value))
+                {
+                    return Convert.ToInt32(row.Cells["numero_hab"].Value);
+                }
+            }
+            return 0;
+        }
+
+        private int ObtenerOInsertarCliente(SqlConnection conn, SqlTransaction tran)
+        {
+            string buscar = "SELECT id_cliente FROM Cliente WHERE dni = @dni";
+            SqlCommand cmdBuscar = new SqlCommand(buscar, conn, tran);
+            cmdBuscar.Parameters.AddWithValue("@dni", TDni.Text);
+            object result = cmdBuscar.ExecuteScalar();
+
+            if (result != null)
+            {
+                return Convert.ToInt32(result);
+            }
+            
+            // Si no existe, se crea
+            string insertar = @"INSERT INTO Cliente (dni, nombre, apellido, telefono, email, fecha_alta)
+                        OUTPUT INSERTED.id_cliente
+                        VALUES (@dni, @nombre, @apellido, @telefono, @email, GETDATE())";
+
+            SqlCommand cmdInsert = new SqlCommand(insertar, conn, tran);
+            cmdInsert.Parameters.AddWithValue("@dni", TDni.Text);
+            cmdInsert.Parameters.AddWithValue("@nombre", TNombre.Text);
+            cmdInsert.Parameters.AddWithValue("@apellido", TApellido.Text);
+            cmdInsert.Parameters.AddWithValue("@telefono", TTelefono.Text);
+            cmdInsert.Parameters.AddWithValue("@email", TEmail.Text);
+
+            return (int)cmdInsert.ExecuteScalar();
+        }
+
+        private int InsertarReserva(SqlConnection conn, SqlTransaction tran, int idCliente)
+        {
+            string insertar = @"INSERT INTO Reserva (fecha_inicio, fecha_fin, fecha_creacion, id_cliente, legajo, id_estado)
+                        OUTPUT INSERTED.id_reserva
+                        VALUES (@inicio, @fin, GETDATE(), @cliente, 1001, 2)";
+
+            SqlCommand cmd = new SqlCommand(insertar, conn, tran);
+            DateTime hoy = DateTime.Today;
+            int noches = Convert.ToInt32(CBCantNoches.SelectedItem);
+
+            cmd.Parameters.AddWithValue("@inicio", hoy);
+            cmd.Parameters.AddWithValue("@fin", hoy.AddDays(noches));
+            cmd.Parameters.AddWithValue("@cliente", idCliente);
+
+            return (int)cmd.ExecuteScalar();
+        }
+
+        private void InsertarReservaHabitacion(SqlConnection conn, SqlTransaction tran, int idReserva, int numeroHab)
+        {
+            decimal precioBase = ObtenerPrecioBase(conn, tran, numeroHab);
+            int noches = Convert.ToInt32(CBCantNoches.SelectedItem);
+
+            if(noches == 0)
+            {
+                MessageBox.Show("Cantidad de noches debe ser mayor a 0 (cero)");
+                return;
+            }
+            decimal subtotal = precioBase * noches;
+
+            string insertar = @"INSERT INTO ReservaHabitacion (id_reserva, numero_hab, precio_noche, cantidad_noches, subtotal)
+                        VALUES (@idReserva, @numHab, @precio, @noches, @subtotal)";
+
+            SqlCommand cmd = new SqlCommand(insertar, conn, tran);
+            cmd.Parameters.AddWithValue("@idReserva", idReserva);
+            cmd.Parameters.AddWithValue("@numHab", numeroHab);
+            cmd.Parameters.AddWithValue("@precio", precioBase);
+            cmd.Parameters.AddWithValue("@noches", noches);
+            cmd.Parameters.AddWithValue("@subtotal", subtotal);
+            cmd.ExecuteNonQuery();
+        }
+
+        private decimal ObtenerPrecioBase(SqlConnection conn, SqlTransaction tran, int numeroHab)
+        {
+            string q = @"SELECT t.base_precio 
+                 FROM Habitacion h
+                 JOIN TipoHabitacion t ON h.id_tipo = t.id_tipo
+                 WHERE h.numero_hab = @num";
+
+            SqlCommand cmd = new SqlCommand(q, conn, tran);
+            cmd.Parameters.AddWithValue("@num", numeroHab);
+            return Convert.ToDecimal(cmd.ExecuteScalar());
+        }
+
+        private void InsertarServicios(SqlConnection conn, SqlTransaction tran, int idReserva)
+        {
+            AgregarServicio(conn, tran, idReserva, CHJacuzzi, 1);
+            AgregarServicio(conn, tran, idReserva, CHMinibar, 2);
+            AgregarServicio(conn, tran, idReserva, CHPool, 3);
+        }
+
+        private void AgregarServicio(SqlConnection conn, SqlTransaction tran, int idReserva, CheckBox chk, int idServicio)
+        {
+            if (!chk.Checked) return;
+
+            string sql = @"INSERT INTO ReservaServicio (id_reserva, id_servicio, cantidad, precio_unitario, subtotal)
+                   SELECT @reserva, id_servicio, 1, precio_base, precio_base
+                   FROM Servicio WHERE id_servicio = @servicio";
+
+            SqlCommand cmd = new SqlCommand(sql, conn, tran);
+            cmd.Parameters.AddWithValue("@reserva", idReserva);
+            cmd.Parameters.AddWithValue("@servicio", idServicio);
+            cmd.ExecuteNonQuery();
+        }
+
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if (!ValidarCampos()) return;
+
+            int numeroHabitacion = ObtenerHabitacionSeleccionada();
+            if (numeroHabitacion == 0)
+            {
+                MessageBox.Show("Seleccione una habitación antes de guardar.");
+                return;
+            }
+
+            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
+            {
+                conn.Open();
+                SqlTransaction tran = conn.BeginTransaction();
+
+                try
+                {
+                    // Obtener o crear cliente
+                    int idCliente = ObtenerOInsertarCliente(conn, tran);
+
+                    // Insertar reserva
+                    int idReserva = InsertarReserva(conn, tran, idCliente);
+
+                    // Insertar habitación
+                    InsertarReservaHabitacion(conn, tran, idReserva, numeroHabitacion);
+
+                    // Insertar servicios seleccionados
+                    InsertarServicios(conn, tran, idReserva);
+
+                    tran.Commit();
+
+                    MessageBox.Show("Reserva guardada correctamente.");
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    MessageBox.Show("Error al guardar la reserva: " + ex.Message);
+                }
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void CHJacuzzi_CheckedChanged(object sender, EventArgs e)
+        {
+            CalcularMontoEstimado(); // Llamar a la función para recalcular el monto
+        }
+        
+        private void CHMinibar_CheckedChanged(object sender, EventArgs e)
+        {
+            CalcularMontoEstimado(); // Llamar a la función para recalcular el monto
+        }
+        
+        private void CHPool_CheckedChanged(object sender, EventArgs e)
+        {
+            CalcularMontoEstimado(); // Llamar a la función para recalcular el monto
+        }
+
+        private void CBCantNoches_SelectedItemChanged(object sender, EventArgs e)
+        {
+            CalcularMontoEstimado(); // Llamar a la función para recalcular el monto
+        }
+
+        private void GrillaHabDisp_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (GrillaHabDisp.IsCurrentCellDirty)
+            {
+                GrillaHabDisp.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }                
+        }
+
+        private void TNombre_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(TNombre.Text))
+            {
+                string texto = TNombre.Text.ToLower(); // todo en minúscula
+                TNombre.Text = char.ToUpper(texto[0]) + texto.Substring(1); // primera en mayúscula
+            }
+        }
+
+        private void TApellido_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(TApellido.Text))
+            {
+                string texto = TApellido.Text.ToLower(); // todo en minúscula
+                TApellido.Text = char.ToUpper(texto[0]) + texto.Substring(1); // primera en mayúscula
+            }
         }
     }
 }

@@ -29,153 +29,98 @@ namespace HotelCalifornia
         private void InitializeComponent()
         {
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.lblCliente = new System.Windows.Forms.Label();
-            this.txtCliente = new System.Windows.Forms.TextBox();
-            this.lblCheckIn = new System.Windows.Forms.Label();
-            this.dtpCheckIn = new System.Windows.Forms.DateTimePicker();
-            this.lblCheckOut = new System.Windows.Forms.Label();
-            this.dtpCheckOut = new System.Windows.Forms.DateTimePicker();
-            this.cmbServicio = new System.Windows.Forms.ComboBox();
-            this.lblMetodoPago = new System.Windows.Forms.Label();
-            this.cmbMetodoPago = new System.Windows.Forms.ComboBox();
-            this.lblCantidadHuespedes = new System.Windows.Forms.Label();
-            this.numCantidadHuespedes = new System.Windows.Forms.NumericUpDown();
+            this.lblNombre = new System.Windows.Forms.Label();
+            this.TNombre = new System.Windows.Forms.TextBox();
+            this.LServicios = new System.Windows.Forms.Label();
             this.lblMontoEstimado = new System.Windows.Forms.Label();
-            this.txtMontoEstimado = new System.Windows.Forms.TextBox();
+            this.TMonto = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.LNumHab = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numCantidadHuespedes)).BeginInit();
+            this.GrillaHabDisp = new System.Windows.Forms.DataGridView();
+            this.numero_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.piso = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.capacidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.base_precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Reservar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.TApellido = new System.Windows.Forms.TextBox();
+            this.lblApellido = new System.Windows.Forms.Label();
+            this.TDni = new System.Windows.Forms.TextBox();
+            this.lblDni = new System.Windows.Forms.Label();
+            this.TTelefono = new System.Windows.Forms.TextBox();
+            this.lblTelefono = new System.Windows.Forms.Label();
+            this.TEmail = new System.Windows.Forms.TextBox();
+            this.lblEmail = new System.Windows.Forms.Label();
+            this.CBCantNoches = new System.Windows.Forms.DomainUpDown();
+            this.LCantNoches = new System.Windows.Forms.Label();
+            this.CHJacuzzi = new System.Windows.Forms.CheckBox();
+            this.CHMinibar = new System.Windows.Forms.CheckBox();
+            this.CHPool = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.GrillaHabDisp)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.Location = new System.Drawing.Point(150, 20);
+            this.lblTitulo.Location = new System.Drawing.Point(349, 9);
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(155, 25);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Nueva Reserva";
             // 
-            // lblCliente
+            // lblNombre
             // 
-            this.lblCliente.AutoSize = true;
-            this.lblCliente.Location = new System.Drawing.Point(30, 73);
-            this.lblCliente.Name = "lblCliente";
-            this.lblCliente.Size = new System.Drawing.Size(42, 13);
-            this.lblCliente.TabIndex = 1;
-            this.lblCliente.Text = "Cliente:";
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Location = new System.Drawing.Point(30, 62);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(82, 13);
+            this.lblNombre.TabIndex = 1;
+            this.lblNombre.Text = "Nombre Cliente:";
             // 
-            // txtCliente
+            // TNombre
             // 
-            this.txtCliente.Location = new System.Drawing.Point(150, 70);
-            this.txtCliente.Name = "txtCliente";
-            this.txtCliente.Size = new System.Drawing.Size(250, 20);
-            this.txtCliente.TabIndex = 2;
+            this.TNombre.Location = new System.Drawing.Point(118, 60);
+            this.TNombre.Name = "TNombre";
+            this.TNombre.Size = new System.Drawing.Size(212, 20);
+            this.TNombre.TabIndex = 2;
+            this.TNombre.Leave += new System.EventHandler(this.TNombre_Leave);
             // 
-            // lblCheckIn
+            // LServicios
             // 
-            this.lblCheckIn.AutoSize = true;
-            this.lblCheckIn.Location = new System.Drawing.Point(30, 113);
-            this.lblCheckIn.Name = "lblCheckIn";
-            this.lblCheckIn.Size = new System.Drawing.Size(53, 13);
-            this.lblCheckIn.TabIndex = 3;
-            this.lblCheckIn.Text = "Check-In:";
-            // 
-            // dtpCheckIn
-            // 
-            this.dtpCheckIn.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpCheckIn.Location = new System.Drawing.Point(150, 110);
-            this.dtpCheckIn.Name = "dtpCheckIn";
-            this.dtpCheckIn.Size = new System.Drawing.Size(120, 20);
-            this.dtpCheckIn.TabIndex = 4;
-            this.dtpCheckIn.ValueChanged += new System.EventHandler(this.dtpCheckIn_ValueChanged);
-            // 
-            // lblCheckOut
-            // 
-            this.lblCheckOut.AutoSize = true;
-            this.lblCheckOut.Location = new System.Drawing.Point(280, 113);
-            this.lblCheckOut.Name = "lblCheckOut";
-            this.lblCheckOut.Size = new System.Drawing.Size(61, 13);
-            this.lblCheckOut.TabIndex = 5;
-            this.lblCheckOut.Text = "Check-Out:";
-            // 
-            // dtpCheckOut
-            // 
-            this.dtpCheckOut.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpCheckOut.Location = new System.Drawing.Point(350, 110);
-            this.dtpCheckOut.Name = "dtpCheckOut";
-            this.dtpCheckOut.Size = new System.Drawing.Size(120, 20);
-            this.dtpCheckOut.TabIndex = 6;
-            // 
-            // cmbServicio
-            // 
-            this.cmbServicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbServicio.FormattingEnabled = true;
-            this.cmbServicio.Location = new System.Drawing.Point(150, 150);
-            this.cmbServicio.Name = "cmbServicio";
-            this.cmbServicio.Size = new System.Drawing.Size(200, 21);
-            this.cmbServicio.TabIndex = 8;
-            // 
-            // lblMetodoPago
-            // 
-            this.lblMetodoPago.AutoSize = true;
-            this.lblMetodoPago.Location = new System.Drawing.Point(30, 195);
-            this.lblMetodoPago.Name = "lblMetodoPago";
-            this.lblMetodoPago.Size = new System.Drawing.Size(89, 13);
-            this.lblMetodoPago.TabIndex = 9;
-            this.lblMetodoPago.Text = "Método de Pago:";
-            // 
-            // cmbMetodoPago
-            // 
-            this.cmbMetodoPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbMetodoPago.FormattingEnabled = true;
-            this.cmbMetodoPago.Location = new System.Drawing.Point(150, 192);
-            this.cmbMetodoPago.Name = "cmbMetodoPago";
-            this.cmbMetodoPago.Size = new System.Drawing.Size(150, 21);
-            this.cmbMetodoPago.TabIndex = 10;
-            // 
-            // lblCantidadHuespedes
-            // 
-            this.lblCantidadHuespedes.AutoSize = true;
-            this.lblCantidadHuespedes.Location = new System.Drawing.Point(30, 235);
-            this.lblCantidadHuespedes.Name = "lblCantidadHuespedes";
-            this.lblCantidadHuespedes.Size = new System.Drawing.Size(109, 13);
-            this.lblCantidadHuespedes.TabIndex = 11;
-            this.lblCantidadHuespedes.Text = "Cantidad Huéspedes:";
-            // 
-            // numCantidadHuespedes
-            // 
-            this.numCantidadHuespedes.Location = new System.Drawing.Point(150, 233);
-            this.numCantidadHuespedes.Name = "numCantidadHuespedes";
-            this.numCantidadHuespedes.Size = new System.Drawing.Size(80, 20);
-            this.numCantidadHuespedes.TabIndex = 12;
+            this.LServicios.AutoSize = true;
+            this.LServicios.Location = new System.Drawing.Point(351, 140);
+            this.LServicios.Name = "LServicios";
+            this.LServicios.Size = new System.Drawing.Size(53, 13);
+            this.LServicios.TabIndex = 9;
+            this.LServicios.Text = "Servicios:";
             // 
             // lblMontoEstimado
             // 
             this.lblMontoEstimado.AutoSize = true;
-            this.lblMontoEstimado.Location = new System.Drawing.Point(30, 275);
+            this.lblMontoEstimado.Location = new System.Drawing.Point(30, 442);
             this.lblMontoEstimado.Name = "lblMontoEstimado";
             this.lblMontoEstimado.Size = new System.Drawing.Size(86, 13);
             this.lblMontoEstimado.TabIndex = 13;
             this.lblMontoEstimado.Text = "Monto Estimado:";
             // 
-            // txtMontoEstimado
+            // TMonto
             // 
-            this.txtMontoEstimado.Location = new System.Drawing.Point(150, 272);
-            this.txtMontoEstimado.Name = "txtMontoEstimado";
-            this.txtMontoEstimado.ReadOnly = true;
-            this.txtMontoEstimado.Size = new System.Drawing.Size(120, 20);
-            this.txtMontoEstimado.TabIndex = 14;
-            this.txtMontoEstimado.Text = "0.00";
+            this.TMonto.Location = new System.Drawing.Point(122, 439);
+            this.TMonto.Name = "TMonto";
+            this.TMonto.ReadOnly = true;
+            this.TMonto.Size = new System.Drawing.Size(120, 20);
+            this.TMonto.TabIndex = 14;
+            this.TMonto.Text = "0.00";
             // 
             // btnGuardar
             // 
             this.btnGuardar.BackColor = System.Drawing.Color.Green;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
-            this.btnGuardar.Location = new System.Drawing.Point(200, 320);
+            this.btnGuardar.Location = new System.Drawing.Point(319, 473);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(100, 35);
             this.btnGuardar.TabIndex = 15;
@@ -188,7 +133,7 @@ namespace HotelCalifornia
             this.btnCancelar.BackColor = System.Drawing.SystemColors.ControlDark;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(320, 320);
+            this.btnCancelar.Location = new System.Drawing.Point(439, 473);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(100, 35);
             this.btnCancelar.TabIndex = 16;
@@ -199,34 +144,236 @@ namespace HotelCalifornia
             // LNumHab
             // 
             this.LNumHab.AutoSize = true;
-            this.LNumHab.Location = new System.Drawing.Point(30, 153);
+            this.LNumHab.Location = new System.Drawing.Point(31, 224);
             this.LNumHab.Name = "LNumHab";
-            this.LNumHab.Size = new System.Drawing.Size(114, 13);
+            this.LNumHab.Size = new System.Drawing.Size(129, 13);
             this.LNumHab.TabIndex = 17;
-            this.LNumHab.Text = "Nro. Habitación (Tipo):";
+            this.LNumHab.Text = "Habitaciones Disponibles:";
+            // 
+            // GrillaHabDisp
+            // 
+            this.GrillaHabDisp.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.GrillaHabDisp.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GrillaHabDisp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GrillaHabDisp.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.numero_hab,
+            this.piso,
+            this.nombre,
+            this.capacidad,
+            this.descripcion,
+            this.base_precio,
+            this.Reservar});
+            this.GrillaHabDisp.EnableHeadersVisualStyles = false;
+            this.GrillaHabDisp.Location = new System.Drawing.Point(33, 251);
+            this.GrillaHabDisp.Name = "GrillaHabDisp";
+            this.GrillaHabDisp.ReadOnly = true;
+            this.GrillaHabDisp.RowHeadersVisible = false;
+            this.GrillaHabDisp.Size = new System.Drawing.Size(815, 168);
+            this.GrillaHabDisp.TabIndex = 18;
+            this.GrillaHabDisp.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaHabDisp_CellContentClick);
+            this.GrillaHabDisp.CurrentCellDirtyStateChanged += new System.EventHandler(this.GrillaHabDisp_CurrentCellDirtyStateChanged);
+            // 
+            // numero_hab
+            // 
+            this.numero_hab.DataPropertyName = "numero_hab";
+            this.numero_hab.HeaderText = "Número";
+            this.numero_hab.Name = "numero_hab";
+            this.numero_hab.ReadOnly = true;
+            // 
+            // piso
+            // 
+            this.piso.DataPropertyName = "piso";
+            this.piso.HeaderText = "Piso";
+            this.piso.Name = "piso";
+            this.piso.ReadOnly = true;
+            // 
+            // nombre
+            // 
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.ReadOnly = true;
+            // 
+            // capacidad
+            // 
+            this.capacidad.DataPropertyName = "capacidad";
+            this.capacidad.HeaderText = "Capacidad";
+            this.capacidad.Name = "capacidad";
+            this.capacidad.ReadOnly = true;
+            // 
+            // descripcion
+            // 
+            this.descripcion.DataPropertyName = "descripcion";
+            this.descripcion.HeaderText = "Descripción";
+            this.descripcion.Name = "descripcion";
+            this.descripcion.ReadOnly = true;
+            // 
+            // base_precio
+            // 
+            this.base_precio.DataPropertyName = "base_precio";
+            this.base_precio.HeaderText = "Precio Base";
+            this.base_precio.Name = "base_precio";
+            this.base_precio.ReadOnly = true;
+            // 
+            // Reservar
+            // 
+            this.Reservar.DataPropertyName = "reservar";
+            this.Reservar.HeaderText = "Reservar";
+            this.Reservar.Name = "Reservar";
+            this.Reservar.ReadOnly = true;
+            this.Reservar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // TApellido
+            // 
+            this.TApellido.Location = new System.Drawing.Point(439, 60);
+            this.TApellido.Name = "TApellido";
+            this.TApellido.Size = new System.Drawing.Size(212, 20);
+            this.TApellido.TabIndex = 20;
+            this.TApellido.Leave += new System.EventHandler(this.TApellido_Leave);
+            // 
+            // lblApellido
+            // 
+            this.lblApellido.AutoSize = true;
+            this.lblApellido.Location = new System.Drawing.Point(351, 63);
+            this.lblApellido.Name = "lblApellido";
+            this.lblApellido.Size = new System.Drawing.Size(82, 13);
+            this.lblApellido.TabIndex = 19;
+            this.lblApellido.Text = "Apellido Cliente:";
+            // 
+            // TDni
+            // 
+            this.TDni.Location = new System.Drawing.Point(118, 98);
+            this.TDni.Name = "TDni";
+            this.TDni.Size = new System.Drawing.Size(212, 20);
+            this.TDni.TabIndex = 22;
+            // 
+            // lblDni
+            // 
+            this.lblDni.AutoSize = true;
+            this.lblDni.Location = new System.Drawing.Point(30, 100);
+            this.lblDni.Name = "lblDni";
+            this.lblDni.Size = new System.Drawing.Size(64, 13);
+            this.lblDni.TabIndex = 21;
+            this.lblDni.Text = "DNI Cliente:";
+            // 
+            // TTelefono
+            // 
+            this.TTelefono.Location = new System.Drawing.Point(439, 100);
+            this.TTelefono.Name = "TTelefono";
+            this.TTelefono.Size = new System.Drawing.Size(212, 20);
+            this.TTelefono.TabIndex = 24;
+            // 
+            // lblTelefono
+            // 
+            this.lblTelefono.AutoSize = true;
+            this.lblTelefono.Location = new System.Drawing.Point(351, 102);
+            this.lblTelefono.Name = "lblTelefono";
+            this.lblTelefono.Size = new System.Drawing.Size(87, 13);
+            this.lblTelefono.TabIndex = 23;
+            this.lblTelefono.Text = "Teléfono Cliente:";
+            // 
+            // TEmail
+            // 
+            this.TEmail.Location = new System.Drawing.Point(118, 137);
+            this.TEmail.Name = "TEmail";
+            this.TEmail.Size = new System.Drawing.Size(212, 20);
+            this.TEmail.TabIndex = 26;
+            // 
+            // lblEmail
+            // 
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Location = new System.Drawing.Point(30, 139);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(70, 13);
+            this.lblEmail.TabIndex = 25;
+            this.lblEmail.Text = "Email Cliente:";
+            // 
+            // CBCantNoches
+            // 
+            this.CBCantNoches.Items.Add("1");
+            this.CBCantNoches.Items.Add("2");
+            this.CBCantNoches.Items.Add("3");
+            this.CBCantNoches.Items.Add("4");
+            this.CBCantNoches.Items.Add("5");
+            this.CBCantNoches.Items.Add("6");
+            this.CBCantNoches.Items.Add("7");
+            this.CBCantNoches.Location = new System.Drawing.Point(118, 176);
+            this.CBCantNoches.Name = "CBCantNoches";
+            this.CBCantNoches.ReadOnly = true;
+            this.CBCantNoches.Size = new System.Drawing.Size(120, 20);
+            this.CBCantNoches.TabIndex = 30;
+            this.CBCantNoches.Text = "0";
+            this.CBCantNoches.SelectedItemChanged += new System.EventHandler(this.CBCantNoches_SelectedItemChanged);
+            // 
+            // LCantNoches
+            // 
+            this.LCantNoches.AutoSize = true;
+            this.LCantNoches.Location = new System.Drawing.Point(30, 178);
+            this.LCantNoches.Name = "LCantNoches";
+            this.LCantNoches.Size = new System.Drawing.Size(75, 13);
+            this.LCantNoches.TabIndex = 31;
+            this.LCantNoches.Text = "Cant. Noches:";
+            // 
+            // CHJacuzzi
+            // 
+            this.CHJacuzzi.AutoSize = true;
+            this.CHJacuzzi.Location = new System.Drawing.Point(439, 139);
+            this.CHJacuzzi.Name = "CHJacuzzi";
+            this.CHJacuzzi.Size = new System.Drawing.Size(61, 17);
+            this.CHJacuzzi.TabIndex = 32;
+            this.CHJacuzzi.Text = "Jacuzzi";
+            this.CHJacuzzi.UseVisualStyleBackColor = true;
+            this.CHJacuzzi.CheckedChanged += new System.EventHandler(this.CHJacuzzi_CheckedChanged);
+            // 
+            // CHMinibar
+            // 
+            this.CHMinibar.AutoSize = true;
+            this.CHMinibar.Location = new System.Drawing.Point(508, 139);
+            this.CHMinibar.Name = "CHMinibar";
+            this.CHMinibar.Size = new System.Drawing.Size(60, 17);
+            this.CHMinibar.TabIndex = 33;
+            this.CHMinibar.Text = "Minibar";
+            this.CHMinibar.UseVisualStyleBackColor = true;
+            this.CHMinibar.CheckedChanged += new System.EventHandler(this.CHMinibar_CheckedChanged);
+            // 
+            // CHPool
+            // 
+            this.CHPool.AutoSize = true;
+            this.CHPool.Location = new System.Drawing.Point(574, 139);
+            this.CHPool.Name = "CHPool";
+            this.CHPool.Size = new System.Drawing.Size(47, 17);
+            this.CHPool.TabIndex = 34;
+            this.CHPool.Text = "Pool";
+            this.CHPool.UseVisualStyleBackColor = true;
+            this.CHPool.CheckedChanged += new System.EventHandler(this.CHPool_CheckedChanged);
             // 
             // CrearReservaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(500, 380);
+            this.ClientSize = new System.Drawing.Size(875, 520);
+            this.Controls.Add(this.CHPool);
+            this.Controls.Add(this.CHMinibar);
+            this.Controls.Add(this.CHJacuzzi);
+            this.Controls.Add(this.LCantNoches);
+            this.Controls.Add(this.CBCantNoches);
+            this.Controls.Add(this.TEmail);
+            this.Controls.Add(this.lblEmail);
+            this.Controls.Add(this.TTelefono);
+            this.Controls.Add(this.lblTelefono);
+            this.Controls.Add(this.TDni);
+            this.Controls.Add(this.lblDni);
+            this.Controls.Add(this.TApellido);
+            this.Controls.Add(this.lblApellido);
+            this.Controls.Add(this.GrillaHabDisp);
             this.Controls.Add(this.LNumHab);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.txtMontoEstimado);
+            this.Controls.Add(this.TMonto);
             this.Controls.Add(this.lblMontoEstimado);
-            this.Controls.Add(this.numCantidadHuespedes);
-            this.Controls.Add(this.lblCantidadHuespedes);
-            this.Controls.Add(this.cmbMetodoPago);
-            this.Controls.Add(this.lblMetodoPago);
-            this.Controls.Add(this.cmbServicio);
-            this.Controls.Add(this.dtpCheckOut);
-            this.Controls.Add(this.lblCheckOut);
-            this.Controls.Add(this.dtpCheckIn);
-            this.Controls.Add(this.lblCheckIn);
-            this.Controls.Add(this.txtCliente);
-            this.Controls.Add(this.lblCliente);
+            this.Controls.Add(this.LServicios);
+            this.Controls.Add(this.TNombre);
+            this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.lblTitulo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -235,7 +382,7 @@ namespace HotelCalifornia
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Nueva Reserva - Hotel California";
             this.Load += new System.EventHandler(this.CrearReservaForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numCantidadHuespedes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GrillaHabDisp)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -244,21 +391,34 @@ namespace HotelCalifornia
         #endregion
 
         private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.Label lblCliente;
-        private System.Windows.Forms.TextBox txtCliente;
-        private System.Windows.Forms.Label lblCheckIn;
-        private System.Windows.Forms.DateTimePicker dtpCheckIn;
-        private System.Windows.Forms.Label lblCheckOut;
-        private System.Windows.Forms.DateTimePicker dtpCheckOut;
-        private System.Windows.Forms.ComboBox cmbServicio;
-        private System.Windows.Forms.Label lblMetodoPago;
-        private System.Windows.Forms.ComboBox cmbMetodoPago;
-        private System.Windows.Forms.Label lblCantidadHuespedes;
-        private System.Windows.Forms.NumericUpDown numCantidadHuespedes;
+        private System.Windows.Forms.Label lblNombre;
+        private System.Windows.Forms.TextBox TNombre;
+        private System.Windows.Forms.Label LServicios;
         private System.Windows.Forms.Label lblMontoEstimado;
-        private System.Windows.Forms.TextBox txtMontoEstimado;
+        private System.Windows.Forms.TextBox TMonto;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label LNumHab;
+        private System.Windows.Forms.TextBox TApellido;
+        private System.Windows.Forms.Label lblApellido;
+        private System.Windows.Forms.TextBox TDni;
+        private System.Windows.Forms.Label lblDni;
+        private System.Windows.Forms.TextBox TTelefono;
+        private System.Windows.Forms.Label lblTelefono;
+        private System.Windows.Forms.TextBox TEmail;
+        private System.Windows.Forms.Label lblEmail;
+        private System.Windows.Forms.DataGridView GrillaHabDisp;
+        private System.Windows.Forms.DomainUpDown CBCantNoches;
+        private System.Windows.Forms.Label LCantNoches;
+        private System.Windows.Forms.CheckBox CHJacuzzi;
+        private System.Windows.Forms.CheckBox CHMinibar;
+        private System.Windows.Forms.CheckBox CHPool;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numero_hab;
+        private System.Windows.Forms.DataGridViewTextBoxColumn piso;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn capacidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn base_precio;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Reservar;
     }
 }

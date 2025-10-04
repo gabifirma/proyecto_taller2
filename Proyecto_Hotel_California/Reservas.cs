@@ -1,15 +1,16 @@
+using HotelCalifornia.Models;
+using HotelCalifornia.Services;
+using HotelCalifornia.Styles;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HotelCalifornia.Models;
-using HotelCalifornia.Services;
-using HotelCalifornia.Styles;
 
 namespace HotelCalifornia
 {
@@ -24,150 +25,38 @@ namespace HotelCalifornia
             this.WindowState = FormWindowState.Maximized;
         }
 
-        private void Reservas_Load(object sender, EventArgs e)
+        private void CargarReservas()
         {
-            InitializeForm();
-            LoadReservas();
-        }
-
-        private void Reservas_Resize(object sender, EventArgs e)
-        {
-            AdjustControlsForResize();
-        }
-
-        private void AdjustControlsForResize()
-        {
-            if (this.WindowState == FormWindowState.Minimized) return;
-
-            // Ajustar el título
-            LTituloReservas.Left = (this.ClientSize.Width - LTituloReservas.Width) / 2;
-
-            // Ajustar el grupo de filtros
-            groupBoxFiltros.Width = this.ClientSize.Width - 40;
-
-            // Ajustar la grilla
-            GrillaReservas.Width = this.ClientSize.Width - 24;
-            GrillaReservas.Height = this.ClientSize.Height - GrillaReservas.Top - 80;
-
-            // Ajustar botones
-            int buttonY = this.ClientSize.Height - 60;
-            btnNuevaReserva.Top = buttonY;
-            btnVerPagos.Top = buttonY;
-            btnVerPagos.Left = this.ClientSize.Width - btnVerPagos.Width - 20;
-        }
-
-        private void InitializeForm()
-        {
-            // Configurar fechas por defecto
-            dtpFechaInicio.Value = DateTime.Now.AddDays(-30);
-            dtpFechaFin.Value = DateTime.Now.AddDays(30);
-            cmbEstado.Items.Clear();
-            cmbEstado.Items.AddRange(new string[] { "Todos", "Confirmada", "Pendiente", "Anulada" });
-            cmbEstado.SelectedIndex = 0; // "Todos"
-            
-            // Configurar DataGridView
-            ConfigureDataGridView();
-        }
-
-        private void ConfigureDataGridView()
-        {
-            GrillaReservas.AutoGenerateColumns = false;
-            GrillaReservas.Columns.Clear();
-
-            GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn
+            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
-                Name = "Id",
-                HeaderText = "ID",
-                DataPropertyName = "Id",
-                Width = 80
-            });
+                conn.Open();
 
-            GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "Cliente",
-                HeaderText = "Cliente",
-                DataPropertyName = "Cliente",
-                Width = 150
-            });
+                string query = @"
+                    SELECT 
+                        R.id_reserva,
+                        R.fecha_inicio,
+                        R.fecha_fin,
+                        C.nombre AS nombre_cliente,
+                        C.apellido AS apellido_cliente,
+                        H.numero_hab,
+                        TH.nombre AS tipo_habitacion,
+                        TH.capacidad,
+                        RH.precio_noche,
+                        RH.cantidad_noches,
+                        RH.subtotal
+                    FROM Reserva R
+                    INNER JOIN Cliente C ON R.id_cliente = C.id_cliente
+                    INNER JOIN ReservaHabitacion RH ON R.id_reserva = RH.id_reserva
+                    INNER JOIN Habitacion H ON RH.numero_hab = H.numero_hab
+                    INNER JOIN TipoHabitacion TH ON H.id_tipo = TH.id_tipo
+                    ORDER BY R.id_reserva DESC";
 
-            GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "FechaCheckIn",
-                HeaderText = "Check-In",
-                DataPropertyName = "FechaCheckIn",
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" },
-                Width = 100
-            });
+                SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
 
-            GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "FechaCheckOut",
-                HeaderText = "Check-Out",
-                DataPropertyName = "FechaCheckOut",
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" },
-                Width = 100
-            });
-
-            GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "Num_hab_tipo",
-                HeaderText = "Nro. Habitación (Tipo)",
-                DataPropertyName = "Servicio",
-                Width = 120
-            });
-
-            GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "Estado",
-                HeaderText = "Estado",
-                DataPropertyName = "Estado",
-                Width = 100
-            });
-
-            GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "MetodoPago",
-                HeaderText = "Método Pago",
-                DataPropertyName = "MetodoPago",
-                Width = 100
-            });
-
-            GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "CantidadHuespedes",
-                HeaderText = "Huéspedes",
-                DataPropertyName = "CantidadHuespedes",
-                Width = 80
-            });
-
-            GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "MontoEstimado",
-                HeaderText = "Monto",
-                DataPropertyName = "MontoEstimado",
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" },
-                Width = 100
-            });
-
-            // Configurar para redimensionamiento automático
-            GrillaReservas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        }
-
-        private void LoadReservas()
-        {
-            try
-            {
-                // Usar DataService para obtener las reservas
-                reservasActuales = DataService.GetReservas();
-                GrillaReservas.DataSource = reservasActuales;
-                
-                // Colorear filas según estado
-                ApplyRowColors();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar reservas: {ex.Message}", "Error", 
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                GrillaReservas.AutoGenerateColumns = true; // o configurala manualmente si querés formato
+                GrillaReservas.DataSource = dt;
             }
         }
 
@@ -225,38 +114,10 @@ namespace HotelCalifornia
             }
         }
 
-        private void btnLimpiarFiltros_Click(object sender, EventArgs e)
-        {
-            txtBuscarCliente.Clear();
-            dtpFechaInicio.Value = DateTime.Now.AddDays(-30);
-            dtpFechaFin.Value = DateTime.Now.AddDays(30);
-            dtpFechaInicio.Checked = false;
-            dtpFechaFin.Checked = false;
-            cmbEstado.SelectedIndex = 0;
-            LoadReservas();
-        }
-
         private void btnNuevaReserva_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // Abrir el formulario de crear reserva
-                using (var crearReservaForm = new CrearReservaForm())
-                {
-                    if (crearReservaForm.ShowDialog() == DialogResult.OK)
-                    {
-                        // Recargar las reservas después de crear una nueva
-                        LoadReservas();
-                        MessageBox.Show("Reserva creada exitosamente.", "Éxito", 
-                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al abrir formulario de nueva reserva: {ex.Message}", "Error", 
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            CrearReservaForm frm = new CrearReservaForm();
+            frm.ShowDialog();
         }
 
         private void btnVerPagos_Click(object sender, EventArgs e)
@@ -305,6 +166,11 @@ namespace HotelCalifornia
             {
                 btnVerPagos_Click(sender, e);
             }
+        }
+
+        private void Reservas_Load(object sender, EventArgs e)
+        {
+            CargarReservas();
         }
     }
 }

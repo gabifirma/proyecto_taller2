@@ -157,7 +157,7 @@ namespace HotelCalifornia
                 {
                     conn.Open();
                     string query = @"UPDATE Empleado 
-                         SET apellido=@Apellido, nombre=@Nombre, legajo=@Legajo, telefono=@Telefono, email=@Email, estado=@Estado
+                         SET apellido=@Apellido, nombre=@Nombre, telefono=@Telefono, email=@Email, estado=@Estado
                          WHERE legajo=@Legajo"; //Busco por legajo y no por id
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))

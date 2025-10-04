@@ -70,7 +70,7 @@ namespace HotelCalifornia
             this.GrillaReservas.ReadOnly = true;
             this.GrillaReservas.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.GrillaReservas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.GrillaReservas.Size = new System.Drawing.Size(828, 327);
+            this.GrillaReservas.Size = new System.Drawing.Size(1096, 327);
             this.GrillaReservas.TabIndex = 1;
             this.GrillaReservas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaReservas_CellDoubleClick);
             // 
@@ -128,7 +128,6 @@ namespace HotelCalifornia
             this.btnLimpiarFiltros.Text = "Limpiar";
             this.btnLimpiarFiltros.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLimpiarFiltros.UseVisualStyleBackColor = false;
-            this.btnLimpiarFiltros.Click += new System.EventHandler(this.btnLimpiarFiltros_Click);
             // 
             // btnNuevaReserva
             // 
@@ -250,7 +249,7 @@ namespace HotelCalifornia
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(964, 668);
+            this.ClientSize = new System.Drawing.Size(1123, 668);
             this.Controls.Add(this.groupBoxFiltros);
             this.Controls.Add(this.GrillaReservas);
             this.Controls.Add(this.LTituloReservas);

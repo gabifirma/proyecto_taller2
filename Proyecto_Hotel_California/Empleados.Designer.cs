@@ -50,8 +50,6 @@ namespace HotelCalifornia
             this.LBuscar = new System.Windows.Forms.Label();
             this.BBuscar = new System.Windows.Forms.Button();
             this.BRecargar = new System.Windows.Forms.Button();
-            this.TLegajo = new System.Windows.Forms.TextBox();
-            this.LLegajo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaEmpleados)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,7 +69,7 @@ namespace HotelCalifornia
             this.Email,
             this.Estado});
             this.GrillaEmpleados.EnableHeadersVisualStyles = false;
-            this.GrillaEmpleados.Location = new System.Drawing.Point(14, 327);
+            this.GrillaEmpleados.Location = new System.Drawing.Point(13, 298);
             this.GrillaEmpleados.Margin = new System.Windows.Forms.Padding(4);
             this.GrillaEmpleados.Name = "GrillaEmpleados";
             this.GrillaEmpleados.ReadOnly = true;
@@ -234,7 +232,7 @@ namespace HotelCalifornia
             // TBuscar
             // 
             this.TBuscar.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBuscar.Location = new System.Drawing.Point(14, 285);
+            this.TBuscar.Location = new System.Drawing.Point(14, 256);
             this.TBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.TBuscar.Name = "TBuscar";
             this.TBuscar.Size = new System.Drawing.Size(328, 26);
@@ -244,7 +242,7 @@ namespace HotelCalifornia
             // 
             this.LBuscar.AutoSize = true;
             this.LBuscar.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBuscar.Location = new System.Drawing.Point(15, 256);
+            this.LBuscar.Location = new System.Drawing.Point(15, 227);
             this.LBuscar.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LBuscar.Name = "LBuscar";
             this.LBuscar.Size = new System.Drawing.Size(53, 19);
@@ -255,7 +253,7 @@ namespace HotelCalifornia
             // 
             this.BBuscar.Image = ((System.Drawing.Image)(resources.GetObject("BBuscar.Image")));
             this.BBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BBuscar.Location = new System.Drawing.Point(360, 286);
+            this.BBuscar.Location = new System.Drawing.Point(360, 257);
             this.BBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.BBuscar.Name = "BBuscar";
             this.BBuscar.Size = new System.Drawing.Size(108, 33);
@@ -268,7 +266,7 @@ namespace HotelCalifornia
             // 
             this.BRecargar.Image = ((System.Drawing.Image)(resources.GetObject("BRecargar.Image")));
             this.BRecargar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BRecargar.Location = new System.Drawing.Point(476, 286);
+            this.BRecargar.Location = new System.Drawing.Point(476, 257);
             this.BRecargar.Margin = new System.Windows.Forms.Padding(4);
             this.BRecargar.Name = "BRecargar";
             this.BRecargar.Size = new System.Drawing.Size(122, 33);
@@ -277,34 +275,12 @@ namespace HotelCalifornia
             this.BRecargar.UseVisualStyleBackColor = true;
             this.BRecargar.Click += new System.EventHandler(this.BRecargar_Click);
             // 
-            // TLegajo
-            // 
-            this.TLegajo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TLegajo.Location = new System.Drawing.Point(102, 161);
-            this.TLegajo.Margin = new System.Windows.Forms.Padding(4);
-            this.TLegajo.Name = "TLegajo";
-            this.TLegajo.Size = new System.Drawing.Size(288, 26);
-            this.TLegajo.TabIndex = 44;
-            // 
-            // LLegajo
-            // 
-            this.LLegajo.AutoSize = true;
-            this.LLegajo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LLegajo.Location = new System.Drawing.Point(21, 165);
-            this.LLegajo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LLegajo.Name = "LLegajo";
-            this.LLegajo.Size = new System.Drawing.Size(54, 19);
-            this.LLegajo.TabIndex = 43;
-            this.LLegajo.Text = "Legajo";
-            // 
             // Empleados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(1008, 667);
-            this.Controls.Add(this.TLegajo);
-            this.Controls.Add(this.LLegajo);
             this.Controls.Add(this.BRecargar);
             this.Controls.Add(this.BBuscar);
             this.Controls.Add(this.TBuscar);
@@ -356,7 +332,5 @@ namespace HotelCalifornia
         private System.Windows.Forms.Label LBuscar;
         private System.Windows.Forms.Button BBuscar;
         private System.Windows.Forms.Button BRecargar;
-        private System.Windows.Forms.TextBox TLegajo;
-        private System.Windows.Forms.Label LLegajo;
     }
 }
