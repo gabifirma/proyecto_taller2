@@ -32,7 +32,6 @@ namespace HotelCalifornia
             this.LTituloReservas = new System.Windows.Forms.Label();
             this.GrillaReservas = new System.Windows.Forms.DataGridView();
             this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
-            this.btnVerPagos = new System.Windows.Forms.Button();
             this.btnLimpiarFiltros = new System.Windows.Forms.Button();
             this.btnNuevaReserva = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -76,7 +75,6 @@ namespace HotelCalifornia
             // 
             // groupBoxFiltros
             // 
-            this.groupBoxFiltros.Controls.Add(this.btnVerPagos);
             this.groupBoxFiltros.Controls.Add(this.btnLimpiarFiltros);
             this.groupBoxFiltros.Controls.Add(this.btnNuevaReserva);
             this.groupBoxFiltros.Controls.Add(this.btnBuscar);
@@ -96,22 +94,6 @@ namespace HotelCalifornia
             this.groupBoxFiltros.TabIndex = 2;
             this.groupBoxFiltros.TabStop = false;
             this.groupBoxFiltros.Text = "Filtros de Búsqueda";
-            // 
-            // btnVerPagos
-            // 
-            this.btnVerPagos.BackColor = System.Drawing.Color.Orange;
-            this.btnVerPagos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVerPagos.ForeColor = System.Drawing.Color.White;
-            this.btnVerPagos.Image = ((System.Drawing.Image)(resources.GetObject("btnVerPagos.Image")));
-            this.btnVerPagos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVerPagos.Location = new System.Drawing.Point(560, 95);
-            this.btnVerPagos.Margin = new System.Windows.Forms.Padding(4);
-            this.btnVerPagos.Name = "btnVerPagos";
-            this.btnVerPagos.Size = new System.Drawing.Size(140, 46);
-            this.btnVerPagos.TabIndex = 4;
-            this.btnVerPagos.Text = "Ver Pagos";
-            this.btnVerPagos.UseVisualStyleBackColor = false;
-            this.btnVerPagos.Click += new System.EventHandler(this.btnVerPagos_Click);
             // 
             // btnLimpiarFiltros
             // 
@@ -284,6 +266,5 @@ namespace HotelCalifornia
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnLimpiarFiltros;
         private System.Windows.Forms.Button btnNuevaReserva;
-        private System.Windows.Forms.Button btnVerPagos;
     }
 }

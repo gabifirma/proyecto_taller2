@@ -120,51 +120,20 @@ namespace HotelCalifornia
             frm.ShowDialog();
         }
 
-        private void btnVerPagos_Click(object sender, EventArgs e)
-        {
-            if (GrillaReservas.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Seleccione una reserva para ver sus pagos.", "Información", 
-                              MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            try
-            {
-                var reservaSeleccionada = (Reserva)GrillaReservas.SelectedRows[0].DataBoundItem;
-                
-                // Obtener pagos reales usando DataService
-                var pagos = DataService.GetPagosByReservaId(reservaSeleccionada.Id);
-
-                string mensaje = $"Pagos para la reserva {reservaSeleccionada.Id} - {reservaSeleccionada.Cliente}:\n\n";
-                
-                if (pagos.Count == 0)
-                {
-                    mensaje += "No hay pagos registrados para esta reserva.";
-                }
-                else
-                {
-                    foreach (var pago in pagos)
-                    {
-                        mensaje += $"• ID: {pago.Id} | Fecha: {pago.FechaPago:dd/MM/yyyy} | " +
-                                 $"Monto: {pago.Monto:C2} | Método: {pago.MetodoPago} | Estado: {pago.Estado}\n";
-                    }
-                }
-
-                MessageBox.Show(mensaje, "Pagos de la Reserva", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al obtener pagos: {ex.Message}", "Error", 
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void GrillaReservas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            // Funcionalidad para doble clic en la grilla
+            if (e.RowIndex >= 0) // para evitar encabezados
             {
-                btnVerPagos_Click(sender, e);
+                // Obtener el valor de la columna ID de la fila seleccionada
+                int numReserva = Convert.ToInt32(GrillaReservas.Rows[e.RowIndex].Cells["id_reserva"].Value);
+
+                // Abrir el formulario de edición y pasarle el Id
+                CrearPagoForm frm = new CrearPagoForm(numReserva);
+                frm.ShowDialog();
+
+                // refrescar el DataGridView después de editar
+                CargarReservas();
             }
         }
 

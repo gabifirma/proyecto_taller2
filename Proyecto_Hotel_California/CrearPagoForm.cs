@@ -1,29 +1,70 @@
+using HotelCalifornia.Models;
+using HotelCalifornia.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HotelCalifornia.Models;
-using HotelCalifornia.Services;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace HotelCalifornia
 {
     public partial class CrearPagoForm : Form
     {
-        private bool isProcessing = false;
+        private int idReserva;
 
-        public CrearPagoForm()
+        public CrearPagoForm(int idRes)
         {
             InitializeComponent();
+            idReserva = idRes;
         }
 
         private void CrearPagoForm_Load(object sender, EventArgs e)
         {
             InitializeForm();
+        }
+
+        private void CargarEmpleado()
+        {
+            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
+            {
+                conn.Open();
+                string query = "SELECT apellido, nombre, legajo, telefono, email, estado FROM Empleado WHERE legajo = @Legajo";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Legajo", empleadoLegajo);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        // Mostrar ID del empleado en el título o label
+                        TApellido.Text = reader["Apellido"].ToString();
+                        TNombre.Text = reader["Nombre"].ToString();
+                        LMostrarLeg.Text = reader["Legajo"].ToString();
+                        TTelefono.Text = reader["Telefono"].ToString();
+                        TEmail.Text = reader["Email"].ToString();
+                        if (reader["estado"].Equals(true))
+                        {
+                            RBActivado.Checked = true;
+                        }
+                        else
+                        {
+                            RBDesactivado.Checked = true;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontró el empleado con ese ID.");
+                        this.Close();
+                    }
+                }
+            }
         }
 
         private void InitializeForm()
@@ -56,221 +97,11 @@ namespace HotelCalifornia
             cmbReserva.SelectedIndexChanged += CmbReserva_SelectedIndexChanged;
         }
 
-        private void LoadReservas()
-        {
-            try
-            {
-                var reservas = DataService.GetReservas()
-                    .Where(r => r.Estado != "Anulada")
-                    .OrderBy(r => r.Id)
-                    .ToList();
 
-                cmbReserva.DisplayMember = "Display";
-                cmbReserva.ValueMember = "Id";
-                cmbReserva.DataSource = reservas.Select(r => new
-                {
-                    r.Id,
-                    Display = $"{r.Id} - {r.Cliente} ({r.MontoEstimado:C2})"
-                }).ToList();
-
-                cmbReserva.SelectedIndex = -1;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar reservas: {ex.Message}", "Error", 
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void CmbReserva_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbReserva.SelectedValue != null)
-            {
-                string reservaId = cmbReserva.SelectedValue.ToString();
-                var reserva = DataService.GetReservaById(reservaId);
-                
-                if (reserva != null)
-                {
-                    // Sugerir el monto de la reserva
-                    txtMonto.Text = reserva.MontoEstimado.ToString("F2");
-                    
-                    // Sugerir el método de pago de la reserva
-                    for (int i = 0; i < cmbMetodoPago.Items.Count; i++)
-                    {
-                        if (cmbMetodoPago.Items[i].ToString() == reserva.MetodoPago)
-                        {
-                            cmbMetodoPago.SelectedIndex = i;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (isProcessing) return;
-
-            try
-            {
-                // Validar campos
-                if (!ValidarCampos()) return;
-
-                isProcessing = true;
-                btnGuardar.Enabled = false;
-                btnGuardar.Text = "Guardando...";
-
-                // Crear nuevo pago
-                var nuevoPago = new Pago
-                {
-                    Id = DataService.GeneratePagoId(),
-                    ReservaId = cmbReserva.SelectedValue.ToString(),
-                    FechaPago = dtpFechaPago.Value,
-                    Monto = decimal.Parse(txtMonto.Text),
-                    MetodoPago = cmbMetodoPago.SelectedItem.ToString(),
-                    Estado = cmbEstado.SelectedItem.ToString()
-                };
-
-                // Validaciones de negocio
-                if (!ValidarPago(nuevoPago))
-                {
-                    return;
-                }
-
-                // Guardar pago
-                DataService.AddPago(nuevoPago);
-
-                MessageBox.Show($"Pago {nuevoPago.Id} registrado exitosamente.", "Éxito", 
-                              MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al registrar pago: {ex.Message}", "Error", 
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                isProcessing = false;
-                btnGuardar.Enabled = true;
-                btnGuardar.Text = "Guardar";
-            }
-        }
-
-        private bool ValidarCampos()
-        {
-            // Limpiar errores previos
-            LimpiarErrores();
-
-            bool esValido = true;
-
-            // Validar reserva
-            if (cmbReserva.SelectedValue == null)
-            {
-                MostrarError(lblReserva, "Debe seleccionar una reserva");
-                esValido = false;
-            }
-
-            // Validar monto
-            if (string.IsNullOrWhiteSpace(txtMonto.Text))
-            {
-                MostrarError(lblMonto, "El monto es obligatorio");
-                esValido = false;
-            }
-            else if (!decimal.TryParse(txtMonto.Text, out decimal monto) || monto <= 0)
-            {
-                MostrarError(lblMonto, "El monto debe ser un número mayor a 0");
-                esValido = false;
-            }
-
-            // Validar fecha
-            if (dtpFechaPago.Value > DateTime.Now)
-            {
-                MostrarError(lblFechaPago, "La fecha de pago no puede ser futura");
-                esValido = false;
-            }
-
-            // Validar método de pago
-            if (cmbMetodoPago.SelectedItem == null)
-            {
-                MostrarError(lblMetodoPago, "Debe seleccionar un método de pago");
-                esValido = false;
-            }
-
-            // Validar estado
-            if (cmbEstado.SelectedItem == null)
-            {
-                MostrarError(lblEstado, "Debe seleccionar un estado");
-                esValido = false;
-            }
-
-            return esValido;
-        }
-
-        private bool ValidarPago(Pago nuevoPago)
-        {
-            try
-            {
-                var reserva = DataService.GetReservaById(nuevoPago.ReservaId);
-                if (reserva == null)
-                {
-                    MessageBox.Show("La reserva seleccionada no existe.", "Validación", 
-                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-
-                // Validar compatibilidad de método de pago
-                if (nuevoPago.MetodoPago != reserva.MetodoPago)
-                {
-                    DialogResult result = MessageBox.Show(
-                        $"El método de pago ({nuevoPago.MetodoPago}) es diferente al de la reserva ({reserva.MetodoPago}).\\n¿Desea continuar?",
-                        "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    
-                    if (result == DialogResult.No)
-                        return false;
-                }
-
-                // Validar que el monto no exceda significativamente el monto de la reserva
-                if (nuevoPago.Monto > reserva.MontoEstimado * 1.5m)
-                {
-                    DialogResult result = MessageBox.Show(
-                        $"El monto del pago ({nuevoPago.Monto:C2}) es significativamente mayor al monto estimado de la reserva ({reserva.MontoEstimado:C2}).\\n¿Desea continuar?",
-                        "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    
-                    if (result == DialogResult.No)
-                        return false;
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error en validación: {ex.Message}", "Error", 
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-        }
-
-        private void MostrarError(Label label, string mensaje)
-        {
-            label.ForeColor = Color.Red;
-            label.Text = label.Text.Split(':')[0] + ": " + mensaje;
-        }
-
-        private void LimpiarErrores()
-        {
-            lblReserva.ForeColor = SystemColors.ControlText;
-            lblReserva.Text = "Reserva:";
-            lblMonto.ForeColor = SystemColors.ControlText;
-            lblMonto.Text = "Monto:";
-            lblFechaPago.ForeColor = SystemColors.ControlText;
-            lblFechaPago.Text = "Fecha de Pago:";
-            lblMetodoPago.ForeColor = SystemColors.ControlText;
-            lblMetodoPago.Text = "Método de Pago:";
-            lblEstado.ForeColor = SystemColors.ControlText;
-            lblEstado.Text = "Estado:";
+           
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

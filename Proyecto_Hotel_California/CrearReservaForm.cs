@@ -259,6 +259,7 @@ namespace HotelCalifornia
 
         private decimal ObtenerPrecioBase(SqlConnection conn, SqlTransaction tran, int numeroHab)
         {
+            //Obtener precio base de la habitación
             string q = @"SELECT t.base_precio 
                  FROM Habitacion h
                  JOIN TipoHabitacion t ON h.id_tipo = t.id_tipo
@@ -321,9 +322,15 @@ namespace HotelCalifornia
                     // Insertar servicios seleccionados
                     InsertarServicios(conn, tran, idReserva);
 
-                    tran.Commit();
+                    // Cambiar el estado de la habitación a 2
+                    string update = @"UPDATE Habitacion SET id_estado = 2 WHERE numero_hab = @num";
+                    SqlCommand cmdUpdate = new SqlCommand(update, conn, tran);
+                    cmdUpdate.Parameters.AddWithValue("@num", numeroHabitacion);
+                    cmdUpdate.ExecuteNonQuery();
 
+                    tran.Commit();
                     MessageBox.Show("Reserva guardada correctamente.");
+                    cargarHabitaciones();
                 }
                 catch (Exception ex)
                 {
