@@ -56,7 +56,7 @@ namespace HotelCalifornia
             // lblReserva
             // 
             this.lblReserva.AutoSize = true;
-            this.lblReserva.Location = new System.Drawing.Point(30, 111);
+            this.lblReserva.Location = new System.Drawing.Point(30, 97);
             this.lblReserva.Name = "lblReserva";
             this.lblReserva.Size = new System.Drawing.Size(50, 13);
             this.lblReserva.TabIndex = 1;
@@ -65,7 +65,7 @@ namespace HotelCalifornia
             // lblMonto
             // 
             this.lblMonto.AutoSize = true;
-            this.lblMonto.Location = new System.Drawing.Point(30, 151);
+            this.lblMonto.Location = new System.Drawing.Point(30, 137);
             this.lblMonto.Name = "lblMonto";
             this.lblMonto.Size = new System.Drawing.Size(40, 13);
             this.lblMonto.TabIndex = 3;
@@ -74,7 +74,7 @@ namespace HotelCalifornia
             // lblMetodoPago
             // 
             this.lblMetodoPago.AutoSize = true;
-            this.lblMetodoPago.Location = new System.Drawing.Point(30, 190);
+            this.lblMetodoPago.Location = new System.Drawing.Point(30, 176);
             this.lblMetodoPago.Name = "lblMetodoPago";
             this.lblMetodoPago.Size = new System.Drawing.Size(89, 13);
             this.lblMetodoPago.TabIndex = 7;
@@ -109,7 +109,7 @@ namespace HotelCalifornia
             // LReserva
             // 
             this.LReserva.AutoSize = true;
-            this.LReserva.Location = new System.Drawing.Point(150, 111);
+            this.LReserva.Location = new System.Drawing.Point(150, 97);
             this.LReserva.Name = "LReserva";
             this.LReserva.Size = new System.Drawing.Size(47, 13);
             this.LReserva.TabIndex = 13;
@@ -136,7 +136,7 @@ namespace HotelCalifornia
             // LMonto
             // 
             this.LMonto.AutoSize = true;
-            this.LMonto.Location = new System.Drawing.Point(153, 151);
+            this.LMonto.Location = new System.Drawing.Point(153, 137);
             this.LMonto.Name = "LMonto";
             this.LMonto.Size = new System.Drawing.Size(60, 13);
             this.LMonto.TabIndex = 15;
@@ -146,7 +146,7 @@ namespace HotelCalifornia
             // 
             this.RBEfectivo.AutoSize = true;
             this.RBEfectivo.Checked = true;
-            this.RBEfectivo.Location = new System.Drawing.Point(150, 190);
+            this.RBEfectivo.Location = new System.Drawing.Point(150, 176);
             this.RBEfectivo.Name = "RBEfectivo";
             this.RBEfectivo.Size = new System.Drawing.Size(64, 17);
             this.RBEfectivo.TabIndex = 16;
@@ -157,7 +157,7 @@ namespace HotelCalifornia
             // RBCredito
             // 
             this.RBCredito.AutoSize = true;
-            this.RBCredito.Location = new System.Drawing.Point(241, 190);
+            this.RBCredito.Location = new System.Drawing.Point(241, 176);
             this.RBCredito.Name = "RBCredito";
             this.RBCredito.Size = new System.Drawing.Size(58, 17);
             this.RBCredito.TabIndex = 17;
@@ -167,7 +167,7 @@ namespace HotelCalifornia
             // RBTrans
             // 
             this.RBTrans.AutoSize = true;
-            this.RBTrans.Location = new System.Drawing.Point(343, 190);
+            this.RBTrans.Location = new System.Drawing.Point(343, 176);
             this.RBTrans.Name = "RBTrans";
             this.RBTrans.Size = new System.Drawing.Size(90, 17);
             this.RBTrans.TabIndex = 18;
@@ -199,7 +199,6 @@ namespace HotelCalifornia
             this.Name = "CrearPagoForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Nuevo Pago - Hotel California";
-            this.Load += new System.EventHandler(this.CrearPagoForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -30,6 +30,11 @@ namespace HotelCalifornia
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pagos));
             this.GrillaPagos = new System.Windows.Forms.DataGridView();
+            this.id_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.referencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_metodoPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LTituloPagos = new System.Windows.Forms.Label();
             this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
             this.btnLimpiarFiltros = new System.Windows.Forms.Button();
@@ -42,23 +47,66 @@ namespace HotelCalifornia
             this.dtpFechaPago = new System.Windows.Forms.DateTimePicker();
             this.lblBuscarCliente = new System.Windows.Forms.Label();
             this.txtBuscarCliente = new System.Windows.Forms.TextBox();
-            this.btnNuevoPago = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaPagos)).BeginInit();
             this.groupBoxFiltros.SuspendLayout();
             this.SuspendLayout();
             // 
             // GrillaPagos
             // 
+            this.GrillaPagos.AllowUserToAddRows = false;
+            this.GrillaPagos.AllowUserToDeleteRows = false;
             this.GrillaPagos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GrillaPagos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GrillaPagos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id_pago,
+            this.fecha,
+            this.monto,
+            this.referencia,
+            this.id_metodoPago});
             this.GrillaPagos.Location = new System.Drawing.Point(14, 262);
             this.GrillaPagos.Margin = new System.Windows.Forms.Padding(4);
             this.GrillaPagos.Name = "GrillaPagos";
             this.GrillaPagos.ReadOnly = true;
+            this.GrillaPagos.RowHeadersVisible = false;
             this.GrillaPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.GrillaPagos.Size = new System.Drawing.Size(828, 327);
             this.GrillaPagos.TabIndex = 0;
             this.GrillaPagos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaPagos_CellContentClick);
+            // 
+            // id_pago
+            // 
+            this.id_pago.DataPropertyName = "id_pago";
+            this.id_pago.HeaderText = "ID";
+            this.id_pago.Name = "id_pago";
+            this.id_pago.ReadOnly = true;
+            // 
+            // fecha
+            // 
+            this.fecha.DataPropertyName = "fecha";
+            this.fecha.HeaderText = "Fecha";
+            this.fecha.Name = "fecha";
+            this.fecha.ReadOnly = true;
+            // 
+            // monto
+            // 
+            this.monto.DataPropertyName = "monto";
+            this.monto.HeaderText = "Monto";
+            this.monto.Name = "monto";
+            this.monto.ReadOnly = true;
+            // 
+            // referencia
+            // 
+            this.referencia.DataPropertyName = "referencia";
+            this.referencia.HeaderText = "Referencia";
+            this.referencia.Name = "referencia";
+            this.referencia.ReadOnly = true;
+            // 
+            // id_metodoPago
+            // 
+            this.id_metodoPago.DataPropertyName = "id_metodoPago";
+            this.id_metodoPago.HeaderText = "Metodo de Pago";
+            this.id_metodoPago.Name = "id_metodoPago";
+            this.id_metodoPago.ReadOnly = true;
             // 
             // LTituloPagos
             // 
@@ -214,29 +262,12 @@ namespace HotelCalifornia
             this.txtBuscarCliente.Size = new System.Drawing.Size(139, 25);
             this.txtBuscarCliente.TabIndex = 0;
             // 
-            // btnNuevoPago
-            // 
-            this.btnNuevoPago.BackColor = System.Drawing.Color.Green;
-            this.btnNuevoPago.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNuevoPago.ForeColor = System.Drawing.Color.White;
-            this.btnNuevoPago.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevoPago.Image")));
-            this.btnNuevoPago.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNuevoPago.Location = new System.Drawing.Point(700, 92);
-            this.btnNuevoPago.Margin = new System.Windows.Forms.Padding(4);
-            this.btnNuevoPago.Name = "btnNuevoPago";
-            this.btnNuevoPago.Size = new System.Drawing.Size(140, 46);
-            this.btnNuevoPago.TabIndex = 3;
-            this.btnNuevoPago.Text = "Nuevo Pago";
-            this.btnNuevoPago.UseVisualStyleBackColor = false;
-            this.btnNuevoPago.Click += new System.EventHandler(this.btnNuevoPago_Click);
-            // 
             // Pagos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(856, 668);
-            this.Controls.Add(this.btnNuevoPago);
             this.Controls.Add(this.groupBoxFiltros);
             this.Controls.Add(this.LTituloPagos);
             this.Controls.Add(this.GrillaPagos);
@@ -256,8 +287,6 @@ namespace HotelCalifornia
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView GrillaPagos;
         private System.Windows.Forms.Label LTituloPagos;
         private System.Windows.Forms.GroupBox groupBoxFiltros;
         private System.Windows.Forms.TextBox txtBuscarCliente;
@@ -270,6 +299,11 @@ namespace HotelCalifornia
         private System.Windows.Forms.Label lblMetodoPago;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnLimpiarFiltros;
-        private System.Windows.Forms.Button btnNuevoPago;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_pago;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn monto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn referencia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_metodoPago;
+        private System.Windows.Forms.DataGridView GrillaPagos;
     }
 }

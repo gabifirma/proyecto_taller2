@@ -152,6 +152,8 @@ namespace HotelCalifornia
             // 
             // GrillaHabDisp
             // 
+            this.GrillaHabDisp.AllowUserToAddRows = false;
+            this.GrillaHabDisp.AllowUserToDeleteRows = false;
             this.GrillaHabDisp.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GrillaHabDisp.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.GrillaHabDisp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;

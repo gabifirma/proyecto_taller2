@@ -78,3 +78,4 @@ C:\Users\TAC\Videos\2025\Taller de Programacion II\proyecto\29\proyecto_taller2\
 C:\Users\TAC\Videos\2025\Taller de Programacion II\proyecto\29\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\HotelCalifornia.exe
 C:\Users\TAC\Videos\2025\Taller de Programacion II\proyecto\29\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\HotelCalifornia.pdb
 C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\HotelCalifornia.CrearReservaForm.resources
+C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\HotelCalifornia.CrearPagoForm.resources

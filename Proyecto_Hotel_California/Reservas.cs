@@ -16,8 +16,6 @@ namespace HotelCalifornia
 {
     public partial class Reservas : BaseResponsiveForm
     {
-        private List<Reserva> reservasActuales;
-
         public Reservas()
         {
             InitializeComponent();
@@ -36,6 +34,7 @@ namespace HotelCalifornia
                         R.id_reserva,
                         R.fecha_inicio,
                         R.fecha_fin,
+                        R.id_estado,    
                         C.nombre AS nombre_cliente,
                         C.apellido AS apellido_cliente,
                         H.numero_hab,
@@ -57,61 +56,33 @@ namespace HotelCalifornia
 
                 GrillaReservas.AutoGenerateColumns = true; // o configurala manualmente si querés formato
                 GrillaReservas.DataSource = dt;
-            }
-        }
 
-        private void ApplyRowColors()
-        {
-            foreach (DataGridViewRow row in GrillaReservas.Rows)
-            {
-                if (row.DataBoundItem is Reserva reserva)
+                // Recorremos las filas y aplicamos color según el estado
+                foreach (DataGridViewRow row in GrillaReservas.Rows)
                 {
-                    switch (reserva.Estado)
+                    if (row.Cells["id_estado"].Value == null) continue;
+
+                    int estado = Convert.ToInt32(row.Cells["id_estado"].Value);
+
+                    switch (estado)
                     {
-                        case "Confirmada":
-                            row.DefaultCellStyle.BackColor = Color.LightGreen;
+                        case 2:
+                            row.DefaultCellStyle.BackColor = Color.Yellow; // En espera
                             break;
-                        case "Pendiente":
-                            row.DefaultCellStyle.BackColor = Color.LightYellow;
+                        case 1:
+                            row.DefaultCellStyle.BackColor = Color.Green; // Confirmada
                             break;
-                        case "Anulada":
-                            row.DefaultCellStyle.BackColor = Color.LightCoral;
+                        case 3:
+                            row.DefaultCellStyle.BackColor = Color.Red; // Terminada
                             break;
                     }
-                }
+                }                
             }
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                btnBuscar.Enabled = false;
-                btnBuscar.Text = "Buscando...";
 
-                string cliente = string.IsNullOrWhiteSpace(txtBuscarCliente.Text) ? null : txtBuscarCliente.Text.Trim();
-                DateTime? fechaInicio = dtpFechaInicio.Checked ? dtpFechaInicio.Value : (DateTime?)null;
-                DateTime? fechaFin = dtpFechaFin.Checked ? dtpFechaFin.Value : (DateTime?)null;
-                string estado = cmbEstado.SelectedItem?.ToString();
-                if (estado == "Todos") estado = null;
-
-                // Usar el método de filtrado del DataService
-                var reservasFiltradas = DataService.FilterReservas(cliente, fechaInicio, fechaFin, estado);
-                GrillaReservas.DataSource = reservasFiltradas;
-
-                // Aplicar colores nuevamente
-                ApplyRowColors();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al filtrar reservas: {ex.Message}", "Error", 
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                btnBuscar.Enabled = true;
-                btnBuscar.Text = "Buscar";
-            }
         }
 
         private void btnNuevaReserva_Click(object sender, EventArgs e)

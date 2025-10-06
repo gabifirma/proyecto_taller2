@@ -117,11 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="id_pago.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="fecha.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="monto.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="referencia.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="id_metodoPago.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnLimpiarFiltros.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EAAACxABrSO9dQAAAOlJREFUSEvtjzEOAUEYhbcR0TqDhI7OLTiAjoJGSaUTBQUXoHIBGifgDhRcgI5K
+        DQAACw0B7QfALAAAAOlJREFUSEvtjzEOAUEYhbcR0TqDhI7OLTiAjoJGSaUTBQUXoHIBGifgDhRcgI5K
         CO/9QyKbMf8QEpH9ki/Zt3lvZjf4NS43v0Z0gUp0gcpHL+jAA7wf+sw9bMOXyEHbYS6z0JsK5GgsyQ07
         7JYledKDHLUkuWGH3a4kT6aQo1ecQG9W0HaIyyX0IgaP8AwTfKEQhyfIDbcqGcgvWkvyYwO5SUtSKEKW
         Z5LsJGHKPArsclOQpNCELPclGcIH5mHdPAoDyE1DksIIslyVZAgfWIKPf1iD3AwlKSwgy+84hyo7aBv7
@@ -131,21 +146,11 @@
   <data name="btnBuscar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EAAACxABrSO9dQAAAOhJREFUOE+9lE0OwUAARktcgguIWDiJn1PYCuLnVKxYEByB29j6XqdtOtNppigv
+        DQAACw0B7QfALAAAAOhJREFUOE+9lE0OwUAARktcgguIWDiJn1PYCuLnVKxYEByB29j6XqdtOtNppigv
         ecn0Z16mQyb6FQ05kdMPHUsaGdzYSd/LVdzLkcxIH3xKYf5fgi25lDd5lYvkno9gkIlnuZLtxLU8SV80
         GGQ1xFw2cm6GFsEgn8mqXDryYoYWwSB7VhY8mKFFMMhnsWcuWzkzQ4tgkI3nByDKqpD9e8qBdAkGgSgr
         5fOPkpURe8iezFMpWEZX3mU/vjJ8FQRWyP+0GV/VEIQ0BrUE8xTmc3xxBKUP3pW5Q5nB4UjU93IVOQut
         A7YmougFH+xGWT30pQEAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="btnNuevoPago.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EAAACxABrSO9dQAAAPFJREFUSEvFlV0SwUAQhHMHnAPvToZDKR49uAbOgBtQ+pOkyv5MEhOhq74qVveM
-        3Up2il9rItZiJ/YfQmYlxiKrhbiKuziKXJEmyJC9CGoF4p9T/CSmLDg1E2dBk2AnbI3uGPqKGtRavr5V
-        4vzYYptGFW3iJLblx1KHijYRCoKGknpdG7h97qChxOcOGkp87qChxBcv8KRsRPwy3SridbzvT9f/G1hy
-        +9xBQ4nPHTSU+NxBQ4mva9B9VQx+2X3zup6Lhwiu63rgMCz6NKF4duAgxhw/0J0txi9TG2TIZkdmLbqy
-        Nc4vV6QJMmTNoT+AiuIJYpeOT/QJ8zcAAAAASUVORK5CYII=
 </value>
   </data>
 </root>
