@@ -71,10 +71,11 @@ namespace HotelCalifornia
                         // Insertar el pago
                         string insertarPago = @"INSERT INTO Pago (fecha, monto, referencia, id_metodoPago)
                                                 OUTPUT INSERTED.id_pago
-                                                VALUES (GETDATE(), @monto, 1234, @metodo)";
+                                                VALUES (GETDATE(), @monto, @referencia, @metodo)";
                         SqlCommand cmdPago = new SqlCommand(insertarPago, conn, tran);
                         cmdPago.Parameters.AddWithValue("@monto", monto);
                         cmdPago.Parameters.AddWithValue("@metodo", idMetodoPago);
+                        cmdPago.Parameters.AddWithValue("@referencia", idMetodoPago);
                         int idPago = (int)cmdPago.ExecuteScalar();
 
                         // Insertar la factura
@@ -121,13 +122,9 @@ namespace HotelCalifornia
             {
                 return 2;
             }
-            else if (RBTrans.Checked)
-            {
-                return 3;
-            }
             else
             {
-                return 0;
+                return 3;
             }
         }
 

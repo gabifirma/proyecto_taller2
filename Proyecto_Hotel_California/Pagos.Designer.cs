@@ -30,23 +30,25 @@ namespace HotelCalifornia
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pagos));
             this.GrillaPagos = new System.Windows.Forms.DataGridView();
+            this.LTituloPagos = new System.Windows.Forms.Label();
+            this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
+            this.RBCredito = new System.Windows.Forms.RadioButton();
+            this.RBTrans = new System.Windows.Forms.RadioButton();
+            this.RBEfectivo = new System.Windows.Forms.RadioButton();
+            this.TReferencia = new System.Windows.Forms.TextBox();
+            this.LHasta = new System.Windows.Forms.Label();
+            this.DTHasta = new System.Windows.Forms.DateTimePicker();
+            this.btnLimpiarFiltros = new System.Windows.Forms.Button();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.lblMetodoPago = new System.Windows.Forms.Label();
+            this.LReferencia = new System.Windows.Forms.Label();
+            this.LDesde = new System.Windows.Forms.Label();
+            this.DTDesde = new System.Windows.Forms.DateTimePicker();
             this.id_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.referencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id_metodoPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LTituloPagos = new System.Windows.Forms.Label();
-            this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
-            this.btnLimpiarFiltros = new System.Windows.Forms.Button();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.lblMetodoPago = new System.Windows.Forms.Label();
-            this.cmbMetodoPago = new System.Windows.Forms.ComboBox();
-            this.lblEstado = new System.Windows.Forms.Label();
-            this.cmbEstado = new System.Windows.Forms.ComboBox();
-            this.lblFechaPago = new System.Windows.Forms.Label();
-            this.dtpFechaPago = new System.Windows.Forms.DateTimePicker();
-            this.lblBuscarCliente = new System.Windows.Forms.Label();
-            this.txtBuscarCliente = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaPagos)).BeginInit();
             this.groupBoxFiltros.SuspendLayout();
             this.SuspendLayout();
@@ -71,7 +73,172 @@ namespace HotelCalifornia
             this.GrillaPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.GrillaPagos.Size = new System.Drawing.Size(828, 327);
             this.GrillaPagos.TabIndex = 0;
-            this.GrillaPagos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaPagos_CellContentClick);
+            // 
+            // LTituloPagos
+            // 
+            this.LTituloPagos.AutoSize = true;
+            this.LTituloPagos.Font = new System.Drawing.Font("Times New Roman", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LTituloPagos.Location = new System.Drawing.Point(327, 20);
+            this.LTituloPagos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LTituloPagos.Name = "LTituloPagos";
+            this.LTituloPagos.Size = new System.Drawing.Size(183, 28);
+            this.LTituloPagos.TabIndex = 1;
+            this.LTituloPagos.Text = "Gestión de Pagos";
+            // 
+            // groupBoxFiltros
+            // 
+            this.groupBoxFiltros.Controls.Add(this.RBCredito);
+            this.groupBoxFiltros.Controls.Add(this.RBTrans);
+            this.groupBoxFiltros.Controls.Add(this.RBEfectivo);
+            this.groupBoxFiltros.Controls.Add(this.TReferencia);
+            this.groupBoxFiltros.Controls.Add(this.LHasta);
+            this.groupBoxFiltros.Controls.Add(this.DTHasta);
+            this.groupBoxFiltros.Controls.Add(this.btnLimpiarFiltros);
+            this.groupBoxFiltros.Controls.Add(this.btnBuscar);
+            this.groupBoxFiltros.Controls.Add(this.lblMetodoPago);
+            this.groupBoxFiltros.Controls.Add(this.LReferencia);
+            this.groupBoxFiltros.Controls.Add(this.LDesde);
+            this.groupBoxFiltros.Controls.Add(this.DTDesde);
+            this.groupBoxFiltros.Location = new System.Drawing.Point(14, 65);
+            this.groupBoxFiltros.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBoxFiltros.Name = "groupBoxFiltros";
+            this.groupBoxFiltros.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBoxFiltros.Size = new System.Drawing.Size(828, 129);
+            this.groupBoxFiltros.TabIndex = 2;
+            this.groupBoxFiltros.TabStop = false;
+            this.groupBoxFiltros.Text = "Filtros de Búsqueda";
+            // 
+            // RBCredito
+            // 
+            this.RBCredito.AutoSize = true;
+            this.RBCredito.Location = new System.Drawing.Point(453, 104);
+            this.RBCredito.Name = "RBCredito";
+            this.RBCredito.Size = new System.Drawing.Size(86, 23);
+            this.RBCredito.TabIndex = 14;
+            this.RBCredito.Text = "3-Crédito";
+            this.RBCredito.UseVisualStyleBackColor = true;
+            // 
+            // RBTrans
+            // 
+            this.RBTrans.AutoSize = true;
+            this.RBTrans.Location = new System.Drawing.Point(453, 75);
+            this.RBTrans.Name = "RBTrans";
+            this.RBTrans.Size = new System.Drawing.Size(120, 23);
+            this.RBTrans.TabIndex = 14;
+            this.RBTrans.Text = "2-Transferencia";
+            this.RBTrans.UseVisualStyleBackColor = true;
+            // 
+            // RBEfectivo
+            // 
+            this.RBEfectivo.AutoSize = true;
+            this.RBEfectivo.Checked = true;
+            this.RBEfectivo.Location = new System.Drawing.Point(453, 46);
+            this.RBEfectivo.Name = "RBEfectivo";
+            this.RBEfectivo.Size = new System.Drawing.Size(88, 23);
+            this.RBEfectivo.TabIndex = 13;
+            this.RBEfectivo.TabStop = true;
+            this.RBEfectivo.Text = "1-Efectivo";
+            this.RBEfectivo.UseVisualStyleBackColor = true;
+            // 
+            // TReferencia
+            // 
+            this.TReferencia.Location = new System.Drawing.Point(121, 89);
+            this.TReferencia.Margin = new System.Windows.Forms.Padding(4);
+            this.TReferencia.Name = "TReferencia";
+            this.TReferencia.Size = new System.Drawing.Size(139, 25);
+            this.TReferencia.TabIndex = 12;
+            // 
+            // LHasta
+            // 
+            this.LHasta.AutoSize = true;
+            this.LHasta.Location = new System.Drawing.Point(243, 26);
+            this.LHasta.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LHasta.Name = "LHasta";
+            this.LHasta.Size = new System.Drawing.Size(86, 19);
+            this.LHasta.TabIndex = 11;
+            this.LHasta.Text = "Fecha Hasta:";
+            // 
+            // DTHasta
+            // 
+            this.DTHasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.DTHasta.Location = new System.Drawing.Point(247, 48);
+            this.DTHasta.Margin = new System.Windows.Forms.Padding(4);
+            this.DTHasta.Name = "DTHasta";
+            this.DTHasta.Size = new System.Drawing.Size(116, 25);
+            this.DTHasta.TabIndex = 10;
+            // 
+            // btnLimpiarFiltros
+            // 
+            this.btnLimpiarFiltros.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.btnLimpiarFiltros.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLimpiarFiltros.ForeColor = System.Drawing.Color.White;
+            this.btnLimpiarFiltros.Image = ((System.Drawing.Image)(resources.GetObject("btnLimpiarFiltros.Image")));
+            this.btnLimpiarFiltros.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLimpiarFiltros.Location = new System.Drawing.Point(732, 26);
+            this.btnLimpiarFiltros.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLimpiarFiltros.Name = "btnLimpiarFiltros";
+            this.btnLimpiarFiltros.Size = new System.Drawing.Size(88, 33);
+            this.btnLimpiarFiltros.TabIndex = 9;
+            this.btnLimpiarFiltros.Text = "Limpiar";
+            this.btnLimpiarFiltros.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnLimpiarFiltros.UseVisualStyleBackColor = false;
+            this.btnLimpiarFiltros.Click += new System.EventHandler(this.btnLimpiarFiltros_Click);
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscar.ForeColor = System.Drawing.Color.White;
+            this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
+            this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBuscar.Location = new System.Drawing.Point(732, 69);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(88, 33);
+            this.btnBuscar.TabIndex = 8;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // lblMetodoPago
+            // 
+            this.lblMetodoPago.AutoSize = true;
+            this.lblMetodoPago.Location = new System.Drawing.Point(449, 22);
+            this.lblMetodoPago.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMetodoPago.Name = "lblMetodoPago";
+            this.lblMetodoPago.Size = new System.Drawing.Size(61, 19);
+            this.lblMetodoPago.TabIndex = 7;
+            this.lblMetodoPago.Text = "Método:";
+            // 
+            // LReferencia
+            // 
+            this.LReferencia.AutoSize = true;
+            this.LReferencia.Location = new System.Drawing.Point(21, 92);
+            this.LReferencia.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LReferencia.Name = "LReferencia";
+            this.LReferencia.Size = new System.Drawing.Size(74, 19);
+            this.LReferencia.TabIndex = 5;
+            this.LReferencia.Text = "Referencia:";
+            // 
+            // LDesde
+            // 
+            this.LDesde.AutoSize = true;
+            this.LDesde.Location = new System.Drawing.Point(21, 26);
+            this.LDesde.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LDesde.Name = "LDesde";
+            this.LDesde.Size = new System.Drawing.Size(89, 19);
+            this.LDesde.TabIndex = 3;
+            this.LDesde.Text = "Fecha Desde:";
+            // 
+            // DTDesde
+            // 
+            this.DTDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.DTDesde.Location = new System.Drawing.Point(25, 48);
+            this.DTDesde.Margin = new System.Windows.Forms.Padding(4);
+            this.DTDesde.Name = "DTDesde";
+            this.DTDesde.Size = new System.Drawing.Size(116, 25);
+            this.DTDesde.TabIndex = 2;
             // 
             // id_pago
             // 
@@ -108,160 +275,6 @@ namespace HotelCalifornia
             this.id_metodoPago.Name = "id_metodoPago";
             this.id_metodoPago.ReadOnly = true;
             // 
-            // LTituloPagos
-            // 
-            this.LTituloPagos.AutoSize = true;
-            this.LTituloPagos.Font = new System.Drawing.Font("Times New Roman", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LTituloPagos.Location = new System.Drawing.Point(327, 20);
-            this.LTituloPagos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LTituloPagos.Name = "LTituloPagos";
-            this.LTituloPagos.Size = new System.Drawing.Size(183, 28);
-            this.LTituloPagos.TabIndex = 1;
-            this.LTituloPagos.Text = "Gestión de Pagos";
-            // 
-            // groupBoxFiltros
-            // 
-            this.groupBoxFiltros.Controls.Add(this.btnLimpiarFiltros);
-            this.groupBoxFiltros.Controls.Add(this.btnBuscar);
-            this.groupBoxFiltros.Controls.Add(this.lblMetodoPago);
-            this.groupBoxFiltros.Controls.Add(this.cmbMetodoPago);
-            this.groupBoxFiltros.Controls.Add(this.lblEstado);
-            this.groupBoxFiltros.Controls.Add(this.cmbEstado);
-            this.groupBoxFiltros.Controls.Add(this.lblFechaPago);
-            this.groupBoxFiltros.Controls.Add(this.dtpFechaPago);
-            this.groupBoxFiltros.Controls.Add(this.lblBuscarCliente);
-            this.groupBoxFiltros.Controls.Add(this.txtBuscarCliente);
-            this.groupBoxFiltros.Location = new System.Drawing.Point(14, 65);
-            this.groupBoxFiltros.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBoxFiltros.Name = "groupBoxFiltros";
-            this.groupBoxFiltros.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBoxFiltros.Size = new System.Drawing.Size(677, 131);
-            this.groupBoxFiltros.TabIndex = 2;
-            this.groupBoxFiltros.TabStop = false;
-            this.groupBoxFiltros.Text = "Filtros de Búsqueda";
-            // 
-            // btnLimpiarFiltros
-            // 
-            this.btnLimpiarFiltros.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.btnLimpiarFiltros.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLimpiarFiltros.ForeColor = System.Drawing.Color.White;
-            this.btnLimpiarFiltros.Image = ((System.Drawing.Image)(resources.GetObject("btnLimpiarFiltros.Image")));
-            this.btnLimpiarFiltros.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLimpiarFiltros.Location = new System.Drawing.Point(572, 33);
-            this.btnLimpiarFiltros.Margin = new System.Windows.Forms.Padding(4);
-            this.btnLimpiarFiltros.Name = "btnLimpiarFiltros";
-            this.btnLimpiarFiltros.Size = new System.Drawing.Size(88, 33);
-            this.btnLimpiarFiltros.TabIndex = 9;
-            this.btnLimpiarFiltros.Text = "Limpiar";
-            this.btnLimpiarFiltros.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnLimpiarFiltros.UseVisualStyleBackColor = false;
-            this.btnLimpiarFiltros.Click += new System.EventHandler(this.btnLimpiarFiltros_Click);
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscar.ForeColor = System.Drawing.Color.White;
-            this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.Location = new System.Drawing.Point(467, 33);
-            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(88, 33);
-            this.btnBuscar.TabIndex = 8;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // lblMetodoPago
-            // 
-            this.lblMetodoPago.AutoSize = true;
-            this.lblMetodoPago.Location = new System.Drawing.Point(243, 76);
-            this.lblMetodoPago.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMetodoPago.Name = "lblMetodoPago";
-            this.lblMetodoPago.Size = new System.Drawing.Size(61, 19);
-            this.lblMetodoPago.TabIndex = 7;
-            this.lblMetodoPago.Text = "Método:";
-            // 
-            // cmbMetodoPago
-            // 
-            this.cmbMetodoPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbMetodoPago.FormattingEnabled = true;
-            this.cmbMetodoPago.Items.AddRange(new object[] {
-            "Todos",
-            "Efectivo",
-            "Tarjeta",
-            "Transferencia",
-            "Cheque"});
-            this.cmbMetodoPago.Location = new System.Drawing.Point(327, 73);
-            this.cmbMetodoPago.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbMetodoPago.Name = "cmbMetodoPago";
-            this.cmbMetodoPago.Size = new System.Drawing.Size(116, 25);
-            this.cmbMetodoPago.TabIndex = 6;
-            // 
-            // lblEstado
-            // 
-            this.lblEstado.AutoSize = true;
-            this.lblEstado.Location = new System.Drawing.Point(18, 76);
-            this.lblEstado.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(53, 19);
-            this.lblEstado.TabIndex = 5;
-            this.lblEstado.Text = "Estado:";
-            // 
-            // cmbEstado
-            // 
-            this.cmbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbEstado.FormattingEnabled = true;
-            this.cmbEstado.Items.AddRange(new object[] {
-            "Todos",
-            "Confirmado",
-            "Pendiente",
-            "Reembolsado"});
-            this.cmbEstado.Location = new System.Drawing.Point(93, 72);
-            this.cmbEstado.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbEstado.Name = "cmbEstado";
-            this.cmbEstado.Size = new System.Drawing.Size(139, 25);
-            this.cmbEstado.TabIndex = 4;
-            // 
-            // lblFechaPago
-            // 
-            this.lblFechaPago.AutoSize = true;
-            this.lblFechaPago.Location = new System.Drawing.Point(243, 33);
-            this.lblFechaPago.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblFechaPago.Name = "lblFechaPago";
-            this.lblFechaPago.Size = new System.Drawing.Size(47, 19);
-            this.lblFechaPago.TabIndex = 3;
-            this.lblFechaPago.Text = "Fecha:";
-            // 
-            // dtpFechaPago
-            // 
-            this.dtpFechaPago.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaPago.Location = new System.Drawing.Point(327, 33);
-            this.dtpFechaPago.Margin = new System.Windows.Forms.Padding(4);
-            this.dtpFechaPago.Name = "dtpFechaPago";
-            this.dtpFechaPago.Size = new System.Drawing.Size(116, 25);
-            this.dtpFechaPago.TabIndex = 2;
-            // 
-            // lblBuscarCliente
-            // 
-            this.lblBuscarCliente.AutoSize = true;
-            this.lblBuscarCliente.Location = new System.Drawing.Point(18, 37);
-            this.lblBuscarCliente.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblBuscarCliente.Name = "lblBuscarCliente";
-            this.lblBuscarCliente.Size = new System.Drawing.Size(54, 19);
-            this.lblBuscarCliente.TabIndex = 1;
-            this.lblBuscarCliente.Text = "Cliente:";
-            // 
-            // txtBuscarCliente
-            // 
-            this.txtBuscarCliente.Location = new System.Drawing.Point(93, 33);
-            this.txtBuscarCliente.Margin = new System.Windows.Forms.Padding(4);
-            this.txtBuscarCliente.Name = "txtBuscarCliente";
-            this.txtBuscarCliente.Size = new System.Drawing.Size(139, 25);
-            this.txtBuscarCliente.TabIndex = 0;
-            // 
             // Pagos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -289,21 +302,23 @@ namespace HotelCalifornia
         #endregion
         private System.Windows.Forms.Label LTituloPagos;
         private System.Windows.Forms.GroupBox groupBoxFiltros;
-        private System.Windows.Forms.TextBox txtBuscarCliente;
-        private System.Windows.Forms.Label lblBuscarCliente;
-        private System.Windows.Forms.DateTimePicker dtpFechaPago;
-        private System.Windows.Forms.Label lblFechaPago;
-        private System.Windows.Forms.ComboBox cmbEstado;
-        private System.Windows.Forms.Label lblEstado;
-        private System.Windows.Forms.ComboBox cmbMetodoPago;
+        private System.Windows.Forms.DateTimePicker DTDesde;
+        private System.Windows.Forms.Label LDesde;
+        private System.Windows.Forms.Label LReferencia;
         private System.Windows.Forms.Label lblMetodoPago;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnLimpiarFiltros;
+        private System.Windows.Forms.DataGridView GrillaPagos;
+        private System.Windows.Forms.Label LHasta;
+        private System.Windows.Forms.DateTimePicker DTHasta;
+        private System.Windows.Forms.TextBox TReferencia;
+        private System.Windows.Forms.RadioButton RBCredito;
+        private System.Windows.Forms.RadioButton RBTrans;
+        private System.Windows.Forms.RadioButton RBEfectivo;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_pago;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn monto;
         private System.Windows.Forms.DataGridViewTextBoxColumn referencia;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_metodoPago;
-        private System.Windows.Forms.DataGridView GrillaPagos;
     }
 }
