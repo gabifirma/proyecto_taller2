@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -25,6 +26,11 @@ namespace HotelCalifornia
             this.WindowState = FormWindowState.Maximized;
         }
 
+        private bool SoloLetras(string texto)
+        {
+            return Regex.IsMatch(texto, @"^[a-zA-Z]+$");
+        }
+
         private void CargarReservas()
         {
             using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
@@ -33,15 +39,14 @@ namespace HotelCalifornia
 
                 string query = @"
                     SELECT 
-                        R.id_reserva,
-                        R.fecha_inicio,
-                        R.fecha_fin,
-                        R.id_estado,    
-                        C.nombre AS nombre_cliente,
-                        C.apellido AS apellido_cliente,
+                        R.id_reserva AS ID,
+                        R.fecha_inicio AS Inicio,
+                        R.fecha_fin AS Fin,
+                        R.id_estado AS Estado,
+                        C.nombre AS Nombre,
+                        C.apellido AS Apellido,
                         H.numero_hab,
-                        TH.nombre AS tipo_habitacion,
-                        TH.capacidad,
+                        TH.nombre AS Tipo_hab,
                         RH.cantidad_noches,
                         RH.subtotal
                     FROM Reserva R
@@ -55,27 +60,41 @@ namespace HotelCalifornia
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
-                GrillaReservas.AutoGenerateColumns = true; 
+                GrillaReservas.AutoGenerateColumns = false;
+                GrillaReservas.Columns.Clear();
+
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "ID", DataPropertyName = "ID", HeaderText = "N°", Width = 80 });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Inicio", DataPropertyName = "Inicio", HeaderText = "Inicio", Width = 100 });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Fin", DataPropertyName = "Fin", HeaderText = "Fin", Width = 100 });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Nombre", DataPropertyName = "Nombre", HeaderText = "Nombre", Width = 120 });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Apellido", DataPropertyName = "Apellido", HeaderText = "Apellido", Width = 120 });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "numero_hab", DataPropertyName = "numero_hab", HeaderText = "Número Hab", Width = 100 });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Tipo_hab", DataPropertyName = "Tipo_hab", HeaderText = "Tipo Hab", Width = 150 });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "subtotal", DataPropertyName = "subtotal", HeaderText = "Subtotal ($)", Width = 100, DefaultCellStyle = new DataGridViewCellStyle { Format = "N2" } });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Estado", DataPropertyName = "Estado", Visible = false });
+
+                DataGridViewButtonColumn btnTerminar = new DataGridViewButtonColumn();
+                btnTerminar.Name = "Accion";
+                btnTerminar.HeaderText = "Acción";
+                btnTerminar.Text = "Terminar";
+                btnTerminar.UseColumnTextForButtonValue = true;
+                btnTerminar.Width = 100;
+                GrillaReservas.Columns.Add(btnTerminar);
+
                 GrillaReservas.DataSource = dt;
 
                 // Recorremos las filas y aplicamos color según el estado
                 foreach (DataGridViewRow row in GrillaReservas.Rows)
                 {
-                    if (row.Cells["id_estado"].Value == null) continue;
+                    if (row.Cells["Estado"].Value == null) continue;
 
-                    int estado = Convert.ToInt32(row.Cells["id_estado"].Value);
+                    int estado = Convert.ToInt32(row.Cells["Estado"].Value);
 
                     switch (estado)
                     {
-                        case 2:
-                            row.DefaultCellStyle.BackColor = Color.Yellow; // En espera
-                            break;
-                        case 1:
-                            row.DefaultCellStyle.BackColor = Color.Green; // Confirmada
-                            break;
-                        case 3:
-                            row.DefaultCellStyle.BackColor = Color.Red; // Terminada
-                            break;
+                        case 1: row.DefaultCellStyle.BackColor = Color.LightGreen; break; // Confirmada
+                        case 2: row.DefaultCellStyle.BackColor = Color.Khaki; break; // En espera
+                        case 3: row.DefaultCellStyle.BackColor = Color.LightCoral; break; // Terminada
                     }
                 }                
             }
@@ -89,18 +108,17 @@ namespace HotelCalifornia
 
                 // Construimos la consulta base
                 string query = @"SELECT
-                        R.id_reserva,
-                        R.fecha_inicio,
-                        R.fecha_fin,
+                        R.id_reserva AS ID,
+                        R.fecha_inicio AS Inicio,
+                        R.fecha_fin AS Fin,
                         R.fecha_creacion,
-                        R.id_estado,    
-                        C.nombre AS nombre_cliente,
-                        C.apellido AS apellido_cliente,
+                        R.id_estado AS Estado,
+                        C.nombre AS Nombre,
+                        C.apellido AS Apellido,
                         H.numero_hab,
-                        TH.nombre AS tipo_habitacion,
-                        TH.capacidad,
+                        TH.nombre AS Tipo_hab,
                         RH.cantidad_noches,
-                        RH.subtotal
+                        RH.subtotal                        
                     FROM Reserva R
                     INNER JOIN Cliente C ON R.id_cliente = C.id_cliente
                     INNER JOIN ReservaHabitacion RH ON R.id_reserva = RH.id_reserva
@@ -131,17 +149,39 @@ namespace HotelCalifornia
                 // Filtro por nombre
                 if (!string.IsNullOrEmpty(TNombre.Text))
                 {
-                    query += " AND C.nombre LIKE @nombre";
-                    cmd.Parameters.AddWithValue("@nombre", "%" + TNombre.Text.Trim() + "%");
+                    if (!SoloLetras(TNombre.Text))
+                    {
+                        MessageBox.Show("El campo 'Nombre' debe ser solo letras.",
+                        "Error de validación",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        query += " AND C.nombre LIKE @nombre";
+                        cmd.Parameters.AddWithValue("@nombre", "%" + TNombre.Text.Trim() + "%");
+                    }                        
                 }
-
+                
                 // Filtro por apellido
                 if (!string.IsNullOrEmpty(TApellido.Text))
                 {
-                    query += " AND C.apellido LIKE @apellido";
-                    cmd.Parameters.AddWithValue("@apellido", "%" + TApellido.Text.Trim() + "%");
-                }
-                
+                    if (!SoloLetras(TApellido.Text))
+                    {
+                        MessageBox.Show("El campo 'Apellido' debe ser solo letras.",
+                        "Error de validación",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        query += " AND C.apellido LIKE @apellido";
+                        cmd.Parameters.AddWithValue("@apellido", "%" + TApellido.Text.Trim() + "%");
+                    }                        
+                }               
+
                 // Filtro por método de pago
                 if (RBSingle.Checked)
                 {
@@ -165,7 +205,44 @@ namespace HotelCalifornia
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
 
+                GrillaReservas.AutoGenerateColumns = false;
+                GrillaReservas.Columns.Clear();
+
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "ID", DataPropertyName = "ID", HeaderText = "N°", Width = 80 });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Inicio", DataPropertyName = "Inicio", HeaderText = "Inicio", Width = 100 });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Fin", DataPropertyName = "Fin", HeaderText = "Fin", Width = 100 });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Nombre", DataPropertyName = "Nombre", HeaderText = "Nombre", Width = 120 });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Apellido", DataPropertyName = "Apellido", HeaderText = "Apellido", Width = 120 });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "numero_hab", DataPropertyName = "numero_hab", HeaderText = "Número Hab", Width = 100 });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Tipo_hab", DataPropertyName = "Tipo_hab", HeaderText = "Tipo Hab", Width = 150 });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "subtotal", DataPropertyName = "subtotal", HeaderText = "Subtotal ($)", Width = 100, DefaultCellStyle = new DataGridViewCellStyle { Format = "N2" } });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Estado", DataPropertyName = "Estado", Visible = false });
+                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "R.fecha_creacion", DataPropertyName = "R.fecha_creacion", Visible = false });
+
+                DataGridViewButtonColumn btnTerminar = new DataGridViewButtonColumn();
+                btnTerminar.Name = "Accion";
+                btnTerminar.HeaderText = "Acción";
+                btnTerminar.Text = "Terminar";
+                btnTerminar.UseColumnTextForButtonValue = true;
+                btnTerminar.Width = 100;
+                GrillaReservas.Columns.Add(btnTerminar);
+
                 GrillaReservas.DataSource = dt;
+
+                // Recorremos las filas y aplicamos color según el estado
+                foreach (DataGridViewRow row in GrillaReservas.Rows)
+                {
+                    if (row.Cells["Estado"].Value == null) continue;
+
+                    int estado = Convert.ToInt32(row.Cells["Estado"].Value);
+
+                    switch (estado)
+                    {
+                        case 1: row.DefaultCellStyle.BackColor = Color.LightGreen; break; // Confirmada
+                        case 2: row.DefaultCellStyle.BackColor = Color.Khaki; break; // En espera
+                        case 3: row.DefaultCellStyle.BackColor = Color.LightCoral; break; // Terminada
+                    }
+                }
             }
         }
 
@@ -181,7 +258,7 @@ namespace HotelCalifornia
             if (e.RowIndex >= 0) // para evitar encabezados
             {
                 // Obtener el valor de la columna ID de la fila seleccionada
-                int numReserva = Convert.ToInt32(GrillaReservas.Rows[e.RowIndex].Cells["id_reserva"].Value);
+                int numReserva = Convert.ToInt32(GrillaReservas.Rows[e.RowIndex].Cells["ID"].Value);
 
                 // Abrir el formulario de edición y pasarle el Id
                 CrearPagoForm frm = new CrearPagoForm(numReserva);
@@ -206,6 +283,61 @@ namespace HotelCalifornia
             RBSuite.Checked = false;
             dtpFechaInicio.Value = DateTime.Now;
             dtpFechaFin.Value = DateTime.Now;
+            CargarReservas();
+        }
+
+        private void GrillaReservas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Evitamos errores si se hace clic fuera de los botones
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            // Verificamos si la columna clickeada es la de acción
+            if (GrillaReservas.Columns[e.ColumnIndex].Name == "Accion")
+            {
+                int idReserva = Convert.ToInt32(GrillaReservas.Rows[e.RowIndex].Cells["ID"].Value);
+
+                DialogResult result = MessageBox.Show(
+                    $"¿Desea marcar la reserva N° {idReserva} como terminada?",
+                    "Confirmar acción",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (result == DialogResult.Yes)
+                {
+                    TerminarReserva(idReserva);
+                }
+            }
+        }
+
+        private void TerminarReserva(int idReserva)
+        {
+            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
+            {
+                conn.Open();
+                string query = @"UPDATE Reserva SET id_estado = 3 WHERE id_reserva = @id";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", idReserva);
+
+                int filas = cmd.ExecuteNonQuery();
+
+                if (filas > 0)
+                {
+                    MessageBox.Show("Reserva marcada como terminada.", 
+                        "Éxito", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Information);
+                    btnBuscar_Click(null, null); // refresca la grilla ejecutando la búsqueda otra vez
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo actualizar la reserva.", "Error", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Error);
+                }
+            }
             CargarReservas();
         }
     }

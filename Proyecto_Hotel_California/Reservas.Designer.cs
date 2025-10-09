@@ -32,6 +32,7 @@ namespace HotelCalifornia
             this.LTituloReservas = new System.Windows.Forms.Label();
             this.GrillaReservas = new System.Windows.Forms.DataGridView();
             this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
+            this.BTerminar = new System.Windows.Forms.Button();
             this.RBSuite = new System.Windows.Forms.RadioButton();
             this.RBDoble = new System.Windows.Forms.RadioButton();
             this.RBSingle = new System.Windows.Forms.RadioButton();
@@ -77,10 +78,12 @@ namespace HotelCalifornia
             this.GrillaReservas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.GrillaReservas.Size = new System.Drawing.Size(1096, 327);
             this.GrillaReservas.TabIndex = 1;
+            this.GrillaReservas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaReservas_CellContentClick);
             this.GrillaReservas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaReservas_CellDoubleClick);
             // 
             // groupBoxFiltros
             // 
+            this.groupBoxFiltros.Controls.Add(this.BTerminar);
             this.groupBoxFiltros.Controls.Add(this.RBSuite);
             this.groupBoxFiltros.Controls.Add(this.RBDoble);
             this.groupBoxFiltros.Controls.Add(this.RBSingle);
@@ -104,6 +107,20 @@ namespace HotelCalifornia
             this.groupBoxFiltros.TabIndex = 2;
             this.groupBoxFiltros.TabStop = false;
             this.groupBoxFiltros.Text = "Filtros de Búsqueda";
+            // 
+            // BTerminar
+            // 
+            this.BTerminar.BackColor = System.Drawing.Color.Crimson;
+            this.BTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTerminar.ForeColor = System.Drawing.Color.White;
+            this.BTerminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BTerminar.Location = new System.Drawing.Point(735, 90);
+            this.BTerminar.Margin = new System.Windows.Forms.Padding(4);
+            this.BTerminar.Name = "BTerminar";
+            this.BTerminar.Size = new System.Drawing.Size(140, 46);
+            this.BTerminar.TabIndex = 19;
+            this.BTerminar.Text = "Terminar Reserva";
+            this.BTerminar.UseVisualStyleBackColor = false;
             // 
             // RBSuite
             // 
@@ -316,5 +333,6 @@ namespace HotelCalifornia
         private System.Windows.Forms.RadioButton RBDoble;
         private System.Windows.Forms.RadioButton RBSingle;
         private System.Windows.Forms.Label lblMetodoPago;
+        private System.Windows.Forms.Button BTerminar;
     }
 }
