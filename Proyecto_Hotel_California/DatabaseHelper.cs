@@ -193,9 +193,10 @@ namespace HotelCalifornia
         }
 
         /// <summary>
-        /// Autentica un usuario verificando sus credenciales en la base de datos
+        /// Autentica un usuario verificando sus credenciales en la base de datos Hotel1
+        /// Consulta la tabla Usuario y obtiene información del Rol asociado
         /// </summary>
-        /// <param name="nombreUsuario">Nombre de usuario</param>
+        /// <param name="nombreUsuario">Nombre de usuario (username)</param>
         /// <param name="contraseña">Contraseña del usuario</param>
         /// <returns>Objeto Usuario si las credenciales son válidas, null en caso contrario</returns>
         public static Usuario AuthenticateUser(string nombreUsuario, string contraseña)
@@ -208,26 +209,43 @@ namespace HotelCalifornia
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "SELECT Id, NombreUsuario, Contraseña, TipoUsuario, NombreCompleto, Activo, FechaCreacion FROM Usuarios WHERE NombreUsuario = @nombreUsuario AND Contraseña = @contraseña AND Activo = 1";
+                    
+                    // TODO: Implementar hashing de contraseñas (ej. SHA256) para futuras mejoras
+                    // Consulta que une Usuario con Rol y Empleado para obtener información completa
+                    string query = @"
+                        SELECT u.id_usuario, u.username, u.contrasena, u.id_rol, u.legajo,
+                               r.nombre, e.nombre, e.apellido
+                        FROM Usuario u
+                        INNER JOIN Rol r ON u.id_rol = r.id_rol
+                        LEFT JOIN Empleado e ON u.legajo = e.legajo
+                        WHERE u.username = @username AND u.contrasena = @password";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@nombreUsuario", nombreUsuario);
-                        command.Parameters.AddWithValue("@contraseña", contraseña);
+                        command.Parameters.AddWithValue("@username", nombreUsuario);
+                        command.Parameters.AddWithValue("@password", contraseña);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
                             {
+                                string nombre = reader.IsDBNull(6) ? "" : reader.GetString(6);
+                                string apellido = reader.IsDBNull(7) ? "" : reader.GetString(7);
+                                string nombreCompleto = !string.IsNullOrEmpty(nombre) && !string.IsNullOrEmpty(apellido)
+                                    ? $"{nombre} {apellido}"
+                                    : nombreUsuario;
+
                                 return new Usuario
                                 {
                                     Id = reader.GetInt32(0),
                                     NombreUsuario = reader.GetString(1),
                                     Contraseña = reader.GetString(2),
-                                    TipoUsuario = reader.GetString(3),
-                                    NombreCompleto = reader.GetString(4),
-                                    Activo = reader.GetBoolean(5),
-                                    FechaCreacion = reader.GetDateTime(6)
+                                    IdRol = reader.GetInt32(3),
+                                    Legajo = reader.IsDBNull(4) ? (int?)null : reader.GetInt32(4),
+                                    Activo = true,
+                                    TipoUsuario = reader.GetString(5),
+                                    NombreCompleto = nombreCompleto,
+                                    FechaCreacion = DateTime.Now
                                 };
                             }
                         }
@@ -236,7 +254,8 @@ namespace HotelCalifornia
             }
             catch (Exception ex)
             {
-                // Si hay error de base de datos, retornar null
+                // Si hay error de base de datos, retornar null para usar modo fallback
+                System.Diagnostics.Debug.WriteLine($"Error en AuthenticateUser: {ex.Message}");
             }
             return null;
         }
@@ -340,6 +359,160 @@ namespace HotelCalifornia
             catch
             {
                 return "Información de conexión no disponible";
+            }
+        }
+
+        /// <summary>
+        /// Obtiene todos los roles disponibles en el sistema, excluyendo el rol de Administrador
+        /// </summary>
+        /// <returns>DataTable con los roles disponibles</returns>
+        public static DataTable GetRolesExceptAdmin()
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            DataTable dtRoles = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT id_rol, nombre FROM Rol WHERE nombre != 'Administrador' ORDER BY nombre";
+                    
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtRoles);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetRolesExceptAdmin: {ex.Message}");
+            }
+            return dtRoles;
+        }
+
+        /// <summary>
+        /// Obtiene todos los usuarios del sistema con su información completa
+        /// </summary>
+        /// <returns>DataTable con la lista de usuarios</returns>
+        public static DataTable GetAllUsers()
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            DataTable dtUsuarios = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"
+                        SELECT u.id_usuario, u.username, u.contrasena, u.id_rol, u.legajo,
+                               r.nombre as nombre_rol, 
+                               ISNULL(e.nombre + ' ' + e.apellido, 'Sin empleado') as nombre_completo
+                        FROM Usuario u
+                        INNER JOIN Rol r ON u.id_rol = r.id_rol
+                        LEFT JOIN Empleado e ON u.legajo = e.legajo
+                        ORDER BY u.id_usuario";
+                    
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtUsuarios);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetAllUsers: {ex.Message}");
+            }
+            return dtUsuarios;
+        }
+
+        /// <summary>
+        /// Crea un nuevo empleado y su usuario asociado usando una transacción
+        /// </summary>
+        /// <param name="nombre">Nombre del empleado</param>
+        /// <param name="apellido">Apellido del empleado</param>
+        /// <param name="telefono">Teléfono del empleado</param>
+        /// <param name="email">Email del empleado</param>
+        /// <param name="username">Nombre de usuario</param>
+        /// <param name="password">Contraseña del usuario</param>
+        /// <param name="idRol">ID del rol asignado</param>
+        /// <returns>True si se creó exitosamente, False en caso contrario</returns>
+        public static bool CreateEmpleadoAndUsuario(string nombre, string apellido, string telefono, 
+                                                     string email, string username, string password, int idRol)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            SqlConnection connection = null;
+            SqlTransaction transaction = null;
+
+            try
+            {
+                connection = new SqlConnection(connectionString);
+                connection.Open();
+                transaction = connection.BeginTransaction();
+
+                // Paso 1: Insertar el empleado
+                string insertEmpleadoQuery = @"
+                    INSERT INTO Empleado (nombre, apellido, telefono, email)
+                    VALUES (@nombre, @apellido, @telefono, @email);
+                    SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+                int legajo;
+                using (SqlCommand cmdEmpleado = new SqlCommand(insertEmpleadoQuery, connection, transaction))
+                {
+                    cmdEmpleado.Parameters.AddWithValue("@nombre", nombre);
+                    cmdEmpleado.Parameters.AddWithValue("@apellido", apellido);
+                    cmdEmpleado.Parameters.AddWithValue("@telefono", telefono ?? (object)DBNull.Value);
+                    cmdEmpleado.Parameters.AddWithValue("@email", email ?? (object)DBNull.Value);
+                    
+                    legajo = (int)cmdEmpleado.ExecuteScalar();
+                }
+
+                // Paso 2: Obtener el próximo id_usuario disponible
+                string getNextIdQuery = "SELECT ISNULL(MAX(id_usuario), 0) + 1 FROM Usuario";
+                int nextUserId;
+                using (SqlCommand cmdGetId = new SqlCommand(getNextIdQuery, connection, transaction))
+                {
+                    nextUserId = (int)cmdGetId.ExecuteScalar();
+                }
+
+                // Paso 3: Insertar el usuario asociado
+                // TODO: Implementar hashing de contraseñas (ej. SHA256) para futuras mejoras
+                string insertUsuarioQuery = @"
+                    INSERT INTO Usuario (id_usuario, username, contrasena, activo, ultimo_acceso, id_rol, legajo)
+                    VALUES (@id_usuario, @username, @contrasena, 1, GETDATE(), @idRol, @legajo);";
+
+                using (SqlCommand cmdUsuario = new SqlCommand(insertUsuarioQuery, connection, transaction))
+                {
+                    cmdUsuario.Parameters.AddWithValue("@id_usuario", nextUserId);
+                    cmdUsuario.Parameters.AddWithValue("@username", username);
+                    cmdUsuario.Parameters.AddWithValue("@contrasena", password);
+                    cmdUsuario.Parameters.AddWithValue("@idRol", idRol);
+                    cmdUsuario.Parameters.AddWithValue("@legajo", legajo);
+                    
+                    cmdUsuario.ExecuteNonQuery();
+                }
+
+                // Confirmar la transacción
+                transaction.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Revertir la transacción en caso de error
+                transaction?.Rollback();
+                System.Diagnostics.Debug.WriteLine($"Error en CreateEmpleadoAndUsuario: {ex.Message}");
+                throw new Exception($"Error al crear empleado y usuario: {ex.Message}");
+            }
+            finally
+            {
+                connection?.Close();
             }
         }
     }

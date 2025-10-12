@@ -31,6 +31,8 @@ namespace HotelCalifornia
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.PTitulo = new System.Windows.Forms.Panel();
             this.PLateral = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.BGestionUsuarios = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
             this.BLogout = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -61,6 +63,8 @@ namespace HotelCalifornia
             // PLateral
             // 
             this.PLateral.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.PLateral.Controls.Add(this.panel8);
+            this.PLateral.Controls.Add(this.BGestionUsuarios);
             this.PLateral.Controls.Add(this.panel7);
             this.PLateral.Controls.Add(this.BLogout);
             this.PLateral.Controls.Add(this.panel6);
@@ -81,10 +85,35 @@ namespace HotelCalifornia
             this.PLateral.Size = new System.Drawing.Size(150, 511);
             this.PLateral.TabIndex = 1;
             // 
+            // panel8
+            // 
+            this.panel8.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel8.Location = new System.Drawing.Point(1, 168);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(5, 40);
+            this.panel8.TabIndex = 6;
+            // 
+            // BGestionUsuarios
+            // 
+            this.BGestionUsuarios.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BGestionUsuarios.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.BGestionUsuarios.FlatAppearance.BorderSize = 0;
+            this.BGestionUsuarios.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.BGestionUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BGestionUsuarios.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BGestionUsuarios.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BGestionUsuarios.Location = new System.Drawing.Point(4, 168);
+            this.BGestionUsuarios.Name = "BGestionUsuarios";
+            this.BGestionUsuarios.Size = new System.Drawing.Size(146, 40);
+            this.BGestionUsuarios.TabIndex = 7;
+            this.BGestionUsuarios.Text = "Usuarios";
+            this.BGestionUsuarios.UseVisualStyleBackColor = false;
+            this.BGestionUsuarios.Click += new System.EventHandler(this.BGestionUsuarios_Click);
+            // 
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel7.Location = new System.Drawing.Point(1, 352);
+            this.panel7.Location = new System.Drawing.Point(1, 398);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(5, 40);
             this.panel7.TabIndex = 4;
@@ -98,7 +127,7 @@ namespace HotelCalifornia
             this.BLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BLogout.ForeColor = System.Drawing.Color.White;
             this.BLogout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BLogout.Location = new System.Drawing.Point(4, 352);
+            this.BLogout.Location = new System.Drawing.Point(4, 398);
             this.BLogout.Name = "BLogout";
             this.BLogout.Size = new System.Drawing.Size(146, 40);
             this.BLogout.TabIndex = 5;
@@ -109,7 +138,7 @@ namespace HotelCalifornia
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel6.Location = new System.Drawing.Point(1, 306);
+            this.panel6.Location = new System.Drawing.Point(1, 352);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(5, 40);
             this.panel6.TabIndex = 3;
@@ -132,7 +161,7 @@ namespace HotelCalifornia
             this.BPagos.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BPagos.Image = ((System.Drawing.Image)(resources.GetObject("BPagos.Image")));
             this.BPagos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BPagos.Location = new System.Drawing.Point(4, 306);
+            this.BPagos.Location = new System.Drawing.Point(4, 352);
             this.BPagos.Name = "BPagos";
             this.BPagos.Size = new System.Drawing.Size(146, 40);
             this.BPagos.TabIndex = 2;
@@ -143,7 +172,7 @@ namespace HotelCalifornia
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel4.Location = new System.Drawing.Point(1, 260);
+            this.panel4.Location = new System.Drawing.Point(1, 306);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(5, 40);
             this.panel4.TabIndex = 1;
@@ -168,7 +197,7 @@ namespace HotelCalifornia
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel3.Location = new System.Drawing.Point(1, 214);
+            this.panel3.Location = new System.Drawing.Point(1, 260);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(5, 40);
             this.panel3.TabIndex = 1;
@@ -176,7 +205,7 @@ namespace HotelCalifornia
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel2.Location = new System.Drawing.Point(1, 168);
+            this.panel2.Location = new System.Drawing.Point(1, 214);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(5, 40);
             this.panel2.TabIndex = 1;
@@ -196,7 +225,7 @@ namespace HotelCalifornia
             this.BReservas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BReservas.Image = ((System.Drawing.Image)(resources.GetObject("BReservas.Image")));
             this.BReservas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BReservas.Location = new System.Drawing.Point(4, 260);
+            this.BReservas.Location = new System.Drawing.Point(4, 306);
             this.BReservas.Name = "BReservas";
             this.BReservas.Size = new System.Drawing.Size(146, 40);
             this.BReservas.TabIndex = 2;
@@ -211,7 +240,7 @@ namespace HotelCalifornia
             this.BHabitaciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BHabitaciones.Image = ((System.Drawing.Image)(resources.GetObject("BHabitaciones.Image")));
             this.BHabitaciones.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BHabitaciones.Location = new System.Drawing.Point(4, 214);
+            this.BHabitaciones.Location = new System.Drawing.Point(4, 260);
             this.BHabitaciones.Name = "BHabitaciones";
             this.BHabitaciones.Size = new System.Drawing.Size(146, 40);
             this.BHabitaciones.TabIndex = 1;
@@ -229,7 +258,7 @@ namespace HotelCalifornia
             this.BEmpleados.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BEmpleados.Image = ((System.Drawing.Image)(resources.GetObject("BEmpleados.Image")));
             this.BEmpleados.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BEmpleados.Location = new System.Drawing.Point(4, 168);
+            this.BEmpleados.Location = new System.Drawing.Point(4, 214);
             this.BEmpleados.Name = "BEmpleados";
             this.BEmpleados.Size = new System.Drawing.Size(146, 40);
             this.BEmpleados.TabIndex = 0;
@@ -298,5 +327,7 @@ namespace HotelCalifornia
         private System.Windows.Forms.Button BInicio;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Button BLogout;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Button BGestionUsuarios;
     }
 }

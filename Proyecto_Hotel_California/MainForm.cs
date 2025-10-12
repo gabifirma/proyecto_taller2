@@ -26,6 +26,7 @@ namespace HotelCalifornia
         private void ConfigureUserPermissions()
         {
             // Configurar visibilidad de botones según el rol del usuario
+            btnGestionUsuarios.Visible = UserSession.HasPermission("Administrador");
             btnEmpleados.Visible = UserSession.HasPermission("Administrador");
             
             // Los demás botones están disponibles para todos los roles
@@ -35,6 +36,21 @@ namespace HotelCalifornia
         private void btnClientes_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Módulo de Clientes - En desarrollo", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnGestionUsuarios_Click(object sender, EventArgs e)
+        {
+            // Verificar permisos de administrador
+            if (!UserSession.HasPermission("Administrador"))
+            {
+                MessageBox.Show("No tiene permisos para acceder a esta sección.", 
+                              "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
+            // Abrir el formulario de gestión de usuarios
+            GestionUsuarios formGestionUsuarios = new GestionUsuarios();
+            formGestionUsuarios.ShowDialog();
         }
 
         private void btnEmpleados_Click(object sender, EventArgs e)

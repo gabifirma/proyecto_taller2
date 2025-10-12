@@ -19,12 +19,13 @@ namespace HotelCalifornia
             this.lblUsuario = new System.Windows.Forms.Label();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
             this.panelLateral = new System.Windows.Forms.Panel();
-            this.btnInicio = new System.Windows.Forms.Button();
-            this.btnClientes = new System.Windows.Forms.Button();
-            this.btnEmpleados = new System.Windows.Forms.Button();
-            this.btnHabitaciones = new System.Windows.Forms.Button();
-            this.btnReservas = new System.Windows.Forms.Button();
             this.btnPagos = new System.Windows.Forms.Button();
+            this.btnReservas = new System.Windows.Forms.Button();
+            this.btnHabitaciones = new System.Windows.Forms.Button();
+            this.btnEmpleados = new System.Windows.Forms.Button();
+            this.btnGestionUsuarios = new System.Windows.Forms.Button();
+            this.btnClientes = new System.Windows.Forms.Button();
+            this.btnInicio = new System.Windows.Forms.Button();
             this.panelContenido = new System.Windows.Forms.Panel();
             this.lblBienvenida = new System.Windows.Forms.Label();
             this.panelTitulo.SuspendLayout();
@@ -76,6 +77,7 @@ namespace HotelCalifornia
             this.panelLateral.Controls.Add(this.btnReservas);
             this.panelLateral.Controls.Add(this.btnHabitaciones);
             this.panelLateral.Controls.Add(this.btnEmpleados);
+            this.panelLateral.Controls.Add(this.btnGestionUsuarios);
             this.panelLateral.Controls.Add(this.btnClientes);
             this.panelLateral.Controls.Add(this.btnInicio);
             this.panelLateral.Dock = System.Windows.Forms.DockStyle.Left;
@@ -114,6 +116,21 @@ namespace HotelCalifornia
             this.btnClientes.UseVisualStyleBackColor = false;
             this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
+            // btnGestionUsuarios
+            // 
+            this.btnGestionUsuarios.BackColor = System.Drawing.Color.MediumPurple;
+            this.btnGestionUsuarios.FlatAppearance.BorderSize = 0;
+            this.btnGestionUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGestionUsuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGestionUsuarios.ForeColor = System.Drawing.Color.White;
+            this.btnGestionUsuarios.Location = new System.Drawing.Point(10, 140);
+            this.btnGestionUsuarios.Name = "btnGestionUsuarios";
+            this.btnGestionUsuarios.Size = new System.Drawing.Size(180, 40);
+            this.btnGestionUsuarios.TabIndex = 2;
+            this.btnGestionUsuarios.Text = "👤 Usuarios";
+            this.btnGestionUsuarios.UseVisualStyleBackColor = false;
+            this.btnGestionUsuarios.Click += new System.EventHandler(this.btnGestionUsuarios_Click);
+            // 
             // btnEmpleados
             // 
             this.btnEmpleados.BackColor = System.Drawing.Color.DarkOrange;
@@ -121,10 +138,10 @@ namespace HotelCalifornia
             this.btnEmpleados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEmpleados.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEmpleados.ForeColor = System.Drawing.Color.White;
-            this.btnEmpleados.Location = new System.Drawing.Point(10, 140);
+            this.btnEmpleados.Location = new System.Drawing.Point(10, 190);
             this.btnEmpleados.Name = "btnEmpleados";
             this.btnEmpleados.Size = new System.Drawing.Size(180, 40);
-            this.btnEmpleados.TabIndex = 2;
+            this.btnEmpleados.TabIndex = 3;
             this.btnEmpleados.Text = "👨‍💼 Empleados";
             this.btnEmpleados.UseVisualStyleBackColor = false;
             this.btnEmpleados.Click += new System.EventHandler(this.btnEmpleados_Click);
@@ -136,10 +153,10 @@ namespace HotelCalifornia
             this.btnHabitaciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHabitaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHabitaciones.ForeColor = System.Drawing.Color.White;
-            this.btnHabitaciones.Location = new System.Drawing.Point(10, 200);
+            this.btnHabitaciones.Location = new System.Drawing.Point(10, 240);
             this.btnHabitaciones.Name = "btnHabitaciones";
             this.btnHabitaciones.Size = new System.Drawing.Size(180, 40);
-            this.btnHabitaciones.TabIndex = 3;
+            this.btnHabitaciones.TabIndex = 4;
             this.btnHabitaciones.Text = "🏨 Habitaciones";
             this.btnHabitaciones.UseVisualStyleBackColor = false;
             this.btnHabitaciones.Click += new System.EventHandler(this.btnHabitaciones_Click);
@@ -151,10 +168,10 @@ namespace HotelCalifornia
             this.btnReservas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReservas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReservas.ForeColor = System.Drawing.Color.White;
-            this.btnReservas.Location = new System.Drawing.Point(10, 260);
+            this.btnReservas.Location = new System.Drawing.Point(10, 290);
             this.btnReservas.Name = "btnReservas";
             this.btnReservas.Size = new System.Drawing.Size(180, 40);
-            this.btnReservas.TabIndex = 4;
+            this.btnReservas.TabIndex = 5;
             this.btnReservas.Text = "📅 Reservas";
             this.btnReservas.UseVisualStyleBackColor = false;
             this.btnReservas.Click += new System.EventHandler(this.btnReservas_Click);
@@ -166,10 +183,10 @@ namespace HotelCalifornia
             this.btnPagos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPagos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPagos.ForeColor = System.Drawing.Color.White;
-            this.btnPagos.Location = new System.Drawing.Point(10, 320);
+            this.btnPagos.Location = new System.Drawing.Point(10, 340);
             this.btnPagos.Name = "btnPagos";
             this.btnPagos.Size = new System.Drawing.Size(180, 40);
-            this.btnPagos.TabIndex = 5;
+            this.btnPagos.TabIndex = 6;
             this.btnPagos.Text = "💰 Pagos";
             this.btnPagos.UseVisualStyleBackColor = false;
             this.btnPagos.Click += new System.EventHandler(this.btnPagos_Click);
@@ -213,6 +230,7 @@ namespace HotelCalifornia
             this.panelContenido.ResumeLayout(false);
             this.panelContenido.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.Panel panelTitulo;
@@ -221,6 +239,7 @@ namespace HotelCalifornia
         private System.Windows.Forms.Panel panelLateral;
         private System.Windows.Forms.Button btnInicio;
         private System.Windows.Forms.Button btnClientes;
+        private System.Windows.Forms.Button btnGestionUsuarios;
         private System.Windows.Forms.Button btnEmpleados;
         private System.Windows.Forms.Button btnHabitaciones;
         private System.Windows.Forms.Button btnReservas;

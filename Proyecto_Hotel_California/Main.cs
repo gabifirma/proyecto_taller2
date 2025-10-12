@@ -298,6 +298,22 @@ namespace HotelCalifornia
         }
 
         /// <summary>
+        /// Maneja el evento click del botón Gestión de Usuarios.
+        /// Solo accesible para administradores.
+        /// </summary>
+        private void BGestionUsuarios_Click(object sender, EventArgs e)
+        {
+            // Verificar que el usuario tenga permisos de administrador
+            if (!UserSession.HasPermission("administrador"))
+            {
+                MessageBox.Show("No tiene permisos para acceder a esta sección.", 
+                              "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            abrirFormHIjo(new GestionUsuarios());
+        }
+
+        /// <summary>
         /// Configura la visibilidad de los botones del menú según el rol del usuario actual.
         /// Implementa el control de acceso basado en roles (RBAC).
         /// </summary>
@@ -306,6 +322,7 @@ namespace HotelCalifornia
             if (!UserSession.IsLoggedIn)
             {
                 // Si no hay sesión activa, ocultar todos los botones
+                BGestionUsuarios.Visible = false;
                 BEmpleados.Visible = false;
                 BReservas.Visible = false;
                 BPagos.Visible = false;
@@ -320,6 +337,7 @@ namespace HotelCalifornia
             {
                 case "Administrador":
                     // Administrador: acceso completo a todas las funcionalidades
+                    BGestionUsuarios.Visible = true;
                     BEmpleados.Visible = true;
                     BReservas.Visible = true;
                     BPagos.Visible = true;
@@ -328,7 +346,8 @@ namespace HotelCalifornia
                     break;
 
                 case "Supervisor":
-                    // Supervisor: acceso a la mayoría de funciones excepto empleados
+                    // Supervisor: acceso a la mayoría de funciones excepto empleados y usuarios
+                    BGestionUsuarios.Visible = false;
                     BEmpleados.Visible = false;
                     BReservas.Visible = true;
                     BPagos.Visible = true;
@@ -337,7 +356,9 @@ namespace HotelCalifornia
                     break;
 
                 case "Recepcionista":
+                case "Recepcion":
                     // Recepcionista: acceso limitado solo a reservas y habitaciones
+                    BGestionUsuarios.Visible = false;
                     BEmpleados.Visible = false;
                     BReservas.Visible = true;
                     BPagos.Visible = false;
@@ -347,6 +368,7 @@ namespace HotelCalifornia
 
                 default:
                     // Por defecto, ocultar todo si el rol no es reconocido
+                    BGestionUsuarios.Visible = false;
                     BEmpleados.Visible = false;
                     BReservas.Visible = false;
                     BPagos.Visible = false;

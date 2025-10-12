@@ -9,7 +9,7 @@ namespace HotelCalifornia
     public class Usuario
     {
         /// <summary>
-        /// Identificador único del usuario en la base de datos
+        /// Identificador único del usuario en la base de datos (id_usuario)
         /// </summary>
         public int Id { get; set; }
 
@@ -24,12 +24,24 @@ namespace HotelCalifornia
         public string Contraseña { get; set; }
 
         /// <summary>
-        /// Tipo de usuario que determina los permisos (Administrador, Supervisor, Recepcionista)
+        /// ID del rol asignado al usuario (referencia a la tabla Rol)
+        /// </summary>
+        public int IdRol { get; set; }
+
+        /// <summary>
+        /// Legajo del empleado asociado al usuario (puede ser null para usuarios sin empleado)
+        /// </summary>
+        public int? Legajo { get; set; }
+
+        /// <summary>
+        /// Tipo de usuario que determina los permisos (Administrador, Supervisor, Recepcion)
+        /// Este campo se obtiene de la tabla Rol
         /// </summary>
         public string TipoUsuario { get; set; }
 
         /// <summary>
         /// Nombre completo del usuario para mostrar en la interfaz
+        /// Se construye a partir del nombre y apellido del empleado
         /// </summary>
         public string NombreCompleto { get; set; }
 
