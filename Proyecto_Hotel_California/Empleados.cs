@@ -128,7 +128,27 @@ namespace HotelCalifornia
                     {
                         cmd.Parameters.AddWithValue("@Apellido", TApellido.Text);
                         cmd.Parameters.AddWithValue("@Nombre", TNombre.Text);
-                        cmd.Parameters.AddWithValue("@Telefono", TTelefono.Text);
+                        
+                        // Validar y convertir teléfono
+                        // La columna telefono en la BD es INT, por lo que solo acepta hasta 2,147,483,647
+                        long telefonoLong;
+                        if (!long.TryParse(TTelefono.Text, out telefonoLong))
+                        {
+                            MessageBox.Show("El teléfono debe ser un número válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        
+                        // Verificar que el número no sea demasiado grande para INT
+                        if (telefonoLong > int.MaxValue)
+                        {
+                            MessageBox.Show($"El teléfono es demasiado largo. El máximo permitido es {int.MaxValue}.\n\n" +
+                                          "Recomendación: Modifique la columna 'telefono' en la base de datos a BIGINT o VARCHAR.",
+                                          "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        
+                        cmd.Parameters.AddWithValue("@Telefono", (int)telefonoLong);
+                        
                         cmd.Parameters.AddWithValue("@Email", TEmail.Text);
                         cmd.Parameters.AddWithValue("@Estado", true);
 

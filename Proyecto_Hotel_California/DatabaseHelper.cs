@@ -394,6 +394,227 @@ namespace HotelCalifornia
         }
 
         /// <summary>
+        /// Obtiene todos los roles del sistema
+        /// </summary>
+        public static DataTable GetAllRoles()
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            DataTable dtRoles = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT id_rol, nombre FROM Rol ORDER BY nombre";
+                    
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtRoles);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetAllRoles: {ex.Message}");
+            }
+            return dtRoles;
+        }
+
+        /// <summary>
+        /// Obtiene los empleados que no tienen usuario asignado
+        /// </summary>
+        public static DataTable GetEmpleadosSinUsuario()
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            DataTable dtEmpleados = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"
+                        SELECT e.legajo, e.nombre + ' ' + e.apellido as nombre_completo, e.telefono, e.email
+                        FROM Empleado e
+                        WHERE e.legajo NOT IN (SELECT legajo FROM Usuario WHERE legajo IS NOT NULL)
+                        ORDER BY e.apellido, e.nombre";
+                    
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtEmpleados);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetEmpleadosSinUsuario: {ex.Message}");
+            }
+            return dtEmpleados;
+        }
+
+        /// <summary>
+        /// Obtiene un usuario por su ID
+        /// </summary>
+        public static DataTable GetUsuarioById(int idUsuario)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            DataTable dtUsuario = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"
+                        SELECT u.id_usuario, u.username, u.contrasena, u.id_rol, u.legajo, u.activo,
+                               r.nombre as nombre_rol
+                        FROM Usuario u
+                        INNER JOIN Rol r ON u.id_rol = r.id_rol
+                        WHERE u.id_usuario = @idUsuario";
+                    
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@idUsuario", idUsuario);
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        {
+                            adapter.Fill(dtUsuario);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetUsuarioById: {ex.Message}");
+            }
+            return dtUsuario;
+        }
+
+        /// <summary>
+        /// Crea un nuevo usuario asociado a un empleado existente
+        /// </summary>
+        public static bool CreateUsuario(int legajo, string username, string password, int idRol)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    
+                    // Obtener el próximo id_usuario disponible
+                    string getNextIdQuery = "SELECT ISNULL(MAX(id_usuario), 0) + 1 FROM Usuario";
+                    int nextUserId;
+                    using (SqlCommand cmdGetId = new SqlCommand(getNextIdQuery, connection))
+                    {
+                        nextUserId = (int)cmdGetId.ExecuteScalar();
+                    }
+
+                    // Insertar el usuario
+                    string insertQuery = @"
+                        INSERT INTO Usuario (id_usuario, username, contrasena, activo, ultimo_acceso, id_rol, legajo)
+                        VALUES (@id_usuario, @username, @contrasena, 1, GETDATE(), @idRol, @legajo)";
+                    
+                    using (SqlCommand command = new SqlCommand(insertQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@id_usuario", nextUserId);
+                        command.Parameters.AddWithValue("@username", username);
+                        command.Parameters.AddWithValue("@contrasena", password);
+                        command.Parameters.AddWithValue("@idRol", idRol);
+                        command.Parameters.AddWithValue("@legajo", legajo);
+                        
+                        command.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en CreateUsuario: {ex.Message}");
+                throw new Exception($"Error al crear usuario: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Actualiza un usuario existente
+        /// </summary>
+        public static bool UpdateUsuario(int idUsuario, string username, string password, int idRol, bool activo)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"
+                        UPDATE Usuario 
+                        SET username = @username, 
+                            contrasena = @contrasena, 
+                            id_rol = @idRol, 
+                            activo = @activo,
+                            ultimo_acceso = GETDATE()
+                        WHERE id_usuario = @idUsuario";
+                    
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@idUsuario", idUsuario);
+                        command.Parameters.AddWithValue("@username", username);
+                        command.Parameters.AddWithValue("@contrasena", password);
+                        command.Parameters.AddWithValue("@idRol", idRol);
+                        command.Parameters.AddWithValue("@activo", activo ? 1 : 0);
+                        
+                        command.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en UpdateUsuario: {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Desactiva un usuario (soft delete)
+        /// </summary>
+        public static bool DeleteUser(int idUsuario)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "UPDATE Usuario SET activo = 0 WHERE id_usuario = @idUsuario";
+                    
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@idUsuario", idUsuario);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en DeleteUser: {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Obtiene todos los usuarios del sistema con su información completa
         /// </summary>
         /// <returns>DataTable con la lista de usuarios</returns>

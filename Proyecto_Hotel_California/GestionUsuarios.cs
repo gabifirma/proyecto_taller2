@@ -91,97 +91,263 @@ namespace HotelCalifornia
         /// </summary>
         private void btnAgregarUsuario_Click(object sender, EventArgs e)
         {
-            AgregarUsuarioForm formAgregar = new AgregarUsuarioForm();
+            AgregarEditarUsuarioForm formAgregar = new AgregarEditarUsuarioForm();
             if (formAgregar.ShowDialog() == DialogResult.OK)
             {
-                // Recargar la lista después de agregar
                 CargarUsuarios();
+            }
+        }
+
+        /// <summary>
+        /// Abre el formulario para editar un usuario existente
+        /// </summary>
+        private void btnEditarUsuario_Click(object sender, EventArgs e)
+        {
+            if (dgvUsuarios.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Seleccione un usuario para editar.",
+                              "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            int idUsuario = Convert.ToInt32(dgvUsuarios.SelectedRows[0].Cells["id_usuario"].Value);
+            AgregarEditarUsuarioForm formEditar = new AgregarEditarUsuarioForm(idUsuario);
+            if (formEditar.ShowDialog() == DialogResult.OK)
+            {
+                CargarUsuarios();
+            }
+        }
+
+        /// <summary>
+        /// Elimina un usuario (lo marca como inactivo)
+        /// </summary>
+        private void btnEliminarUsuario_Click(object sender, EventArgs e)
+        {
+            if (dgvUsuarios.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Seleccione un usuario para eliminar.",
+                              "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            int idUsuario = Convert.ToInt32(dgvUsuarios.SelectedRows[0].Cells["id_usuario"].Value);
+            string username = dgvUsuarios.SelectedRows[0].Cells["username"].Value.ToString();
+
+            DialogResult result = MessageBox.Show(
+                $"¿Está seguro que desea desactivar el usuario '{username}'?",
+                "Confirmar Eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                if (DatabaseHelper.DeleteUser(idUsuario))
+                {
+                    MessageBox.Show("Usuario desactivado exitosamente.",
+                                  "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarUsuarios();
+                }
+                else
+                {
+                    MessageBox.Show("Error al desactivar el usuario.",
+                                  "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }
 
-    // Clase auxiliar para el formulario de agregar usuario
-    public partial class AgregarUsuarioForm : Form
+    /// <summary>
+    /// Formulario para agregar o editar usuarios
+    /// Permite seleccionar un empleado existente y asignarle credenciales y rol
+    /// </summary>
+    public partial class AgregarEditarUsuarioForm : Form
     {
-        private TextBox txtNombre;
-        private TextBox txtApellido;
-        private TextBox txtTelefono;
-        private TextBox txtEmail;
+        private ComboBox cmbEmpleado;
         private TextBox txtUsername;
         private TextBox txtPassword;
         private ComboBox cmbRol;
+        private CheckBox chkActivo;
         private Button btnGuardar;
         private Button btnCancelar;
+        private int? idUsuarioEditar = null;
 
-        public AgregarUsuarioForm()
+        public AgregarEditarUsuarioForm(int? idUsuario = null)
         {
+            idUsuarioEditar = idUsuario;
             InitializeComponent();
+            CargarEmpleados();
             CargarRoles();
+            
+            if (idUsuarioEditar.HasValue)
+            {
+                CargarDatosUsuario(idUsuarioEditar.Value);
+            }
         }
 
         private void InitializeComponent()
         {
-            this.Text = "Agregar Nuevo Usuario";
-            this.Size = new Size(570, 540);
+            this.Text = idUsuarioEditar.HasValue ? "Editar Usuario" : "Agregar Nuevo Usuario";
+            this.Size = new Size(570, 400);
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
 
-            // Labels y TextBoxes para Empleado
-            Label lblTitulo = new Label { Text = "Nuevo Usuario", Font = new Font("Segoe UI", 16, FontStyle.Bold), Location = new Point(30, 20), AutoSize = true };
+            // Título
+            Label lblTitulo = new Label { 
+                Text = idUsuarioEditar.HasValue ? "Editar Usuario" : "Nuevo Usuario", 
+                Font = new Font("Segoe UI", 16, FontStyle.Bold), 
+                Location = new Point(30, 20), 
+                AutoSize = true 
+            };
             
-            GroupBox gbEmpleado = new GroupBox { Text = "Datos del Empleado", Location = new Point(35, 70), Size = new Size(500, 200), Font = new Font("Segoe UI", 10, FontStyle.Bold) };
+            // GroupBox para datos del usuario
+            GroupBox gbUsuario = new GroupBox { 
+                Text = "Datos del Usuario", 
+                Location = new Point(35, 70), 
+                Size = new Size(500, 220), 
+                Font = new Font("Segoe UI", 10, FontStyle.Bold) 
+            };
             
-            Label lblNombre = new Label { Text = "Nombre:", Location = new Point(20, 33), Size = new Size(80, 19), Font = new Font("Segoe UI", 10) };
-            txtNombre = new TextBox { Location = new Point(120, 30), Size = new Size(350, 25), Font = new Font("Segoe UI", 10) };
+            // Empleado
+            Label lblEmpleado = new Label { 
+                Text = "Empleado:", 
+                Location = new Point(20, 33), 
+                Size = new Size(100, 19), 
+                Font = new Font("Segoe UI", 10) 
+            };
+            cmbEmpleado = new ComboBox { 
+                Location = new Point(130, 30), 
+                Size = new Size(350, 25), 
+                Font = new Font("Segoe UI", 10), 
+                DropDownStyle = ComboBoxStyle.DropDownList 
+            };
             
-            Label lblApellido = new Label { Text = "Apellido:", Location = new Point(20, 73), Size = new Size(80, 19), Font = new Font("Segoe UI", 10) };
-            txtApellido = new TextBox { Location = new Point(120, 70), Size = new Size(350, 25), Font = new Font("Segoe UI", 10) };
+            // Username
+            Label lblUsername = new Label { 
+                Text = "Usuario:", 
+                Location = new Point(20, 73), 
+                Size = new Size(100, 19), 
+                Font = new Font("Segoe UI", 10) 
+            };
+            txtUsername = new TextBox { 
+                Location = new Point(130, 70), 
+                Size = new Size(350, 25), 
+                Font = new Font("Segoe UI", 10) 
+            };
             
-            Label lblTelefono = new Label { Text = "Teléfono:", Location = new Point(20, 113), Size = new Size(80, 19), Font = new Font("Segoe UI", 10) };
-            txtTelefono = new TextBox { Location = new Point(120, 110), Size = new Size(350, 25), Font = new Font("Segoe UI", 10) };
+            // Password
+            Label lblPassword = new Label { 
+                Text = "Contraseña:", 
+                Location = new Point(20, 113), 
+                Size = new Size(100, 19), 
+                Font = new Font("Segoe UI", 10) 
+            };
+            txtPassword = new TextBox { 
+                Location = new Point(130, 110), 
+                Size = new Size(350, 25), 
+                Font = new Font("Segoe UI", 10), 
+                PasswordChar = '*' 
+            };
             
-            Label lblEmail = new Label { Text = "Email:", Location = new Point(20, 153), Size = new Size(80, 19), Font = new Font("Segoe UI", 10) };
-            txtEmail = new TextBox { Location = new Point(120, 150), Size = new Size(350, 25), Font = new Font("Segoe UI", 10) };
+            // Rol
+            Label lblRol = new Label { 
+                Text = "Rol:", 
+                Location = new Point(20, 153), 
+                Size = new Size(100, 19), 
+                Font = new Font("Segoe UI", 10) 
+            };
+            cmbRol = new ComboBox { 
+                Location = new Point(130, 150), 
+                Size = new Size(350, 25), 
+                Font = new Font("Segoe UI", 10), 
+                DropDownStyle = ComboBoxStyle.DropDownList 
+            };
             
-            gbEmpleado.Controls.AddRange(new Control[] { lblNombre, txtNombre, lblApellido, txtApellido, lblTelefono, txtTelefono, lblEmail, txtEmail });
+            // Activo
+            chkActivo = new CheckBox { 
+                Text = "Usuario Activo", 
+                Location = new Point(130, 185), 
+                Size = new Size(150, 25), 
+                Font = new Font("Segoe UI", 10),
+                Checked = true
+            };
             
-            // Labels y TextBoxes para Usuario
-            GroupBox gbUsuario = new GroupBox { Text = "Datos del Usuario", Location = new Point(35, 290), Size = new Size(500, 160), Font = new Font("Segoe UI", 10, FontStyle.Bold) };
-            
-            Label lblUsername = new Label { Text = "Usuario:", Location = new Point(20, 33), Size = new Size(80, 19), Font = new Font("Segoe UI", 10) };
-            txtUsername = new TextBox { Location = new Point(120, 30), Size = new Size(350, 25), Font = new Font("Segoe UI", 10) };
-            
-            Label lblPassword = new Label { Text = "Contraseña:", Location = new Point(20, 73), Size = new Size(100, 19), Font = new Font("Segoe UI", 10) };
-            txtPassword = new TextBox { Location = new Point(120, 70), Size = new Size(350, 25), Font = new Font("Segoe UI", 10), PasswordChar = '*' };
-            
-            Label lblRol = new Label { Text = "Rol:", Location = new Point(20, 113), Size = new Size(80, 19), Font = new Font("Segoe UI", 10) };
-            cmbRol = new ComboBox { Location = new Point(120, 110), Size = new Size(350, 25), Font = new Font("Segoe UI", 10), DropDownStyle = ComboBoxStyle.DropDownList };
-            
-            gbUsuario.Controls.AddRange(new Control[] { lblUsername, txtUsername, lblPassword, txtPassword, lblRol, cmbRol });
+            gbUsuario.Controls.AddRange(new Control[] { 
+                lblEmpleado, cmbEmpleado, 
+                lblUsername, txtUsername, 
+                lblPassword, txtPassword, 
+                lblRol, cmbRol,
+                chkActivo 
+            });
             
             // Botones
-            btnGuardar = new Button { Text = "Guardar Usuario", Location = new Point(155, 470), Size = new Size(150, 40), BackColor = Color.FromArgb(46, 204, 113), ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 10, FontStyle.Bold) };
+            btnGuardar = new Button { 
+                Text = idUsuarioEditar.HasValue ? "Actualizar" : "Guardar", 
+                Location = new Point(155, 310), 
+                Size = new Size(150, 40), 
+                BackColor = Color.FromArgb(46, 204, 113), 
+                ForeColor = Color.White, 
+                FlatStyle = FlatStyle.Flat, 
+                Font = new Font("Segoe UI", 10, FontStyle.Bold) 
+            };
             btnGuardar.FlatAppearance.BorderSize = 0;
             btnGuardar.Click += BtnGuardar_Click;
             
-            btnCancelar = new Button { Text = "Cancelar", Location = new Point(325, 470), Size = new Size(150, 40), BackColor = Color.FromArgb(231, 76, 60), ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 10, FontStyle.Bold) };
+            btnCancelar = new Button { 
+                Text = "Cancelar", 
+                Location = new Point(325, 310), 
+                Size = new Size(150, 40), 
+                BackColor = Color.FromArgb(231, 76, 60), 
+                ForeColor = Color.White, 
+                FlatStyle = FlatStyle.Flat, 
+                Font = new Font("Segoe UI", 10, FontStyle.Bold) 
+            };
             btnCancelar.FlatAppearance.BorderSize = 0;
             btnCancelar.Click += (s, e) => { this.DialogResult = DialogResult.Cancel; this.Close(); };
             
-            this.Controls.AddRange(new Control[] { lblTitulo, gbEmpleado, gbUsuario, btnGuardar, btnCancelar });
+            this.Controls.AddRange(new Control[] { lblTitulo, gbUsuario, btnGuardar, btnCancelar });
             this.BackColor = Color.FromArgb(236, 240, 241);
         }
 
         /// <summary>
-        /// Carga los roles disponibles en el ComboBox, excluyendo el rol de Administrador
+        /// Carga los empleados disponibles en el ComboBox
+        /// </summary>
+        private void CargarEmpleados()
+        {
+            try
+            {
+                DataTable dtEmpleados = DatabaseHelper.GetEmpleadosSinUsuario();
+                
+                if (dtEmpleados.Rows.Count > 0 || idUsuarioEditar.HasValue)
+                {
+                    cmbEmpleado.DataSource = dtEmpleados;
+                    cmbEmpleado.DisplayMember = "nombre_completo";
+                    cmbEmpleado.ValueMember = "legajo";
+                    if (dtEmpleados.Rows.Count > 0)
+                        cmbEmpleado.SelectedIndex = 0;
+                }
+                else
+                {
+                    MessageBox.Show("No hay empleados disponibles sin usuario asignado.\nPrimero debe crear empleados desde la sección Empleados.", 
+                                  "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar empleados: {ex.Message}", 
+                              "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Carga los roles disponibles en el ComboBox
         /// </summary>
         private void CargarRoles()
         {
             try
             {
-                DataTable dtRoles = DatabaseHelper.GetRolesExceptAdmin();
+                DataTable dtRoles = DatabaseHelper.GetAllRoles();
                 
                 if (dtRoles.Rows.Count > 0)
                 {
@@ -204,35 +370,81 @@ namespace HotelCalifornia
         }
 
         /// <summary>
+        /// Carga los datos de un usuario existente para edición
+        /// </summary>
+        private void CargarDatosUsuario(int idUsuario)
+        {
+            try
+            {
+                DataTable dtUsuario = DatabaseHelper.GetUsuarioById(idUsuario);
+                if (dtUsuario.Rows.Count > 0)
+                {
+                    DataRow row = dtUsuario.Rows[0];
+                    txtUsername.Text = row["username"].ToString();
+                    txtPassword.Text = row["contrasena"].ToString();
+                    cmbRol.SelectedValue = Convert.ToInt32(row["id_rol"]);
+                    chkActivo.Checked = Convert.ToBoolean(row["activo"]);
+                    
+                    // Cargar el empleado asociado
+                    if (row["legajo"] != DBNull.Value)
+                    {
+                        int legajo = Convert.ToInt32(row["legajo"]);
+                        cmbEmpleado.SelectedValue = legajo;
+                        cmbEmpleado.Enabled = false; // No permitir cambiar el empleado
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar datos del usuario: {ex.Message}", 
+                              "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
         /// Maneja el evento click del botón Guardar.
-        /// Valida los datos y crea el empleado con su usuario asociado.
+        /// Crea o actualiza un usuario asociado a un empleado existente.
         /// </summary>
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
-            // Validar todos los campos
             if (!ValidarCampos())
                 return;
 
             try
             {
-                // Obtener los valores de los campos
-                string nombre = txtNombre.Text.Trim();
-                string apellido = txtApellido.Text.Trim();
-                string telefono = txtTelefono.Text.Trim();
-                string email = txtEmail.Text.Trim();
+                int legajo = Convert.ToInt32(cmbEmpleado.SelectedValue);
                 string username = txtUsername.Text.Trim();
                 string password = txtPassword.Text.Trim();
                 int idRol = Convert.ToInt32(cmbRol.SelectedValue);
+                bool activo = chkActivo.Checked;
 
-                // Crear el empleado y usuario usando transacción
-                bool resultado = DatabaseHelper.CreateEmpleadoAndUsuario(
-                    nombre, apellido, telefono, email, username, password, idRol);
-
-                if (resultado)
+                bool resultado;
+                if (idUsuarioEditar.HasValue)
                 {
-                    MessageBox.Show("Usuario y empleado creados exitosamente.", 
-                                  "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LimpiarCampos();
+                    // Actualizar usuario existente
+                    resultado = DatabaseHelper.UpdateUsuario(
+                        idUsuarioEditar.Value, username, password, idRol, activo);
+                    
+                    if (resultado)
+                    {
+                        MessageBox.Show("Usuario actualizado exitosamente.", 
+                                      "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    // Crear nuevo usuario
+                    resultado = DatabaseHelper.CreateUsuario(legajo, username, password, idRol);
+                    
+                    if (resultado)
+                    {
+                        MessageBox.Show("Usuario creado exitosamente.", 
+                                      "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
                 }
             }
             catch (Exception ex)
@@ -245,51 +457,14 @@ namespace HotelCalifornia
         /// <summary>
         /// Valida que todos los campos estén completos y tengan el formato correcto
         /// </summary>
-        /// <returns>True si todos los campos son válidos, False en caso contrario</returns>
         private bool ValidarCampos()
         {
-            // Validar nombre
-            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            // Validar empleado
+            if (cmbEmpleado.SelectedIndex == -1)
             {
-                MessageBox.Show("Ingrese el nombre del empleado.", 
+                MessageBox.Show("Seleccione un empleado.", 
                               "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtNombre.Focus();
-                return false;
-            }
-
-            // Validar apellido
-            if (string.IsNullOrWhiteSpace(txtApellido.Text))
-            {
-                MessageBox.Show("Ingrese el apellido del empleado.", 
-                              "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtApellido.Focus();
-                return false;
-            }
-
-            // Validar teléfono
-            if (string.IsNullOrWhiteSpace(txtTelefono.Text))
-            {
-                MessageBox.Show("Ingrese el teléfono del empleado.", 
-                              "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtTelefono.Focus();
-                return false;
-            }
-
-            // Validar email
-            if (string.IsNullOrWhiteSpace(txtEmail.Text))
-            {
-                MessageBox.Show("Ingrese el email del empleado.", 
-                              "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtEmail.Focus();
-                return false;
-            }
-
-            // Validar formato de email
-            if (!ValidarFormatoEmail(txtEmail.Text.Trim()))
-            {
-                MessageBox.Show("Ingrese un email válido.", 
-                              "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtEmail.Focus();
+                cmbEmpleado.Focus();
                 return false;
             }
 
@@ -302,7 +477,6 @@ namespace HotelCalifornia
                 return false;
             }
 
-            // Validar que el username tenga al menos 4 caracteres
             if (txtUsername.Text.Trim().Length < 4)
             {
                 MessageBox.Show("El nombre de usuario debe tener al menos 4 caracteres.", 
@@ -320,7 +494,6 @@ namespace HotelCalifornia
                 return false;
             }
 
-            // Validar que la contraseña tenga al menos 6 caracteres
             if (txtPassword.Text.Trim().Length < 6)
             {
                 MessageBox.Show("La contraseña debe tener al menos 6 caracteres.", 
@@ -329,7 +502,7 @@ namespace HotelCalifornia
                 return false;
             }
 
-            // Validar que se haya seleccionado un rol
+            // Validar rol
             if (cmbRol.SelectedIndex == -1)
             {
                 MessageBox.Show("Seleccione un rol para el usuario.", 
@@ -339,41 +512,6 @@ namespace HotelCalifornia
             }
 
             return true;
-        }
-
-        /// <summary>
-        /// Valida el formato de un email usando expresiones regulares
-        /// </summary>
-        /// <param name="email">Email a validar</param>
-        /// <returns>True si el formato es válido, False en caso contrario</returns>
-        private bool ValidarFormatoEmail(string email)
-        {
-            string patron = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-            return Regex.IsMatch(email, patron);
-        }
-
-        /// <summary>
-        /// Limpia todos los campos del formulario
-        /// </summary>
-        private void LimpiarCampos()
-        {
-            txtNombre.Clear();
-            txtApellido.Clear();
-            txtTelefono.Clear();
-            txtEmail.Clear();
-            txtUsername.Clear();
-            txtPassword.Clear();
-            cmbRol.SelectedIndex = 0;
-            txtNombre.Focus();
-        }
-
-        /// <summary>
-        /// Maneja el evento click del botón Cancelar.
-        /// Cierra el formulario sin guardar cambios.
-        /// </summary>
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

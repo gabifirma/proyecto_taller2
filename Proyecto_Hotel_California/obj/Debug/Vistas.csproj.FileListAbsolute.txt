@@ -21,4 +21,4 @@ c:\Users\TAC\Videos\2025\Taller de Programacion II\proyecto\34\proyecto_taller2\
 c:\Users\TAC\Videos\2025\Taller de Programacion II\proyecto\34\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Vistas.csproj.CoreCompileInputs.cache
 c:\Users\TAC\Videos\2025\Taller de Programacion II\proyecto\34\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\HotelCalifornia.exe
 c:\Users\TAC\Videos\2025\Taller de Programacion II\proyecto\34\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\HotelCalifornia.pdb
-C:\Users\TAC\Videos\2025\Taller de Programacion II\proyecto\34\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\HotelCalifornia.exe.config
+c:\Users\TAC\Videos\2025\Taller de Programacion II\proyecto\34\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\HotelCalifornia.exe.config
