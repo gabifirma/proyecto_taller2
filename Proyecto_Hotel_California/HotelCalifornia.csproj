@@ -148,6 +148,9 @@
     <Compile Include="GestionUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="AgregarEmpleadoConUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GestionUsuarios.Designer.cs">
       <DependentUpon>GestionUsuarios.cs</DependentUpon>
     </Compile>

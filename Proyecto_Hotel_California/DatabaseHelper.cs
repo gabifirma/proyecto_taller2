@@ -214,11 +214,11 @@ namespace HotelCalifornia
                     // Consulta que une Usuario con Rol y Empleado para obtener información completa
                     string query = @"
                         SELECT u.id_usuario, u.username, u.contrasena, u.id_rol, u.legajo,
-                               r.nombre, e.nombre, e.apellido
+                               r.nombre as rol_nombre, e.nombre as emp_nombre, e.apellido as emp_apellido, u.activo
                         FROM Usuario u
                         INNER JOIN Rol r ON u.id_rol = r.id_rol
                         LEFT JOIN Empleado e ON u.legajo = e.legajo
-                        WHERE u.username = @username AND u.contrasena = @password";
+                        WHERE u.username = @username AND u.contrasena = @password AND u.activo = 1";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
@@ -231,6 +231,7 @@ namespace HotelCalifornia
                             {
                                 string nombre = reader.IsDBNull(6) ? "" : reader.GetString(6);
                                 string apellido = reader.IsDBNull(7) ? "" : reader.GetString(7);
+                                bool activo = reader.IsDBNull(8) ? true : reader.GetBoolean(8);
                                 string nombreCompleto = !string.IsNullOrEmpty(nombre) && !string.IsNullOrEmpty(apellido)
                                     ? $"{nombre} {apellido}"
                                     : nombreUsuario;
@@ -242,7 +243,7 @@ namespace HotelCalifornia
                                     Contraseña = reader.GetString(2),
                                     IdRol = reader.GetInt32(3),
                                     Legajo = reader.IsDBNull(4) ? (int?)null : reader.GetInt32(4),
-                                    Activo = true,
+                                    Activo = activo,
                                     TipoUsuario = reader.GetString(5),
                                     NombreCompleto = nombreCompleto,
                                     FechaCreacion = DateTime.Now
@@ -678,10 +679,10 @@ namespace HotelCalifornia
                 connection.Open();
                 transaction = connection.BeginTransaction();
 
-                // Paso 1: Insertar el empleado
+                // Paso 1: Insertar el empleado (legajo es IDENTITY, se genera automáticamente)
                 string insertEmpleadoQuery = @"
-                    INSERT INTO Empleado (nombre, apellido, telefono, email)
-                    VALUES (@nombre, @apellido, @telefono, @email);
+                    INSERT INTO Empleado (nombre, apellido, telefono, email, estado)
+                    VALUES (@nombre, @apellido, @telefono, @email, 1);
                     SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
                 int legajo;
@@ -689,7 +690,13 @@ namespace HotelCalifornia
                 {
                     cmdEmpleado.Parameters.AddWithValue("@nombre", nombre);
                     cmdEmpleado.Parameters.AddWithValue("@apellido", apellido);
-                    cmdEmpleado.Parameters.AddWithValue("@telefono", telefono ?? (object)DBNull.Value);
+                    
+                    // Convertir teléfono a INT (la columna en BD es INT)
+                    if (!string.IsNullOrEmpty(telefono) && int.TryParse(telefono, out int telefonoInt))
+                        cmdEmpleado.Parameters.AddWithValue("@telefono", telefonoInt);
+                    else
+                        cmdEmpleado.Parameters.AddWithValue("@telefono", DBNull.Value);
+                    
                     cmdEmpleado.Parameters.AddWithValue("@email", email ?? (object)DBNull.Value);
                     
                     legajo = (int)cmdEmpleado.ExecuteScalar();
@@ -735,6 +742,196 @@ namespace HotelCalifornia
             {
                 connection?.Close();
             }
+        }
+        /// <summary>
+        /// Obtiene todos los empleados del sistema
+        /// </summary>
+        public static DataTable GetAllEmpleados()
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            DataTable dtEmpleados = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"
+                        SELECT e.legajo, e.nombre, e.apellido, e.telefono, e.email, e.estado,
+                               CASE WHEN u.id_usuario IS NOT NULL THEN 'Sí' ELSE 'No' END as tiene_usuario
+                        FROM Empleado e
+                        LEFT JOIN Usuario u ON e.legajo = u.legajo
+                        ORDER BY e.apellido, e.nombre";
+                    
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtEmpleados);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetAllEmpleados: {ex.Message}");
+            }
+            return dtEmpleados;
+        }
+
+        /// <summary>
+        /// Crea un nuevo empleado sin usuario asociado
+        /// </summary>
+        public static int CreateEmpleado(string nombre, string apellido, int telefono, string email)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"
+                        INSERT INTO Empleado (nombre, apellido, telefono, email, estado)
+                        VALUES (@nombre, @apellido, @telefono, @email, 1);
+                        SELECT CAST(SCOPE_IDENTITY() AS INT);";
+                    
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@nombre", nombre);
+                        command.Parameters.AddWithValue("@apellido", apellido);
+                        command.Parameters.AddWithValue("@telefono", telefono);
+                        command.Parameters.AddWithValue("@email", email);
+                        
+                        return (int)command.ExecuteScalar();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en CreateEmpleado: {ex.Message}");
+                throw new Exception($"Error al crear empleado: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Actualiza un empleado existente
+        /// </summary>
+        public static bool UpdateEmpleado(int legajo, string nombre, string apellido, int telefono, string email, bool estado)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"
+                        UPDATE Empleado 
+                        SET nombre = @nombre, 
+                            apellido = @apellido, 
+                            telefono = @telefono, 
+                            email = @email,
+                            estado = @estado
+                        WHERE legajo = @legajo";
+                    
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@legajo", legajo);
+                        command.Parameters.AddWithValue("@nombre", nombre);
+                        command.Parameters.AddWithValue("@apellido", apellido);
+                        command.Parameters.AddWithValue("@telefono", telefono);
+                        command.Parameters.AddWithValue("@email", email);
+                        command.Parameters.AddWithValue("@estado", estado ? 1 : 0);
+                        
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en UpdateEmpleado: {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Elimina (desactiva) un empleado
+        /// </summary>
+        public static bool DeleteEmpleado(int legajo)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    
+                    // Primero verificar si tiene usuario asociado
+                    string checkQuery = "SELECT COUNT(*) FROM Usuario WHERE legajo = @legajo";
+                    using (SqlCommand checkCmd = new SqlCommand(checkQuery, connection))
+                    {
+                        checkCmd.Parameters.AddWithValue("@legajo", legajo);
+                        int count = (int)checkCmd.ExecuteScalar();
+                        if (count > 0)
+                        {
+                            throw new Exception("No se puede eliminar el empleado porque tiene un usuario asociado. Elimine primero el usuario.");
+                        }
+                    }
+                    
+                    // Si no tiene usuario, desactivar el empleado
+                    string query = "UPDATE Empleado SET estado = 0 WHERE legajo = @legajo";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@legajo", legajo);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en DeleteEmpleado: {ex.Message}");
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Obtiene un empleado por su legajo
+        /// </summary>
+        public static DataTable GetEmpleadoByLegajo(int legajo)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            DataTable dtEmpleado = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"
+                        SELECT legajo, nombre, apellido, telefono, email, estado
+                        FROM Empleado
+                        WHERE legajo = @legajo";
+                    
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@legajo", legajo);
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        {
+                            adapter.Fill(dtEmpleado);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetEmpleadoByLegajo: {ex.Message}");
+            }
+            return dtEmpleado;
         }
     }
 }

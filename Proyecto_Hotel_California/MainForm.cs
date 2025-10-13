@@ -9,6 +9,9 @@ namespace HotelCalifornia
         {
             InitializeComponent();
             InitializeUserInterface();
+            
+            // Inicializar la base de datos si es necesario
+            DatabaseHelper.InitializeDatabase();
         }
 
         private void InitializeUserInterface()
@@ -26,16 +29,54 @@ namespace HotelCalifornia
         private void ConfigureUserPermissions()
         {
             // Configurar visibilidad de botones según el rol del usuario
-            btnGestionUsuarios.Visible = UserSession.HasPermission("Administrador");
-            btnEmpleados.Visible = UserSession.HasPermission("Administrador");
+            string userRole = UserSession.GetUserRole();
             
-            // Los demás botones están disponibles para todos los roles
-            // pero se pueden agregar más restricciones si es necesario
+            switch (userRole)
+            {
+                case "Administrador":
+                    // Administrador: acceso completo
+                    btnGestionUsuarios.Visible = true;
+                    btnEmpleados.Visible = true;
+                    btnReservas.Visible = true;
+                    btnPagos.Visible = true;
+                    btnClientes.Visible = true;
+                    btnHabitaciones.Visible = true;
+                    break;
+                    
+                case "Supervisor":
+                    // Supervisor: acceso a empleados y operaciones
+                    btnGestionUsuarios.Visible = false;
+                    btnEmpleados.Visible = true;  // Supervisores SÍ pueden ver empleados
+                    btnReservas.Visible = true;
+                    btnPagos.Visible = true;
+                    btnClientes.Visible = true;
+                    btnHabitaciones.Visible = true;
+                    break;
+                    
+                case "Recepcion":
+                case "Recepcionista":
+                    // Recepción: acceso limitado
+                    btnGestionUsuarios.Visible = false;
+                    btnEmpleados.Visible = false;
+                    btnReservas.Visible = true;
+                    btnPagos.Visible = false;
+                    btnClientes.Visible = true;
+                    btnHabitaciones.Visible = true;
+                    break;
+                    
+                default:
+                    // Por defecto, ocultar funciones sensibles
+                    btnGestionUsuarios.Visible = false;
+                    btnEmpleados.Visible = false;
+                    break;
+            }
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Módulo de Clientes - En desarrollo", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Abrir el formulario de clientes
+            Clientes formClientes = new Clientes();
+            formClientes.ShowDialog();
         }
 
         private void btnGestionUsuarios_Click(object sender, EventArgs e)
@@ -55,22 +96,46 @@ namespace HotelCalifornia
 
         private void btnEmpleados_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Módulo de Empleados - En desarrollo", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Verificar permisos (Administrador o Supervisor)
+            if (!UserSession.HasPermission("supervisor"))
+            {
+                MessageBox.Show("No tiene permisos para acceder a esta sección.", 
+                              "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
+            // Abrir el formulario de empleados
+            Empleados formEmpleados = new Empleados();
+            formEmpleados.ShowDialog();
         }
 
         private void btnHabitaciones_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Módulo de Habitaciones - En desarrollo", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Abrir el formulario de habitaciones
+            Habitaciones formHabitaciones = new Habitaciones();
+            formHabitaciones.ShowDialog();
         }
 
         private void btnReservas_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Módulo de Reservas - En desarrollo", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Abrir el formulario de reservas
+            Reservas formReservas = new Reservas();
+            formReservas.ShowDialog();
         }
 
         private void btnPagos_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Módulo de Pagos - En desarrollo", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Verificar permisos
+            if (!UserSession.HasPermission("supervisor"))
+            {
+                MessageBox.Show("No tiene permisos para acceder a esta sección.", 
+                              "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
+            // Abrir el formulario de pagos
+            Pagos formPagos = new Pagos();
+            formPagos.ShowDialog();
         }
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
@@ -85,12 +150,12 @@ namespace HotelCalifornia
                 // Cerrar sesión
                 UserSession.Logout();
                 
-                // Cerrar el formulario principal
-                this.Close();
-                
                 // Mostrar el formulario de login
                 LoginForm loginForm = new LoginForm();
                 loginForm.Show();
+                
+                // Cerrar el formulario principal
+                this.Close();
             }
         }
 

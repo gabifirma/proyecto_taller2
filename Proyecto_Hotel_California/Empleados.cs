@@ -19,31 +19,39 @@ namespace HotelCalifornia
         {
             InitializeComponent();
             CargarEmpleados();
+            ConfigurarMenuContextual();
+            // Agregar evento para manejar tecla Delete
+            GrillaEmpleados.KeyDown += GrillaEmpleados_KeyDown;
             // La clase base BaseResponsiveForm se encarga del responsive design automáticamente
         }
 
         private void CargarEmpleados()
         {
-            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
+            try
             {
-                string query = "SELECT legajo, apellido, nombre, telefono, email, estado FROM Empleado";
-                SqlDataAdapter da = new SqlDataAdapter(query, conn);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                GrillaEmpleados.AutoGenerateColumns = false;
-                GrillaEmpleados.DataSource = dt;
-
-                // Recorremos las filas y aplicamos color según el estado
-                foreach (DataGridViewRow row in GrillaEmpleados.Rows)
+                DataTable dt = DatabaseHelper.GetAllEmpleados();
+                
+                if (dt != null && dt.Rows.Count > 0)
                 {
-                    if (row.Cells["estado"].Value != null && !(bool)row.Cells["estado"].Value)
+                    GrillaEmpleados.AutoGenerateColumns = false;
+                    GrillaEmpleados.DataSource = dt;
+
+                    // Recorremos las filas y aplicamos color según el estado
+                    foreach (DataGridViewRow row in GrillaEmpleados.Rows)
                     {
-                        // Si el empleado está inactivo => rojo
-                        row.DefaultCellStyle.BackColor = Color.Red;
-                        row.DefaultCellStyle.ForeColor = Color.White;
+                        if (row.Cells["estado"].Value != null && !(bool)row.Cells["estado"].Value)
+                        {
+                            // Si el empleado está inactivo => rojo
+                            row.DefaultCellStyle.BackColor = Color.Red;
+                            row.DefaultCellStyle.ForeColor = Color.White;
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar empleados: {ex.Message}", "Error", 
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -67,105 +75,12 @@ namespace HotelCalifornia
 
         private void BAgregarEmp_Click(object sender, EventArgs e)
         {
-            Boolean valorApellido = !String.IsNullOrEmpty(TApellido.Text);
-            Boolean valorNombre = !String.IsNullOrEmpty(TNombre.Text);
-            Boolean valorTelefono = !String.IsNullOrEmpty(TTelefono.Text);
-            Boolean valorEmail = !String.IsNullOrEmpty(TEmail.Text);
-
-            if (!valorApellido)
+            // Abrir el nuevo formulario de agregar empleado con opción de crear usuario
+            AgregarEmpleadoConUsuario formAgregar = new AgregarEmpleadoConUsuario();
+            if (formAgregar.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("El campo APELLIDO no puede estar vacío.");
-                return;
-            }
-
-            if (!valorNombre)
-            {
-                MessageBox.Show("El campo NOMBRE no puede estar vacío.");
-                return;
-            }
-
-            if (!SoloLetras(TApellido.Text) || !SoloLetras(TNombre.Text))
-            {
-                MessageBox.Show("Solo se permiten letras para nombre y apellido");
-                return;
-            }
-
-            if (!valorTelefono)
-            {
-                MessageBox.Show("El campo TELÉFONO no puede estar vacío");
-                return;
-            }
-
-            if (!SoloNumeros(TTelefono.Text))
-            {
-                MessageBox.Show("Solo se permiten números para teléfono");
-                return;
-            }
-
-            if (!valorEmail)
-            {
-                MessageBox.Show("Campo EMAIL vacío");
-                return;
-            }
-
-            if (!EsEmailValido(TEmail.Text))
-            {
-                MessageBox.Show("El EMAIL no tiene un formato válido");
-                return;
-            }
-
-            //guardarlo todo en la base de datos
-            if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && SoloNumeros(TTelefono.Text) && valorEmail)
-            {
-                using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
-                {
-                    conn.Open();
-
-                    string query = "INSERT INTO Empleado (apellido, nombre, telefono, email, estado) " +
-                                    "VALUES (@Apellido, @Nombre, @Telefono, @Email, @Estado)";
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@Apellido", TApellido.Text);
-                        cmd.Parameters.AddWithValue("@Nombre", TNombre.Text);
-                        
-                        // Validar y convertir teléfono
-                        // La columna telefono en la BD es INT, por lo que solo acepta hasta 2,147,483,647
-                        long telefonoLong;
-                        if (!long.TryParse(TTelefono.Text, out telefonoLong))
-                        {
-                            MessageBox.Show("El teléfono debe ser un número válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
-                        
-                        // Verificar que el número no sea demasiado grande para INT
-                        if (telefonoLong > int.MaxValue)
-                        {
-                            MessageBox.Show($"El teléfono es demasiado largo. El máximo permitido es {int.MaxValue}.\n\n" +
-                                          "Recomendación: Modifique la columna 'telefono' en la base de datos a BIGINT o VARCHAR.",
-                                          "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
-                        
-                        cmd.Parameters.AddWithValue("@Telefono", (int)telefonoLong);
-                        
-                        cmd.Parameters.AddWithValue("@Email", TEmail.Text);
-                        cmd.Parameters.AddWithValue("@Estado", true);
-
-                        int filas = cmd.ExecuteNonQuery();
-
-                        if (filas > 0)
-                        {
-                            MessageBox.Show("Empleado guardado correctamente en la base de datos.");
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("No se pudo guardar el empleado.");
-                        }
-                        this.Close();
-                    }
-                }
+                // Recargar la grilla de empleados después de agregar
+                CargarEmpleados();
             }
         }
 
@@ -215,17 +130,24 @@ namespace HotelCalifornia
 
             if (string.IsNullOrEmpty(valor))
             {
-                MessageBox.Show("Ingrese un dato a buscar");
+                MessageBox.Show("Ingrese un dato a buscar", "Información", 
+                              MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
-            else
+            
+            try
             {
                 using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
                 {
                     conn.Open();
 
-                    string query = @"SELECT legajo, apellido, nombre, telefono, email, estado 
-                         FROM Empleado
-                         WHERE apellido LIKE @valor OR nombre LIKE @valor OR legajo LIKE @valor OR telefono LIKE @valor OR email LIKE @valor";
+                    string query = @"SELECT e.legajo, e.apellido, e.nombre, e.telefono, e.email, e.estado,
+                                   CASE WHEN u.id_usuario IS NOT NULL THEN 'Sí' ELSE 'No' END as tiene_usuario
+                         FROM Empleado e
+                         LEFT JOIN Usuario u ON e.legajo = u.legajo
+                         WHERE e.apellido LIKE @valor OR e.nombre LIKE @valor OR 
+                               CAST(e.legajo AS VARCHAR) LIKE @valor OR 
+                               CAST(e.telefono AS VARCHAR) LIKE @valor OR e.email LIKE @valor";
 
                     SqlDataAdapter da = new SqlDataAdapter(query, conn);
                     da.SelectCommand.Parameters.AddWithValue("@valor", "%" + valor + "%");
@@ -246,7 +168,18 @@ namespace HotelCalifornia
                             row.DefaultCellStyle.ForeColor = Color.White;
                         }
                     }
+                    
+                    if (dt.Rows.Count == 0)
+                    {
+                        MessageBox.Show("No se encontraron empleados con ese criterio de búsqueda.", 
+                                      "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al buscar: {ex.Message}", "Error", 
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -254,6 +187,103 @@ namespace HotelCalifornia
         {
             TBuscar.Clear();
             CargarEmpleados();
+        }
+
+        // Agregar método para eliminar empleado con botón derecho o tecla Delete
+        private void GrillaEmpleados_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && GrillaEmpleados.SelectedRows.Count > 0)
+            {
+                EliminarEmpleadoSeleccionado();
+            }
+        }
+
+        private void EliminarEmpleadoSeleccionado()
+        {
+            if (GrillaEmpleados.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Seleccione un empleado para eliminar.", "Información",
+                              MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DataGridViewRow row = GrillaEmpleados.SelectedRows[0];
+            int legajo = Convert.ToInt32(row.Cells["legajo"].Value);
+            string nombre = row.Cells["nombre"].Value.ToString();
+            string apellido = row.Cells["apellido"].Value.ToString();
+
+            DialogResult result = MessageBox.Show(
+                $"¿Está seguro que desea desactivar al empleado {nombre} {apellido}?\n\n" +
+                "Nota: Si el empleado tiene un usuario asociado, primero debe eliminar el usuario.",
+                "Confirmar Eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    bool resultado = DatabaseHelper.DeleteEmpleado(legajo);
+                    if (resultado)
+                    {
+                        MessageBox.Show("Empleado desactivado exitosamente.", "Éxito",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CargarEmpleados();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        // Agregar menú contextual para opciones adicionales
+        private void ConfigurarMenuContextual()
+        {
+            ContextMenuStrip menuContextual = new ContextMenuStrip();
+            
+            ToolStripMenuItem itemEditar = new ToolStripMenuItem("Editar Empleado");
+            itemEditar.Click += (s, e) => {
+                if (GrillaEmpleados.SelectedRows.Count > 0)
+                {
+                    int legajo = Convert.ToInt32(GrillaEmpleados.SelectedRows[0].Cells["legajo"].Value);
+                    EditarEmp frm = new EditarEmp(legajo);
+                    frm.ShowDialog();
+                    CargarEmpleados();
+                }
+            };
+            
+            ToolStripMenuItem itemEliminar = new ToolStripMenuItem("Desactivar Empleado");
+            itemEliminar.Click += (s, e) => EliminarEmpleadoSeleccionado();
+            
+            ToolStripMenuItem itemCrearUsuario = new ToolStripMenuItem("Crear Usuario para este Empleado");
+            itemCrearUsuario.Click += (s, e) => {
+                if (GrillaEmpleados.SelectedRows.Count > 0)
+                {
+                    // Verificar si ya tiene usuario
+                    DataGridViewRow row = GrillaEmpleados.SelectedRows[0];
+                    if (row.Cells["tiene_usuario"] != null && row.Cells["tiene_usuario"].Value.ToString() == "Sí")
+                    {
+                        MessageBox.Show("Este empleado ya tiene un usuario asignado.", "Información",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    
+                    int legajo = Convert.ToInt32(row.Cells["legajo"].Value);
+                    // Aquí podrías abrir un formulario para crear usuario para este empleado específico
+                    MessageBox.Show($"Funcionalidad para crear usuario para el empleado con legajo {legajo}", "Información",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            };
+            
+            menuContextual.Items.Add(itemEditar);
+            menuContextual.Items.Add(itemEliminar);
+            menuContextual.Items.Add(new ToolStripSeparator());
+            menuContextual.Items.Add(itemCrearUsuario);
+            
+            GrillaEmpleados.ContextMenuStrip = menuContextual;
         }
     }
 }

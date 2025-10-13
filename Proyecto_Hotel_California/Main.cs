@@ -267,6 +267,8 @@ namespace HotelCalifornia
                               "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            
+            // Abrir el formulario de empleados mejorado
             abrirFormHIjo(new Empleados());
         }
 
@@ -346,9 +348,9 @@ namespace HotelCalifornia
                     break;
 
                 case "Supervisor":
-                    // Supervisor: acceso a la mayoría de funciones excepto empleados y usuarios
+                    // Supervisor: acceso a la mayoría de funciones excepto gestión de usuarios
                     BGestionUsuarios.Visible = false;
-                    BEmpleados.Visible = false;
+                    BEmpleados.Visible = true;  // Supervisores SÍ pueden ver empleados
                     BReservas.Visible = true;
                     BPagos.Visible = true;
                     BClientes.Visible = true;

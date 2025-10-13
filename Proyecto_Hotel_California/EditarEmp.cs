@@ -82,39 +82,43 @@ namespace HotelCalifornia
 
         private void CargarEmpleado()
         {
-            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
+            try
             {
-                conn.Open();
-                string query = "SELECT apellido, nombre, legajo, telefono, email, estado FROM Empleado WHERE legajo = @Legajo";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                DataTable dt = DatabaseHelper.GetEmpleadoByLegajo(empleadoLegajo);
+                
+                if (dt != null && dt.Rows.Count > 0)
                 {
-                    cmd.Parameters.AddWithValue("@Legajo", empleadoLegajo);
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    DataRow row = dt.Rows[0];
+                    
+                    // Mostrar datos del empleado
+                    TApellido.Text = row["apellido"].ToString();
+                    TNombre.Text = row["nombre"].ToString();
+                    LMostrarLeg.Text = row["legajo"].ToString();
+                    TTelefono.Text = row["telefono"].ToString();
+                    TEmail.Text = row["email"].ToString();
+                    
+                    bool estado = Convert.ToBoolean(row["estado"]);
+                    if (estado)
                     {
-                        // Mostrar ID del empleado en el título o label
-                        TApellido.Text = reader["Apellido"].ToString();
-                        TNombre.Text = reader["Nombre"].ToString();
-                        LMostrarLeg.Text = reader["Legajo"].ToString();
-                        TTelefono.Text = reader["Telefono"].ToString();
-                        TEmail.Text = reader["Email"].ToString();
-                        if (reader["estado"].Equals(true))
-                        {
-                            RBActivado.Checked = true;                          
-                        }
-                        else
-                        {
-                            RBDesactivado.Checked = true;
-                        }
+                        RBActivado.Checked = true;                          
                     }
                     else
                     {
-                        MessageBox.Show("No se encontró el empleado con ese ID.");
-                        this.Close();
+                        RBDesactivado.Checked = true;
                     }
                 }
+                else
+                {
+                    MessageBox.Show("No se encontró el empleado con ese legajo.", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar empleado: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
         }
         //valido que solo se ingresen letras en nombre y apellido
@@ -153,41 +157,53 @@ namespace HotelCalifornia
             //guardarlo todo en la base de datos
             if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && SoloNumeros(TTelefono.Text))
             {
-                using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
+                try
                 {
-                    conn.Open();
-                    string query = @"UPDATE Empleado 
-                         SET apellido=@Apellido, nombre=@Nombre, telefono=@Telefono, email=@Email, estado=@Estado
-                         WHERE legajo=@Legajo"; //Busco por legajo y no por id
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    // Validar y convertir teléfono
+                    if (!int.TryParse(TTelefono.Text, out int telefonoInt))
                     {
-                        cmd.Parameters.AddWithValue("@Apellido", TApellido.Text);
-                        cmd.Parameters.AddWithValue("@Nombre", TNombre.Text);
-                        cmd.Parameters.AddWithValue("@Legajo", LMostrarLeg.Text); // Legajo no editable
-                        cmd.Parameters.AddWithValue("@Telefono", TTelefono.Text);
-                        cmd.Parameters.AddWithValue("@Email", TEmail.Text);
-                        if (RBActivado.Checked)
-                        {
-                            cmd.Parameters.AddWithValue("@Estado", true);
-                        }
-                        else
-                        {
-                            cmd.Parameters.AddWithValue("@Estado", false);
-                        }
-                        
-                        int filas = cmd.ExecuteNonQuery();
-
-                        if (filas > 0)
-                        {
-                            MessageBox.Show("Empleado actualizado correctamente.");
-                            this.Close(); // cierra el form de edición
-                        }
-                        else
-                        {
-                            MessageBox.Show("No se pudo actualizar el empleado.");
-                        }
+                        MessageBox.Show("El teléfono debe ser un número válido.", "Error",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
                     }
+                    
+                    // Verificar que el número no sea demasiado grande para INT
+                    if (TTelefono.Text.Length > 10)
+                    {
+                        MessageBox.Show("El teléfono es demasiado largo. Máximo 10 dígitos.",
+                                      "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    
+                    int legajo = int.Parse(LMostrarLeg.Text);
+                    bool estado = RBActivado.Checked;
+                    
+                    // Actualizar empleado usando el nuevo método
+                    bool resultado = DatabaseHelper.UpdateEmpleado(
+                        legajo,
+                        TNombre.Text.Trim(),
+                        TApellido.Text.Trim(),
+                        telefonoInt,
+                        TEmail.Text.Trim(),
+                        estado
+                    );
+                    
+                    if (resultado)
+                    {
+                        MessageBox.Show("Empleado actualizado correctamente.", "Éxito",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close(); // cierra el form de edición
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo actualizar el empleado.", "Error",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al actualizar empleado: {ex.Message}", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
