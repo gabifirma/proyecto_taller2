@@ -47,11 +47,10 @@ namespace HotelCalifornia
             this.LEstado = new System.Windows.Forms.Label();
             this.RBDoble = new System.Windows.Forms.RadioButton();
             this.RBSingle = new System.Windows.Forms.RadioButton();
-            this.TPiso = new System.Windows.Forms.TextBox();
             this.TNumero = new System.Windows.Forms.TextBox();
             this.LTipo = new System.Windows.Forms.Label();
-            this.LPiso = new System.Windows.Forms.Label();
             this.LNumero = new System.Windows.Forms.Label();
+            this.LEjemplo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaHabitaciones)).BeginInit();
             this.PRol.SuspendLayout();
             this.SuspendLayout();
@@ -83,12 +82,12 @@ namespace HotelCalifornia
             this.capacidad,
             this.descripcion,
             this.base_precio});
-            this.GrillaHabitaciones.Location = new System.Drawing.Point(14, 412);
+            this.GrillaHabitaciones.Location = new System.Drawing.Point(19, 244);
             this.GrillaHabitaciones.Margin = new System.Windows.Forms.Padding(4);
             this.GrillaHabitaciones.Name = "GrillaHabitaciones";
             this.GrillaHabitaciones.ReadOnly = true;
             this.GrillaHabitaciones.RowHeadersVisible = false;
-            this.GrillaHabitaciones.Size = new System.Drawing.Size(980, 239);
+            this.GrillaHabitaciones.Size = new System.Drawing.Size(980, 355);
             this.GrillaHabitaciones.TabIndex = 1;
             this.GrillaHabitaciones.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaHabitaciones_CellDoubleClick);
             // 
@@ -101,36 +100,43 @@ namespace HotelCalifornia
             // 
             // piso
             // 
+            this.piso.DataPropertyName = "piso";
             this.piso.HeaderText = "Piso";
             this.piso.Name = "piso";
             this.piso.ReadOnly = true;
             // 
             // id_estado
             // 
+            this.id_estado.DataPropertyName = "id_estado";
             this.id_estado.HeaderText = "Estado";
             this.id_estado.Name = "id_estado";
             this.id_estado.ReadOnly = true;
+            this.id_estado.Visible = false;
             // 
             // nombre
             // 
+            this.nombre.DataPropertyName = "nombre";
             this.nombre.HeaderText = "Nombre";
             this.nombre.Name = "nombre";
             this.nombre.ReadOnly = true;
             // 
             // capacidad
             // 
+            this.capacidad.DataPropertyName = "capacidad";
             this.capacidad.HeaderText = "Capacidad";
             this.capacidad.Name = "capacidad";
             this.capacidad.ReadOnly = true;
             // 
             // descripcion
             // 
+            this.descripcion.DataPropertyName = "descripcion";
             this.descripcion.HeaderText = "Descripción";
             this.descripcion.Name = "descripcion";
             this.descripcion.ReadOnly = true;
             // 
             // base_precio
             // 
+            this.base_precio.DataPropertyName = "base_precio";
             this.base_precio.HeaderText = "Precio Base";
             this.base_precio.Name = "base_precio";
             this.base_precio.ReadOnly = true;
@@ -139,12 +145,13 @@ namespace HotelCalifornia
             // 
             this.BAgregarHab.Image = ((System.Drawing.Image)(resources.GetObject("BAgregarHab.Image")));
             this.BAgregarHab.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BAgregarHab.Location = new System.Drawing.Point(93, 197);
+            this.BAgregarHab.Location = new System.Drawing.Point(681, 106);
             this.BAgregarHab.Margin = new System.Windows.Forms.Padding(4);
             this.BAgregarHab.Name = "BAgregarHab";
             this.BAgregarHab.Size = new System.Drawing.Size(111, 52);
             this.BAgregarHab.TabIndex = 5;
             this.BAgregarHab.Text = "Agregar";
+            this.BAgregarHab.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BAgregarHab.UseVisualStyleBackColor = true;
             this.BAgregarHab.Click += new System.EventHandler(this.BAgregarHab_Click);
             // 
@@ -152,7 +159,7 @@ namespace HotelCalifornia
             // 
             this.RBSuite.AutoSize = true;
             this.RBSuite.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBSuite.Location = new System.Drawing.Point(718, 84);
+            this.RBSuite.Location = new System.Drawing.Point(553, 83);
             this.RBSuite.Margin = new System.Windows.Forms.Padding(4);
             this.RBSuite.Name = "RBSuite";
             this.RBSuite.Size = new System.Drawing.Size(59, 23);
@@ -165,7 +172,7 @@ namespace HotelCalifornia
             this.PRol.Controls.Add(this.RBInha);
             this.PRol.Controls.Add(this.RBDisp);
             this.PRol.Controls.Add(this.RBOcup);
-            this.PRol.Location = new System.Drawing.Point(93, 145);
+            this.PRol.Location = new System.Drawing.Point(92, 169);
             this.PRol.Margin = new System.Windows.Forms.Padding(4);
             this.PRol.Name = "PRol";
             this.PRol.Size = new System.Drawing.Size(368, 44);
@@ -175,7 +182,7 @@ namespace HotelCalifornia
             // 
             this.RBInha.AutoSize = true;
             this.RBInha.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBInha.Location = new System.Drawing.Point(227, 8);
+            this.RBInha.Location = new System.Drawing.Point(242, 11);
             this.RBInha.Margin = new System.Windows.Forms.Padding(4);
             this.RBInha.Name = "RBInha";
             this.RBInha.Size = new System.Drawing.Size(105, 23);
@@ -201,7 +208,7 @@ namespace HotelCalifornia
             // 
             this.RBOcup.AutoSize = true;
             this.RBOcup.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBOcup.Location = new System.Drawing.Point(121, 5);
+            this.RBOcup.Location = new System.Drawing.Point(125, 11);
             this.RBOcup.Margin = new System.Windows.Forms.Padding(4);
             this.RBOcup.Name = "RBOcup";
             this.RBOcup.Size = new System.Drawing.Size(85, 23);
@@ -213,7 +220,7 @@ namespace HotelCalifornia
             // 
             this.LEstado.AutoSize = true;
             this.LEstado.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LEstado.Location = new System.Drawing.Point(16, 156);
+            this.LEstado.Location = new System.Drawing.Point(15, 180);
             this.LEstado.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LEstado.Name = "LEstado";
             this.LEstado.Size = new System.Drawing.Size(54, 19);
@@ -224,7 +231,7 @@ namespace HotelCalifornia
             // 
             this.RBDoble.AutoSize = true;
             this.RBDoble.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBDoble.Location = new System.Drawing.Point(614, 84);
+            this.RBDoble.Location = new System.Drawing.Point(449, 83);
             this.RBDoble.Margin = new System.Windows.Forms.Padding(4);
             this.RBDoble.Name = "RBDoble";
             this.RBDoble.Size = new System.Drawing.Size(65, 23);
@@ -237,7 +244,7 @@ namespace HotelCalifornia
             this.RBSingle.AutoSize = true;
             this.RBSingle.Checked = true;
             this.RBSingle.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBSingle.Location = new System.Drawing.Point(504, 84);
+            this.RBSingle.Location = new System.Drawing.Point(339, 83);
             this.RBSingle.Margin = new System.Windows.Forms.Padding(4);
             this.RBSingle.Name = "RBSingle";
             this.RBSingle.Size = new System.Drawing.Size(66, 23);
@@ -245,15 +252,6 @@ namespace HotelCalifornia
             this.RBSingle.TabStop = true;
             this.RBSingle.Text = "Single";
             this.RBSingle.UseVisualStyleBackColor = true;
-            // 
-            // TPiso
-            // 
-            this.TPiso.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TPiso.Location = new System.Drawing.Point(299, 80);
-            this.TPiso.Margin = new System.Windows.Forms.Padding(4);
-            this.TPiso.Name = "TPiso";
-            this.TPiso.Size = new System.Drawing.Size(90, 26);
-            this.TPiso.TabIndex = 44;
             // 
             // TNumero
             // 
@@ -268,23 +266,12 @@ namespace HotelCalifornia
             // 
             this.LTipo.AutoSize = true;
             this.LTipo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LTipo.Location = new System.Drawing.Point(427, 84);
+            this.LTipo.Location = new System.Drawing.Point(262, 83);
             this.LTipo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LTipo.Name = "LTipo";
             this.LTipo.Size = new System.Drawing.Size(37, 19);
             this.LTipo.TabIndex = 42;
             this.LTipo.Text = "Tipo";
-            // 
-            // LPiso
-            // 
-            this.LPiso.AutoSize = true;
-            this.LPiso.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LPiso.Location = new System.Drawing.Point(236, 84);
-            this.LPiso.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LPiso.Name = "LPiso";
-            this.LPiso.Size = new System.Drawing.Size(37, 19);
-            this.LPiso.TabIndex = 41;
-            this.LPiso.Text = "Piso";
             // 
             // LNumero
             // 
@@ -297,6 +284,16 @@ namespace HotelCalifornia
             this.LNumero.TabIndex = 40;
             this.LNumero.Text = "Número";
             // 
+            // LEjemplo
+            // 
+            this.LEjemplo.AutoSize = true;
+            this.LEjemplo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LEjemplo.Location = new System.Drawing.Point(19, 130);
+            this.LEjemplo.Name = "LEjemplo";
+            this.LEjemplo.Size = new System.Drawing.Size(420, 21);
+            this.LEjemplo.TabIndex = 52;
+            this.LEjemplo.Text = "* (ej. \"201\" es la primera habitación del segundo piso)";
+            // 
             // Habitaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -304,15 +301,14 @@ namespace HotelCalifornia
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(1008, 667);
+            this.Controls.Add(this.LEjemplo);
             this.Controls.Add(this.RBSuite);
             this.Controls.Add(this.PRol);
             this.Controls.Add(this.LEstado);
             this.Controls.Add(this.RBDoble);
             this.Controls.Add(this.RBSingle);
-            this.Controls.Add(this.TPiso);
             this.Controls.Add(this.TNumero);
             this.Controls.Add(this.LTipo);
-            this.Controls.Add(this.LPiso);
             this.Controls.Add(this.LNumero);
             this.Controls.Add(this.BAgregarHab);
             this.Controls.Add(this.GrillaHabitaciones);
@@ -346,10 +342,8 @@ namespace HotelCalifornia
         private System.Windows.Forms.Label LEstado;
         private System.Windows.Forms.RadioButton RBDoble;
         private System.Windows.Forms.RadioButton RBSingle;
-        private System.Windows.Forms.TextBox TPiso;
         private System.Windows.Forms.TextBox TNumero;
         private System.Windows.Forms.Label LTipo;
-        private System.Windows.Forms.Label LPiso;
         private System.Windows.Forms.Label LNumero;
         private System.Windows.Forms.DataGridViewTextBoxColumn numero_hab;
         private System.Windows.Forms.DataGridViewTextBoxColumn piso;
@@ -358,5 +352,6 @@ namespace HotelCalifornia
         private System.Windows.Forms.DataGridViewTextBoxColumn capacidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn base_precio;
+        private System.Windows.Forms.Label LEjemplo;
     }
 }

@@ -31,8 +31,6 @@ namespace HotelCalifornia
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reservas));
             this.LTituloReservas = new System.Windows.Forms.Label();
             this.GrillaReservas = new System.Windows.Forms.DataGridView();
-            this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
-            this.BTerminar = new System.Windows.Forms.Button();
             this.RBSuite = new System.Windows.Forms.RadioButton();
             this.RBDoble = new System.Windows.Forms.RadioButton();
             this.RBSingle = new System.Windows.Forms.RadioButton();
@@ -48,12 +46,15 @@ namespace HotelCalifornia
             this.dtpFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.LNombre = new System.Windows.Forms.Label();
             this.TNombre = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaReservas)).BeginInit();
-            this.groupBoxFiltros.SuspendLayout();
             this.SuspendLayout();
             // 
             // LTituloReservas
             // 
+            this.LTituloReservas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LTituloReservas.AutoSize = true;
             this.LTituloReservas.Font = new System.Drawing.Font("Times New Roman", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LTituloReservas.Location = new System.Drawing.Point(327, 20);
@@ -67,64 +68,26 @@ namespace HotelCalifornia
             // 
             this.GrillaReservas.AllowUserToAddRows = false;
             this.GrillaReservas.AllowUserToDeleteRows = false;
+            this.GrillaReservas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.GrillaReservas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.GrillaReservas.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.GrillaReservas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GrillaReservas.Location = new System.Drawing.Point(14, 275);
+            this.GrillaReservas.Location = new System.Drawing.Point(14, 252);
             this.GrillaReservas.Margin = new System.Windows.Forms.Padding(4);
             this.GrillaReservas.Name = "GrillaReservas";
             this.GrillaReservas.ReadOnly = true;
             this.GrillaReservas.RowHeadersVisible = false;
-            this.GrillaReservas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.GrillaReservas.Size = new System.Drawing.Size(1096, 327);
+            this.GrillaReservas.Size = new System.Drawing.Size(981, 309);
             this.GrillaReservas.TabIndex = 1;
             this.GrillaReservas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaReservas_CellContentClick);
             this.GrillaReservas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaReservas_CellDoubleClick);
             // 
-            // groupBoxFiltros
-            // 
-            this.groupBoxFiltros.Controls.Add(this.BTerminar);
-            this.groupBoxFiltros.Controls.Add(this.RBSuite);
-            this.groupBoxFiltros.Controls.Add(this.RBDoble);
-            this.groupBoxFiltros.Controls.Add(this.RBSingle);
-            this.groupBoxFiltros.Controls.Add(this.lblMetodoPago);
-            this.groupBoxFiltros.Controls.Add(this.LApellido);
-            this.groupBoxFiltros.Controls.Add(this.TApellido);
-            this.groupBoxFiltros.Controls.Add(this.btnLimpiarFiltros);
-            this.groupBoxFiltros.Controls.Add(this.btnNuevaReserva);
-            this.groupBoxFiltros.Controls.Add(this.btnBuscar);
-            this.groupBoxFiltros.Controls.Add(this.LFechaHasta);
-            this.groupBoxFiltros.Controls.Add(this.LFechaDesde);
-            this.groupBoxFiltros.Controls.Add(this.dtpFechaFin);
-            this.groupBoxFiltros.Controls.Add(this.dtpFechaInicio);
-            this.groupBoxFiltros.Controls.Add(this.LNombre);
-            this.groupBoxFiltros.Controls.Add(this.TNombre);
-            this.groupBoxFiltros.Location = new System.Drawing.Point(14, 65);
-            this.groupBoxFiltros.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBoxFiltros.Name = "groupBoxFiltros";
-            this.groupBoxFiltros.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBoxFiltros.Size = new System.Drawing.Size(993, 144);
-            this.groupBoxFiltros.TabIndex = 2;
-            this.groupBoxFiltros.TabStop = false;
-            this.groupBoxFiltros.Text = "Filtros de Búsqueda";
-            // 
-            // BTerminar
-            // 
-            this.BTerminar.BackColor = System.Drawing.Color.Crimson;
-            this.BTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTerminar.ForeColor = System.Drawing.Color.White;
-            this.BTerminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BTerminar.Location = new System.Drawing.Point(735, 90);
-            this.BTerminar.Margin = new System.Windows.Forms.Padding(4);
-            this.BTerminar.Name = "BTerminar";
-            this.BTerminar.Size = new System.Drawing.Size(140, 46);
-            this.BTerminar.TabIndex = 19;
-            this.BTerminar.Text = "Terminar Reserva";
-            this.BTerminar.UseVisualStyleBackColor = false;
-            // 
             // RBSuite
             // 
             this.RBSuite.AutoSize = true;
-            this.RBSuite.Location = new System.Drawing.Point(447, 104);
+            this.RBSuite.Location = new System.Drawing.Point(467, 180);
             this.RBSuite.Name = "RBSuite";
             this.RBSuite.Size = new System.Drawing.Size(57, 23);
             this.RBSuite.TabIndex = 17;
@@ -134,7 +97,7 @@ namespace HotelCalifornia
             // RBDoble
             // 
             this.RBDoble.AutoSize = true;
-            this.RBDoble.Location = new System.Drawing.Point(447, 75);
+            this.RBDoble.Location = new System.Drawing.Point(467, 151);
             this.RBDoble.Name = "RBDoble";
             this.RBDoble.Size = new System.Drawing.Size(63, 23);
             this.RBDoble.TabIndex = 18;
@@ -145,7 +108,7 @@ namespace HotelCalifornia
             // 
             this.RBSingle.AutoSize = true;
             this.RBSingle.Checked = true;
-            this.RBSingle.Location = new System.Drawing.Point(447, 46);
+            this.RBSingle.Location = new System.Drawing.Point(467, 122);
             this.RBSingle.Name = "RBSingle";
             this.RBSingle.Size = new System.Drawing.Size(63, 23);
             this.RBSingle.TabIndex = 16;
@@ -156,7 +119,7 @@ namespace HotelCalifornia
             // lblMetodoPago
             // 
             this.lblMetodoPago.AutoSize = true;
-            this.lblMetodoPago.Location = new System.Drawing.Point(443, 22);
+            this.lblMetodoPago.Location = new System.Drawing.Point(463, 98);
             this.lblMetodoPago.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMetodoPago.Name = "lblMetodoPago";
             this.lblMetodoPago.Size = new System.Drawing.Size(67, 19);
@@ -166,7 +129,7 @@ namespace HotelCalifornia
             // LApellido
             // 
             this.LApellido.AutoSize = true;
-            this.LApellido.Location = new System.Drawing.Point(218, 22);
+            this.LApellido.Location = new System.Drawing.Point(238, 98);
             this.LApellido.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LApellido.Name = "LApellido";
             this.LApellido.Size = new System.Drawing.Size(107, 19);
@@ -175,7 +138,7 @@ namespace HotelCalifornia
             // 
             // TApellido
             // 
-            this.TApellido.Location = new System.Drawing.Point(222, 45);
+            this.TApellido.Location = new System.Drawing.Point(242, 121);
             this.TApellido.Margin = new System.Windows.Forms.Padding(4);
             this.TApellido.Name = "TApellido";
             this.TApellido.Size = new System.Drawing.Size(174, 25);
@@ -188,7 +151,7 @@ namespace HotelCalifornia
             this.btnLimpiarFiltros.ForeColor = System.Drawing.Color.White;
             this.btnLimpiarFiltros.Image = ((System.Drawing.Image)(resources.GetObject("btnLimpiarFiltros.Image")));
             this.btnLimpiarFiltros.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLimpiarFiltros.Location = new System.Drawing.Point(597, 75);
+            this.btnLimpiarFiltros.Location = new System.Drawing.Point(617, 151);
             this.btnLimpiarFiltros.Margin = new System.Windows.Forms.Padding(4);
             this.btnLimpiarFiltros.Name = "btnLimpiarFiltros";
             this.btnLimpiarFiltros.Size = new System.Drawing.Size(88, 33);
@@ -205,7 +168,7 @@ namespace HotelCalifornia
             this.btnNuevaReserva.ForeColor = System.Drawing.Color.White;
             this.btnNuevaReserva.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevaReserva.Image")));
             this.btnNuevaReserva.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNuevaReserva.Location = new System.Drawing.Point(735, 26);
+            this.btnNuevaReserva.Location = new System.Drawing.Point(755, 102);
             this.btnNuevaReserva.Margin = new System.Windows.Forms.Padding(4);
             this.btnNuevaReserva.Name = "btnNuevaReserva";
             this.btnNuevaReserva.Size = new System.Drawing.Size(140, 46);
@@ -222,7 +185,7 @@ namespace HotelCalifornia
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
             this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.Location = new System.Drawing.Point(597, 26);
+            this.btnBuscar.Location = new System.Drawing.Point(617, 102);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(88, 33);
@@ -235,7 +198,7 @@ namespace HotelCalifornia
             // LFechaHasta
             // 
             this.LFechaHasta.AutoSize = true;
-            this.LFechaHasta.Location = new System.Drawing.Point(158, 78);
+            this.LFechaHasta.Location = new System.Drawing.Point(178, 154);
             this.LFechaHasta.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LFechaHasta.Name = "LFechaHasta";
             this.LFechaHasta.Size = new System.Drawing.Size(86, 19);
@@ -245,7 +208,7 @@ namespace HotelCalifornia
             // LFechaDesde
             // 
             this.LFechaDesde.AutoSize = true;
-            this.LFechaDesde.Location = new System.Drawing.Point(18, 78);
+            this.LFechaDesde.Location = new System.Drawing.Point(38, 154);
             this.LFechaDesde.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LFechaDesde.Name = "LFechaDesde";
             this.LFechaDesde.Size = new System.Drawing.Size(89, 19);
@@ -255,7 +218,7 @@ namespace HotelCalifornia
             // dtpFechaFin
             // 
             this.dtpFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaFin.Location = new System.Drawing.Point(158, 104);
+            this.dtpFechaFin.Location = new System.Drawing.Point(182, 180);
             this.dtpFechaFin.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFechaFin.Name = "dtpFechaFin";
             this.dtpFechaFin.Size = new System.Drawing.Size(116, 25);
@@ -264,7 +227,7 @@ namespace HotelCalifornia
             // dtpFechaInicio
             // 
             this.dtpFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaInicio.Location = new System.Drawing.Point(18, 104);
+            this.dtpFechaInicio.Location = new System.Drawing.Point(42, 180);
             this.dtpFechaInicio.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFechaInicio.Name = "dtpFechaInicio";
             this.dtpFechaInicio.Size = new System.Drawing.Size(116, 25);
@@ -273,7 +236,7 @@ namespace HotelCalifornia
             // LNombre
             // 
             this.LNombre.AutoSize = true;
-            this.LNombre.Location = new System.Drawing.Point(18, 22);
+            this.LNombre.Location = new System.Drawing.Point(38, 98);
             this.LNombre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LNombre.Name = "LNombre";
             this.LNombre.Size = new System.Drawing.Size(108, 19);
@@ -282,31 +245,56 @@ namespace HotelCalifornia
             // 
             // TNombre
             // 
-            this.TNombre.Location = new System.Drawing.Point(22, 45);
+            this.TNombre.Location = new System.Drawing.Point(42, 121);
             this.TNombre.Margin = new System.Windows.Forms.Padding(4);
             this.TNombre.Name = "TNombre";
             this.TNombre.Size = new System.Drawing.Size(174, 25);
             this.TNombre.TabIndex = 0;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(38, 66);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 25);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Filtros";
+            // 
             // Reservas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1123, 668);
-            this.Controls.Add(this.groupBoxFiltros);
+            this.ClientSize = new System.Drawing.Size(1008, 667);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.RBSuite);
+            this.Controls.Add(this.RBDoble);
             this.Controls.Add(this.GrillaReservas);
+            this.Controls.Add(this.RBSingle);
             this.Controls.Add(this.LTituloReservas);
+            this.Controls.Add(this.lblMetodoPago);
+            this.Controls.Add(this.LNombre);
+            this.Controls.Add(this.LApellido);
+            this.Controls.Add(this.TNombre);
+            this.Controls.Add(this.TApellido);
+            this.Controls.Add(this.dtpFechaInicio);
+            this.Controls.Add(this.btnLimpiarFiltros);
+            this.Controls.Add(this.dtpFechaFin);
+            this.Controls.Add(this.btnNuevaReserva);
+            this.Controls.Add(this.LFechaDesde);
+            this.Controls.Add(this.btnBuscar);
+            this.Controls.Add(this.LFechaHasta);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Reservas";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Reservas";
             this.Load += new System.EventHandler(this.Reservas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GrillaReservas)).EndInit();
-            this.groupBoxFiltros.ResumeLayout(false);
-            this.groupBoxFiltros.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -316,7 +304,6 @@ namespace HotelCalifornia
 
         private System.Windows.Forms.Label LTituloReservas;
         private System.Windows.Forms.DataGridView GrillaReservas;
-        private System.Windows.Forms.GroupBox groupBoxFiltros;
         private System.Windows.Forms.TextBox TNombre;
         private System.Windows.Forms.Label LNombre;
         private System.Windows.Forms.DateTimePicker dtpFechaInicio;
@@ -332,6 +319,6 @@ namespace HotelCalifornia
         private System.Windows.Forms.RadioButton RBDoble;
         private System.Windows.Forms.RadioButton RBSingle;
         private System.Windows.Forms.Label lblMetodoPago;
-        private System.Windows.Forms.Button BTerminar;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -17,15 +17,53 @@ namespace HotelCalifornia
         public Habitaciones()
         {
             InitializeComponent();
+            CargarHabitaciones();
             // La clase base BaseResponsiveForm se encarga del responsive design automáticamente
         }
-        
 
-        // Método eliminado - los estilos se aplican automáticamente por BaseResponsiveForm
+        private void CargarHabitaciones()
+        {
+            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
+            {
+                conn.Open();
+
+                string query = @"SELECT 
+                    h.numero_hab, 
+                    h.piso, 
+                    h.id_estado, 
+                    t.nombre, 
+                    t.capacidad, 
+                    t.descripcion,
+                    t.base_precio
+                 FROM Habitacion h
+                 INNER JOIN TipoHabitacion t ON h.id_tipo = t.id_tipo";
+
+                SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                GrillaHabitaciones.AutoGenerateColumns = false;
+                GrillaHabitaciones.DataSource = dt;
+
+                // Recorremos las filas y aplicamos color según el estado
+                foreach (DataGridViewRow row in GrillaHabitaciones.Rows)
+                {
+                    if (row.Cells["id_estado"].Value == null) continue;
+
+                    int estado = Convert.ToInt32(row.Cells["id_estado"].Value);
+
+                    switch (estado)
+                    {
+                        case 1: row.DefaultCellStyle.BackColor = Color.LightGreen; break; // Libre
+                        case 2: row.DefaultCellStyle.BackColor = Color.Khaki; break; // Ocupada
+                        case 3: row.DefaultCellStyle.BackColor = Color.LightCoral; break; // Inhabilitada
+                    }
+                }
+            }
+        }
 
         private void BAgregarHab_Click(object sender, EventArgs e)
         {
-            Boolean valorPiso = int.TryParse(TPiso.Text, out int piso);
             Boolean valorNum = int.TryParse(TNumero.Text, out int num);
 
             if (!valorNum)
@@ -34,13 +72,9 @@ namespace HotelCalifornia
                 return;
             }
 
-            if (!valorPiso)
-            {
-                MessageBox.Show("El PISO o esta vacío o no es un número");
-                return;
-            }
+            int piso = num / 100;
 
-            if (valorPiso && valorNum)
+            if (valorNum)
             {
                 // Cambia la cadena de conexión por la de tu base de datos
                 using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
@@ -53,7 +87,7 @@ namespace HotelCalifornia
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Numero_hab", TNumero.Text);
-                        cmd.Parameters.AddWithValue("@Piso", TPiso.Text);
+                        cmd.Parameters.AddWithValue("@Piso", piso);
                         if (RBSingle.Checked)
                         {
                             cmd.Parameters.AddWithValue("@Id_tipo", 1);
@@ -95,38 +129,19 @@ namespace HotelCalifornia
                     }
                 }
             }
+            CargarHabitaciones();
+        }
+
+        private int GenerarNumeroHabitacion(int piso, int numeroEnPiso)
+        {
+            // Si el piso es menor a 10 → formato como 101, 205, etc.
+            // Si el piso tiene dos dígitos → 1203, etc.
+            return int.Parse($"{piso}{numeroEnPiso:D2}");
         }
 
         private void Habitaciones_Load(object sender, EventArgs e)
         {
-            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
-            {
-                conn.Open();
-                string query = @"SELECT 
-                    h.numero_hab, 
-                    h.piso, 
-                    h.id_estado, 
-                    t.nombre, 
-                    t.capacidad, 
-                    t.descripcion,
-                    t.base_precio
-                 FROM Habitacion h
-                 INNER JOIN TipoHabitacion t ON h.id_tipo = t.id_tipo";
-
-                SqlDataAdapter da = new SqlDataAdapter(query, conn);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                GrillaHabitaciones.AutoGenerateColumns = false;
-                GrillaHabitaciones.Columns["numero_hab"].DataPropertyName = "numero_hab";
-                GrillaHabitaciones.Columns["piso"].DataPropertyName = "piso";
-                GrillaHabitaciones.Columns["id_estado"].DataPropertyName = "id_estado";
-                GrillaHabitaciones.Columns["nombre"].DataPropertyName = "nombre";
-                GrillaHabitaciones.Columns["capacidad"].DataPropertyName = "capacidad";
-                GrillaHabitaciones.Columns["descripcion"].DataPropertyName = "descripcion";
-                GrillaHabitaciones.Columns["base_precio"].DataPropertyName = "base_precio";
-                GrillaHabitaciones.DataSource = dt;
-            }
+            CargarHabitaciones();
         }
 
         private void GrillaHabitaciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -140,6 +155,7 @@ namespace HotelCalifornia
                 EditarHab frm = new EditarHab(habitacionNumero);
                 frm.ShowDialog();
             }
+            CargarHabitaciones();
         }
     }
 }

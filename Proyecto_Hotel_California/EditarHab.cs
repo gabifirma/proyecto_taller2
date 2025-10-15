@@ -83,7 +83,12 @@ namespace HotelCalifornia
             using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
                 conn.Open();
-                string query = "SELECT numero_hab, piso, id_tipo, id_estado FROM Habitacion WHERE numero_hab = @Numero_hab";
+                string query = @"SELECT numero_hab,
+                    piso,
+                    id_tipo,
+                    id_estado
+                    FROM Habitacion
+                    WHERE numero_hab = @Numero_hab";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -137,7 +142,56 @@ namespace HotelCalifornia
 
         private void BFin_Click(object sender, EventArgs e)
         {
+            int num_habitacion = int.Parse(LNum.Text);
+            int piso = int.Parse(LNumPiso.Text);
+            int tipo_hab = 0;
+            int estado = 0;
 
+            if (RBDisp.Checked == true)
+            {
+                estado = 1;
+            }
+            else if (RBOcup.Checked == true)
+            {
+                estado = 2;
+            }
+            else
+            {
+                estado = 3;
+            }
+
+            if (RBSingle.Checked == true)
+            {
+                tipo_hab = 1;
+            }
+            else if (RBDoble.Checked == true)
+            {
+                tipo_hab = 2;
+            }
+            else
+            {
+                tipo_hab = 3;
+            }
+
+            // Actualizar habitacion usando el nuevo método
+            bool resultado = DatabaseHelper.UpdateHabitacion(
+                num_habitacion,
+                piso,
+                tipo_hab,
+                estado
+            );
+            
+            if (resultado)
+            {
+                MessageBox.Show("Habitación actualizada correctamente.", "Éxito",
+                              MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close(); // cierra el form de edición
+            }
+            else
+            {
+                MessageBox.Show("No se pudo actualizar la habitación.", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

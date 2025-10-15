@@ -933,5 +933,39 @@ namespace HotelCalifornia
             }
             return dtEmpleado;
         }
+
+        public static bool UpdateHabitacion(int num_hab, int piso, int tipo, int estado)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"
+                        UPDATE Habitacion 
+                        SET id_tipo = @tipo, 
+                            id_estado = @estado
+                        WHERE numero_hab = @num_hab AND piso = @piso";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@num_hab", num_hab);
+                        command.Parameters.AddWithValue("@piso", piso);
+                        command.Parameters.AddWithValue("@tipo", tipo);
+                        command.Parameters.AddWithValue("@estado", estado);
+
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en UpdateHabitacion: {ex.Message}");
+                return false;
+            }
+        }
     }
 }
