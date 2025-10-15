@@ -74,7 +74,6 @@ namespace HotelCalifornia
             this.GrillaReservas.Name = "GrillaReservas";
             this.GrillaReservas.ReadOnly = true;
             this.GrillaReservas.RowHeadersVisible = false;
-            this.GrillaReservas.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.GrillaReservas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.GrillaReservas.Size = new System.Drawing.Size(1096, 327);
             this.GrillaReservas.TabIndex = 1;

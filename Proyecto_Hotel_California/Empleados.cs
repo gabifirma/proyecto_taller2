@@ -39,12 +39,15 @@ namespace HotelCalifornia
                     // Recorremos las filas y aplicamos color según el estado
                     foreach (DataGridViewRow row in GrillaEmpleados.Rows)
                     {
-                        if (row.Cells["estado"].Value != null && !(bool)row.Cells["estado"].Value)
+                        if (row.Cells["estado"].Value == null) continue;
+
+                        int estado = Convert.ToInt32(row.Cells["estado"].Value);
+
+                        switch (estado)
                         {
-                            // Si el empleado está inactivo => rojo
-                            row.DefaultCellStyle.BackColor = Color.Red;
-                            row.DefaultCellStyle.ForeColor = Color.White;
-                        }
+                            case 1: row.DefaultCellStyle.BackColor = Color.LightGreen; break; // Activado
+                            case 0: row.DefaultCellStyle.BackColor = Color.LightCoral; break; // Desactivado
+                        }                        
                     }
                 }
             }
@@ -77,11 +80,11 @@ namespace HotelCalifornia
         {
             // Abrir el nuevo formulario de agregar empleado con opción de crear usuario
             AgregarEmpleadoConUsuario formAgregar = new AgregarEmpleadoConUsuario();
-            if (formAgregar.ShowDialog() == DialogResult.OK)
-            {
-                // Recargar la grilla de empleados después de agregar
-                CargarEmpleados();
-            }
+             if (formAgregar.ShowDialog() == DialogResult.OK)
+             {
+                 // Recargar la grilla de empleados después de agregar
+                 CargarEmpleados();
+             }
         }
 
         private void Empleados_Load(object sender, EventArgs e)

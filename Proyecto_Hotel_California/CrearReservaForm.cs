@@ -16,7 +16,6 @@ namespace HotelCalifornia
 {
     public partial class CrearReservaForm : Form
     {
-
         public CrearReservaForm()
         {
             InitializeComponent();
@@ -81,7 +80,6 @@ namespace HotelCalifornia
                 MessageBox.Show("El correo electrónico no tiene un formato válido.");
                 return false;
             }
-
             return true;
         }
 
@@ -106,7 +104,6 @@ namespace HotelCalifornia
         private void CrearReservaForm_Load(object sender, EventArgs e)
         {
             cargarHabitaciones();
-
         }
 
        private void GrillaHabDisp_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -123,7 +120,6 @@ namespace HotelCalifornia
                     if (row.Index != e.RowIndex)
                         row.Cells["Reservar"].Value = false;
                 }
-
                 CalcularMontoEstimado();
             }
         }

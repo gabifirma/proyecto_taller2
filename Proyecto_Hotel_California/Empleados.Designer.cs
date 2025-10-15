@@ -30,12 +30,6 @@ namespace HotelCalifornia
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Empleados));
             this.GrillaEmpleados = new System.Windows.Forms.DataGridView();
-            this.Legajo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LTituloEmp = new System.Windows.Forms.Label();
             this.BAgregarEmp = new System.Windows.Forms.Button();
             this.TEmail = new System.Windows.Forms.TextBox();
@@ -50,6 +44,12 @@ namespace HotelCalifornia
             this.LBuscar = new System.Windows.Forms.Label();
             this.BBuscar = new System.Windows.Forms.Button();
             this.BRecargar = new System.Windows.Forms.Button();
+            this.Legajo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaEmpleados)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,7 +67,7 @@ namespace HotelCalifornia
             this.Nombre,
             this.Telefono,
             this.Email,
-            this.Estado});
+            this.estado});
             this.GrillaEmpleados.EnableHeadersVisualStyles = false;
             this.GrillaEmpleados.Location = new System.Drawing.Point(13, 298);
             this.GrillaEmpleados.Margin = new System.Windows.Forms.Padding(4);
@@ -77,50 +77,6 @@ namespace HotelCalifornia
             this.GrillaEmpleados.Size = new System.Drawing.Size(980, 330);
             this.GrillaEmpleados.TabIndex = 0;
             this.GrillaEmpleados.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaEmpleados_CellDoubleClick);
-            // 
-            // Legajo
-            // 
-            this.Legajo.DataPropertyName = "legajo";
-            this.Legajo.HeaderText = "Legajo";
-            this.Legajo.Name = "Legajo";
-            this.Legajo.ReadOnly = true;
-            // 
-            // Apellido
-            // 
-            this.Apellido.DataPropertyName = "apellido";
-            this.Apellido.HeaderText = "Apellido";
-            this.Apellido.Name = "Apellido";
-            this.Apellido.ReadOnly = true;
-            // 
-            // Nombre
-            // 
-            this.Nombre.DataPropertyName = "nombre";
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            // 
-            // Telefono
-            // 
-            this.Telefono.DataPropertyName = "telefono";
-            this.Telefono.HeaderText = "Teléfono";
-            this.Telefono.Name = "Telefono";
-            this.Telefono.ReadOnly = true;
-            // 
-            // Email
-            // 
-            this.Email.DataPropertyName = "email";
-            this.Email.HeaderText = "Email";
-            this.Email.Name = "Email";
-            this.Email.ReadOnly = true;
-            // 
-            // Estado
-            // 
-            this.Estado.DataPropertyName = "estado";
-            this.Estado.HeaderText = "Estado";
-            this.Estado.Name = "Estado";
-            this.Estado.ReadOnly = true;
-            this.Estado.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Estado.ToolTipText = "Estado";
             // 
             // LTituloEmp
             // 
@@ -275,6 +231,49 @@ namespace HotelCalifornia
             this.BRecargar.UseVisualStyleBackColor = true;
             this.BRecargar.Click += new System.EventHandler(this.BRecargar_Click);
             // 
+            // Legajo
+            // 
+            this.Legajo.DataPropertyName = "legajo";
+            this.Legajo.HeaderText = "Legajo";
+            this.Legajo.Name = "Legajo";
+            this.Legajo.ReadOnly = true;
+            // 
+            // Apellido
+            // 
+            this.Apellido.DataPropertyName = "apellido";
+            this.Apellido.HeaderText = "Apellido";
+            this.Apellido.Name = "Apellido";
+            this.Apellido.ReadOnly = true;
+            // 
+            // Nombre
+            // 
+            this.Nombre.DataPropertyName = "nombre";
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // Telefono
+            // 
+            this.Telefono.DataPropertyName = "telefono";
+            this.Telefono.HeaderText = "Teléfono";
+            this.Telefono.Name = "Telefono";
+            this.Telefono.ReadOnly = true;
+            // 
+            // Email
+            // 
+            this.Email.DataPropertyName = "email";
+            this.Email.HeaderText = "Email";
+            this.Email.Name = "Email";
+            this.Email.ReadOnly = true;
+            // 
+            // estado
+            // 
+            this.estado.DataPropertyName = "estado";
+            this.estado.HeaderText = "estado";
+            this.estado.Name = "estado";
+            this.estado.ReadOnly = true;
+            this.estado.Visible = false;
+            // 
             // Empleados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -314,12 +313,6 @@ namespace HotelCalifornia
         private System.Windows.Forms.DataGridView GrillaEmpleados;
         private System.Windows.Forms.Label LTituloEmp;
         private System.Windows.Forms.Button BAgregarEmp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Legajo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
         private System.Windows.Forms.TextBox TEmail;
         private System.Windows.Forms.TextBox TTelefono;
         private System.Windows.Forms.TextBox TNombre;
@@ -332,5 +325,11 @@ namespace HotelCalifornia
         private System.Windows.Forms.Label LBuscar;
         private System.Windows.Forms.Button BBuscar;
         private System.Windows.Forms.Button BRecargar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Legajo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn estado;
     }
 }

@@ -158,15 +158,7 @@ namespace HotelCalifornia
             if (SoloLetras(TApellido.Text) && SoloLetras(TNombre.Text) && SoloNumeros(TTelefono.Text))
             {
                 try
-                {
-                    // Validar y convertir teléfono
-                    if (!int.TryParse(TTelefono.Text, out int telefonoInt))
-                    {
-                        MessageBox.Show("El teléfono debe ser un número válido.", "Error",
-                                      MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    
+                {                    
                     // Verificar que el número no sea demasiado grande para INT
                     if (TTelefono.Text.Length > 10)
                     {
@@ -183,7 +175,7 @@ namespace HotelCalifornia
                         legajo,
                         TNombre.Text.Trim(),
                         TApellido.Text.Trim(),
-                        telefonoInt,
+                        TTelefono.Text.Trim(),
                         TEmail.Text.Trim(),
                         estado
                     );

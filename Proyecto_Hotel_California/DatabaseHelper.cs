@@ -758,7 +758,7 @@ namespace HotelCalifornia
                 {
                     connection.Open();
                     string query = @"
-                        SELECT e.legajo, e.nombre, e.apellido, e.telefono, e.email, e.estado,
+                        SELECT e.legajo, e.nombre, e.apellido, e.telefono, e.email, e.estado AS estado,
                                CASE WHEN u.id_usuario IS NOT NULL THEN 'Sí' ELSE 'No' END as tiene_usuario
                         FROM Empleado e
                         LEFT JOIN Usuario u ON e.legajo = u.legajo
@@ -817,7 +817,7 @@ namespace HotelCalifornia
         /// <summary>
         /// Actualiza un empleado existente
         /// </summary>
-        public static bool UpdateEmpleado(int legajo, string nombre, string apellido, int telefono, string email, bool estado)
+        public static bool UpdateEmpleado(int legajo, string nombre, string apellido, string telefono, string email, bool estado)
         {
             if (!connectionInitialized)
                 InitializeConnection();

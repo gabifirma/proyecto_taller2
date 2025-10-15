@@ -329,7 +329,7 @@ namespace HotelCalifornia
                         "Éxito", 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Information);
-                    btnBuscar_Click(null, null); // refresca la grilla ejecutando la búsqueda otra vez
+                    CargarReservas();// refresca la grilla ejecutando la búsqueda otra vez
                 }
                 else
                 {
