@@ -109,24 +109,6 @@ namespace HotelCalifornia
             }
         }
 
-        private void TNombre_Leave(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(TNombre.Text))
-            {
-                string texto = TNombre.Text.ToLower(); // todo en minúscula
-                TNombre.Text = char.ToUpper(texto[0]) + texto.Substring(1); // primera en mayúscula
-            }
-        }
-
-        private void TApellido_Leave(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(TApellido.Text))
-            {
-                string texto = TApellido.Text.ToLower(); // todo en minúscula
-                TApellido.Text = char.ToUpper(texto[0]) + texto.Substring(1); // primera en mayúscula
-            }
-        }
-
         private void BFiltrar_Click(object sender, EventArgs e)
         {
             string valor = TBuscar.Text.Trim();

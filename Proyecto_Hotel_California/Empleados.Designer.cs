@@ -32,14 +32,6 @@ namespace HotelCalifornia
             this.GrillaEmpleados = new System.Windows.Forms.DataGridView();
             this.LTituloEmp = new System.Windows.Forms.Label();
             this.BAgregarEmp = new System.Windows.Forms.Button();
-            this.TEmail = new System.Windows.Forms.TextBox();
-            this.TTelefono = new System.Windows.Forms.TextBox();
-            this.TNombre = new System.Windows.Forms.TextBox();
-            this.TApellido = new System.Windows.Forms.TextBox();
-            this.LEmail = new System.Windows.Forms.Label();
-            this.LTelefono = new System.Windows.Forms.Label();
-            this.LNombre = new System.Windows.Forms.Label();
-            this.LApellido = new System.Windows.Forms.Label();
             this.TBuscar = new System.Windows.Forms.TextBox();
             this.LBuscar = new System.Windows.Forms.Label();
             this.BBuscar = new System.Windows.Forms.Button();
@@ -69,12 +61,12 @@ namespace HotelCalifornia
             this.Email,
             this.estado});
             this.GrillaEmpleados.EnableHeadersVisualStyles = false;
-            this.GrillaEmpleados.Location = new System.Drawing.Point(13, 298);
+            this.GrillaEmpleados.Location = new System.Drawing.Point(14, 135);
             this.GrillaEmpleados.Margin = new System.Windows.Forms.Padding(4);
             this.GrillaEmpleados.Name = "GrillaEmpleados";
             this.GrillaEmpleados.ReadOnly = true;
             this.GrillaEmpleados.RowHeadersVisible = false;
-            this.GrillaEmpleados.Size = new System.Drawing.Size(980, 330);
+            this.GrillaEmpleados.Size = new System.Drawing.Size(980, 493);
             this.GrillaEmpleados.TabIndex = 0;
             this.GrillaEmpleados.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaEmpleados_CellDoubleClick);
             // 
@@ -94,7 +86,7 @@ namespace HotelCalifornia
             // 
             this.BAgregarEmp.Image = ((System.Drawing.Image)(resources.GetObject("BAgregarEmp.Image")));
             this.BAgregarEmp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BAgregarEmp.Location = new System.Drawing.Point(812, 72);
+            this.BAgregarEmp.Location = new System.Drawing.Point(850, 75);
             this.BAgregarEmp.Margin = new System.Windows.Forms.Padding(4);
             this.BAgregarEmp.Name = "BAgregarEmp";
             this.BAgregarEmp.Size = new System.Drawing.Size(144, 52);
@@ -103,102 +95,20 @@ namespace HotelCalifornia
             this.BAgregarEmp.UseVisualStyleBackColor = true;
             this.BAgregarEmp.Click += new System.EventHandler(this.BAgregarEmp_Click);
             // 
-            // TEmail
-            // 
-            this.TEmail.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TEmail.Location = new System.Drawing.Point(492, 118);
-            this.TEmail.Margin = new System.Windows.Forms.Padding(4);
-            this.TEmail.Name = "TEmail";
-            this.TEmail.Size = new System.Drawing.Size(303, 26);
-            this.TEmail.TabIndex = 29;
-            // 
-            // TTelefono
-            // 
-            this.TTelefono.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TTelefono.Location = new System.Drawing.Point(102, 114);
-            this.TTelefono.Margin = new System.Windows.Forms.Padding(4);
-            this.TTelefono.Name = "TTelefono";
-            this.TTelefono.Size = new System.Drawing.Size(288, 26);
-            this.TTelefono.TabIndex = 28;
-            // 
-            // TNombre
-            // 
-            this.TNombre.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TNombre.Location = new System.Drawing.Point(492, 72);
-            this.TNombre.Margin = new System.Windows.Forms.Padding(4);
-            this.TNombre.Name = "TNombre";
-            this.TNombre.Size = new System.Drawing.Size(303, 26);
-            this.TNombre.TabIndex = 27;
-            this.TNombre.Leave += new System.EventHandler(this.TNombre_Leave);
-            // 
-            // TApellido
-            // 
-            this.TApellido.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TApellido.Location = new System.Drawing.Point(102, 72);
-            this.TApellido.Margin = new System.Windows.Forms.Padding(4);
-            this.TApellido.Name = "TApellido";
-            this.TApellido.Size = new System.Drawing.Size(288, 26);
-            this.TApellido.TabIndex = 26;
-            this.TApellido.Leave += new System.EventHandler(this.TApellido_Leave);
-            // 
-            // LEmail
-            // 
-            this.LEmail.AutoSize = true;
-            this.LEmail.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LEmail.Location = new System.Drawing.Point(414, 122);
-            this.LEmail.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LEmail.Name = "LEmail";
-            this.LEmail.Size = new System.Drawing.Size(47, 19);
-            this.LEmail.TabIndex = 24;
-            this.LEmail.Text = "Email";
-            // 
-            // LTelefono
-            // 
-            this.LTelefono.AutoSize = true;
-            this.LTelefono.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LTelefono.Location = new System.Drawing.Point(21, 118);
-            this.LTelefono.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LTelefono.Name = "LTelefono";
-            this.LTelefono.Size = new System.Drawing.Size(64, 19);
-            this.LTelefono.TabIndex = 23;
-            this.LTelefono.Text = "Teléfono";
-            // 
-            // LNombre
-            // 
-            this.LNombre.AutoSize = true;
-            this.LNombre.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LNombre.Location = new System.Drawing.Point(412, 76);
-            this.LNombre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LNombre.Name = "LNombre";
-            this.LNombre.Size = new System.Drawing.Size(66, 19);
-            this.LNombre.TabIndex = 22;
-            this.LNombre.Text = "Nombres";
-            // 
-            // LApellido
-            // 
-            this.LApellido.AutoSize = true;
-            this.LApellido.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LApellido.Location = new System.Drawing.Point(23, 76);
-            this.LApellido.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LApellido.Name = "LApellido";
-            this.LApellido.Size = new System.Drawing.Size(62, 19);
-            this.LApellido.TabIndex = 21;
-            this.LApellido.Text = "Apellido";
-            // 
             // TBuscar
             // 
             this.TBuscar.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBuscar.Location = new System.Drawing.Point(14, 256);
+            this.TBuscar.Location = new System.Drawing.Point(14, 91);
             this.TBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.TBuscar.Name = "TBuscar";
             this.TBuscar.Size = new System.Drawing.Size(328, 26);
-            this.TBuscar.TabIndex = 32;
+            this.TBuscar.TabIndex = 3;
             // 
             // LBuscar
             // 
             this.LBuscar.AutoSize = true;
             this.LBuscar.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBuscar.Location = new System.Drawing.Point(15, 227);
+            this.LBuscar.Location = new System.Drawing.Point(15, 62);
             this.LBuscar.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LBuscar.Name = "LBuscar";
             this.LBuscar.Size = new System.Drawing.Size(53, 19);
@@ -209,11 +119,11 @@ namespace HotelCalifornia
             // 
             this.BBuscar.Image = ((System.Drawing.Image)(resources.GetObject("BBuscar.Image")));
             this.BBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BBuscar.Location = new System.Drawing.Point(360, 257);
+            this.BBuscar.Location = new System.Drawing.Point(360, 87);
             this.BBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.BBuscar.Name = "BBuscar";
             this.BBuscar.Size = new System.Drawing.Size(108, 33);
-            this.BBuscar.TabIndex = 41;
+            this.BBuscar.TabIndex = 4;
             this.BBuscar.Text = "Buscar";
             this.BBuscar.UseVisualStyleBackColor = true;
             this.BBuscar.Click += new System.EventHandler(this.BFiltrar_Click);
@@ -222,11 +132,11 @@ namespace HotelCalifornia
             // 
             this.BRecargar.Image = ((System.Drawing.Image)(resources.GetObject("BRecargar.Image")));
             this.BRecargar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BRecargar.Location = new System.Drawing.Point(476, 257);
+            this.BRecargar.Location = new System.Drawing.Point(476, 87);
             this.BRecargar.Margin = new System.Windows.Forms.Padding(4);
             this.BRecargar.Name = "BRecargar";
             this.BRecargar.Size = new System.Drawing.Size(122, 33);
-            this.BRecargar.TabIndex = 42;
+            this.BRecargar.TabIndex = 5;
             this.BRecargar.Text = "Recargar";
             this.BRecargar.UseVisualStyleBackColor = true;
             this.BRecargar.Click += new System.EventHandler(this.BRecargar_Click);
@@ -279,19 +189,11 @@ namespace HotelCalifornia
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
-            this.ClientSize = new System.Drawing.Size(1008, 667);
+            this.ClientSize = new System.Drawing.Size(1008, 641);
             this.Controls.Add(this.BRecargar);
             this.Controls.Add(this.BBuscar);
             this.Controls.Add(this.TBuscar);
             this.Controls.Add(this.LBuscar);
-            this.Controls.Add(this.TEmail);
-            this.Controls.Add(this.TTelefono);
-            this.Controls.Add(this.TNombre);
-            this.Controls.Add(this.TApellido);
-            this.Controls.Add(this.LEmail);
-            this.Controls.Add(this.LTelefono);
-            this.Controls.Add(this.LNombre);
-            this.Controls.Add(this.LApellido);
             this.Controls.Add(this.BAgregarEmp);
             this.Controls.Add(this.LTituloEmp);
             this.Controls.Add(this.GrillaEmpleados);
@@ -313,14 +215,6 @@ namespace HotelCalifornia
         private System.Windows.Forms.DataGridView GrillaEmpleados;
         private System.Windows.Forms.Label LTituloEmp;
         private System.Windows.Forms.Button BAgregarEmp;
-        private System.Windows.Forms.TextBox TEmail;
-        private System.Windows.Forms.TextBox TTelefono;
-        private System.Windows.Forms.TextBox TNombre;
-        private System.Windows.Forms.TextBox TApellido;
-        private System.Windows.Forms.Label LEmail;
-        private System.Windows.Forms.Label LTelefono;
-        private System.Windows.Forms.Label LNombre;
-        private System.Windows.Forms.Label LApellido;
         private System.Windows.Forms.TextBox TBuscar;
         private System.Windows.Forms.Label LBuscar;
         private System.Windows.Forms.Button BBuscar;
