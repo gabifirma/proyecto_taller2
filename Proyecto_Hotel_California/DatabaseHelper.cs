@@ -967,5 +967,34 @@ namespace HotelCalifornia
                 return false;
             }
         }
+
+        public static bool HabitacionExiste(int numero_hab)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "SELECT COUNT(*) FROM Habitacion WHERE numero_hab = @numero_hab";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@numero_hab", numero_hab);
+
+                        int count = (int)cmd.ExecuteScalar();
+                        return count > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al verificar habitación: " + ex.Message);
+                return true; // por seguridad, asumimos que existe si hay error
+            }
+        }
+
     }
 }

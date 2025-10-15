@@ -72,6 +72,14 @@ namespace HotelCalifornia
                 return;
             }
 
+            // Verificar existencia para evitar duplicados
+            if (DatabaseHelper.HabitacionExiste(num))
+            {
+                MessageBox.Show($"La habitación {num} ya existe en la base de datos.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             int piso = num / 100;
 
             if (valorNum)
@@ -130,13 +138,6 @@ namespace HotelCalifornia
                 }
             }
             CargarHabitaciones();
-        }
-
-        private int GenerarNumeroHabitacion(int piso, int numeroEnPiso)
-        {
-            // Si el piso es menor a 10 → formato como 101, 205, etc.
-            // Si el piso tiene dos dígitos → 1203, etc.
-            return int.Parse($"{piso}{numeroEnPiso:D2}");
         }
 
         private void Habitaciones_Load(object sender, EventArgs e)
