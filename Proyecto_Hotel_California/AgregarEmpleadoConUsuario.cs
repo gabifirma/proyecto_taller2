@@ -99,7 +99,7 @@ namespace HotelCalifornia
                 Location = new Point(130, 100),
                 Size = new Size(380, 25),
                 Font = new Font("Segoe UI", 10),
-                MaxLength = 10
+                MaxLength = 50
             };
 
             // Email
@@ -297,14 +297,7 @@ namespace HotelCalifornia
                 else
                 {
                     // Crear solo empleado
-                    if (!int.TryParse(telefono, out int telefonoInt))
-                    {
-                        MessageBox.Show("El teléfono debe ser un número válido.",
-                                      "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-
-                    int legajo = DatabaseHelper.CreateEmpleado(nombre, apellido, telefonoInt, email);
+                    int legajo = DatabaseHelper.CreateEmpleado(nombre, apellido, telefono, email);
                     
                     MessageBox.Show($"Empleado creado exitosamente con legajo: {legajo}",
                                   "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -340,17 +333,9 @@ namespace HotelCalifornia
             }
 
             // Validar teléfono
-            if (string.IsNullOrWhiteSpace(txtTelefono.Text))
+            if (string.IsNullOrWhiteSpace(txtTelefono.Text) || txtTelefono.Text.Length < 7)
             {
-                MessageBox.Show("El teléfono es obligatorio.",
-                              "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtTelefono.Focus();
-                return false;
-            }
-
-            if (!System.Text.RegularExpressions.Regex.IsMatch(txtTelefono.Text, @"^[0-9]+$"))
-            {
-                MessageBox.Show("El teléfono solo debe contener números.",
+                MessageBox.Show("El campo Teléfono no puede estar vacío y debe tener al menos 7 dígitos.",
                               "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtTelefono.Focus();
                 return false;

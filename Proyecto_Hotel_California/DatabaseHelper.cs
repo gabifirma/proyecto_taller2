@@ -781,7 +781,7 @@ namespace HotelCalifornia
         /// <summary>
         /// Crea un nuevo empleado sin usuario asociado
         /// </summary>
-        public static int CreateEmpleado(string nombre, string apellido, int telefono, string email)
+        public static int CreateEmpleado(string nombre, string apellido, string telefono, string email)
         {
             if (!connectionInitialized)
                 InitializeConnection();
