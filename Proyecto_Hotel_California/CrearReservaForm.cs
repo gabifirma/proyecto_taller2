@@ -106,24 +106,37 @@ namespace HotelCalifornia
             cargarHabitaciones();
         }
 
-       private void GrillaHabDisp_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void GrillaHabDisp_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == GrillaHabDisp.Columns["Reservar"].Index)
+            if (e.ColumnIndex == GrillaHabDisp.Columns["Reservar"].Index && e.RowIndex >= 0)
             {
-                DataGridViewCheckBoxCell checkCell = (DataGridViewCheckBoxCell)GrillaHabDisp.Rows[e.RowIndex].Cells["Reservar"];
+                DataGridViewCheckBoxCell checkCell =
+                    (DataGridViewCheckBoxCell)GrillaHabDisp.Rows[e.RowIndex].Cells["Reservar"];
+
                 bool valorActual = Convert.ToBoolean(checkCell.Value ?? false);
                 checkCell.Value = !valorActual;
-                
-                // Desmarcar otras filas
-                foreach (DataGridViewRow row in GrillaHabDisp.Rows)
-                {
-                    if (row.Index != e.RowIndex)
-                        row.Cells["Reservar"].Value = false;
-                }
-                CalcularMontoEstimado();
+
+                CalcularMontoEstimado(); // si querés recalcular el total al marcar varias
             }
         }
-    
+
+        private List<int> ObtenerHabitacionesSeleccionadas()
+        {
+            List<int> habitaciones = new List<int>();
+
+            foreach (DataGridViewRow row in GrillaHabDisp.Rows)
+            {
+                bool seleccionada = Convert.ToBoolean(row.Cells["Reservar"].Value ?? false);
+                if (seleccionada)
+                {
+                    int numeroHab = Convert.ToInt32(row.Cells["numero_hab"].Value);
+                    habitaciones.Add(numeroHab);
+                }
+            }
+
+            return habitaciones;
+        }
+
         private decimal ObtenerPrecioServicio(int idServicio)
         {
             using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
@@ -149,16 +162,18 @@ namespace HotelCalifornia
         {
             decimal monto = 0;
 
-            // Buscar la habitación seleccionada
+            int noches = CBCantNoches.SelectedItem != null
+            ? Convert.ToInt32(CBCantNoches.SelectedItem)
+            : 0;
+
+            // Sumar todas las habitaciones seleccionadas
             foreach (DataGridViewRow row in GrillaHabDisp.Rows)
             {
-                bool seleccionada = Convert.ToBoolean(row.Cells["Reservar"].Value);
+                bool seleccionada = Convert.ToBoolean(row.Cells["Reservar"].Value ?? false);
                 if (seleccionada)
                 {
                     decimal precioBase = Convert.ToDecimal(row.Cells["base_precio"].Value);
-                    int noches = CBCantNoches.SelectedItem != null ? Convert.ToInt32(CBCantNoches.SelectedItem) : 0;
                     monto += precioBase * noches;
-                    break;
                 }
             }
 
@@ -171,18 +186,6 @@ namespace HotelCalifornia
                 monto += ObtenerPrecioServicio(3); // Pool
 
             TMonto.Text = monto.ToString("0.00");
-        }
-
-        private int ObtenerHabitacionSeleccionada()
-        {
-            foreach (DataGridViewRow row in GrillaHabDisp.Rows)
-            {
-                if (Convert.ToBoolean(row.Cells["Reservar"].Value))
-                {
-                    return Convert.ToInt32(row.Cells["numero_hab"].Value);
-                }
-            }
-            return 0;
         }
 
         private int ObtenerOInsertarCliente(SqlConnection conn, SqlTransaction tran)
@@ -292,10 +295,12 @@ namespace HotelCalifornia
         {
             if (!ValidarCampos()) return;
 
-            int numeroHabitacion = ObtenerHabitacionSeleccionada();
-            if (numeroHabitacion == 0)
+            //Obtener todas las habitaciones seleccionadas
+            List<int> habitacionesSeleccionadas = ObtenerHabitacionesSeleccionadas();
+            
+            if (habitacionesSeleccionadas.Count == 0)
             {
-                MessageBox.Show("Seleccione una habitación antes de guardar.");
+                MessageBox.Show("Seleccione al menos una habitación antes de guardar.");
                 return;
             }
 
@@ -313,16 +318,19 @@ namespace HotelCalifornia
                     int idReserva = InsertarReserva(conn, tran, idCliente);
 
                     // Insertar habitación
-                    InsertarReservaHabitacion(conn, tran, idReserva, numeroHabitacion);
+                    foreach (int numeroHabitacion in habitacionesSeleccionadas)
+                    {
+                        InsertarReservaHabitacion(conn, tran, idReserva, numeroHabitacion);
+
+                        // Cambiar el estado de la habitación a 2 (ocupada)
+                        string update = @"UPDATE Habitacion SET id_estado = 2 WHERE numero_hab = @num";
+                        SqlCommand cmdUpdate = new SqlCommand(update, conn, tran);
+                        cmdUpdate.Parameters.AddWithValue("@num", numeroHabitacion);
+                        cmdUpdate.ExecuteNonQuery();
+                    }
 
                     // Insertar servicios seleccionados
                     InsertarServicios(conn, tran, idReserva);
-
-                    // Cambiar el estado de la habitación a 2
-                    string update = @"UPDATE Habitacion SET id_estado = 2 WHERE numero_hab = @num";
-                    SqlCommand cmdUpdate = new SqlCommand(update, conn, tran);
-                    cmdUpdate.Parameters.AddWithValue("@num", numeroHabitacion);
-                    cmdUpdate.ExecuteNonQuery();
 
                     tran.Commit();
                     MessageBox.Show("Reserva guardada correctamente.");
@@ -335,7 +343,7 @@ namespace HotelCalifornia
                 }
             }
         }
-
+        
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;

@@ -253,19 +253,49 @@ namespace HotelCalifornia
         }
 
         private void GrillaReservas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Funcionalidad para doble clic en la grilla
-            if (e.RowIndex >= 0) // para evitar encabezados
+        {            
+            if (e.RowIndex >= 0) // evitar encabezado
             {
-                // Obtener el valor de la columna ID de la fila seleccionada
+                // Obtener ID de la reserva seleccionada
                 int numReserva = Convert.ToInt32(GrillaReservas.Rows[e.RowIndex].Cells["ID"].Value);
 
-                // Abrir el formulario de edición y pasarle el Id
-                CrearPagoForm frm = new CrearPagoForm(numReserva);
-                frm.ShowDialog();
+                using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
+                {
+                    conn.Open();
 
-                // refrescar el DataGridView después de editar
-                CargarReservas();
+                    // Consultar el estado actual de la reserva
+                    string query = "SELECT id_estado FROM Reserva WHERE id_reserva = @id";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@id", numReserva);
+
+                    object estadoObj = cmd.ExecuteScalar();
+                    if (estadoObj == null)
+                    {
+                        MessageBox.Show("No se encontró la reserva seleccionada.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    int estadoActual = Convert.ToInt32(estadoObj);
+
+                    // Validar estados permitidos (2 = En espera)
+                    if (estadoActual == 2)
+                    {
+                        CrearPagoForm frm = new CrearPagoForm(numReserva);
+                        frm.ShowDialog();
+
+                        // refrescar la grilla
+                        CargarReservas();
+                    }
+                    else
+                    {
+                        string mensaje = estadoActual == 3
+                            ? "No se puede registrar un pago porque la reserva ya está terminada."
+                            : "No se puede registrar un pago porque la reserva está activa.";
+                        MessageBox.Show(mensaje,
+                            "Operación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
             }
         }
 
@@ -316,29 +346,80 @@ namespace HotelCalifornia
             using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
                 conn.Open();
-                string query = @"UPDATE Reserva SET id_estado = 3 WHERE id_reserva = @id";
 
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@id", idReserva);
+                SqlTransaction tran = conn.BeginTransaction();
 
-                int filas = cmd.ExecuteNonQuery();
-
-                if (filas > 0)
+                try
                 {
-                    MessageBox.Show("Reserva marcada como terminada.", 
-                        "Éxito", 
-                        MessageBoxButtons.OK, 
-                        MessageBoxIcon.Information);
-                    CargarReservas();// refresca la grilla ejecutando la búsqueda otra vez
+                    // Verificamos el estado actual de la reserva
+                    string queryEstado = @"SELECT id_estado FROM Reserva WHERE id_reserva = @id";
+                    SqlCommand cmdEstado = new SqlCommand(queryEstado, conn, tran);
+                    cmdEstado.Parameters.AddWithValue("@id", idReserva);
+
+                    object estadoObj = cmdEstado.ExecuteScalar();
+                    if (estadoObj == null)
+                    {
+                        MessageBox.Show("No se encontró la reserva seleccionada.");
+                        tran.Rollback();
+                        return;
+                    }
+
+                    int estadoActual = Convert.ToInt32(estadoObj);
+
+                    // Validamos si se puede terminar
+                    // estados: 1 = Activa, 2 = En espera, 3 = Terminada
+                    if (estadoActual == 3)
+                    {
+                        MessageBox.Show("La reserva ya está terminada.",
+                            "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        tran.Rollback();
+                        return;
+                    }
+                    
+                    // Actualizamos la reserva a estado 3 (terminada)
+                    string queryReserva = @"UPDATE Reserva SET id_estado = 3 WHERE id_reserva = @id";
+                    SqlCommand cmdReserva = new SqlCommand(queryReserva, conn, tran);
+                    cmdReserva.Parameters.AddWithValue("@id", idReserva);
+                    cmdReserva.ExecuteNonQuery();
+
+                    // Obtenemos las habitaciones asociadas
+                    string queryHab = @"SELECT numero_hab FROM ReservaHabitacion WHERE id_reserva = @id";
+                    SqlCommand cmdHab = new SqlCommand(queryHab, conn, tran);
+                    cmdHab.Parameters.AddWithValue("@id", idReserva);
+
+                    List<int> habitaciones = new List<int>();
+                    using (SqlDataReader reader = cmdHab.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            habitaciones.Add(Convert.ToInt32(reader["numero_hab"]));
+                        }
+                    }
+
+                    // Actualizamos las habitaciones a "disponible" (id_estado = 1)
+                    foreach (int numHab in habitaciones)
+                    {
+                        string updateHab = @"UPDATE Habitacion SET id_estado = 1 WHERE numero_hab = @num";
+                        SqlCommand cmdUpdateHab = new SqlCommand(updateHab, conn, tran);
+                        cmdUpdateHab.Parameters.AddWithValue("@num", numHab);
+                        cmdUpdateHab.ExecuteNonQuery();
+                    }
+
+                    tran.Commit();
+
+                    MessageBox.Show("Reserva marcada como terminada y habitaciones actualizadas.",
+                        "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    CargarReservas(); // refresca la grilla
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("No se pudo actualizar la reserva.", "Error", 
-                        MessageBoxButtons.OK, 
-                        MessageBoxIcon.Error);
+                    tran.Rollback();
+                    MessageBox.Show("Error al terminar la reserva: " + ex.Message,
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            CargarReservas();
         }
+
     }
 }
