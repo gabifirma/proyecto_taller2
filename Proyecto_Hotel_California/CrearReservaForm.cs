@@ -395,5 +395,11 @@ namespace HotelCalifornia
                 TApellido.Text = char.ToUpper(texto[0]) + texto.Substring(1); // primera en mayúscula
             }
         }
+
+        private void BListaClientes_Click(object sender, EventArgs e)
+        {
+            ListaClientes listaClientes = new ListaClientes();
+            listaClientes.ShowDialog();
+        }
     }
 }

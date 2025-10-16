@@ -58,6 +58,7 @@ namespace HotelCalifornia
             this.CHJacuzzi = new System.Windows.Forms.CheckBox();
             this.CHMinibar = new System.Windows.Forms.CheckBox();
             this.CHPool = new System.Windows.Forms.CheckBox();
+            this.BListaClientes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaHabDisp)).BeginInit();
             this.SuspendLayout();
             // 
@@ -348,12 +349,23 @@ namespace HotelCalifornia
             this.CHPool.UseVisualStyleBackColor = true;
             this.CHPool.CheckedChanged += new System.EventHandler(this.CHPool_CheckedChanged);
             // 
+            // BListaClientes
+            // 
+            this.BListaClientes.Location = new System.Drawing.Point(714, 60);
+            this.BListaClientes.Name = "BListaClientes";
+            this.BListaClientes.Size = new System.Drawing.Size(78, 60);
+            this.BListaClientes.TabIndex = 35;
+            this.BListaClientes.Text = "Lista de Clientes";
+            this.BListaClientes.UseVisualStyleBackColor = true;
+            this.BListaClientes.Click += new System.EventHandler(this.BListaClientes_Click);
+            // 
             // CrearReservaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(875, 520);
+            this.Controls.Add(this.BListaClientes);
             this.Controls.Add(this.CHPool);
             this.Controls.Add(this.CHMinibar);
             this.Controls.Add(this.CHJacuzzi);
@@ -422,5 +434,6 @@ namespace HotelCalifornia
         private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn base_precio;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Reservar;
+        private System.Windows.Forms.Button BListaClientes;
     }
 }

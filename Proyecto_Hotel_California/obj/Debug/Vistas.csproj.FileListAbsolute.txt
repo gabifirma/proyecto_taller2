@@ -115,3 +115,4 @@ C:\Users\TAC\Videos\2025\Taller de Programacion II\proyecto\38\proyecto_taller2\
 C:\Users\TAC\Videos\2025\Taller de Programacion II\proyecto\38\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\Vistas.csproj.CoreCompileInputs.cache
 C:\Users\TAC\Videos\2025\Taller de Programacion II\proyecto\38\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\HotelCalifornia.exe
 C:\Users\TAC\Videos\2025\Taller de Programacion II\proyecto\38\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\HotelCalifornia.pdb
+C:\Users\Jonii\Desktop\proyecto_taller2\Proyecto_Hotel_California\obj\Debug\HotelCalifornia.ListaClientes.resources
