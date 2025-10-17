@@ -913,7 +913,7 @@ namespace HotelCalifornia
                 {
                     connection.Open();
                     string query = @"
-                        SELECT legajo, nombre, apellido, telefono, email, estado
+                        SELECT legajo, nombre, apellido, nombre + ' ' + apellido AS nombre_completo, telefono, email, estado
                         FROM Empleado
                         WHERE legajo = @legajo";
                     

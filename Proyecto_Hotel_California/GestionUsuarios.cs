@@ -389,6 +389,28 @@ namespace HotelCalifornia
                     if (row["legajo"] != DBNull.Value)
                     {
                         int legajo = Convert.ToInt32(row["legajo"]);
+                        DataTable dtEmpleados = cmbEmpleado.DataSource as DataTable;
+                        if (dtEmpleados != null)
+                        {
+                            bool encontrado = false;
+                            foreach (DataRow dr in dtEmpleados.Rows)
+                            {
+                                if (dr["legajo"] != DBNull.Value && Convert.ToInt32(dr["legajo"]) == legajo)
+                                {
+                                    encontrado = true;
+                                    break;
+                                }
+                            }
+
+                            if (!encontrado)
+                            {
+                                DataTable dtEmpleadoActual = DatabaseHelper.GetEmpleadoByLegajo(legajo);
+                                if (dtEmpleadoActual != null && dtEmpleadoActual.Rows.Count > 0)
+                                {
+                                    dtEmpleados.ImportRow(dtEmpleadoActual.Rows[0]);
+                                }
+                            }
+                        }
                         cmbEmpleado.SelectedValue = legajo;
                         cmbEmpleado.Enabled = false; // No permitir cambiar el empleado
                     }
