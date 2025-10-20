@@ -47,6 +47,11 @@ namespace HotelCalifornia
             this.LNombre = new System.Windows.Forms.Label();
             this.TNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.BActualizar = new System.Windows.Forms.Button();
+            this.LTerminadas = new System.Windows.Forms.Label();
+            this.LConfirmadas = new System.Windows.Forms.Label();
+            this.LEspera = new System.Windows.Forms.Label();
+            this.LEstados = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaReservas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -261,6 +266,60 @@ namespace HotelCalifornia
             this.label1.TabIndex = 19;
             this.label1.Text = "Filtros";
             // 
+            // BActualizar
+            // 
+            this.BActualizar.BackColor = System.Drawing.Color.Orange;
+            this.BActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BActualizar.ForeColor = System.Drawing.Color.White;
+            this.BActualizar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BActualizar.Location = new System.Drawing.Point(755, 180);
+            this.BActualizar.Margin = new System.Windows.Forms.Padding(4);
+            this.BActualizar.Name = "BActualizar";
+            this.BActualizar.Size = new System.Drawing.Size(140, 46);
+            this.BActualizar.TabIndex = 20;
+            this.BActualizar.Text = "Actualizar";
+            this.BActualizar.UseVisualStyleBackColor = false;
+            this.BActualizar.Click += new System.EventHandler(this.BActualizar_Click);
+            // 
+            // LTerminadas
+            // 
+            this.LTerminadas.AutoSize = true;
+            this.LTerminadas.BackColor = System.Drawing.Color.LightCoral;
+            this.LTerminadas.Location = new System.Drawing.Point(347, 229);
+            this.LTerminadas.Name = "LTerminadas";
+            this.LTerminadas.Size = new System.Drawing.Size(151, 19);
+            this.LTerminadas.TabIndex = 21;
+            this.LTerminadas.Text = "Terminadas/Canceladas";
+            // 
+            // LConfirmadas
+            // 
+            this.LConfirmadas.AutoSize = true;
+            this.LConfirmadas.BackColor = System.Drawing.Color.LightGreen;
+            this.LConfirmadas.Location = new System.Drawing.Point(121, 229);
+            this.LConfirmadas.Name = "LConfirmadas";
+            this.LConfirmadas.Size = new System.Drawing.Size(86, 19);
+            this.LConfirmadas.TabIndex = 22;
+            this.LConfirmadas.Text = "Confirmadas";
+            // 
+            // LEspera
+            // 
+            this.LEspera.AutoSize = true;
+            this.LEspera.BackColor = System.Drawing.Color.Khaki;
+            this.LEspera.Location = new System.Drawing.Point(239, 229);
+            this.LEspera.Name = "LEspera";
+            this.LEspera.Size = new System.Drawing.Size(68, 19);
+            this.LEspera.TabIndex = 23;
+            this.LEspera.Text = "En Espera";
+            // 
+            // LEstados
+            // 
+            this.LEstados.AutoSize = true;
+            this.LEstados.Location = new System.Drawing.Point(39, 229);
+            this.LEstados.Name = "LEstados";
+            this.LEstados.Size = new System.Drawing.Size(63, 19);
+            this.LEstados.TabIndex = 24;
+            this.LEstados.Text = "Estados: ";
+            // 
             // Reservas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -268,6 +327,11 @@ namespace HotelCalifornia
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(1008, 667);
+            this.Controls.Add(this.LEstados);
+            this.Controls.Add(this.LEspera);
+            this.Controls.Add(this.LConfirmadas);
+            this.Controls.Add(this.LTerminadas);
+            this.Controls.Add(this.BActualizar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.RBSuite);
             this.Controls.Add(this.RBDoble);
@@ -320,5 +384,10 @@ namespace HotelCalifornia
         private System.Windows.Forms.RadioButton RBSingle;
         private System.Windows.Forms.Label lblMetodoPago;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button BActualizar;
+        private System.Windows.Forms.Label LTerminadas;
+        private System.Windows.Forms.Label LConfirmadas;
+        private System.Windows.Forms.Label LEspera;
+        private System.Windows.Forms.Label LEstados;
     }
 }

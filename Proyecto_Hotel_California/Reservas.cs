@@ -248,7 +248,8 @@ namespace HotelCalifornia
 
         private void btnNuevaReserva_Click(object sender, EventArgs e)
         {
-            CrearReservaForm frm = new CrearReservaForm();
+            //se pasa 0 para indicar que no hay cliente preseleccionado
+            CrearReservaForm frm = new CrearReservaForm(0);
             frm.ShowDialog();
         }
 
@@ -421,5 +422,9 @@ namespace HotelCalifornia
             }
         }
 
+        private void BActualizar_Click(object sender, EventArgs e)
+        {
+            CargarReservas();
+        }
     }
 }

@@ -16,10 +16,49 @@ namespace HotelCalifornia
 {
     public partial class CrearReservaForm : Form
     {
-        public CrearReservaForm()
+        int idClienteSeleccionado;
+        public CrearReservaForm(int idCliente)
         {
             InitializeComponent();
             cargarHabitaciones();
+            idClienteSeleccionado = idCliente;
+            if (idCliente != 0) {
+                cargarCliente();
+            }
+        }
+
+        private void cargarCliente()
+        {
+            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
+            {
+                conn.Open();
+                string query = @"
+                    SELECT 
+                        id_cliente,
+                        nombre,
+                        apellido,
+                        dni,
+                        telefono,
+                        email
+                    FROM Cliente
+                    WHERE id_cliente = @ID_cliente";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ID_cliente", idClienteSeleccionado);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        // Mostrar cliente en los campos
+                        TNombre.Text = reader["nombre"].ToString();
+                        TApellido.Text = reader["apellido"].ToString();
+                        TDni.Text = reader["dni"].ToString();
+                        TTelefono.Text = reader["telefono"].ToString();
+                        TEmail.Text = reader["email"].ToString();
+                    }                    
+                }
+            }
         }
 
         // Cargar habitaciones disponibles en la grilla
@@ -232,16 +271,9 @@ namespace HotelCalifornia
             return (int)cmd.ExecuteScalar();
         }
 
-        private void InsertarReservaHabitacion(SqlConnection conn, SqlTransaction tran, int idReserva, int numeroHab)
+        private void InsertarReservaHabitacion(SqlConnection conn, SqlTransaction tran, int idReserva, int numeroHab, int noches)
         {
             decimal precioBase = ObtenerPrecioBase(conn, tran, numeroHab);
-            int noches = Convert.ToInt32(CBCantNoches.SelectedItem);
-
-            if(noches == 0)
-            {
-                MessageBox.Show("Cantidad de noches debe ser mayor a 0 (cero)");
-                return;
-            }
             decimal subtotal = precioBase * noches;
 
             string insertar = @"INSERT INTO ReservaHabitacion (id_reserva, numero_hab, precio_noche, cantidad_noches, subtotal)
@@ -304,6 +336,21 @@ namespace HotelCalifornia
                 return;
             }
 
+            // validacion para evitar noches igual a cero
+            int noches = Convert.ToInt32(CBCantNoches.SelectedItem); 
+            if (noches <= 0)
+            {
+                MessageBox.Show("La cantidad de noches debe ser mayor que 0");
+                return;
+            }
+
+            // validacion para evitar guardar sin habitaciones seleccionadas
+            if (habitacionesSeleccionadas.Count == 0)
+            {
+                MessageBox.Show("Debe seleccionar al menos una habitación.");
+                return;
+            }
+
             using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
                 conn.Open();
@@ -320,7 +367,7 @@ namespace HotelCalifornia
                     // Insertar habitación
                     foreach (int numeroHabitacion in habitacionesSeleccionadas)
                     {
-                        InsertarReservaHabitacion(conn, tran, idReserva, numeroHabitacion);
+                        InsertarReservaHabitacion(conn, tran, idReserva, numeroHabitacion, noches);
 
                         // Cambiar el estado de la habitación a 2 (ocupada)
                         string update = @"UPDATE Habitacion SET id_estado = 2 WHERE numero_hab = @num";
@@ -348,6 +395,7 @@ namespace HotelCalifornia
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+
         }
 
         private void CHJacuzzi_CheckedChanged(object sender, EventArgs e)
@@ -398,8 +446,14 @@ namespace HotelCalifornia
 
         private void BListaClientes_Click(object sender, EventArgs e)
         {
-            ListaClientes listaClientes = new ListaClientes();
-            listaClientes.ShowDialog();
+            using (ListaClientes frmLista = new ListaClientes())
+            {
+                if (frmLista.ShowDialog() == DialogResult.OK)
+                {
+                    idClienteSeleccionado = frmLista.IdClienteSeleccionado;
+                    cargarCliente();
+                }
+            }
         }
     }
 }

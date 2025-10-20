@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.GrillaListaC = new System.Windows.Forms.DataGridView();
+            this.id_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dni = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,6 +46,7 @@
             this.GrillaListaC.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GrillaListaC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GrillaListaC.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id_cliente,
             this.dni,
             this.nombre,
             this.apellido,
@@ -57,6 +59,15 @@
             this.GrillaListaC.ShowRowErrors = false;
             this.GrillaListaC.Size = new System.Drawing.Size(489, 253);
             this.GrillaListaC.TabIndex = 0;
+            this.GrillaListaC.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaListaC_CellDoubleClick);
+            // 
+            // id_cliente
+            // 
+            this.id_cliente.DataPropertyName = "id_cliente";
+            this.id_cliente.HeaderText = "id_cliente";
+            this.id_cliente.Name = "id_cliente";
+            this.id_cliente.ReadOnly = true;
+            this.id_cliente.Visible = false;
             // 
             // dni
             // 
@@ -126,6 +137,7 @@
 
         private System.Windows.Forms.DataGridView GrillaListaC;
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn dni;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn apellido;

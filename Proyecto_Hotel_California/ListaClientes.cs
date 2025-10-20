@@ -48,5 +48,17 @@ namespace HotelCalifornia
         {
             CargarClientes();
         }
+
+        public int IdClienteSeleccionado { get; private set; }
+
+        private void GrillaListaC_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                IdClienteSeleccionado = Convert.ToInt32(GrillaListaC.Rows[e.RowIndex].Cells["id_cliente"].Value);
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+        }
     }
 }
