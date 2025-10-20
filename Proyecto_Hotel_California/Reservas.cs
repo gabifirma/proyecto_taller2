@@ -61,25 +61,25 @@ namespace HotelCalifornia
                 da.Fill(dt);
 
                 GrillaReservas.AutoGenerateColumns = false;
-                GrillaReservas.Columns.Clear();
+                /* GrillaReservas.Columns.Clear();
 
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "ID", DataPropertyName = "ID", HeaderText = "N°", Width = 80 });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Inicio", DataPropertyName = "Inicio", HeaderText = "Inicio", Width = 100 });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Fin", DataPropertyName = "Fin", HeaderText = "Fin", Width = 100 });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Nombre", DataPropertyName = "Nombre", HeaderText = "Nombre", Width = 120 });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Apellido", DataPropertyName = "Apellido", HeaderText = "Apellido", Width = 120 });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "numero_hab", DataPropertyName = "numero_hab", HeaderText = "Número Hab", Width = 100 });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Tipo_hab", DataPropertyName = "Tipo_hab", HeaderText = "Tipo Hab", Width = 150 });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "subtotal", DataPropertyName = "subtotal", HeaderText = "Subtotal ($)", Width = 100, DefaultCellStyle = new DataGridViewCellStyle { Format = "N2" } });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Estado", DataPropertyName = "Estado", Visible = false });
+                 GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "ID", DataPropertyName = "ID", HeaderText = "N°", Width = 80 });
+                 GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Inicio", DataPropertyName = "Inicio", HeaderText = "Inicio", Width = 100 });
+                 GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Fin", DataPropertyName = "Fin", HeaderText = "Fin", Width = 100 });
+                 GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Nombre", DataPropertyName = "Nombre", HeaderText = "Nombre", Width = 120 });
+                 GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Apellido", DataPropertyName = "Apellido", HeaderText = "Apellido", Width = 120 });
+                 GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "numero_hab", DataPropertyName = "numero_hab", HeaderText = "Número Hab", Width = 100 });
+                 GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Tipo_hab", DataPropertyName = "Tipo_hab", HeaderText = "Tipo Hab", Width = 150 });
+                 GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "subtotal", DataPropertyName = "subtotal", HeaderText = "Subtotal ($)", Width = 100, DefaultCellStyle = new DataGridViewCellStyle { Format = "N2" } });
+                 GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Estado", DataPropertyName = "Estado", Visible = false });
 
-                DataGridViewButtonColumn btnTerminar = new DataGridViewButtonColumn();
-                btnTerminar.Name = "Accion";
-                btnTerminar.HeaderText = "Acción";
-                btnTerminar.Text = "Terminar";
-                btnTerminar.UseColumnTextForButtonValue = true;
-                btnTerminar.Width = 100;
-                GrillaReservas.Columns.Add(btnTerminar);
+                 DataGridViewButtonColumn btnTerminar = new DataGridViewButtonColumn();
+                 btnTerminar.Name = "Accion";
+                 btnTerminar.HeaderText = "Acción";
+                 btnTerminar.Text = "Terminar";
+                 btnTerminar.UseColumnTextForButtonValue = true;
+                 btnTerminar.Width = 100;
+                GrillaReservas.Columns.Add(btnTerminar);*/
 
                 GrillaReservas.DataSource = dt;
 
@@ -111,7 +111,7 @@ namespace HotelCalifornia
                         R.id_reserva AS ID,
                         R.fecha_inicio AS Inicio,
                         R.fecha_fin AS Fin,
-                        R.fecha_creacion,
+                        R.fecha_creacion AS fecha_creacion,
                         R.id_estado AS Estado,
                         C.nombre AS Nombre,
                         C.apellido AS Apellido,
@@ -206,7 +206,7 @@ namespace HotelCalifornia
                 da.Fill(dt);
 
                 GrillaReservas.AutoGenerateColumns = false;
-                GrillaReservas.Columns.Clear();
+                /*GrillaReservas.Columns.Clear();
 
                 GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "ID", DataPropertyName = "ID", HeaderText = "N°", Width = 80 });
                 GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Inicio", DataPropertyName = "Inicio", HeaderText = "Inicio", Width = 100 });
@@ -225,7 +225,7 @@ namespace HotelCalifornia
                 btnTerminar.Text = "Terminar";
                 btnTerminar.UseColumnTextForButtonValue = true;
                 btnTerminar.Width = 100;
-                GrillaReservas.Columns.Add(btnTerminar);
+                GrillaReservas.Columns.Add(btnTerminar);*/
 
                 GrillaReservas.DataSource = dt;
 

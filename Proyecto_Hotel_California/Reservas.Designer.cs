@@ -52,6 +52,17 @@ namespace HotelCalifornia
             this.LConfirmadas = new System.Windows.Forms.Label();
             this.LEspera = new System.Windows.Forms.Label();
             this.LEstados = new System.Windows.Forms.Label();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numero_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipo_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Accion = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.fecha_creacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaReservas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,6 +90,18 @@ namespace HotelCalifornia
             this.GrillaReservas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GrillaReservas.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.GrillaReservas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GrillaReservas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
+            this.inicio,
+            this.fin,
+            this.nombre,
+            this.apellido,
+            this.numero_hab,
+            this.tipo_hab,
+            this.subtotal,
+            this.estado,
+            this.Accion,
+            this.fecha_creacion});
             this.GrillaReservas.Location = new System.Drawing.Point(14, 252);
             this.GrillaReservas.Margin = new System.Windows.Forms.Padding(4);
             this.GrillaReservas.Name = "GrillaReservas";
@@ -320,6 +343,98 @@ namespace HotelCalifornia
             this.LEstados.TabIndex = 24;
             this.LEstados.Text = "Estados: ";
             // 
+            // id
+            // 
+            this.id.DataPropertyName = "ID";
+            this.id.FillWeight = 25F;
+            this.id.HeaderText = "N°";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            // 
+            // inicio
+            // 
+            this.inicio.DataPropertyName = "Inicio";
+            this.inicio.FillWeight = 33.42974F;
+            this.inicio.HeaderText = "Inicio";
+            this.inicio.Name = "inicio";
+            this.inicio.ReadOnly = true;
+            // 
+            // fin
+            // 
+            this.fin.DataPropertyName = "Fin";
+            this.fin.FillWeight = 33.42974F;
+            this.fin.HeaderText = "Fin";
+            this.fin.Name = "fin";
+            this.fin.ReadOnly = true;
+            // 
+            // nombre
+            // 
+            this.nombre.DataPropertyName = "Nombre";
+            this.nombre.FillWeight = 33.42974F;
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.ReadOnly = true;
+            // 
+            // apellido
+            // 
+            this.apellido.DataPropertyName = "Apellido";
+            this.apellido.FillWeight = 33.42974F;
+            this.apellido.HeaderText = "Apellido";
+            this.apellido.Name = "apellido";
+            this.apellido.ReadOnly = true;
+            // 
+            // numero_hab
+            // 
+            this.numero_hab.DataPropertyName = "numero_hab";
+            this.numero_hab.FillWeight = 33.42974F;
+            this.numero_hab.HeaderText = "Número hab";
+            this.numero_hab.Name = "numero_hab";
+            this.numero_hab.ReadOnly = true;
+            // 
+            // tipo_hab
+            // 
+            this.tipo_hab.DataPropertyName = "Tipo_hab";
+            this.tipo_hab.FillWeight = 33.42974F;
+            this.tipo_hab.HeaderText = "Tipo";
+            this.tipo_hab.Name = "tipo_hab";
+            this.tipo_hab.ReadOnly = true;
+            // 
+            // subtotal
+            // 
+            this.subtotal.DataPropertyName = "subtotal";
+            this.subtotal.FillWeight = 33.42974F;
+            this.subtotal.HeaderText = "Subtotal ($)";
+            this.subtotal.Name = "subtotal";
+            this.subtotal.ReadOnly = true;
+            // 
+            // estado
+            // 
+            this.estado.DataPropertyName = "Estado";
+            this.estado.HeaderText = "estado";
+            this.estado.Name = "estado";
+            this.estado.ReadOnly = true;
+            this.estado.Visible = false;
+            // 
+            // Accion
+            // 
+            this.Accion.DataPropertyName = "Accion";
+            this.Accion.FillWeight = 30F;
+            this.Accion.HeaderText = "Acción";
+            this.Accion.Name = "Accion";
+            this.Accion.ReadOnly = true;
+            this.Accion.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Accion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Accion.Text = "Terminar";
+            this.Accion.UseColumnTextForButtonValue = true;
+            // 
+            // fecha_creacion
+            // 
+            this.fecha_creacion.DataPropertyName = "fecha_creacion";
+            this.fecha_creacion.HeaderText = "fecha_creacion";
+            this.fecha_creacion.Name = "fecha_creacion";
+            this.fecha_creacion.ReadOnly = true;
+            this.fecha_creacion.Visible = false;
+            // 
             // Reservas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -389,5 +504,16 @@ namespace HotelCalifornia
         private System.Windows.Forms.Label LConfirmadas;
         private System.Windows.Forms.Label LEspera;
         private System.Windows.Forms.Label LEstados;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn inicio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fin;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn apellido;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numero_hab;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tipo_hab;
+        private System.Windows.Forms.DataGridViewTextBoxColumn subtotal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn estado;
+        private System.Windows.Forms.DataGridViewButtonColumn Accion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha_creacion;
     }
 }
