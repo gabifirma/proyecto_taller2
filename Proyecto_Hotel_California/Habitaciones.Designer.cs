@@ -51,6 +51,10 @@ namespace HotelCalifornia
             this.LTipo = new System.Windows.Forms.Label();
             this.LNumero = new System.Windows.Forms.Label();
             this.LEjemplo = new System.Windows.Forms.Label();
+            this.LEstados = new System.Windows.Forms.Label();
+            this.LOcupada = new System.Windows.Forms.Label();
+            this.LLibre = new System.Windows.Forms.Label();
+            this.LInha = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaHabitaciones)).BeginInit();
             this.PRol.SuspendLayout();
             this.SuspendLayout();
@@ -82,12 +86,12 @@ namespace HotelCalifornia
             this.capacidad,
             this.descripcion,
             this.base_precio});
-            this.GrillaHabitaciones.Location = new System.Drawing.Point(19, 244);
+            this.GrillaHabitaciones.Location = new System.Drawing.Point(19, 273);
             this.GrillaHabitaciones.Margin = new System.Windows.Forms.Padding(4);
             this.GrillaHabitaciones.Name = "GrillaHabitaciones";
             this.GrillaHabitaciones.ReadOnly = true;
             this.GrillaHabitaciones.RowHeadersVisible = false;
-            this.GrillaHabitaciones.Size = new System.Drawing.Size(980, 355);
+            this.GrillaHabitaciones.Size = new System.Drawing.Size(980, 326);
             this.GrillaHabitaciones.TabIndex = 1;
             this.GrillaHabitaciones.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaHabitaciones_CellDoubleClick);
             // 
@@ -294,6 +298,45 @@ namespace HotelCalifornia
             this.LEjemplo.TabIndex = 52;
             this.LEjemplo.Text = "* (ej. \"201\" es la primera habitación del segundo piso)";
             // 
+            // LEstados
+            // 
+            this.LEstados.AutoSize = true;
+            this.LEstados.Location = new System.Drawing.Point(23, 230);
+            this.LEstados.Name = "LEstados";
+            this.LEstados.Size = new System.Drawing.Size(63, 19);
+            this.LEstados.TabIndex = 56;
+            this.LEstados.Text = "Estados: ";
+            // 
+            // LOcupada
+            // 
+            this.LOcupada.AutoSize = true;
+            this.LOcupada.BackColor = System.Drawing.Color.Khaki;
+            this.LOcupada.Location = new System.Drawing.Point(171, 230);
+            this.LOcupada.Name = "LOcupada";
+            this.LOcupada.Size = new System.Drawing.Size(64, 19);
+            this.LOcupada.TabIndex = 55;
+            this.LOcupada.Text = "Ocupada";
+            // 
+            // LLibre
+            // 
+            this.LLibre.AutoSize = true;
+            this.LLibre.BackColor = System.Drawing.Color.LightGreen;
+            this.LLibre.Location = new System.Drawing.Point(105, 230);
+            this.LLibre.Name = "LLibre";
+            this.LLibre.Size = new System.Drawing.Size(39, 19);
+            this.LLibre.TabIndex = 54;
+            this.LLibre.Text = "Libre";
+            // 
+            // LInha
+            // 
+            this.LInha.AutoSize = true;
+            this.LInha.BackColor = System.Drawing.Color.LightCoral;
+            this.LInha.Location = new System.Drawing.Point(262, 230);
+            this.LInha.Name = "LInha";
+            this.LInha.Size = new System.Drawing.Size(80, 19);
+            this.LInha.TabIndex = 53;
+            this.LInha.Text = "Inhabilitada";
+            // 
             // Habitaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -301,6 +344,10 @@ namespace HotelCalifornia
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(1008, 667);
+            this.Controls.Add(this.LEstados);
+            this.Controls.Add(this.LOcupada);
+            this.Controls.Add(this.LLibre);
+            this.Controls.Add(this.LInha);
             this.Controls.Add(this.LEjemplo);
             this.Controls.Add(this.RBSuite);
             this.Controls.Add(this.PRol);
@@ -353,5 +400,9 @@ namespace HotelCalifornia
         private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn base_precio;
         private System.Windows.Forms.Label LEjemplo;
+        private System.Windows.Forms.Label LEstados;
+        private System.Windows.Forms.Label LOcupada;
+        private System.Windows.Forms.Label LLibre;
+        private System.Windows.Forms.Label LInha;
     }
 }

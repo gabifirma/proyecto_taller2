@@ -30,18 +30,21 @@ namespace HotelCalifornia
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Empleados));
             this.GrillaEmpleados = new System.Windows.Forms.DataGridView();
-            this.LTituloEmp = new System.Windows.Forms.Label();
-            this.BAgregarEmp = new System.Windows.Forms.Button();
-            this.TBuscar = new System.Windows.Forms.TextBox();
-            this.LBuscar = new System.Windows.Forms.Label();
-            this.BBuscar = new System.Windows.Forms.Button();
-            this.BRecargar = new System.Windows.Forms.Button();
             this.Legajo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LTituloEmp = new System.Windows.Forms.Label();
+            this.BAgregarEmp = new System.Windows.Forms.Button();
+            this.TBuscar = new System.Windows.Forms.TextBox();
+            this.LBuscar = new System.Windows.Forms.Label();
+            this.BBuscar = new System.Windows.Forms.Button();
+            this.BRecargar = new System.Windows.Forms.Button();
+            this.LEstados = new System.Windows.Forms.Label();
+            this.LActivo = new System.Windows.Forms.Label();
+            this.LInac = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaEmpleados)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,14 +64,57 @@ namespace HotelCalifornia
             this.Email,
             this.estado});
             this.GrillaEmpleados.EnableHeadersVisualStyles = false;
-            this.GrillaEmpleados.Location = new System.Drawing.Point(14, 135);
+            this.GrillaEmpleados.Location = new System.Drawing.Point(14, 181);
             this.GrillaEmpleados.Margin = new System.Windows.Forms.Padding(4);
             this.GrillaEmpleados.Name = "GrillaEmpleados";
             this.GrillaEmpleados.ReadOnly = true;
             this.GrillaEmpleados.RowHeadersVisible = false;
-            this.GrillaEmpleados.Size = new System.Drawing.Size(980, 493);
+            this.GrillaEmpleados.Size = new System.Drawing.Size(980, 447);
             this.GrillaEmpleados.TabIndex = 0;
             this.GrillaEmpleados.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaEmpleados_CellDoubleClick);
+            // 
+            // Legajo
+            // 
+            this.Legajo.DataPropertyName = "legajo";
+            this.Legajo.HeaderText = "Legajo";
+            this.Legajo.Name = "Legajo";
+            this.Legajo.ReadOnly = true;
+            // 
+            // Apellido
+            // 
+            this.Apellido.DataPropertyName = "apellido";
+            this.Apellido.HeaderText = "Apellido";
+            this.Apellido.Name = "Apellido";
+            this.Apellido.ReadOnly = true;
+            // 
+            // Nombre
+            // 
+            this.Nombre.DataPropertyName = "nombre";
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // Telefono
+            // 
+            this.Telefono.DataPropertyName = "telefono";
+            this.Telefono.HeaderText = "Teléfono";
+            this.Telefono.Name = "Telefono";
+            this.Telefono.ReadOnly = true;
+            // 
+            // Email
+            // 
+            this.Email.DataPropertyName = "email";
+            this.Email.HeaderText = "Email";
+            this.Email.Name = "Email";
+            this.Email.ReadOnly = true;
+            // 
+            // estado
+            // 
+            this.estado.DataPropertyName = "estado";
+            this.estado.HeaderText = "estado";
+            this.estado.Name = "estado";
+            this.estado.ReadOnly = true;
+            this.estado.Visible = false;
             // 
             // LTituloEmp
             // 
@@ -141,48 +187,34 @@ namespace HotelCalifornia
             this.BRecargar.UseVisualStyleBackColor = true;
             this.BRecargar.Click += new System.EventHandler(this.BRecargar_Click);
             // 
-            // Legajo
+            // LEstados
             // 
-            this.Legajo.DataPropertyName = "legajo";
-            this.Legajo.HeaderText = "Legajo";
-            this.Legajo.Name = "Legajo";
-            this.Legajo.ReadOnly = true;
+            this.LEstados.AutoSize = true;
+            this.LEstados.Location = new System.Drawing.Point(15, 145);
+            this.LEstados.Name = "LEstados";
+            this.LEstados.Size = new System.Drawing.Size(63, 19);
+            this.LEstados.TabIndex = 60;
+            this.LEstados.Text = "Estados: ";
             // 
-            // Apellido
+            // LActivo
             // 
-            this.Apellido.DataPropertyName = "apellido";
-            this.Apellido.HeaderText = "Apellido";
-            this.Apellido.Name = "Apellido";
-            this.Apellido.ReadOnly = true;
+            this.LActivo.AutoSize = true;
+            this.LActivo.BackColor = System.Drawing.Color.LightGreen;
+            this.LActivo.Location = new System.Drawing.Point(97, 145);
+            this.LActivo.Name = "LActivo";
+            this.LActivo.Size = new System.Drawing.Size(47, 19);
+            this.LActivo.TabIndex = 58;
+            this.LActivo.Text = "Activo";
             // 
-            // Nombre
+            // LInac
             // 
-            this.Nombre.DataPropertyName = "nombre";
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            // 
-            // Telefono
-            // 
-            this.Telefono.DataPropertyName = "telefono";
-            this.Telefono.HeaderText = "Teléfono";
-            this.Telefono.Name = "Telefono";
-            this.Telefono.ReadOnly = true;
-            // 
-            // Email
-            // 
-            this.Email.DataPropertyName = "email";
-            this.Email.HeaderText = "Email";
-            this.Email.Name = "Email";
-            this.Email.ReadOnly = true;
-            // 
-            // estado
-            // 
-            this.estado.DataPropertyName = "estado";
-            this.estado.HeaderText = "estado";
-            this.estado.Name = "estado";
-            this.estado.ReadOnly = true;
-            this.estado.Visible = false;
+            this.LInac.AutoSize = true;
+            this.LInac.BackColor = System.Drawing.Color.LightCoral;
+            this.LInac.Location = new System.Drawing.Point(189, 145);
+            this.LInac.Name = "LInac";
+            this.LInac.Size = new System.Drawing.Size(57, 19);
+            this.LInac.TabIndex = 57;
+            this.LInac.Text = "Inactivo";
             // 
             // Empleados
             // 
@@ -190,6 +222,9 @@ namespace HotelCalifornia
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(1008, 641);
+            this.Controls.Add(this.LEstados);
+            this.Controls.Add(this.LActivo);
+            this.Controls.Add(this.LInac);
             this.Controls.Add(this.BRecargar);
             this.Controls.Add(this.BBuscar);
             this.Controls.Add(this.TBuscar);
@@ -225,5 +260,8 @@ namespace HotelCalifornia
         private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn estado;
+        private System.Windows.Forms.Label LEstados;
+        private System.Windows.Forms.Label LActivo;
+        private System.Windows.Forms.Label LInac;
     }
 }

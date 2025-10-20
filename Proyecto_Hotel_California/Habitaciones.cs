@@ -18,7 +18,6 @@ namespace HotelCalifornia
         {
             InitializeComponent();
             CargarHabitaciones();
-            // La clase base BaseResponsiveForm se encarga del responsive design automáticamente
         }
 
         private void CargarHabitaciones()
