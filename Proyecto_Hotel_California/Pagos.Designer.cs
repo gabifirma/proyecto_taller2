@@ -30,6 +30,11 @@ namespace HotelCalifornia
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pagos));
             this.GrillaPagos = new System.Windows.Forms.DataGridView();
+            this.referencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_metodoPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LTituloPagos = new System.Windows.Forms.Label();
             this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
             this.RBCredito = new System.Windows.Forms.RadioButton();
@@ -44,11 +49,6 @@ namespace HotelCalifornia
             this.LReferencia = new System.Windows.Forms.Label();
             this.LDesde = new System.Windows.Forms.Label();
             this.DTDesde = new System.Windows.Forms.DateTimePicker();
-            this.id_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.referencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_metodoPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaPagos)).BeginInit();
             this.groupBoxFiltros.SuspendLayout();
             this.SuspendLayout();
@@ -60,10 +60,10 @@ namespace HotelCalifornia
             this.GrillaPagos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GrillaPagos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GrillaPagos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.referencia,
             this.id_pago,
             this.fecha,
             this.monto,
-            this.referencia,
             this.id_metodoPago});
             this.GrillaPagos.Location = new System.Drawing.Point(14, 262);
             this.GrillaPagos.Margin = new System.Windows.Forms.Padding(4);
@@ -73,6 +73,43 @@ namespace HotelCalifornia
             this.GrillaPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.GrillaPagos.Size = new System.Drawing.Size(828, 327);
             this.GrillaPagos.TabIndex = 0;
+            this.GrillaPagos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaPagos_CellContentClick);
+            // 
+            // referencia
+            // 
+            this.referencia.DataPropertyName = "referencia";
+            this.referencia.HeaderText = "Referencia";
+            this.referencia.Name = "referencia";
+            this.referencia.ReadOnly = true;
+            // 
+            // id_pago
+            // 
+            this.id_pago.DataPropertyName = "id_pago";
+            this.id_pago.HeaderText = "ID";
+            this.id_pago.Name = "id_pago";
+            this.id_pago.ReadOnly = true;
+            this.id_pago.Visible = false;
+            // 
+            // fecha
+            // 
+            this.fecha.DataPropertyName = "fecha";
+            this.fecha.HeaderText = "Fecha";
+            this.fecha.Name = "fecha";
+            this.fecha.ReadOnly = true;
+            // 
+            // monto
+            // 
+            this.monto.DataPropertyName = "monto";
+            this.monto.HeaderText = "Monto";
+            this.monto.Name = "monto";
+            this.monto.ReadOnly = true;
+            // 
+            // id_metodoPago
+            // 
+            this.id_metodoPago.DataPropertyName = "metodoPago";
+            this.id_metodoPago.HeaderText = "Metodo de Pago";
+            this.id_metodoPago.Name = "id_metodoPago";
+            this.id_metodoPago.ReadOnly = true;
             // 
             // LTituloPagos
             // 
@@ -240,41 +277,6 @@ namespace HotelCalifornia
             this.DTDesde.Size = new System.Drawing.Size(116, 25);
             this.DTDesde.TabIndex = 2;
             // 
-            // id_pago
-            // 
-            this.id_pago.DataPropertyName = "id_pago";
-            this.id_pago.HeaderText = "ID";
-            this.id_pago.Name = "id_pago";
-            this.id_pago.ReadOnly = true;
-            // 
-            // fecha
-            // 
-            this.fecha.DataPropertyName = "fecha";
-            this.fecha.HeaderText = "Fecha";
-            this.fecha.Name = "fecha";
-            this.fecha.ReadOnly = true;
-            // 
-            // monto
-            // 
-            this.monto.DataPropertyName = "monto";
-            this.monto.HeaderText = "Monto";
-            this.monto.Name = "monto";
-            this.monto.ReadOnly = true;
-            // 
-            // referencia
-            // 
-            this.referencia.DataPropertyName = "referencia";
-            this.referencia.HeaderText = "Referencia";
-            this.referencia.Name = "referencia";
-            this.referencia.ReadOnly = true;
-            // 
-            // id_metodoPago
-            // 
-            this.id_metodoPago.DataPropertyName = "id_metodoPago";
-            this.id_metodoPago.HeaderText = "Metodo de Pago";
-            this.id_metodoPago.Name = "id_metodoPago";
-            this.id_metodoPago.ReadOnly = true;
-            // 
             // Pagos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -315,10 +317,10 @@ namespace HotelCalifornia
         private System.Windows.Forms.RadioButton RBCredito;
         private System.Windows.Forms.RadioButton RBTrans;
         private System.Windows.Forms.RadioButton RBEfectivo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn referencia;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_pago;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn monto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn referencia;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_metodoPago;
     }
 }

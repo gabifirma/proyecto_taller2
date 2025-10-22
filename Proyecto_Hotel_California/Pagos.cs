@@ -21,15 +21,21 @@ namespace HotelCalifornia
         {
             InitializeComponent();
             CargarPagos();
-            // La clase base BaseResponsiveForm se encarga del responsive design automáticamente
-            //this.WindowState = FormWindowState.Maximized;
         }
 
         private void CargarPagos()
         {
             using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
-                string query = "SELECT * FROM Pago";
+                string query = @"SELECT 
+                    p.id_pago,
+                    p.fecha,
+                    p.monto,
+                    p.referencia + p.id_pago AS Referencia,
+                    mp.descripcion AS metodoPago
+                    FROM Pago p
+                    INNER JOIN MetodoPago mp ON p.id_metodoPago = mp.id_metodoPago
+                    ORDER BY p.id_pago ASC";
                 SqlDataAdapter da = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -55,10 +61,11 @@ namespace HotelCalifornia
                     p.id_pago,
                     p.fecha,
                     p.monto,
-                    p.referencia,
-                    p.id_metodoPago
-                 FROM Pago p
-                 WHERE 1=1";
+                    p.referencia + p.id_pago AS Referencia,
+                    mp.descripcion AS metodoPago
+                    FROM Pago p
+                    INNER JOIN MetodoPago mp ON p.id_metodoPago = mp.id_metodoPago
+                    WHERE 1=1";
 
                 // Creamos el comando
                 SqlCommand cmd = new SqlCommand();
@@ -119,7 +126,7 @@ namespace HotelCalifornia
             CargarPagos();
         }
 
-     /* private void GrillaPagos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void GrillaPagos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Funcionalidad para doble clic en la grilla
             if (e.RowIndex >= 0) // para evitar encabezados
@@ -134,6 +141,6 @@ namespace HotelCalifornia
                 // refrescar el DataGridView después de editar
                 CargarPagos();
             }
-        }*/
+        }
     }
 }

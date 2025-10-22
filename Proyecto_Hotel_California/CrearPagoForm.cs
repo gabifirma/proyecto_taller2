@@ -54,6 +54,7 @@ namespace HotelCalifornia
             {
                 decimal monto = Convert.ToDecimal(LMonto.Text);
                 int idMetodoPago = ObtenerMetodoPagoSeleccionado();
+                int referencia = 10000; // Valor fijo para referencia
 
                 if (idMetodoPago == 0)
                 {
@@ -75,7 +76,7 @@ namespace HotelCalifornia
                         SqlCommand cmdPago = new SqlCommand(insertarPago, conn, tran);
                         cmdPago.Parameters.AddWithValue("@monto", monto);
                         cmdPago.Parameters.AddWithValue("@metodo", idMetodoPago);
-                        cmdPago.Parameters.AddWithValue("@referencia", idMetodoPago);
+                        cmdPago.Parameters.AddWithValue("@referencia", referencia);
                         int idPago = (int)cmdPago.ExecuteScalar();
 
                         // Insertar la factura
