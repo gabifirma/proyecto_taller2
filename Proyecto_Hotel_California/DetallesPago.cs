@@ -69,12 +69,45 @@ namespace HotelCalifornia
                         LFinR.Text = Convert.ToDateTime(reader["fecha_fin"]).ToString("dd/MM/yyyy");
                         LMP.Text = reader["metodoPago"].ToString();
 
+                        // Cargar las habitaciones asociadas
+                        int idReserva = Convert.ToInt32(reader["id_reserva"]);
+                        reader.Close(); // Cerrar antes de usar la misma conexión
+
+                        CargarHabitacionesReserva(conn, idReserva);
                     }
                     else
                     {
                         MessageBox.Show("No se encontró la habitación con ese Número.");
                         this.Close();
                     }
+                }
+            }
+        }
+
+        // Método para cargar las habitaciones en GrillaHabitaciones
+        private void CargarHabitacionesReserva(SqlConnection conn, int reserva_id)
+        {
+            string query = @"SELECT 
+                        h.numero_hab AS Num_hab,
+                        h.piso AS Piso,
+                        th.nombre AS Tipo,
+                        rh.cantidad_noches AS Noches,
+                        rh.precio_noche AS Precio,
+                        rh.subtotal AS Subtotal
+                    FROM ReservaHabitacion rh
+                    INNER JOIN Habitacion h ON rh.numero_hab = h.numero_hab
+                    INNER JOIN TipoHabitacion th ON h.id_tipo = th.id_tipo
+                    WHERE rh.id_reserva = @idReserva;";
+
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@idReserva", reserva_id);
+
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    GrillaHabitaciones.DataSource = dt;
                 }
             }
         }

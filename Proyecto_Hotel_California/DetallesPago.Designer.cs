@@ -36,7 +36,7 @@
             this.LDni = new System.Windows.Forms.Label();
             this.LEmail = new System.Windows.Forms.Label();
             this.LFactura = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.GrillaHabitaciones = new System.Windows.Forms.DataGridView();
             this.LHabitacion = new System.Windows.Forms.Label();
             this.LNroRef = new System.Windows.Forms.Label();
             this.LFP = new System.Windows.Forms.Label();
@@ -50,212 +50,293 @@
             this.LMetodoP = new System.Windows.Forms.Label();
             this.LNumRes = new System.Windows.Forms.Label();
             this.LNroReserva = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.numero_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.piso = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cant_noches = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.GrillaHabitaciones)).BeginInit();
             this.SuspendLayout();
             // 
             // LCliente
             // 
             this.LCliente.AutoSize = true;
+            this.LCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LCliente.Location = new System.Drawing.Point(12, 54);
             this.LCliente.Name = "LCliente";
-            this.LCliente.Size = new System.Drawing.Size(45, 13);
+            this.LCliente.Size = new System.Drawing.Size(66, 20);
             this.LCliente.TabIndex = 0;
             this.LCliente.Text = "Cliente: ";
             // 
             // LReferencia
             // 
             this.LReferencia.AutoSize = true;
+            this.LReferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LReferencia.Location = new System.Drawing.Point(12, 25);
             this.LReferencia.Name = "LReferencia";
-            this.LReferencia.Size = new System.Drawing.Size(65, 13);
+            this.LReferencia.Size = new System.Drawing.Size(95, 20);
             this.LReferencia.TabIndex = 1;
             this.LReferencia.Text = "Referencia: ";
             // 
             // LFechaPago
             // 
             this.LFechaPago.AutoSize = true;
+            this.LFechaPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LFechaPago.Location = new System.Drawing.Point(281, 25);
             this.LFechaPago.Name = "LFechaPago";
-            this.LFechaPago.Size = new System.Drawing.Size(86, 13);
+            this.LFechaPago.Size = new System.Drawing.Size(125, 20);
             this.LFechaPago.TabIndex = 2;
             this.LFechaPago.Text = "Fecha de Pago: ";
             // 
             // LResIni
             // 
             this.LResIni.AutoSize = true;
+            this.LResIni.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LResIni.Location = new System.Drawing.Point(286, 164);
             this.LResIni.Name = "LResIni";
-            this.LResIni.Size = new System.Drawing.Size(81, 13);
+            this.LResIni.Size = new System.Drawing.Size(117, 20);
             this.LResIni.TabIndex = 3;
             this.LResIni.Text = "Inicio Reserva: ";
             // 
             // LResFin
             // 
             this.LResFin.AutoSize = true;
+            this.LResFin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LResFin.Location = new System.Drawing.Point(286, 193);
             this.LResFin.Name = "LResFin";
-            this.LResFin.Size = new System.Drawing.Size(70, 13);
+            this.LResFin.Size = new System.Drawing.Size(102, 20);
             this.LResFin.TabIndex = 4;
             this.LResFin.Text = "Fin Reserva: ";
             // 
             // LDni
             // 
             this.LDni.AutoSize = true;
+            this.LDni.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LDni.Location = new System.Drawing.Point(12, 80);
             this.LDni.Name = "LDni";
-            this.LDni.Size = new System.Drawing.Size(32, 13);
+            this.LDni.Size = new System.Drawing.Size(45, 20);
             this.LDni.TabIndex = 6;
             this.LDni.Text = "DNI: ";
             // 
             // LEmail
             // 
             this.LEmail.AutoSize = true;
+            this.LEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LEmail.Location = new System.Drawing.Point(12, 108);
             this.LEmail.Name = "LEmail";
-            this.LEmail.Size = new System.Drawing.Size(38, 13);
+            this.LEmail.Size = new System.Drawing.Size(56, 20);
             this.LEmail.TabIndex = 7;
             this.LEmail.Text = "Email: ";
             // 
             // LFactura
             // 
             this.LFactura.AutoSize = true;
+            this.LFactura.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LFactura.Location = new System.Drawing.Point(12, 136);
             this.LFactura.Name = "LFactura";
-            this.LFactura.Size = new System.Drawing.Size(49, 13);
+            this.LFactura.Size = new System.Drawing.Size(72, 20);
             this.LFactura.TabIndex = 8;
             this.LFactura.Text = "Factura: ";
             // 
-            // dataGridView1
+            // GrillaHabitaciones
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 262);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(591, 150);
-            this.dataGridView1.TabIndex = 9;
+            this.GrillaHabitaciones.AllowUserToAddRows = false;
+            this.GrillaHabitaciones.AllowUserToDeleteRows = false;
+            this.GrillaHabitaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.GrillaHabitaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GrillaHabitaciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.numero_hab,
+            this.piso,
+            this.tipo,
+            this.cant_noches,
+            this.precio,
+            this.subtotal});
+            this.GrillaHabitaciones.Location = new System.Drawing.Point(12, 262);
+            this.GrillaHabitaciones.Name = "GrillaHabitaciones";
+            this.GrillaHabitaciones.ReadOnly = true;
+            this.GrillaHabitaciones.RowHeadersVisible = false;
+            this.GrillaHabitaciones.Size = new System.Drawing.Size(609, 150);
+            this.GrillaHabitaciones.TabIndex = 9;
             // 
             // LHabitacion
             // 
             this.LHabitacion.AutoSize = true;
+            this.LHabitacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LHabitacion.Location = new System.Drawing.Point(13, 234);
             this.LHabitacion.Name = "LHabitacion";
-            this.LHabitacion.Size = new System.Drawing.Size(80, 13);
+            this.LHabitacion.Size = new System.Drawing.Size(114, 20);
             this.LHabitacion.TabIndex = 10;
             this.LHabitacion.Text = "Habitación/es: ";
             // 
             // LNroRef
             // 
             this.LNroRef.AutoSize = true;
-            this.LNroRef.Location = new System.Drawing.Point(84, 25);
+            this.LNroRef.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LNroRef.Location = new System.Drawing.Point(113, 25);
             this.LNroRef.Name = "LNroRef";
-            this.LNroRef.Size = new System.Drawing.Size(10, 13);
+            this.LNroRef.Size = new System.Drawing.Size(13, 20);
             this.LNroRef.TabIndex = 11;
             this.LNroRef.Text = ".";
             // 
             // LFP
             // 
             this.LFP.AutoSize = true;
-            this.LFP.Location = new System.Drawing.Point(373, 25);
+            this.LFP.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LFP.Location = new System.Drawing.Point(412, 25);
             this.LFP.Name = "LFP";
-            this.LFP.Size = new System.Drawing.Size(10, 13);
+            this.LFP.Size = new System.Drawing.Size(13, 20);
             this.LFP.TabIndex = 12;
             this.LFP.Text = ".";
             // 
             // LClie
             // 
             this.LClie.AutoSize = true;
-            this.LClie.Location = new System.Drawing.Point(72, 54);
+            this.LClie.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LClie.Location = new System.Drawing.Point(84, 54);
             this.LClie.Name = "LClie";
-            this.LClie.Size = new System.Drawing.Size(10, 13);
+            this.LClie.Size = new System.Drawing.Size(13, 20);
             this.LClie.TabIndex = 13;
             this.LClie.Text = ".";
             // 
             // LD
             // 
             this.LD.AutoSize = true;
-            this.LD.Location = new System.Drawing.Point(51, 80);
+            this.LD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LD.Location = new System.Drawing.Point(63, 80);
             this.LD.Name = "LD";
-            this.LD.Size = new System.Drawing.Size(10, 13);
+            this.LD.Size = new System.Drawing.Size(13, 20);
             this.LD.TabIndex = 14;
             this.LD.Text = ".";
             // 
             // LMail
             // 
             this.LMail.AutoSize = true;
-            this.LMail.Location = new System.Drawing.Point(56, 108);
+            this.LMail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LMail.Location = new System.Drawing.Point(74, 108);
             this.LMail.Name = "LMail";
-            this.LMail.Size = new System.Drawing.Size(10, 13);
+            this.LMail.Size = new System.Drawing.Size(13, 20);
             this.LMail.TabIndex = 15;
             this.LMail.Text = ".";
             // 
             // LFactu
             // 
             this.LFactu.AutoSize = true;
-            this.LFactu.Location = new System.Drawing.Point(67, 136);
+            this.LFactu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LFactu.Location = new System.Drawing.Point(90, 136);
             this.LFactu.Name = "LFactu";
-            this.LFactu.Size = new System.Drawing.Size(10, 13);
+            this.LFactu.Size = new System.Drawing.Size(13, 20);
             this.LFactu.TabIndex = 16;
             this.LFactu.Text = ".";
             // 
             // LInicioR
             // 
             this.LInicioR.AutoSize = true;
-            this.LInicioR.Location = new System.Drawing.Point(373, 164);
+            this.LInicioR.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LInicioR.Location = new System.Drawing.Point(409, 164);
             this.LInicioR.Name = "LInicioR";
-            this.LInicioR.Size = new System.Drawing.Size(10, 13);
+            this.LInicioR.Size = new System.Drawing.Size(13, 20);
             this.LInicioR.TabIndex = 17;
             this.LInicioR.Text = ".";
             // 
             // LFinR
             // 
             this.LFinR.AutoSize = true;
-            this.LFinR.Location = new System.Drawing.Point(362, 193);
+            this.LFinR.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LFinR.Location = new System.Drawing.Point(390, 193);
             this.LFinR.Name = "LFinR";
-            this.LFinR.Size = new System.Drawing.Size(10, 13);
+            this.LFinR.Size = new System.Drawing.Size(13, 20);
             this.LFinR.TabIndex = 18;
             this.LFinR.Text = ".";
             // 
             // LMP
             // 
             this.LMP.AutoSize = true;
-            this.LMP.Location = new System.Drawing.Point(373, 54);
+            this.LMP.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LMP.Location = new System.Drawing.Point(412, 54);
             this.LMP.Name = "LMP";
-            this.LMP.Size = new System.Drawing.Size(10, 13);
+            this.LMP.Size = new System.Drawing.Size(13, 20);
             this.LMP.TabIndex = 20;
             this.LMP.Text = ".";
             // 
             // LMetodoP
             // 
             this.LMetodoP.AutoSize = true;
+            this.LMetodoP.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LMetodoP.Location = new System.Drawing.Point(281, 54);
             this.LMetodoP.Name = "LMetodoP";
-            this.LMetodoP.Size = new System.Drawing.Size(92, 13);
+            this.LMetodoP.Size = new System.Drawing.Size(134, 20);
             this.LMetodoP.TabIndex = 19;
             this.LMetodoP.Text = "Método de Pago: ";
             // 
             // LNumRes
             // 
             this.LNumRes.AutoSize = true;
-            this.LNumRes.Location = new System.Drawing.Point(87, 164);
+            this.LNumRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LNumRes.Location = new System.Drawing.Point(115, 164);
             this.LNumRes.Name = "LNumRes";
-            this.LNumRes.Size = new System.Drawing.Size(10, 13);
+            this.LNumRes.Size = new System.Drawing.Size(13, 20);
             this.LNumRes.TabIndex = 22;
             this.LNumRes.Text = ".";
             // 
             // LNroReserva
             // 
             this.LNroReserva.AutoSize = true;
+            this.LNroReserva.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LNroReserva.Location = new System.Drawing.Point(13, 164);
             this.LNroReserva.Name = "LNroReserva";
-            this.LNroReserva.Size = new System.Drawing.Size(68, 13);
+            this.LNroReserva.Size = new System.Drawing.Size(96, 20);
             this.LNroReserva.TabIndex = 21;
             this.LNroReserva.Text = "N° Reserva: ";
+            // 
+            // numero_hab
+            // 
+            this.numero_hab.DataPropertyName = "Num_hab";
+            this.numero_hab.HeaderText = "Número";
+            this.numero_hab.Name = "numero_hab";
+            this.numero_hab.ReadOnly = true;
+            // 
+            // piso
+            // 
+            this.piso.DataPropertyName = "Piso";
+            this.piso.HeaderText = "Piso";
+            this.piso.Name = "piso";
+            this.piso.ReadOnly = true;
+            // 
+            // tipo
+            // 
+            this.tipo.DataPropertyName = "Tipo";
+            this.tipo.HeaderText = "Tipo";
+            this.tipo.Name = "tipo";
+            this.tipo.ReadOnly = true;
+            // 
+            // cant_noches
+            // 
+            this.cant_noches.DataPropertyName = "Noches";
+            this.cant_noches.HeaderText = "Cant. Noches";
+            this.cant_noches.Name = "cant_noches";
+            this.cant_noches.ReadOnly = true;
+            // 
+            // precio
+            // 
+            this.precio.DataPropertyName = "Precio";
+            this.precio.HeaderText = "Precio ($)";
+            this.precio.Name = "precio";
+            this.precio.ReadOnly = true;
+            // 
+            // subtotal
+            // 
+            this.subtotal.DataPropertyName = "Subtotal";
+            this.subtotal.HeaderText = "Subtotal ($)";
+            this.subtotal.Name = "subtotal";
+            this.subtotal.ReadOnly = true;
             // 
             // DetallesPago
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(622, 450);
+            this.ClientSize = new System.Drawing.Size(634, 450);
             this.Controls.Add(this.LNumRes);
             this.Controls.Add(this.LNroReserva);
             this.Controls.Add(this.LMP);
@@ -269,7 +350,7 @@
             this.Controls.Add(this.LFP);
             this.Controls.Add(this.LNroRef);
             this.Controls.Add(this.LHabitacion);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.GrillaHabitaciones);
             this.Controls.Add(this.LFactura);
             this.Controls.Add(this.LEmail);
             this.Controls.Add(this.LDni);
@@ -278,10 +359,12 @@
             this.Controls.Add(this.LFechaPago);
             this.Controls.Add(this.LReferencia);
             this.Controls.Add(this.LCliente);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "DetallesPago";
             this.Text = "Detalles del Pago";
             this.Load += new System.EventHandler(this.DetallesPago_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GrillaHabitaciones)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -297,7 +380,7 @@
         private System.Windows.Forms.Label LDni;
         private System.Windows.Forms.Label LEmail;
         private System.Windows.Forms.Label LFactura;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView GrillaHabitaciones;
         private System.Windows.Forms.Label LHabitacion;
         private System.Windows.Forms.Label LNroRef;
         private System.Windows.Forms.Label LFP;
@@ -311,5 +394,11 @@
         private System.Windows.Forms.Label LMetodoP;
         private System.Windows.Forms.Label LNumRes;
         private System.Windows.Forms.Label LNroReserva;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numero_hab;
+        private System.Windows.Forms.DataGridViewTextBoxColumn piso;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tipo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cant_noches;
+        private System.Windows.Forms.DataGridViewTextBoxColumn precio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn subtotal;
     }
 }
