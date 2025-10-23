@@ -353,7 +353,7 @@ namespace HotelCalifornia
             this.BFinalizar.Location = new System.Drawing.Point(242, 578);
             this.BFinalizar.Margin = new System.Windows.Forms.Padding(4);
             this.BFinalizar.Name = "BFinalizar";
-            this.BFinalizar.Size = new System.Drawing.Size(136, 25);
+            this.BFinalizar.Size = new System.Drawing.Size(149, 25);
             this.BFinalizar.TabIndex = 25;
             this.BFinalizar.Text = "Finalizar/Cancelar";
             this.BFinalizar.UseVisualStyleBackColor = false;
@@ -431,7 +431,7 @@ namespace HotelCalifornia
             // 
             this.numero_hab.DataPropertyName = "Habitaciones";
             this.numero_hab.FillWeight = 33.42974F;
-            this.numero_hab.HeaderText = "Número hab";
+            this.numero_hab.HeaderText = "Habitaciones";
             this.numero_hab.Name = "numero_hab";
             this.numero_hab.ReadOnly = true;
             // 
@@ -439,7 +439,7 @@ namespace HotelCalifornia
             // 
             this.tipo_hab.DataPropertyName = "Tipos";
             this.tipo_hab.FillWeight = 33.42974F;
-            this.tipo_hab.HeaderText = "Tipo";
+            this.tipo_hab.HeaderText = "Tipos";
             this.tipo_hab.Name = "tipo_hab";
             this.tipo_hab.ReadOnly = true;
             // 

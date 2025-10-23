@@ -84,12 +84,6 @@ namespace HotelCalifornia
                 da.Fill(dt);
 
                 GrillaHabDisp.AutoGenerateColumns = false;
-                GrillaHabDisp.Columns["numero_hab"].DataPropertyName = "numero_hab";
-                GrillaHabDisp.Columns["piso"].DataPropertyName = "piso";
-                GrillaHabDisp.Columns["nombre"].DataPropertyName = "nombre";
-                GrillaHabDisp.Columns["capacidad"].DataPropertyName = "capacidad";
-                GrillaHabDisp.Columns["descripcion"].DataPropertyName = "descripcion";
-                GrillaHabDisp.Columns["base_precio"].DataPropertyName = "base_precio";
                 GrillaHabDisp.DataSource = dt;
             }
         }
@@ -274,7 +268,7 @@ namespace HotelCalifornia
         private void InsertarReservaHabitacion(SqlConnection conn, SqlTransaction tran, int idReserva, int numeroHab, int noches)
         {
             decimal precioBase = ObtenerPrecioBase(conn, tran, numeroHab);
-            decimal subtotal = precioBase * noches;
+            decimal.TryParse(TMonto.Text, out decimal subtotal);
 
             string insertar = @"INSERT INTO ReservaHabitacion (id_reserva, numero_hab, precio_noche, cantidad_noches, subtotal)
                         VALUES (@idReserva, @numHab, @precio, @noches, @subtotal)";
