@@ -22,8 +22,6 @@ namespace HotelCalifornia
         {
             InitializeComponent();
             CargarReservas();
-            // La clase base BaseResponsiveForm se encarga del responsive design automáticamente
-            this.WindowState = FormWindowState.Maximized;
         }
 
         private bool SoloLetras(string texto)
@@ -38,23 +36,24 @@ namespace HotelCalifornia
                 conn.Open();
 
                 string query = @"
-                    SELECT 
-                        R.id_reserva AS ID,
-                        R.fecha_inicio AS Inicio,
-                        R.fecha_fin AS Fin,
-                        R.id_estado AS Estado,
-                        C.nombre AS Nombre,
-                        C.apellido AS Apellido,
-                        H.numero_hab,
-                        TH.nombre AS Tipo_hab,
-                        RH.cantidad_noches,
-                        RH.subtotal
-                    FROM Reserva R
-                    INNER JOIN Cliente C ON R.id_cliente = C.id_cliente
-                    INNER JOIN ReservaHabitacion RH ON R.id_reserva = RH.id_reserva
-                    INNER JOIN Habitacion H ON RH.numero_hab = H.numero_hab
-                    INNER JOIN TipoHabitacion TH ON H.id_tipo = TH.id_tipo
-                    ORDER BY R.id_reserva DESC";
+                        SELECT 
+                            R.id_reserva AS ID,
+                            R.fecha_inicio AS Inicio,
+                            R.fecha_fin AS Fin,
+                            R.id_estado AS Estado,
+                            C.nombre AS Nombre,
+                            C.apellido AS Apellido,
+                            STRING_AGG(CONVERT(varchar, H.numero_hab), ', ') AS Habitaciones,
+                            STRING_AGG(TH.nombre, ', ') AS Tipos,
+                            SUM(RH.subtotal) AS Subtotal
+                        FROM Reserva R
+                        INNER JOIN Cliente C ON R.id_cliente = C.id_cliente
+                        INNER JOIN ReservaHabitacion RH ON R.id_reserva = RH.id_reserva
+                        INNER JOIN Habitacion H ON RH.numero_hab = H.numero_hab
+                        INNER JOIN TipoHabitacion TH ON H.id_tipo = TH.id_tipo
+                        GROUP BY 
+                            R.id_reserva, R.fecha_inicio, R.fecha_fin, R.id_estado, C.nombre, C.apellido
+                        ORDER BY R.id_reserva DESC;";
 
                 SqlDataAdapter da = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
@@ -63,7 +62,7 @@ namespace HotelCalifornia
                 GrillaReservas.AutoGenerateColumns = false;
                 GrillaReservas.DataSource = dt;
 
-                // Recorremos las filas y aplicamos color según el estado
+                // Colorear según estado
                 foreach (DataGridViewRow row in GrillaReservas.Rows)
                 {
                     if (row.Cells["Estado"].Value == null) continue;
@@ -74,9 +73,9 @@ namespace HotelCalifornia
                     {
                         case 1: row.DefaultCellStyle.BackColor = Color.LightGreen; break; // Confirmada
                         case 2: row.DefaultCellStyle.BackColor = Color.Khaki; break; // En espera
-                        case 3: row.DefaultCellStyle.BackColor = Color.LightCoral; break; // Terminada
+                        case 3: row.DefaultCellStyle.BackColor = Color.LightCoral; break; // Terminada/Cancelada
                     }
-                }                
+                }
             }
         }
 
@@ -95,10 +94,9 @@ namespace HotelCalifornia
                         R.id_estado AS Estado,
                         C.nombre AS Nombre,
                         C.apellido AS Apellido,
-                        H.numero_hab,
-                        TH.nombre AS Tipo_hab,
-                        RH.cantidad_noches,
-                        RH.subtotal                        
+                        H.numero_hab AS Habitaciones,
+                        TH.nombre AS Tipos,
+                        RH.subtotal AS Subtotal                        
                     FROM Reserva R
                     INNER JOIN Cliente C ON R.id_cliente = C.id_cliente
                     INNER JOIN ReservaHabitacion RH ON R.id_reserva = RH.id_reserva
@@ -186,27 +184,6 @@ namespace HotelCalifornia
                 da.Fill(dt);
 
                 GrillaReservas.AutoGenerateColumns = false;
-                /*GrillaReservas.Columns.Clear();
-
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "ID", DataPropertyName = "ID", HeaderText = "N°", Width = 80 });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Inicio", DataPropertyName = "Inicio", HeaderText = "Inicio", Width = 100 });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Fin", DataPropertyName = "Fin", HeaderText = "Fin", Width = 100 });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Nombre", DataPropertyName = "Nombre", HeaderText = "Nombre", Width = 120 });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Apellido", DataPropertyName = "Apellido", HeaderText = "Apellido", Width = 120 });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "numero_hab", DataPropertyName = "numero_hab", HeaderText = "Número Hab", Width = 100 });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Tipo_hab", DataPropertyName = "Tipo_hab", HeaderText = "Tipo Hab", Width = 150 });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "subtotal", DataPropertyName = "subtotal", HeaderText = "Subtotal ($)", Width = 100, DefaultCellStyle = new DataGridViewCellStyle { Format = "N2" } });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "Estado", DataPropertyName = "Estado", Visible = false });
-                GrillaReservas.Columns.Add(new DataGridViewTextBoxColumn { Name = "R.fecha_creacion", DataPropertyName = "R.fecha_creacion", Visible = false });
-
-                DataGridViewButtonColumn btnTerminar = new DataGridViewButtonColumn();
-                btnTerminar.Name = "Accion";
-                btnTerminar.HeaderText = "Acción";
-                btnTerminar.Text = "Terminar";
-                btnTerminar.UseColumnTextForButtonValue = true;
-                btnTerminar.Width = 100;
-                GrillaReservas.Columns.Add(btnTerminar);*/
-
                 GrillaReservas.DataSource = dt;
 
                 // Recorremos las filas y aplicamos color según el estado

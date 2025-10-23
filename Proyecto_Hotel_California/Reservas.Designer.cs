@@ -107,7 +107,7 @@ namespace HotelCalifornia
             this.GrillaReservas.Name = "GrillaReservas";
             this.GrillaReservas.ReadOnly = true;
             this.GrillaReservas.RowHeadersVisible = false;
-            this.GrillaReservas.Size = new System.Drawing.Size(981, 309);
+            this.GrillaReservas.Size = new System.Drawing.Size(981, 272);
             this.GrillaReservas.TabIndex = 1;
             this.GrillaReservas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaReservas_CellContentClick);
             this.GrillaReservas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaReservas_CellDoubleClick);
@@ -154,7 +154,7 @@ namespace HotelCalifornia
             // 
             // numero_hab
             // 
-            this.numero_hab.DataPropertyName = "numero_hab";
+            this.numero_hab.DataPropertyName = "Habitaciones";
             this.numero_hab.FillWeight = 33.42974F;
             this.numero_hab.HeaderText = "Número hab";
             this.numero_hab.Name = "numero_hab";
@@ -162,7 +162,7 @@ namespace HotelCalifornia
             // 
             // tipo_hab
             // 
-            this.tipo_hab.DataPropertyName = "Tipo_hab";
+            this.tipo_hab.DataPropertyName = "Tipos";
             this.tipo_hab.FillWeight = 33.42974F;
             this.tipo_hab.HeaderText = "Tipo";
             this.tipo_hab.Name = "tipo_hab";
@@ -170,7 +170,7 @@ namespace HotelCalifornia
             // 
             // subtotal
             // 
-            this.subtotal.DataPropertyName = "subtotal";
+            this.subtotal.DataPropertyName = "Subtotal";
             this.subtotal.FillWeight = 33.42974F;
             this.subtotal.HeaderText = "Subtotal ($)";
             this.subtotal.Name = "subtotal";
