@@ -274,31 +274,6 @@ namespace HotelCalifornia
             CargarReservas();
         }
 
-        private void GrillaReservas_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Evitamos errores si se hace clic fuera de los botones
-            if (e.RowIndex < 0 || e.ColumnIndex < 0)
-                return;
-
-            // Verificamos si la columna clickeada es la de acción
-            if (GrillaReservas.Columns[e.ColumnIndex].Name == "Accion")
-            {
-                int idReserva = Convert.ToInt32(GrillaReservas.Rows[e.RowIndex].Cells["ID"].Value);
-
-                DialogResult result = MessageBox.Show(
-                    $"¿Desea marcar la reserva N° {idReserva} como terminada?",
-                    "Confirmar acción",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
-                );
-
-                if (result == DialogResult.Yes)
-                {
-                    TerminarReserva(idReserva);
-                }
-            }
-        }
-
         private void TerminarReserva(int idReserva)
         {
             using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
@@ -382,6 +357,74 @@ namespace HotelCalifornia
         private void BActualizar_Click(object sender, EventArgs e)
         {
             CargarReservas();
+        }
+
+        private void BFinalizar_Click(object sender, EventArgs e)
+        {
+            // Obtener ID de la reserva escrita
+            Boolean valorNum = int.TryParse(TReservaN.Text, out int idReserva);
+
+            if (!valorNum)
+            {
+                MessageBox.Show("Se necesita un dato númerico para continuar");
+                return;
+            }
+
+            // Verificar existencia para evitar errores
+            if (!DatabaseHelper.ReservaExiste(idReserva))
+            {
+                MessageBox.Show($"La reserva {idReserva} NO existe en la base de datos.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
+            {
+                conn.Open();
+
+                // Consultar el estado actual de la reserva
+                string query = "SELECT id_estado FROM Reserva WHERE id_reserva = @id";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", idReserva);
+
+                object estadoObj = cmd.ExecuteScalar();
+                if (estadoObj == null)
+                {
+                    MessageBox.Show("No se encontró la reserva seleccionada.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                int estadoActual = Convert.ToInt32(estadoObj);
+
+                // Validar estados permitidos (2 = En espera, 1 = Activa)
+                if (estadoActual == 2 || estadoActual == 1)
+                {
+                    DialogResult result = MessageBox.Show(
+                        $"¿Desea marcar la reserva N° {idReserva} como terminada/cancelada?",
+                        "Confirmar acción",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question
+                    );
+
+                    if (result == DialogResult.Yes)
+                    {
+                        TerminarReserva(idReserva);
+                    }
+                    // refrescar la grilla y limpiar campo
+                    TReservaN.Clear();
+                    CargarReservas();
+                }
+                else
+                {
+                    string mensaje = "La reserva ya está terminada/cancelada.";
+                    MessageBox.Show(mensaje,
+                        "Operación no permitida", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Information
+                    );
+                }
+            }
         }
     }
 }

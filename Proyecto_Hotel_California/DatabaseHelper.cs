@@ -996,5 +996,32 @@ namespace HotelCalifornia
             }
         }
 
+        public static bool ReservaExiste(int idReserva)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "SELECT COUNT(*) FROM Reserva WHERE id_reserva = @idReserva";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@idReserva", idReserva);
+
+                        int count = (int)cmd.ExecuteScalar();
+                        return count > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al verificar reserva: " + ex.Message);
+                return true; // por seguridad, asumimos que existe si hay error
+            }
+        }
     }
 }

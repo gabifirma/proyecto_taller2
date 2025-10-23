@@ -31,17 +31,6 @@ namespace HotelCalifornia
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reservas));
             this.LTituloReservas = new System.Windows.Forms.Label();
             this.GrillaReservas = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.inicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numero_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipo_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Accion = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.fecha_creacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RBSuite = new System.Windows.Forms.RadioButton();
             this.RBDoble = new System.Windows.Forms.RadioButton();
             this.RBSingle = new System.Windows.Forms.RadioButton();
@@ -57,12 +46,26 @@ namespace HotelCalifornia
             this.dtpFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.LNombre = new System.Windows.Forms.Label();
             this.TNombre = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.LTituloFiltros = new System.Windows.Forms.Label();
             this.BActualizar = new System.Windows.Forms.Button();
             this.LTerminadas = new System.Windows.Forms.Label();
             this.LConfirmadas = new System.Windows.Forms.Label();
             this.LEspera = new System.Windows.Forms.Label();
             this.LEstados = new System.Windows.Forms.Label();
+            this.BFinalizar = new System.Windows.Forms.Button();
+            this.LFinalizarC = new System.Windows.Forms.Label();
+            this.TReservaN = new System.Windows.Forms.TextBox();
+            this.LReservaN = new System.Windows.Forms.Label();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numero_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipo_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha_creacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaReservas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,7 +103,6 @@ namespace HotelCalifornia
             this.tipo_hab,
             this.subtotal,
             this.estado,
-            this.Accion,
             this.fecha_creacion});
             this.GrillaReservas.Location = new System.Drawing.Point(14, 252);
             this.GrillaReservas.Margin = new System.Windows.Forms.Padding(4);
@@ -109,100 +111,7 @@ namespace HotelCalifornia
             this.GrillaReservas.RowHeadersVisible = false;
             this.GrillaReservas.Size = new System.Drawing.Size(981, 272);
             this.GrillaReservas.TabIndex = 1;
-            this.GrillaReservas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaReservas_CellContentClick);
             this.GrillaReservas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaReservas_CellDoubleClick);
-            // 
-            // id
-            // 
-            this.id.DataPropertyName = "ID";
-            this.id.FillWeight = 25F;
-            this.id.HeaderText = "N°";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            // 
-            // inicio
-            // 
-            this.inicio.DataPropertyName = "Inicio";
-            this.inicio.FillWeight = 33.42974F;
-            this.inicio.HeaderText = "Inicio";
-            this.inicio.Name = "inicio";
-            this.inicio.ReadOnly = true;
-            // 
-            // fin
-            // 
-            this.fin.DataPropertyName = "Fin";
-            this.fin.FillWeight = 33.42974F;
-            this.fin.HeaderText = "Fin";
-            this.fin.Name = "fin";
-            this.fin.ReadOnly = true;
-            // 
-            // nombre
-            // 
-            this.nombre.DataPropertyName = "Nombre";
-            this.nombre.FillWeight = 33.42974F;
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            this.nombre.ReadOnly = true;
-            // 
-            // apellido
-            // 
-            this.apellido.DataPropertyName = "Apellido";
-            this.apellido.FillWeight = 33.42974F;
-            this.apellido.HeaderText = "Apellido";
-            this.apellido.Name = "apellido";
-            this.apellido.ReadOnly = true;
-            // 
-            // numero_hab
-            // 
-            this.numero_hab.DataPropertyName = "Habitaciones";
-            this.numero_hab.FillWeight = 33.42974F;
-            this.numero_hab.HeaderText = "Número hab";
-            this.numero_hab.Name = "numero_hab";
-            this.numero_hab.ReadOnly = true;
-            // 
-            // tipo_hab
-            // 
-            this.tipo_hab.DataPropertyName = "Tipos";
-            this.tipo_hab.FillWeight = 33.42974F;
-            this.tipo_hab.HeaderText = "Tipo";
-            this.tipo_hab.Name = "tipo_hab";
-            this.tipo_hab.ReadOnly = true;
-            // 
-            // subtotal
-            // 
-            this.subtotal.DataPropertyName = "Subtotal";
-            this.subtotal.FillWeight = 33.42974F;
-            this.subtotal.HeaderText = "Subtotal ($)";
-            this.subtotal.Name = "subtotal";
-            this.subtotal.ReadOnly = true;
-            // 
-            // estado
-            // 
-            this.estado.DataPropertyName = "Estado";
-            this.estado.HeaderText = "estado";
-            this.estado.Name = "estado";
-            this.estado.ReadOnly = true;
-            this.estado.Visible = false;
-            // 
-            // Accion
-            // 
-            this.Accion.DataPropertyName = "Accion";
-            this.Accion.FillWeight = 30F;
-            this.Accion.HeaderText = "Acción";
-            this.Accion.Name = "Accion";
-            this.Accion.ReadOnly = true;
-            this.Accion.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Accion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Accion.Text = "Terminar";
-            this.Accion.UseColumnTextForButtonValue = true;
-            // 
-            // fecha_creacion
-            // 
-            this.fecha_creacion.DataPropertyName = "fecha_creacion";
-            this.fecha_creacion.HeaderText = "fecha_creacion";
-            this.fecha_creacion.Name = "fecha_creacion";
-            this.fecha_creacion.ReadOnly = true;
-            this.fecha_creacion.Visible = false;
             // 
             // RBSuite
             // 
@@ -371,15 +280,15 @@ namespace HotelCalifornia
             this.TNombre.Size = new System.Drawing.Size(174, 25);
             this.TNombre.TabIndex = 0;
             // 
-            // label1
+            // LTituloFiltros
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(38, 66);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 25);
-            this.label1.TabIndex = 19;
-            this.label1.Text = "Filtros";
+            this.LTituloFiltros.AutoSize = true;
+            this.LTituloFiltros.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LTituloFiltros.Location = new System.Drawing.Point(38, 66);
+            this.LTituloFiltros.Name = "LTituloFiltros";
+            this.LTituloFiltros.Size = new System.Drawing.Size(65, 25);
+            this.LTituloFiltros.TabIndex = 19;
+            this.LTituloFiltros.Text = "Filtros";
             // 
             // BActualizar
             // 
@@ -435,6 +344,129 @@ namespace HotelCalifornia
             this.LEstados.TabIndex = 24;
             this.LEstados.Text = "Estados: ";
             // 
+            // BFinalizar
+            // 
+            this.BFinalizar.BackColor = System.Drawing.Color.IndianRed;
+            this.BFinalizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BFinalizar.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BFinalizar.ForeColor = System.Drawing.Color.White;
+            this.BFinalizar.Location = new System.Drawing.Point(242, 578);
+            this.BFinalizar.Margin = new System.Windows.Forms.Padding(4);
+            this.BFinalizar.Name = "BFinalizar";
+            this.BFinalizar.Size = new System.Drawing.Size(136, 25);
+            this.BFinalizar.TabIndex = 25;
+            this.BFinalizar.Text = "Finalizar/Cancelar";
+            this.BFinalizar.UseVisualStyleBackColor = false;
+            this.BFinalizar.Click += new System.EventHandler(this.BFinalizar_Click);
+            // 
+            // LFinalizarC
+            // 
+            this.LFinalizarC.AutoSize = true;
+            this.LFinalizarC.Location = new System.Drawing.Point(38, 542);
+            this.LFinalizarC.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LFinalizarC.Name = "LFinalizarC";
+            this.LFinalizarC.Size = new System.Drawing.Size(166, 19);
+            this.LFinalizarC.TabIndex = 26;
+            this.LFinalizarC.Text = "Finalizar/Cancelar Reserva";
+            // 
+            // TReservaN
+            // 
+            this.TReservaN.Location = new System.Drawing.Point(125, 578);
+            this.TReservaN.Margin = new System.Windows.Forms.Padding(4);
+            this.TReservaN.Name = "TReservaN";
+            this.TReservaN.Size = new System.Drawing.Size(109, 25);
+            this.TReservaN.TabIndex = 27;
+            // 
+            // LReservaN
+            // 
+            this.LReservaN.AutoSize = true;
+            this.LReservaN.Location = new System.Drawing.Point(38, 581);
+            this.LReservaN.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LReservaN.Name = "LReservaN";
+            this.LReservaN.Size = new System.Drawing.Size(78, 19);
+            this.LReservaN.TabIndex = 28;
+            this.LReservaN.Text = "Reserva N°:";
+            // 
+            // id
+            // 
+            this.id.DataPropertyName = "ID";
+            this.id.FillWeight = 25F;
+            this.id.HeaderText = "N°";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            // 
+            // inicio
+            // 
+            this.inicio.DataPropertyName = "Inicio";
+            this.inicio.FillWeight = 33.42974F;
+            this.inicio.HeaderText = "Inicio";
+            this.inicio.Name = "inicio";
+            this.inicio.ReadOnly = true;
+            // 
+            // fin
+            // 
+            this.fin.DataPropertyName = "Fin";
+            this.fin.FillWeight = 33.42974F;
+            this.fin.HeaderText = "Fin";
+            this.fin.Name = "fin";
+            this.fin.ReadOnly = true;
+            // 
+            // nombre
+            // 
+            this.nombre.DataPropertyName = "Nombre";
+            this.nombre.FillWeight = 33.42974F;
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.ReadOnly = true;
+            // 
+            // apellido
+            // 
+            this.apellido.DataPropertyName = "Apellido";
+            this.apellido.FillWeight = 33.42974F;
+            this.apellido.HeaderText = "Apellido";
+            this.apellido.Name = "apellido";
+            this.apellido.ReadOnly = true;
+            // 
+            // numero_hab
+            // 
+            this.numero_hab.DataPropertyName = "Habitaciones";
+            this.numero_hab.FillWeight = 33.42974F;
+            this.numero_hab.HeaderText = "Número hab";
+            this.numero_hab.Name = "numero_hab";
+            this.numero_hab.ReadOnly = true;
+            // 
+            // tipo_hab
+            // 
+            this.tipo_hab.DataPropertyName = "Tipos";
+            this.tipo_hab.FillWeight = 33.42974F;
+            this.tipo_hab.HeaderText = "Tipo";
+            this.tipo_hab.Name = "tipo_hab";
+            this.tipo_hab.ReadOnly = true;
+            // 
+            // subtotal
+            // 
+            this.subtotal.DataPropertyName = "Subtotal";
+            this.subtotal.FillWeight = 33.42974F;
+            this.subtotal.HeaderText = "Subtotal ($)";
+            this.subtotal.Name = "subtotal";
+            this.subtotal.ReadOnly = true;
+            // 
+            // estado
+            // 
+            this.estado.DataPropertyName = "Estado";
+            this.estado.HeaderText = "estado";
+            this.estado.Name = "estado";
+            this.estado.ReadOnly = true;
+            this.estado.Visible = false;
+            // 
+            // fecha_creacion
+            // 
+            this.fecha_creacion.DataPropertyName = "fecha_creacion";
+            this.fecha_creacion.HeaderText = "fecha_creacion";
+            this.fecha_creacion.Name = "fecha_creacion";
+            this.fecha_creacion.ReadOnly = true;
+            this.fecha_creacion.Visible = false;
+            // 
             // Reservas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -442,12 +474,16 @@ namespace HotelCalifornia
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(1008, 667);
+            this.Controls.Add(this.LReservaN);
+            this.Controls.Add(this.TReservaN);
+            this.Controls.Add(this.LFinalizarC);
+            this.Controls.Add(this.BFinalizar);
             this.Controls.Add(this.LEstados);
             this.Controls.Add(this.LEspera);
             this.Controls.Add(this.LConfirmadas);
             this.Controls.Add(this.LTerminadas);
             this.Controls.Add(this.BActualizar);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.LTituloFiltros);
             this.Controls.Add(this.RBSuite);
             this.Controls.Add(this.RBDoble);
             this.Controls.Add(this.GrillaReservas);
@@ -498,12 +534,16 @@ namespace HotelCalifornia
         private System.Windows.Forms.RadioButton RBDoble;
         private System.Windows.Forms.RadioButton RBSingle;
         private System.Windows.Forms.Label lblMetodoPago;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LTituloFiltros;
         private System.Windows.Forms.Button BActualizar;
         private System.Windows.Forms.Label LTerminadas;
         private System.Windows.Forms.Label LConfirmadas;
         private System.Windows.Forms.Label LEspera;
         private System.Windows.Forms.Label LEstados;
+        private System.Windows.Forms.Button BFinalizar;
+        private System.Windows.Forms.Label LFinalizarC;
+        private System.Windows.Forms.TextBox TReservaN;
+        private System.Windows.Forms.Label LReservaN;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn inicio;
         private System.Windows.Forms.DataGridViewTextBoxColumn fin;
@@ -513,7 +553,6 @@ namespace HotelCalifornia
         private System.Windows.Forms.DataGridViewTextBoxColumn tipo_hab;
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn estado;
-        private System.Windows.Forms.DataGridViewButtonColumn Accion;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha_creacion;
     }
 }
