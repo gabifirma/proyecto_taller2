@@ -68,12 +68,14 @@ namespace HotelCalifornia
                         LInicioR.Text = Convert.ToDateTime(reader["fecha_inicio"]).ToString("dd/MM/yyyy");
                         LFinR.Text = Convert.ToDateTime(reader["fecha_fin"]).ToString("dd/MM/yyyy");
                         LMP.Text = reader["metodoPago"].ToString();
+                        LFactu.Text = reader["numero"].ToString();
 
                         // Cargar las habitaciones asociadas
                         int idReserva = Convert.ToInt32(reader["id_reserva"]);
                         reader.Close(); // Cerrar antes de usar la misma conexión
 
                         CargarHabitacionesReserva(conn, idReserva);
+                        CargarServiciosReserva(conn, idReserva);
                     }
                     else
                     {
@@ -111,5 +113,31 @@ namespace HotelCalifornia
                 }
             }
         }
+
+        // Método para cargar los servicios asociados a la reserva
+        private void CargarServiciosReserva(SqlConnection conn, int reserva_id)
+        {
+            string query = @"
+                SELECT 
+                    s.nombre AS Servicio,
+                    rs.cantidad AS Cantidad,
+                    rs.precio_unitario AS PrecioServ
+                FROM ReservaServicio rs
+                INNER JOIN Servicio s ON rs.id_servicio = s.id_servicio
+                WHERE rs.id_reserva = @idReserva;";
+
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@idReserva", reserva_id);
+
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    GrillaServicios.DataSource = dt;
+                }
+            }
+        }
+
     }
 }
