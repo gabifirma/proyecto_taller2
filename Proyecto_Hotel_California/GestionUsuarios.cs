@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Text.RegularExpressions;
@@ -13,6 +14,10 @@ namespace HotelCalifornia
     /// </summary>
     public partial class GestionUsuarios : Form
     {
+        private DataTable usuariosTable;
+        private DataView usuariosView;
+        private bool filtrosInicializados = false;
+
         public GestionUsuarios()
         {
             InitializeComponent();
@@ -34,6 +39,9 @@ namespace HotelCalifornia
             }
 
             CargarUsuarios();
+            CargarFiltros();
+            filtrosInicializados = true;
+            AplicarFiltros();
         }
 
         /// <summary>
@@ -43,16 +51,17 @@ namespace HotelCalifornia
         {
             try
             {
-                DataTable dtUsuarios = DatabaseHelper.GetAllUsers();
+                usuariosTable = DatabaseHelper.GetAllUsers();
                 
-                if (dtUsuarios == null || dtUsuarios.Rows.Count == 0)
+                if (usuariosTable == null || usuariosTable.Rows.Count == 0)
                 {
                     MessageBox.Show("No hay usuarios en la base de datos o no se pudo conectar.", 
                                   "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 
-                dgvUsuarios.DataSource = dtUsuarios;
+                usuariosView = new DataView(usuariosTable);
+                dgvUsuarios.DataSource = usuariosView;
                 
                 // Configurar las columnas del DataGridView
                 if (dgvUsuarios.Columns.Count > 0)
@@ -65,7 +74,9 @@ namespace HotelCalifornia
                         dgvUsuarios.Columns["nombre_completo"].HeaderText = "Nombre Completo";
                     if (dgvUsuarios.Columns.Contains("nombre_rol"))
                         dgvUsuarios.Columns["nombre_rol"].HeaderText = "Rol";
-                    
+                    if (dgvUsuarios.Columns.Contains("estado_usuario"))
+                        dgvUsuarios.Columns["estado_usuario"].Visible = false;
+
                     // Ocultar columnas sensibles
                     if (dgvUsuarios.Columns.Contains("contrasena"))
                         dgvUsuarios.Columns["contrasena"].Visible = false;
@@ -75,15 +86,105 @@ namespace HotelCalifornia
                         dgvUsuarios.Columns["id_rol"].Visible = false;
                     if (dgvUsuarios.Columns.Contains("legajo"))
                         dgvUsuarios.Columns["legajo"].Visible = false;
+                    if (dgvUsuarios.Columns.Contains("activo"))
+                        dgvUsuarios.Columns["activo"].Visible = false;
                 }
                 
                 dgvUsuarios.Refresh();
+
+                if (filtrosInicializados)
+                {
+                    AplicarFiltros();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar usuarios: {ex.Message}\n\nStack: {ex.StackTrace}", 
                               "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void CargarFiltros()
+        {
+            try
+            {
+                // Estado
+                cmbEstadoFiltro.Items.Clear();
+                cmbEstadoFiltro.Items.AddRange(new object[] { "Todos", "Activo", "Inactivo" });
+                cmbEstadoFiltro.SelectedIndex = 0;
+
+                // Roles
+                DataTable dtRoles = DatabaseHelper.GetAllRoles();
+                if (dtRoles == null)
+                {
+                    dtRoles = new DataTable();
+                    dtRoles.Columns.Add("id_rol", typeof(int));
+                    dtRoles.Columns.Add("nombre", typeof(string));
+                }
+
+                DataTable dtRolesFiltro = dtRoles.Copy();
+                DataRow rowTodos = dtRolesFiltro.NewRow();
+                rowTodos["id_rol"] = -1;
+                rowTodos["nombre"] = "Todos";
+                dtRolesFiltro.Rows.InsertAt(rowTodos, 0);
+
+                cmbRolFiltro.DataSource = dtRolesFiltro;
+                cmbRolFiltro.DisplayMember = "nombre";
+                cmbRolFiltro.ValueMember = "id_rol";
+                cmbRolFiltro.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar filtros: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AplicarFiltros()
+        {
+            if (usuariosView == null || !filtrosInicializados)
+                return;
+
+            List<string> filtros = new List<string>();
+
+            string texto = txtBuscar.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(texto))
+            {
+                string textoSeguro = EscapeLikeValue(texto);
+                filtros.Add($"(CONVERT(username, 'System.String') LIKE '%{textoSeguro}%' OR " +
+                            $"CONVERT(nombre_completo, 'System.String') LIKE '%{textoSeguro}%' OR " +
+                            $"CONVERT(nombre_rol, 'System.String') LIKE '%{textoSeguro}%' OR " +
+                            $"CONVERT(estado_usuario, 'System.String') LIKE '%{textoSeguro}%')");
+            }
+
+            if (cmbRolFiltro.SelectedValue != null && int.TryParse(cmbRolFiltro.SelectedValue.ToString(), out int idRolFiltro) && idRolFiltro >= 0)
+            {
+                filtros.Add($"id_rol = {idRolFiltro}");
+            }
+
+            if (cmbEstadoFiltro.SelectedItem != null)
+            {
+                switch (cmbEstadoFiltro.SelectedItem.ToString())
+                {
+                    case "Activo":
+                        filtros.Add("activo = 1");
+                        break;
+                    case "Inactivo":
+                        filtros.Add("activo = 0");
+                        break;
+                }
+            }
+
+            usuariosView.RowFilter = filtros.Count > 0 ? string.Join(" AND ", filtros) : string.Empty;
+        }
+
+        private static string EscapeLikeValue(string value)
+        {
+            return value
+                .Replace("'", "''")
+                .Replace("[", "[[")
+                .Replace("]", "]]" )
+                .Replace("%", "[%]")
+                .Replace("*", "[*]");
         }
 
         /// <summary>
@@ -102,6 +203,11 @@ namespace HotelCalifornia
         /// Abre el formulario para editar un usuario existente
         /// </summary>
         private void btnEditarUsuario_Click(object sender, EventArgs e)
+        {
+            EditarUsuarioSeleccionado();
+        }
+
+        private void EditarUsuarioSeleccionado()
         {
             if (dgvUsuarios.SelectedRows.Count == 0)
             {
@@ -153,6 +259,73 @@ namespace HotelCalifornia
                                   "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void dgvUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                dgvUsuarios.Rows[e.RowIndex].Selected = true;
+                EditarUsuarioSeleccionado();
+            }
+        }
+
+        private void dgvUsuarios_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvUsuarios.Rows)
+            {
+                if (row.Cells["activo"]?.Value == null)
+                    continue;
+
+                bool activo = false;
+                object valor = row.Cells["activo"].Value;
+
+                if (valor is bool boolValor)
+                {
+                    activo = boolValor;
+                }
+                else if (int.TryParse(valor.ToString(), out int intValor))
+                {
+                    activo = intValor == 1;
+                }
+
+                if (activo)
+                {
+                    row.DefaultCellStyle.BackColor = Color.White;
+                    row.DefaultCellStyle.ForeColor = Color.Black;
+                }
+                else
+                {
+                    row.DefaultCellStyle.BackColor = Color.LightCoral;
+                    row.DefaultCellStyle.ForeColor = Color.Black;
+                }
+            }
+        }
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            AplicarFiltros();
+        }
+
+        private void cmbRolFiltro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AplicarFiltros();
+        }
+
+        private void cmbEstadoFiltro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AplicarFiltros();
+        }
+
+        private void btnLimpiarFiltros_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = string.Empty;
+            if (cmbRolFiltro.Items.Count > 0)
+                cmbRolFiltro.SelectedIndex = 0;
+            if (cmbEstadoFiltro.Items.Count > 0)
+                cmbEstadoFiltro.SelectedIndex = 0;
+
+            AplicarFiltros();
         }
     }
 

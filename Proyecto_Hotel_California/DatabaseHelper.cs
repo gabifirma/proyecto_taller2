@@ -632,8 +632,10 @@ namespace HotelCalifornia
                     connection.Open();
                     string query = @"
                         SELECT u.id_usuario, u.username, u.contrasena, u.id_rol, u.legajo,
+                               u.activo,
                                r.nombre as nombre_rol, 
-                               ISNULL(e.nombre + ' ' + e.apellido, 'Sin empleado') as nombre_completo
+                               ISNULL(e.nombre + ' ' + e.apellido, 'Sin empleado') as nombre_completo,
+                               CASE WHEN u.activo = 1 THEN 'Activo' ELSE 'Inactivo' END AS estado_usuario
                         FROM Usuario u
                         INNER JOIN Rol r ON u.id_rol = r.id_rol
                         LEFT JOIN Empleado e ON u.legajo = e.legajo

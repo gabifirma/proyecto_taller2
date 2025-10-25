@@ -29,6 +29,13 @@ namespace HotelCalifornia
         private void InitializeComponent()
         {
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.txtBuscar = new System.Windows.Forms.TextBox();
+            this.lblBuscar = new System.Windows.Forms.Label();
+            this.lblRol = new System.Windows.Forms.Label();
+            this.cmbRolFiltro = new System.Windows.Forms.ComboBox();
+            this.lblEstado = new System.Windows.Forms.Label();
+            this.cmbEstadoFiltro = new System.Windows.Forms.ComboBox();
+            this.btnLimpiarFiltros = new System.Windows.Forms.Button();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.btnAgregarUsuario = new System.Windows.Forms.Button();
             this.btnEditarUsuario = new System.Windows.Forms.Button();
@@ -47,6 +54,83 @@ namespace HotelCalifornia
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Gestión de Usuarios";
             // 
+            // txtBuscar
+            // 
+            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtBuscar.Location = new System.Drawing.Point(95, 70);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(250, 25);
+            this.txtBuscar.TabIndex = 1;
+            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
+            // 
+            // lblBuscar
+            // 
+            this.lblBuscar.AutoSize = true;
+            this.lblBuscar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblBuscar.Location = new System.Drawing.Point(20, 73);
+            this.lblBuscar.Name = "lblBuscar";
+            this.lblBuscar.Size = new System.Drawing.Size(52, 19);
+            this.lblBuscar.TabIndex = 2;
+            this.lblBuscar.Text = "Buscar";
+            // 
+            // lblRol
+            // 
+            this.lblRol.AutoSize = true;
+            this.lblRol.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblRol.Location = new System.Drawing.Point(370, 73);
+            this.lblRol.Name = "lblRol";
+            this.lblRol.Size = new System.Drawing.Size(30, 19);
+            this.lblRol.TabIndex = 3;
+            this.lblRol.Text = "Rol";
+            // 
+            // cmbRolFiltro
+            // 
+            this.cmbRolFiltro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRolFiltro.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbRolFiltro.FormattingEnabled = true;
+            this.cmbRolFiltro.Location = new System.Drawing.Point(410, 70);
+            this.cmbRolFiltro.Name = "cmbRolFiltro";
+            this.cmbRolFiltro.Size = new System.Drawing.Size(180, 25);
+            this.cmbRolFiltro.TabIndex = 4;
+            this.cmbRolFiltro.SelectedIndexChanged += new System.EventHandler(this.cmbRolFiltro_SelectedIndexChanged);
+            // 
+            // lblEstado
+            // 
+            this.lblEstado.AutoSize = true;
+            this.lblEstado.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblEstado.Location = new System.Drawing.Point(610, 73);
+            this.lblEstado.Name = "lblEstado";
+            this.lblEstado.Size = new System.Drawing.Size(52, 19);
+            this.lblEstado.TabIndex = 5;
+            this.lblEstado.Text = "Estado";
+            // 
+            // cmbEstadoFiltro
+            // 
+            this.cmbEstadoFiltro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEstadoFiltro.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbEstadoFiltro.FormattingEnabled = true;
+            this.cmbEstadoFiltro.Location = new System.Drawing.Point(670, 70);
+            this.cmbEstadoFiltro.Name = "cmbEstadoFiltro";
+            this.cmbEstadoFiltro.Size = new System.Drawing.Size(110, 25);
+            this.cmbEstadoFiltro.TabIndex = 6;
+            this.cmbEstadoFiltro.SelectedIndexChanged += new System.EventHandler(this.cmbEstadoFiltro_SelectedIndexChanged);
+            // 
+            // btnLimpiarFiltros
+            // 
+            this.btnLimpiarFiltros.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.btnLimpiarFiltros.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLimpiarFiltros.FlatAppearance.BorderSize = 0;
+            this.btnLimpiarFiltros.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLimpiarFiltros.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnLimpiarFiltros.ForeColor = System.Drawing.Color.White;
+            this.btnLimpiarFiltros.Location = new System.Drawing.Point(670, 110);
+            this.btnLimpiarFiltros.Name = "btnLimpiarFiltros";
+            this.btnLimpiarFiltros.Size = new System.Drawing.Size(110, 30);
+            this.btnLimpiarFiltros.TabIndex = 7;
+            this.btnLimpiarFiltros.Text = "Limpiar";
+            this.btnLimpiarFiltros.UseVisualStyleBackColor = false;
+            this.btnLimpiarFiltros.Click += new System.EventHandler(this.btnLimpiarFiltros_Click);
+            // 
             // dgvUsuarios
             // 
             this.dgvUsuarios.AllowUserToAddRows = false;
@@ -58,12 +142,14 @@ namespace HotelCalifornia
             this.dgvUsuarios.BackgroundColor = System.Drawing.Color.White;
             this.dgvUsuarios.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUsuarios.Location = new System.Drawing.Point(20, 70);
+            this.dgvUsuarios.Location = new System.Drawing.Point(20, 160);
             this.dgvUsuarios.Name = "dgvUsuarios";
             this.dgvUsuarios.ReadOnly = true;
             this.dgvUsuarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUsuarios.Size = new System.Drawing.Size(760, 380);
-            this.dgvUsuarios.TabIndex = 1;
+            this.dgvUsuarios.Size = new System.Drawing.Size(760, 290);
+            this.dgvUsuarios.TabIndex = 8;
+            this.dgvUsuarios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellDoubleClick);
+            this.dgvUsuarios.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvUsuarios_DataBindingComplete);
             // 
             // btnAgregarUsuario
             // 
@@ -77,7 +163,7 @@ namespace HotelCalifornia
             this.btnAgregarUsuario.Location = new System.Drawing.Point(630, 470);
             this.btnAgregarUsuario.Name = "btnAgregarUsuario";
             this.btnAgregarUsuario.Size = new System.Drawing.Size(150, 40);
-            this.btnAgregarUsuario.TabIndex = 2;
+            this.btnAgregarUsuario.TabIndex = 9;
             this.btnAgregarUsuario.Text = "Agregar Usuario";
             this.btnAgregarUsuario.UseVisualStyleBackColor = false;
             this.btnAgregarUsuario.Click += new System.EventHandler(this.btnAgregarUsuario_Click);
@@ -94,7 +180,7 @@ namespace HotelCalifornia
             this.btnEditarUsuario.Location = new System.Drawing.Point(470, 470);
             this.btnEditarUsuario.Name = "btnEditarUsuario";
             this.btnEditarUsuario.Size = new System.Drawing.Size(150, 40);
-            this.btnEditarUsuario.TabIndex = 3;
+            this.btnEditarUsuario.TabIndex = 10;
             this.btnEditarUsuario.Text = "Editar Usuario";
             this.btnEditarUsuario.UseVisualStyleBackColor = false;
             this.btnEditarUsuario.Click += new System.EventHandler(this.btnEditarUsuario_Click);
@@ -111,7 +197,7 @@ namespace HotelCalifornia
             this.btnEliminarUsuario.Location = new System.Drawing.Point(310, 470);
             this.btnEliminarUsuario.Name = "btnEliminarUsuario";
             this.btnEliminarUsuario.Size = new System.Drawing.Size(150, 40);
-            this.btnEliminarUsuario.TabIndex = 4;
+            this.btnEliminarUsuario.TabIndex = 11;
             this.btnEliminarUsuario.Text = "Eliminar Usuario";
             this.btnEliminarUsuario.UseVisualStyleBackColor = false;
             this.btnEliminarUsuario.Click += new System.EventHandler(this.btnEliminarUsuario_Click);
@@ -126,6 +212,13 @@ namespace HotelCalifornia
             this.Controls.Add(this.btnEditarUsuario);
             this.Controls.Add(this.btnAgregarUsuario);
             this.Controls.Add(this.dgvUsuarios);
+            this.Controls.Add(this.btnLimpiarFiltros);
+            this.Controls.Add(this.cmbEstadoFiltro);
+            this.Controls.Add(this.lblEstado);
+            this.Controls.Add(this.cmbRolFiltro);
+            this.Controls.Add(this.lblRol);
+            this.Controls.Add(this.lblBuscar);
+            this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.lblTitulo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "GestionUsuarios";
@@ -141,6 +234,13 @@ namespace HotelCalifornia
         #endregion
 
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.TextBox txtBuscar;
+        private System.Windows.Forms.Label lblBuscar;
+        private System.Windows.Forms.Label lblRol;
+        private System.Windows.Forms.ComboBox cmbRolFiltro;
+        private System.Windows.Forms.Label lblEstado;
+        private System.Windows.Forms.ComboBox cmbEstadoFiltro;
+        private System.Windows.Forms.Button btnLimpiarFiltros;
         private System.Windows.Forms.DataGridView dgvUsuarios;
         private System.Windows.Forms.Button btnAgregarUsuario;
         private System.Windows.Forms.Button btnEditarUsuario;
