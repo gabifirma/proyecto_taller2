@@ -56,7 +56,7 @@
             this.LMetodoP = new System.Windows.Forms.Label();
             this.LNumRes = new System.Windows.Forms.Label();
             this.LNroReserva = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.LServiciosOcup = new System.Windows.Forms.Label();
             this.GrillaServicios = new System.Windows.Forms.DataGridView();
             this.servicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -337,15 +337,15 @@
             this.LNroReserva.TabIndex = 21;
             this.LNroReserva.Text = "N° Reserva: ";
             // 
-            // label1
+            // LServiciosOcup
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 290);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(153, 20);
-            this.label1.TabIndex = 23;
-            this.label1.Text = "Servicios Ocupados:";
+            this.LServiciosOcup.AutoSize = true;
+            this.LServiciosOcup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LServiciosOcup.Location = new System.Drawing.Point(12, 290);
+            this.LServiciosOcup.Name = "LServiciosOcup";
+            this.LServiciosOcup.Size = new System.Drawing.Size(153, 20);
+            this.LServiciosOcup.TabIndex = 23;
+            this.LServiciosOcup.Text = "Servicios Ocupados:";
             // 
             // GrillaServicios
             // 
@@ -392,7 +392,7 @@
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(628, 417);
             this.Controls.Add(this.GrillaServicios);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.LServiciosOcup);
             this.Controls.Add(this.LNumRes);
             this.Controls.Add(this.LNroReserva);
             this.Controls.Add(this.LMP);
@@ -457,7 +457,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cant_noches;
         private System.Windows.Forms.DataGridViewTextBoxColumn precio;
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotal;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LServiciosOcup;
         private System.Windows.Forms.DataGridView GrillaServicios;
         private System.Windows.Forms.DataGridViewTextBoxColumn servicio;
         private System.Windows.Forms.DataGridViewTextBoxColumn cantidad;
