@@ -30,11 +30,6 @@ namespace HotelCalifornia
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pagos));
             this.GrillaPagos = new System.Windows.Forms.DataGridView();
-            this.referencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_metodoPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LTituloPagos = new System.Windows.Forms.Label();
             this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
             this.RBCredito = new System.Windows.Forms.RadioButton();
@@ -49,6 +44,11 @@ namespace HotelCalifornia
             this.LReferencia = new System.Windows.Forms.Label();
             this.LDesde = new System.Windows.Forms.Label();
             this.DTDesde = new System.Windows.Forms.DateTimePicker();
+            this.referencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_metodoPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaPagos)).BeginInit();
             this.groupBoxFiltros.SuspendLayout();
             this.SuspendLayout();
@@ -73,43 +73,8 @@ namespace HotelCalifornia
             this.GrillaPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.GrillaPagos.Size = new System.Drawing.Size(828, 327);
             this.GrillaPagos.TabIndex = 0;
-            this.GrillaPagos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaPagos_CellContentClick);
-            // 
-            // referencia
-            // 
-            this.referencia.DataPropertyName = "referencia";
-            this.referencia.HeaderText = "Referencia";
-            this.referencia.Name = "referencia";
-            this.referencia.ReadOnly = true;
-            // 
-            // id_pago
-            // 
-            this.id_pago.DataPropertyName = "id_pago";
-            this.id_pago.HeaderText = "ID";
-            this.id_pago.Name = "id_pago";
-            this.id_pago.ReadOnly = true;
-            this.id_pago.Visible = false;
-            // 
-            // fecha
-            // 
-            this.fecha.DataPropertyName = "fecha";
-            this.fecha.HeaderText = "Fecha";
-            this.fecha.Name = "fecha";
-            this.fecha.ReadOnly = true;
-            // 
-            // monto
-            // 
-            this.monto.DataPropertyName = "monto";
-            this.monto.HeaderText = "Monto";
-            this.monto.Name = "monto";
-            this.monto.ReadOnly = true;
-            // 
-            // id_metodoPago
-            // 
-            this.id_metodoPago.DataPropertyName = "metodoPago";
-            this.id_metodoPago.HeaderText = "Metodo de Pago";
-            this.id_metodoPago.Name = "id_metodoPago";
-            this.id_metodoPago.ReadOnly = true;
+            this.GrillaPagos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaPagos_CellContentClick);
+            this.GrillaPagos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaPagos_CellDoubleClick);
             // 
             // LTituloPagos
             // 
@@ -276,6 +241,46 @@ namespace HotelCalifornia
             this.DTDesde.Name = "DTDesde";
             this.DTDesde.Size = new System.Drawing.Size(116, 25);
             this.DTDesde.TabIndex = 2;
+            // 
+            // referencia
+            // 
+            this.referencia.DataPropertyName = "referencia";
+            this.referencia.FillWeight = 45F;
+            this.referencia.HeaderText = "Referencia";
+            this.referencia.Name = "referencia";
+            this.referencia.ReadOnly = true;
+            // 
+            // id_pago
+            // 
+            this.id_pago.DataPropertyName = "id_pago";
+            this.id_pago.HeaderText = "ID";
+            this.id_pago.Name = "id_pago";
+            this.id_pago.ReadOnly = true;
+            this.id_pago.Visible = false;
+            // 
+            // fecha
+            // 
+            this.fecha.DataPropertyName = "fecha";
+            this.fecha.FillWeight = 55.20305F;
+            this.fecha.HeaderText = "Fecha";
+            this.fecha.Name = "fecha";
+            this.fecha.ReadOnly = true;
+            // 
+            // monto
+            // 
+            this.monto.DataPropertyName = "monto";
+            this.monto.FillWeight = 55.20305F;
+            this.monto.HeaderText = "Monto";
+            this.monto.Name = "monto";
+            this.monto.ReadOnly = true;
+            // 
+            // id_metodoPago
+            // 
+            this.id_metodoPago.DataPropertyName = "metodoPago";
+            this.id_metodoPago.FillWeight = 55.20305F;
+            this.id_metodoPago.HeaderText = "Metodo de Pago";
+            this.id_metodoPago.Name = "id_metodoPago";
+            this.id_metodoPago.ReadOnly = true;
             // 
             // Pagos
             // 
