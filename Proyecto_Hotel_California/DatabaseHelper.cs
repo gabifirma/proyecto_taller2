@@ -441,7 +441,8 @@ namespace HotelCalifornia
                     string query = @"
                         SELECT e.legajo, e.nombre + ' ' + e.apellido as nombre_completo, e.telefono, e.email
                         FROM Empleado e
-                        WHERE e.legajo NOT IN (SELECT legajo FROM Usuario WHERE legajo IS NOT NULL)
+                        WHERE e.estado = 1
+                          AND e.legajo NOT IN (SELECT legajo FROM Usuario WHERE legajo IS NOT NULL)
                         ORDER BY e.apellido, e.nombre";
                     
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -496,6 +497,46 @@ namespace HotelCalifornia
             return dtUsuario;
         }
 
+        private static int? ObtenerLegajoDeUsuario(int idUsuario, SqlConnection connection, SqlTransaction transaction)
+        {
+            string query = "SELECT legajo FROM Usuario WHERE id_usuario = @idUsuario";
+            using (SqlCommand command = new SqlCommand(query, connection, transaction))
+            {
+                command.Parameters.AddWithValue("@idUsuario", idUsuario);
+                object result = command.ExecuteScalar();
+                if (result == null || result == DBNull.Value)
+                    return null;
+                return Convert.ToInt32(result);
+            }
+        }
+
+        private static bool EsEmpleadoActivo(int legajo, SqlConnection connection, SqlTransaction transaction)
+        {
+            string query = "SELECT estado FROM Empleado WHERE legajo = @legajo";
+            using (SqlCommand command = new SqlCommand(query, connection, transaction))
+            {
+                command.Parameters.AddWithValue("@legajo", legajo);
+                object result = command.ExecuteScalar();
+                if (result == null || result == DBNull.Value)
+                    throw new Exception("No se encontró el empleado asociado.");
+
+                int estado = Convert.ToInt32(result);
+                return estado == 1;
+            }
+        }
+
+        public static bool EsEmpleadoActivo(int legajo)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                return EsEmpleadoActivo(legajo, connection, null);
+            }
+        }
+
         /// <summary>
         /// Crea un nuevo usuario asociado a un empleado existente
         /// </summary>
@@ -509,7 +550,10 @@ namespace HotelCalifornia
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    
+
+                    if (!EsEmpleadoActivo(legajo, connection, null))
+                        throw new Exception("No se puede crear un usuario para un empleado inactivo.");
+
                     // Obtener el próximo id_usuario disponible
                     string getNextIdQuery = "SELECT ISNULL(MAX(id_usuario), 0) + 1 FROM Usuario";
                     int nextUserId;
@@ -556,6 +600,13 @@ namespace HotelCalifornia
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
+
+                    int? legajo = ObtenerLegajoDeUsuario(idUsuario, connection, null);
+                    if (legajo.HasValue && activo && !EsEmpleadoActivo(legajo.Value, connection, null))
+                    {
+                        throw new Exception("No se puede activar el usuario porque el empleado asociado está inactivo.");
+                    }
+
                     string query = @"
                         UPDATE Usuario 
                         SET username = @username, 
@@ -581,7 +632,7 @@ namespace HotelCalifornia
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error en UpdateUsuario: {ex.Message}");
-                return false;
+                throw;
             }
         }
 
