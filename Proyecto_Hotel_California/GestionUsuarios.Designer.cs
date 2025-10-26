@@ -40,6 +40,9 @@ namespace HotelCalifornia
             this.btnAgregarUsuario = new System.Windows.Forms.Button();
             this.btnEditarUsuario = new System.Windows.Forms.Button();
             this.btnEliminarUsuario = new System.Windows.Forms.Button();
+            this.lblEstados = new System.Windows.Forms.Label();
+            this.lblEstadoActivo = new System.Windows.Forms.Label();
+            this.lblEstadoInactivo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.SuspendLayout();
             // 
@@ -202,12 +205,53 @@ namespace HotelCalifornia
             this.btnEliminarUsuario.UseVisualStyleBackColor = false;
             this.btnEliminarUsuario.Click += new System.EventHandler(this.btnEliminarUsuario_Click);
             // 
+            // lblEstados
+            // 
+            this.lblEstados.AutoSize = true;
+            this.lblEstados.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblEstados.Location = new System.Drawing.Point(20, 125);
+            this.lblEstados.Name = "lblEstados";
+            this.lblEstados.Size = new System.Drawing.Size(57, 15);
+            this.lblEstados.TabIndex = 12;
+            this.lblEstados.Text = "Estados:";
+            // 
+            // lblEstadoActivo
+            // 
+            this.lblEstadoActivo.AutoSize = true;
+            this.lblEstadoActivo.BackColor = System.Drawing.Color.White;
+            this.lblEstadoActivo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblEstadoActivo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblEstadoActivo.Location = new System.Drawing.Point(90, 124);
+            this.lblEstadoActivo.MinimumSize = new System.Drawing.Size(70, 0);
+            this.lblEstadoActivo.Name = "lblEstadoActivo";
+            this.lblEstadoActivo.Padding = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.lblEstadoActivo.Size = new System.Drawing.Size(70, 21);
+            this.lblEstadoActivo.TabIndex = 13;
+            this.lblEstadoActivo.Text = "Activo";
+            // 
+            // lblEstadoInactivo
+            // 
+            this.lblEstadoInactivo.AutoSize = true;
+            this.lblEstadoInactivo.BackColor = System.Drawing.Color.LightCoral;
+            this.lblEstadoInactivo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblEstadoInactivo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblEstadoInactivo.Location = new System.Drawing.Point(170, 124);
+            this.lblEstadoInactivo.MinimumSize = new System.Drawing.Size(70, 0);
+            this.lblEstadoInactivo.Name = "lblEstadoInactivo";
+            this.lblEstadoInactivo.Padding = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.lblEstadoInactivo.Size = new System.Drawing.Size(70, 21);
+            this.lblEstadoInactivo.TabIndex = 14;
+            this.lblEstadoInactivo.Text = "Inactivo";
+            // 
             // GestionUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.ClientSize = new System.Drawing.Size(800, 530);
+            this.Controls.Add(this.lblEstadoInactivo);
+            this.Controls.Add(this.lblEstadoActivo);
+            this.Controls.Add(this.lblEstados);
             this.Controls.Add(this.btnEliminarUsuario);
             this.Controls.Add(this.btnEditarUsuario);
             this.Controls.Add(this.btnAgregarUsuario);
@@ -245,5 +289,8 @@ namespace HotelCalifornia
         private System.Windows.Forms.Button btnAgregarUsuario;
         private System.Windows.Forms.Button btnEditarUsuario;
         private System.Windows.Forms.Button btnEliminarUsuario;
+        private System.Windows.Forms.Label lblEstados;
+        private System.Windows.Forms.Label lblEstadoActivo;
+        private System.Windows.Forms.Label lblEstadoInactivo;
     }
 }
