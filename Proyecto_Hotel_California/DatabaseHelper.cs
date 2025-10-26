@@ -880,7 +880,12 @@ namespace HotelCalifornia
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = @"
+
+                    using (SqlTransaction transaction = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            string query = @"
                         UPDATE Empleado 
                         SET nombre = @nombre, 
                             apellido = @apellido, 
@@ -888,17 +893,39 @@ namespace HotelCalifornia
                             email = @email,
                             estado = @estado
                         WHERE legajo = @legajo";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@legajo", legajo);
-                        command.Parameters.AddWithValue("@nombre", nombre);
-                        command.Parameters.AddWithValue("@apellido", apellido);
-                        command.Parameters.AddWithValue("@telefono", telefono);
-                        command.Parameters.AddWithValue("@email", email);
-                        command.Parameters.AddWithValue("@estado", estado ? 1 : 0);
-                        
-                        return command.ExecuteNonQuery() > 0;
+
+                            using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@legajo", legajo);
+                                command.Parameters.AddWithValue("@nombre", nombre);
+                                command.Parameters.AddWithValue("@apellido", apellido);
+                                command.Parameters.AddWithValue("@telefono", telefono);
+                                command.Parameters.AddWithValue("@email", email);
+                                command.Parameters.AddWithValue("@estado", estado ? 1 : 0);
+
+                                if (command.ExecuteNonQuery() == 0)
+                                {
+                                    transaction.Rollback();
+                                    return false;
+                                }
+                            }
+
+                            string actualizarUsuarioQuery = "UPDATE Usuario SET activo = @estado WHERE legajo = @legajo";
+                            using (SqlCommand usuarioCommand = new SqlCommand(actualizarUsuarioQuery, connection, transaction))
+                            {
+                                usuarioCommand.Parameters.AddWithValue("@estado", estado ? 1 : 0);
+                                usuarioCommand.Parameters.AddWithValue("@legajo", legajo);
+                                usuarioCommand.ExecuteNonQuery();
+                            }
+
+                            transaction.Commit();
+                            return true;
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
                     }
                 }
             }
