@@ -24,9 +24,17 @@ namespace HotelCalifornia
         /// Inicializa los componentes, aplica estilos, configura el menú según el rol del usuario
         /// y establece la conexión con la base de datos.
         /// </summary>
+        private readonly Dictionary<Button, (Color BackColor, Color ForeColor, Color MouseOverBackColor, bool UseVisualStyleBackColor)> menuButtonStyleCache
+            = new Dictionary<Button, (Color BackColor, Color ForeColor, Color MouseOverBackColor, bool UseVisualStyleBackColor)>();
+
+        private readonly Color DisabledBackColor = Color.FromArgb(160, 160, 160);
+        private readonly Color DisabledForeColor = Color.FromArgb(80, 80, 80);
+        private readonly Color DisabledMouseOverBackColor = Color.FromArgb(160, 160, 160);
+
         public Main()
         {
             InitializeComponent();
+            InitializeMenuButtonStyles();
             ApplyStyles();
             ConfigureMenuByRole();
             UpdateHeader();
@@ -321,16 +329,24 @@ namespace HotelCalifornia
         /// </summary>
         private void ConfigureMenuByRole()
         {
+            InitializeMenuButtonStyles();
+
+            var managedButtons = GetRoleManagedButtons();
+
             if (!UserSession.IsLoggedIn)
             {
                 // Si no hay sesión activa, ocultar todos los botones
-                BGestionUsuarios.Visible = false;
-                BEmpleados.Visible = false;
-                BReservas.Visible = false;
-                BPagos.Visible = false;
-                BClientes.Visible = false;
-                BHabitaciones.Visible = false;
+                foreach (var button in managedButtons)
+                {
+                    button.Visible = false;
+                }
                 return;
+            }
+
+            foreach (var button in managedButtons)
+            {
+                button.Visible = true;
+                SetMenuButtonState(button, false);
             }
 
             string userRole = UserSession.GetUserRole();
@@ -339,44 +355,89 @@ namespace HotelCalifornia
             {
                 case "Administrador":
                     // Administrador: acceso completo a todas las funcionalidades
-                    BGestionUsuarios.Visible = true;
-                    BEmpleados.Visible = true;
-                    BReservas.Visible = true;
-                    BPagos.Visible = true;
-                    BClientes.Visible = true;
-                    BHabitaciones.Visible = true;
+                    SetMenuButtonState(BGestionUsuarios, true);
+                    SetMenuButtonState(BEmpleados, true);
+                    SetMenuButtonState(BReservas, true);
+                    SetMenuButtonState(BPagos, true);
+                    SetMenuButtonState(BClientes, true);
+                    SetMenuButtonState(BHabitaciones, true);
                     break;
 
                 case "Supervisor":
                     // Supervisor: acceso a la mayoría de funciones excepto gestión de usuarios
-                    BGestionUsuarios.Visible = false;
-                    BEmpleados.Visible = true;  // Supervisores SÍ pueden ver empleados
-                    BReservas.Visible = true;
-                    BPagos.Visible = true;
-                    BClientes.Visible = true;
-                    BHabitaciones.Visible = true;
+                    SetMenuButtonState(BEmpleados, true);  // Supervisores SÍ pueden ver empleados
+                    SetMenuButtonState(BReservas, true);
+                    SetMenuButtonState(BPagos, true);
+                    SetMenuButtonState(BClientes, true);
+                    SetMenuButtonState(BHabitaciones, true);
                     break;
 
                 case "Recepcionista":
                 case "Recepcion":
                     // Recepcionista: acceso limitado solo a reservas y habitaciones
-                    BGestionUsuarios.Visible = false;
-                    BEmpleados.Visible = false;
-                    BReservas.Visible = true;
-                    BPagos.Visible = false;
-                    BClientes.Visible = false;
-                    BHabitaciones.Visible = true;
+                    SetMenuButtonState(BReservas, true);
+                    SetMenuButtonState(BHabitaciones, true);
                     break;
 
                 default:
                     // Por defecto, ocultar todo si el rol no es reconocido
-                    BGestionUsuarios.Visible = false;
-                    BEmpleados.Visible = false;
-                    BReservas.Visible = false;
-                    BPagos.Visible = false;
-                    BClientes.Visible = false;
-                    BHabitaciones.Visible = false;
+                    foreach (var button in managedButtons)
+                    {
+                        button.Visible = false;
+                    }
                     break;
+            }
+        }
+
+        private void InitializeMenuButtonStyles()
+        {
+            foreach (var button in GetRoleManagedButtons())
+            {
+                if (!menuButtonStyleCache.ContainsKey(button))
+                {
+                    menuButtonStyleCache[button] = (button.BackColor, button.ForeColor, button.FlatAppearance.MouseOverBackColor, button.UseVisualStyleBackColor);
+                }
+            }
+        }
+
+        private Button[] GetRoleManagedButtons()
+        {
+            return new[]
+            {
+                BClientes,
+                BEmpleados,
+                BHabitaciones,
+                BReservas,
+                BPagos,
+                BGestionUsuarios
+            };
+        }
+
+        private void SetMenuButtonState(Button button, bool enabled)
+        {
+            if (!menuButtonStyleCache.ContainsKey(button))
+            {
+                menuButtonStyleCache[button] = (button.BackColor, button.ForeColor, button.FlatAppearance.MouseOverBackColor, button.UseVisualStyleBackColor);
+            }
+
+            if (enabled)
+            {
+                var style = menuButtonStyleCache[button];
+                button.Enabled = true;
+                button.UseVisualStyleBackColor = style.UseVisualStyleBackColor;
+                button.BackColor = style.BackColor;
+                button.ForeColor = style.ForeColor;
+                button.FlatAppearance.MouseOverBackColor = style.MouseOverBackColor;
+                button.Cursor = Cursors.Hand;
+            }
+            else
+            {
+                button.Enabled = false;
+                button.UseVisualStyleBackColor = false;
+                button.BackColor = DisabledBackColor;
+                button.ForeColor = DisabledForeColor;
+                button.FlatAppearance.MouseOverBackColor = DisabledMouseOverBackColor;
+                button.Cursor = Cursors.Default;
             }
         }
 
