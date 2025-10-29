@@ -113,7 +113,7 @@ namespace HotelCalifornia
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Si no puede conectar, retornar false para usar modo sin base de datos
                 return false;
@@ -168,7 +168,7 @@ namespace HotelCalifornia
                     CreateSampleClientes(connection);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Si hay error, continuar sin base de datos (modo offline)
             }
