@@ -268,7 +268,7 @@ namespace HotelCalifornia
         private void InsertarReservaHabitacion(SqlConnection conn, SqlTransaction tran, int idReserva, int numeroHab, int noches)
         {
             decimal precioBase = ObtenerPrecioBase(conn, tran, numeroHab);
-            decimal.TryParse(TMonto.Text, out decimal subtotal);
+            decimal subtotal = precioBase * noches;
 
             string insertar = @"INSERT INTO ReservaHabitacion (id_reserva, numero_hab, precio_noche, cantidad_noches, subtotal)
                         VALUES (@idReserva, @numHab, @precio, @noches, @subtotal)";
@@ -321,27 +321,18 @@ namespace HotelCalifornia
         {
             if (!ValidarCampos()) return;
 
-            //Obtener todas las habitaciones seleccionadas
             List<int> habitacionesSeleccionadas = ObtenerHabitacionesSeleccionadas();
-            
+
             if (habitacionesSeleccionadas.Count == 0)
             {
                 MessageBox.Show("Seleccione al menos una habitación antes de guardar.");
                 return;
             }
 
-            // validacion para evitar noches igual a cero
-            int noches = Convert.ToInt32(CBCantNoches.SelectedItem); 
+            int noches = Convert.ToInt32(CBCantNoches.SelectedItem);
             if (noches <= 0)
             {
                 MessageBox.Show("La cantidad de noches debe ser mayor que 0");
-                return;
-            }
-
-            // validacion para evitar guardar sin habitaciones seleccionadas
-            if (habitacionesSeleccionadas.Count == 0)
-            {
-                MessageBox.Show("Debe seleccionar al menos una habitación.");
                 return;
             }
 
@@ -358,12 +349,12 @@ namespace HotelCalifornia
                     // Insertar reserva
                     int idReserva = InsertarReserva(conn, tran, idCliente);
 
-                    // Insertar habitación
+                    // Insertar habitaciones seleccionadas
                     foreach (int numeroHabitacion in habitacionesSeleccionadas)
                     {
                         InsertarReservaHabitacion(conn, tran, idReserva, numeroHabitacion, noches);
 
-                        // Cambiar el estado de la habitación a 2 (ocupada)
+                        // Actualizar estado de la habitación a ocupada
                         string update = @"UPDATE Habitacion SET id_estado = 2 WHERE numero_hab = @num";
                         SqlCommand cmdUpdate = new SqlCommand(update, conn, tran);
                         cmdUpdate.Parameters.AddWithValue("@num", numeroHabitacion);
@@ -373,8 +364,37 @@ namespace HotelCalifornia
                     // Insertar servicios seleccionados
                     InsertarServicios(conn, tran, idReserva);
 
+                    // actualizar total en la tabla Reserva
+                    decimal totalHabitaciones = 0;
+                    decimal totalServicios = 0;
+
+                    // Sumar habitaciones
+                    string qTotalHab = @"SELECT ISNULL(SUM(subtotal), 0) FROM ReservaHabitacion WHERE id_reserva = @id";
+                    SqlCommand cmdHab = new SqlCommand(qTotalHab, conn, tran);
+                    cmdHab.Parameters.AddWithValue("@id", idReserva);
+                    totalHabitaciones = Convert.ToDecimal(cmdHab.ExecuteScalar());
+
+                    // Sumar servicios
+                    string qTotalServ = @"
+                        SELECT ISNULL(SUM(subtotal), 0)
+                        FROM ReservaServicio
+                        WHERE id_reserva = @id";
+                    SqlCommand cmdServ = new SqlCommand(qTotalServ, conn, tran);
+                    cmdServ.Parameters.AddWithValue("@id", idReserva);
+                    totalServicios = Convert.ToDecimal(cmdServ.ExecuteScalar());
+
+                    // Total general
+                    decimal totalFinal = totalHabitaciones + totalServicios;
+
+                    // Actualizar en la tabla Reserva
+                    string qUpdateTotal = @"UPDATE Reserva SET total = @total WHERE id_reserva = @id";
+                    SqlCommand cmdUpdateTotal = new SqlCommand(qUpdateTotal, conn, tran);
+                    cmdUpdateTotal.Parameters.AddWithValue("@total", totalFinal);
+                    cmdUpdateTotal.Parameters.AddWithValue("@id", idReserva);
+                    cmdUpdateTotal.ExecuteNonQuery();
+
                     tran.Commit();
-                    MessageBox.Show("Reserva guardada correctamente.");
+                    MessageBox.Show("Reserva guardada correctamente. Total: $" + totalFinal.ToString("N2"));
                     cargarHabitaciones();
                 }
                 catch (Exception ex)
@@ -384,7 +404,7 @@ namespace HotelCalifornia
                 }
             }
         }
-        
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;

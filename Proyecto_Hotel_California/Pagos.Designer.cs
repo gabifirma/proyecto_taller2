@@ -73,7 +73,6 @@ namespace HotelCalifornia
             this.GrillaPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.GrillaPagos.Size = new System.Drawing.Size(828, 327);
             this.GrillaPagos.TabIndex = 0;
-            this.GrillaPagos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaPagos_CellContentClick);
             this.GrillaPagos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaPagos_CellDoubleClick);
             // 
             // LTituloPagos

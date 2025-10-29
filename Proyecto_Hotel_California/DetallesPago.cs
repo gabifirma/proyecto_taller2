@@ -24,7 +24,6 @@ namespace HotelCalifornia
 
         private void DetallesPago_Load(object sender, EventArgs e)
         {
-
             using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
                 string query = @"SELECT
@@ -32,8 +31,8 @@ namespace HotelCalifornia
                         p.monto,
                         p.fecha,
                         p.referencia + p.id_pago AS Referencia,
-                        f.numero,
                         r.id_reserva,
+                        r.id_reserva + 100000 AS Factura,
                         r.fecha_inicio,
                         r.fecha_fin,
                         c.nombre + ' ' + c.apellido AS Cliente,
@@ -41,8 +40,7 @@ namespace HotelCalifornia
                         c.email,
                         mp.descripcion AS metodoPago
                     FROM Pago p
-                    INNER JOIN Factura f ON p.id_pago = f.id_pago
-                    INNER JOIN Reserva r ON f.id_reserva = r.id_reserva
+                    INNER JOIN Reserva r ON p.id_reserva = r.id_reserva
                     INNER JOIN Cliente c ON r.id_cliente = c.id_cliente
                     INNER JOIN ReservaHabitacion rh ON r.id_reserva = rh.id_reserva
                     INNER JOIN Habitacion h ON rh.numero_hab = h.numero_hab
@@ -68,7 +66,7 @@ namespace HotelCalifornia
                         LInicioR.Text = Convert.ToDateTime(reader["fecha_inicio"]).ToString("dd/MM/yyyy");
                         LFinR.Text = Convert.ToDateTime(reader["fecha_fin"]).ToString("dd/MM/yyyy");
                         LMP.Text = reader["metodoPago"].ToString();
-                        LFactu.Text = reader["numero"].ToString();
+                        LFactu.Text = reader["Factura"].ToString();
 
                         // Cargar las habitaciones asociadas
                         int idReserva = Convert.ToInt32(reader["id_reserva"]);

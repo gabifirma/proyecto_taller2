@@ -64,6 +64,7 @@ namespace HotelCalifornia
             this.numero_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipo_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha_creacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaReservas)).BeginInit();
@@ -102,6 +103,7 @@ namespace HotelCalifornia
             this.numero_hab,
             this.tipo_hab,
             this.subtotal,
+            this.total,
             this.estado,
             this.fecha_creacion});
             this.GrillaReservas.Location = new System.Drawing.Point(14, 252);
@@ -451,6 +453,14 @@ namespace HotelCalifornia
             this.subtotal.Name = "subtotal";
             this.subtotal.ReadOnly = true;
             // 
+            // total
+            // 
+            this.total.DataPropertyName = "Total";
+            this.total.FillWeight = 40F;
+            this.total.HeaderText = "Total ($)";
+            this.total.Name = "total";
+            this.total.ReadOnly = true;
+            // 
             // estado
             // 
             this.estado.DataPropertyName = "Estado";
@@ -552,6 +562,7 @@ namespace HotelCalifornia
         private System.Windows.Forms.DataGridViewTextBoxColumn numero_hab;
         private System.Windows.Forms.DataGridViewTextBoxColumn tipo_hab;
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn total;
         private System.Windows.Forms.DataGridViewTextBoxColumn estado;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha_creacion;
     }
