@@ -197,6 +197,14 @@ namespace HotelCalifornia
             string nombre = row.Cells["nombre"].Value.ToString();
             string apellido = row.Cells["apellido"].Value.ToString();
 
+            string usernameAsociado = DatabaseHelper.GetUsernameByLegajo(legajo);
+            if (usernameAsociado != null && usernameAsociado.Equals("admin", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("No se puede desactivar el empleado asociado al usuario administrador principal.",
+                              "Acción No Permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             DialogResult result = MessageBox.Show(
                 $"¿Está seguro que desea desactivar al empleado {nombre} {apellido}?\n\n" +
                 "Nota: Si el empleado tiene un usuario asociado, primero debe eliminar el usuario.",

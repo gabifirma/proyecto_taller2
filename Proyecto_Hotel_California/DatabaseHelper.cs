@@ -211,7 +211,8 @@ namespace HotelCalifornia
                 FROM Usuario u
                 INNER JOIN Rol r ON u.id_rol = r.id_rol
                 LEFT JOIN Empleado e ON u.legajo = e.legajo
-                WHERE u.username = @username AND u.activo = 1";
+                WHERE u.username = @username AND u.activo = 1
+                  AND (u.legajo IS NULL OR e.estado = 1)";
 
             try
             {
@@ -494,6 +495,41 @@ namespace HotelCalifornia
                 System.Diagnostics.Debug.WriteLine($"Error en GetUsuarioById: {ex.Message}");
             }
             return dtUsuario;
+        }
+
+        /// <summary>
+        /// Obtiene el nombre de usuario asociado a un legajo de empleado.
+        /// </summary>
+        /// <param name="legajo">Legajo del empleado.</param>
+        /// <returns>Username asociado o null si no existe.</returns>
+        public static string GetUsernameByLegajo(int legajo)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            const string query = "SELECT TOP 1 username FROM Usuario WHERE legajo = @legajo";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@legajo", legajo);
+                    connection.Open();
+
+                    object result = command.ExecuteScalar();
+                    if (result == null || result == DBNull.Value)
+                        return null;
+
+                    string username = result.ToString();
+                    return string.IsNullOrWhiteSpace(username) ? null : username.Trim();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetUsernameByLegajo: {ex.Message}");
+                return null;
+            }
         }
 
         private static int? ObtenerLegajoDeUsuario(int idUsuario, SqlConnection connection, SqlTransaction transaction)
@@ -876,6 +912,13 @@ namespace HotelCalifornia
 
             try
             {
+                if (!estado)
+                {
+                    string username = GetUsernameByLegajo(legajo);
+                    if (!string.IsNullOrEmpty(username) && username.Equals("admin", StringComparison.OrdinalIgnoreCase))
+                        throw new Exception("No se puede desactivar el empleado asociado al usuario administrador principal.");
+                }
+
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -950,14 +993,23 @@ namespace HotelCalifornia
                     connection.Open();
                     
                     // Primero verificar si tiene usuario asociado
-                    string checkQuery = "SELECT COUNT(*) FROM Usuario WHERE legajo = @legajo";
+                    string checkQuery = "SELECT username FROM Usuario WHERE legajo = @legajo";
                     using (SqlCommand checkCmd = new SqlCommand(checkQuery, connection))
                     {
                         checkCmd.Parameters.AddWithValue("@legajo", legajo);
-                        int count = (int)checkCmd.ExecuteScalar();
-                        if (count > 0)
+                        using (SqlDataReader reader = checkCmd.ExecuteReader())
                         {
-                            throw new Exception("No se puede eliminar el empleado porque tiene un usuario asociado. Elimine primero el usuario.");
+                            bool tieneUsuarios = false;
+                            while (reader.Read())
+                            {
+                                tieneUsuarios = true;
+                                string username = reader["username"]?.ToString()?.Trim();
+                                if (!string.IsNullOrEmpty(username) && username.Equals("admin", StringComparison.OrdinalIgnoreCase))
+                                    throw new Exception("No se puede eliminar el empleado asociado al usuario administrador principal.");
+                            }
+
+                            if (tieneUsuarios)
+                                throw new Exception("No se puede eliminar el empleado porque tiene un usuario asociado. Elimine primero el usuario.");
                         }
                     }
                     

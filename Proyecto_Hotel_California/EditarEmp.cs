@@ -169,7 +169,18 @@ namespace HotelCalifornia
                     
                     int legajo = int.Parse(LMostrarLeg.Text);
                     bool estado = RBActivado.Checked;
-                    
+
+                    if (!estado)
+                    {
+                        string usernameAsociado = DatabaseHelper.GetUsernameByLegajo(legajo);
+                        if (!string.IsNullOrEmpty(usernameAsociado) && usernameAsociado.Equals("admin", StringComparison.OrdinalIgnoreCase))
+                        {
+                            MessageBox.Show("No se puede desactivar el empleado asociado al usuario administrador principal.",
+                                          "Acción No Permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
                     // Actualizar empleado usando el nuevo método
                     bool resultado = DatabaseHelper.UpdateEmpleado(
                         legajo,

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -239,6 +240,13 @@ namespace HotelCalifornia
 
             int idUsuario = Convert.ToInt32(dgvUsuarios.SelectedRows[0].Cells["id_usuario"].Value);
             string username = dgvUsuarios.SelectedRows[0].Cells["username"].Value.ToString();
+
+            if (username.Equals("admin", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("No se puede desactivar el usuario administrador principal.",
+                                  "Acción No Permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             DialogResult result = MessageBox.Show(
                 $"¿Está seguro que desea desactivar el usuario '{username}'?",
@@ -552,55 +560,51 @@ namespace HotelCalifornia
             try
             {
                 DataTable dtUsuario = DatabaseHelper.GetUsuarioById(idUsuario);
-                if (dtUsuario.Rows.Count > 0)
-                {
-                    DataRow row = dtUsuario.Rows[0];
-                    txtUsername.Text = row["username"].ToString();
-                    hashedPasswordActual = row["contrasena"].ToString();
-                    txtPassword.Text = string.Empty;
-                    cmbRol.SelectedValue = Convert.ToInt32(row["id_rol"]);
-                    chkActivo.Checked = Convert.ToBoolean(row["activo"]);
-                    
-                    // Cargar el empleado asociado
-                    if (row["legajo"] != DBNull.Value)
-                    {
-                        int legajo = Convert.ToInt32(row["legajo"]);
-                        DataTable dtEmpleados = cmbEmpleado.DataSource as DataTable;
-                        if (dtEmpleados != null)
-                        {
-                            bool encontrado = false;
-                            foreach (DataRow dr in dtEmpleados.Rows)
-                            {
-                                if (dr["legajo"] != DBNull.Value && Convert.ToInt32(dr["legajo"]) == legajo)
-                                {
-                                    encontrado = true;
-                                    break;
-                                }
-                            }
+                if (dtUsuario.Rows.Count == 0)
+                    return;
 
-                            if (!encontrado)
+                DataRow row = dtUsuario.Rows[0];
+
+                txtUsername.Text = row["username"].ToString();
+                hashedPasswordActual = row["contrasena"].ToString();
+                txtPassword.Text = string.Empty;
+                cmbRol.SelectedValue = Convert.ToInt32(row["id_rol"]);
+                chkActivo.Checked = Convert.ToBoolean(row["activo"]);
+
+                if (row["legajo"] != DBNull.Value)
+                {
+                    int legajo = Convert.ToInt32(row["legajo"]);
+                    DataTable dtEmpleados = cmbEmpleado.DataSource as DataTable;
+                    if (dtEmpleados != null)
+                    {
+                        if (!dtEmpleados.AsEnumerable().Any(r => Convert.ToInt32(r["legajo"]) == legajo))
+                        {
+                            DataTable dtEmpleadoActual = DatabaseHelper.GetEmpleadoByLegajo(legajo);
+                            if (dtEmpleadoActual != null && dtEmpleadoActual.Rows.Count > 0)
                             {
-                                DataTable dtEmpleadoActual = DatabaseHelper.GetEmpleadoByLegajo(legajo);
-                                if (dtEmpleadoActual != null && dtEmpleadoActual.Rows.Count > 0)
-                                {
-                                    dtEmpleados.ImportRow(dtEmpleadoActual.Rows[0]);
-                                }
+                                dtEmpleados.ImportRow(dtEmpleadoActual.Rows[0]);
                             }
                         }
+
                         cmbEmpleado.SelectedValue = legajo;
-                        cmbEmpleado.Enabled = false; // No permitir cambiar el empleado
                     }
+
+                    cmbEmpleado.Enabled = false;
                 }
+
+                bool esAdmin = txtUsername.Text.Equals("admin", StringComparison.OrdinalIgnoreCase);
+                txtUsername.Enabled = !esAdmin;
+                cmbRol.Enabled = !esAdmin;
+                chkActivo.Enabled = !esAdmin;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar datos del usuario: {ex.Message}", 
+                MessageBox.Show($"Error al cargar datos del usuario: {ex.Message}",
                               "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         /// <summary>
-        /// Maneja el evento click del botón Guardar.
         /// Crea o actualiza un usuario asociado a un empleado existente.
         /// </summary>
         private void BtnGuardar_Click(object sender, EventArgs e)
