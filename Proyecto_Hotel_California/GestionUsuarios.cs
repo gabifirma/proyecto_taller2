@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using HotelCalifornia;
 
 namespace HotelCalifornia
 {
@@ -343,6 +344,7 @@ namespace HotelCalifornia
         private Button btnGuardar;
         private Button btnCancelar;
         private int? idUsuarioEditar = null;
+        private string hashedPasswordActual = null;
 
         public AgregarEditarUsuarioForm(int? idUsuario = null)
         {
@@ -554,7 +556,8 @@ namespace HotelCalifornia
                 {
                     DataRow row = dtUsuario.Rows[0];
                     txtUsername.Text = row["username"].ToString();
-                    txtPassword.Text = row["contrasena"].ToString();
+                    hashedPasswordActual = row["contrasena"].ToString();
+                    txtPassword.Text = string.Empty;
                     cmbRol.SelectedValue = Convert.ToInt32(row["id_rol"]);
                     chkActivo.Checked = Convert.ToBoolean(row["activo"]);
                     
@@ -613,12 +616,38 @@ namespace HotelCalifornia
                 int idRol = Convert.ToInt32(cmbRol.SelectedValue);
                 bool activo = chkActivo.Checked;
 
+                string hashParaGuardar;
+                if (string.IsNullOrEmpty(password))
+                {
+                    if (!idUsuarioEditar.HasValue)
+                    {
+                        MessageBox.Show("Ingrese la contraseña.",
+                                      "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtPassword.Focus();
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(hashedPasswordActual))
+                    {
+                        MessageBox.Show("No se pudo recuperar la contraseña actual.",
+                                      "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtPassword.Focus();
+                        return;
+                    }
+
+                    hashParaGuardar = hashedPasswordActual;
+                }
+                else
+                {
+                    hashParaGuardar = PasswordHelperBasico.HashPassword(password);
+                }
+
                 bool resultado;
                 if (idUsuarioEditar.HasValue)
                 {
                     // Actualizar usuario existente
                     resultado = DatabaseHelper.UpdateUsuario(
-                        idUsuarioEditar.Value, username, password, idRol, activo);
+                        idUsuarioEditar.Value, username, hashParaGuardar, idRol, activo);
                     
                     if (resultado)
                     {
@@ -631,7 +660,7 @@ namespace HotelCalifornia
                 else
                 {
                     // Crear nuevo usuario
-                    resultado = DatabaseHelper.CreateUsuario(legajo, username, password, idRol);
+                    resultado = DatabaseHelper.CreateUsuario(legajo, username, hashParaGuardar, idRol);
                     
                     if (resultado)
                     {
@@ -681,20 +710,23 @@ namespace HotelCalifornia
             }
 
             // Validar contraseña
-            if (string.IsNullOrWhiteSpace(txtPassword.Text))
+            if (!idUsuarioEditar.HasValue || !string.IsNullOrWhiteSpace(txtPassword.Text))
             {
-                MessageBox.Show("Ingrese la contraseña.", 
-                              "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtPassword.Focus();
-                return false;
-            }
+                if (string.IsNullOrWhiteSpace(txtPassword.Text))
+                {
+                    MessageBox.Show("Ingrese la contraseña.",
+                                  "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtPassword.Focus();
+                    return false;
+                }
 
-            if (txtPassword.Text.Trim().Length < 6)
-            {
-                MessageBox.Show("La contraseña debe tener al menos 6 caracteres.", 
-                              "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtPassword.Focus();
-                return false;
+                if (txtPassword.Text.Trim().Length < 6)
+                {
+                    MessageBox.Show("La contraseña debe tener al menos 6 caracteres.",
+                                  "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtPassword.Focus();
+                    return false;
+                }
             }
 
             // Validar rol

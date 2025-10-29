@@ -154,6 +154,7 @@
     <Compile Include="GestionUsuarios.Designer.cs">
       <DependentUpon>GestionUsuarios.cs</DependentUpon>
     </Compile>
+    <Compile Include="PasswordHelperBasico.cs" />
     <Compile Include="Models\Reserva.cs" />
     <Compile Include="Models\Pago.cs" />
     <Compile Include="Services\DataService.cs" />

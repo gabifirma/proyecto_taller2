@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
 using System.Windows.Forms;
+using HotelCalifornia;
 
 namespace HotelCalifornia
 {
@@ -193,45 +194,43 @@ namespace HotelCalifornia
         }
 
         /// <summary>
-        /// Autentica un usuario verificando sus credenciales en la base de datos Hotel1
-        /// Consulta la tabla Usuario y obtiene información del Rol asociado
+        /// Autentica a un usuario comparando la contraseña ingresada con el hash almacenado
+        /// en la base de datos.
         /// </summary>
         /// <param name="nombreUsuario">Nombre de usuario (username)</param>
-        /// <param name="contraseña">Contraseña del usuario</param>
+        /// <param name="contraseña">Contraseña del usuario en texto plano</param>
         /// <returns>Objeto Usuario si las credenciales son válidas, null en caso contrario</returns>
         public static Usuario AuthenticateUser(string nombreUsuario, string contraseña)
         {
             if (!connectionInitialized)
                 InitializeConnection();
 
+            string query = @"
+                SELECT u.id_usuario, u.username, u.contrasena, u.id_rol, u.legajo,
+                       u.activo, r.nombre AS nombre_rol, e.nombre AS emp_nombre, e.apellido AS emp_apellido
+                FROM Usuario u
+                INNER JOIN Rol r ON u.id_rol = r.id_rol
+                LEFT JOIN Empleado e ON u.legajo = e.legajo
+                WHERE u.username = @username AND u.activo = 1";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@username", nombreUsuario);
                     connection.Open();
-                    
-                    // TODO: Implementar hashing de contraseñas (ej. SHA256) para futuras mejoras
-                    // Consulta que une Usuario con Rol y Empleado para obtener información completa
-                    string query = @"
-                        SELECT u.id_usuario, u.username, u.contrasena, u.id_rol, u.legajo,
-                               r.nombre as rol_nombre, e.nombre as emp_nombre, e.apellido as emp_apellido, u.activo
-                        FROM Usuario u
-                        INNER JOIN Rol r ON u.id_rol = r.id_rol
-                        LEFT JOIN Empleado e ON u.legajo = e.legajo
-                        WHERE u.username = @username AND u.contrasena = @password AND u.activo = 1";
 
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        command.Parameters.AddWithValue("@username", nombreUsuario);
-                        command.Parameters.AddWithValue("@password", contraseña);
-
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
+                            string storedHash = reader.GetString(2);
+
+                            if (PasswordHelperBasico.VerifyPassword(contraseña, storedHash))
                             {
-                                string nombre = reader.IsDBNull(6) ? "" : reader.GetString(6);
-                                string apellido = reader.IsDBNull(7) ? "" : reader.GetString(7);
-                                bool activo = reader.IsDBNull(8) ? true : reader.GetBoolean(8);
+                                string nombre = reader.IsDBNull(7) ? string.Empty : reader.GetString(7);
+                                string apellido = reader.IsDBNull(8) ? string.Empty : reader.GetString(8);
                                 string nombreCompleto = !string.IsNullOrEmpty(nombre) && !string.IsNullOrEmpty(apellido)
                                     ? $"{nombre} {apellido}"
                                     : nombreUsuario;
@@ -240,11 +239,11 @@ namespace HotelCalifornia
                                 {
                                     Id = reader.GetInt32(0),
                                     NombreUsuario = reader.GetString(1),
-                                    Contraseña = reader.GetString(2),
+                                    Contraseña = "******",
                                     IdRol = reader.GetInt32(3),
                                     Legajo = reader.IsDBNull(4) ? (int?)null : reader.GetInt32(4),
-                                    Activo = activo,
-                                    TipoUsuario = reader.GetString(5),
+                                    Activo = reader.GetBoolean(5),
+                                    TipoUsuario = reader.GetString(6),
                                     NombreCompleto = nombreCompleto,
                                     FechaCreacion = DateTime.Now
                                 };
@@ -255,9 +254,9 @@ namespace HotelCalifornia
             }
             catch (Exception ex)
             {
-                // Si hay error de base de datos, retornar null para usar modo fallback
                 System.Diagnostics.Debug.WriteLine($"Error en AuthenticateUser: {ex.Message}");
             }
+
             return null;
         }
 
@@ -540,7 +539,7 @@ namespace HotelCalifornia
         /// <summary>
         /// Crea un nuevo usuario asociado a un empleado existente
         /// </summary>
-        public static bool CreateUsuario(int legajo, string username, string password, int idRol)
+        public static bool CreateUsuario(int legajo, string username, string hash, int idRol)
         {
             if (!connectionInitialized)
                 InitializeConnection();
@@ -571,7 +570,7 @@ namespace HotelCalifornia
                     {
                         command.Parameters.AddWithValue("@id_usuario", nextUserId);
                         command.Parameters.AddWithValue("@username", username);
-                        command.Parameters.AddWithValue("@contrasena", password);
+                        command.Parameters.AddWithValue("@contrasena", hash);
                         command.Parameters.AddWithValue("@idRol", idRol);
                         command.Parameters.AddWithValue("@legajo", legajo);
                         
@@ -590,7 +589,7 @@ namespace HotelCalifornia
         /// <summary>
         /// Actualiza un usuario existente
         /// </summary>
-        public static bool UpdateUsuario(int idUsuario, string username, string password, int idRol, bool activo)
+        public static bool UpdateUsuario(int idUsuario, string username, string hash, int idRol, bool activo)
         {
             if (!connectionInitialized)
                 InitializeConnection();
@@ -620,7 +619,7 @@ namespace HotelCalifornia
                     {
                         command.Parameters.AddWithValue("@idUsuario", idUsuario);
                         command.Parameters.AddWithValue("@username", username);
-                        command.Parameters.AddWithValue("@contrasena", password);
+                        command.Parameters.AddWithValue("@contrasena", hash);
                         command.Parameters.AddWithValue("@idRol", idRol);
                         command.Parameters.AddWithValue("@activo", activo ? 1 : 0);
                         
@@ -763,8 +762,8 @@ namespace HotelCalifornia
                     nextUserId = (int)cmdGetId.ExecuteScalar();
                 }
 
-                // Paso 3: Insertar el usuario asociado
-                // TODO: Implementar hashing de contraseñas (ej. SHA256) para futuras mejoras
+                // Paso 3: Insertar el usuario asociado (almacenando contraseña hasheada)
+                string passwordHash = PasswordHelperBasico.HashPassword(password);
                 string insertUsuarioQuery = @"
                     INSERT INTO Usuario (id_usuario, username, contrasena, activo, ultimo_acceso, id_rol, legajo)
                     VALUES (@id_usuario, @username, @contrasena, 1, GETDATE(), @idRol, @legajo);";
@@ -773,7 +772,7 @@ namespace HotelCalifornia
                 {
                     cmdUsuario.Parameters.AddWithValue("@id_usuario", nextUserId);
                     cmdUsuario.Parameters.AddWithValue("@username", username);
-                    cmdUsuario.Parameters.AddWithValue("@contrasena", password);
+                    cmdUsuario.Parameters.AddWithValue("@contrasena", passwordHash);
                     cmdUsuario.Parameters.AddWithValue("@idRol", idRol);
                     cmdUsuario.Parameters.AddWithValue("@legajo", legajo);
                     
