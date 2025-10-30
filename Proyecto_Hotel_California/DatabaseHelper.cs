@@ -206,13 +206,19 @@ namespace HotelCalifornia
                 InitializeConnection();
 
             string query = @"
-                SELECT u.id_usuario, u.username, u.contrasena, u.id_rol, u.legajo,
-                       u.activo, r.nombre AS nombre_rol, e.nombre AS emp_nombre, e.apellido AS emp_apellido
+                SELECT u.id_usuario, 
+                       u.username, 
+                       u.contrasena, 
+                       u.id_rol, 
+                       u.legajo,
+                       u.activo, 
+                       r.nombre AS nombre_rol, 
+                       e.nombre AS emp_nombre, 
+                       e.apellido AS emp_apellido
                 FROM Usuario u
                 INNER JOIN Rol r ON u.id_rol = r.id_rol
                 LEFT JOIN Empleado e ON u.legajo = e.legajo
-                WHERE u.username = @username AND u.activo = 1
-                  AND (u.legajo IS NULL OR e.estado = 1)";
+                WHERE u.username = @username AND u.activo = 1 AND (u.legajo IS NULL OR e.estado = 1)";
 
             try
             {

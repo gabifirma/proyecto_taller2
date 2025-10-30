@@ -64,7 +64,7 @@ namespace HotelCalifornia
                               "Login Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Abrir formulario principal y ocultar el login
-                Main mainForm = new Main();
+                Main mainForm = new Main(usuarioAutenticado.NombreCompleto, usuarioAutenticado.Legajo);
                 mainForm.Show();
                 this.Hide();
             }

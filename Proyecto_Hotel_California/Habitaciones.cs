@@ -71,6 +71,12 @@ namespace HotelCalifornia
                 return;
             }
 
+            if (num <= 100)
+            {
+                MessageBox.Show("El NÚMERO no respeta la estandarización");
+                return;
+            }
+
             // Verificar existencia para evitar duplicados
             if (DatabaseHelper.HabitacionExiste(num))
             {

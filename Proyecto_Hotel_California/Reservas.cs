@@ -53,7 +53,7 @@ namespace HotelCalifornia
                         INNER JOIN Habitacion H ON RH.numero_hab = H.numero_hab
                         INNER JOIN TipoHabitacion TH ON H.id_tipo = TH.id_tipo
                         GROUP BY 
-                            R.id_reserva, R.fecha_inicio, R.fecha_fin, R.id_estado, C.nombre, C.apellido
+                            R.id_reserva, R.fecha_inicio, R.fecha_fin, R.id_estado, C.nombre, C.apellido, R.total
                         ORDER BY R.id_reserva DESC;";
 
                 SqlDataAdapter da = new SqlDataAdapter(query, conn);
