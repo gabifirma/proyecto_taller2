@@ -80,5 +80,21 @@ namespace HotelCalifornia
         {
             return IsLoggedIn ? CurrentUser.TipoUsuario : "Sin rol";
         }
+
+        /// <summary>
+        /// Obtiene el legajo del usuario actual
+        /// </summary>
+        /// <returns>Legajo de usuario o mensaje por defecto si no está autenticado</returns>
+        public static string GetUserLegajo()
+        {
+            if (!IsLoggedIn || CurrentUser.Legajo == null)
+            {
+                return "Sin rol";
+            }
+            else
+            {
+                return CurrentUser.Legajo.Value.ToString();
+            }            
+        }
     }
 }

@@ -784,13 +784,7 @@ namespace HotelCalifornia
                 {
                     cmdEmpleado.Parameters.AddWithValue("@nombre", nombre);
                     cmdEmpleado.Parameters.AddWithValue("@apellido", apellido);
-                    
-                    // Convertir teléfono a INT (la columna en BD es INT)
-                    if (!string.IsNullOrEmpty(telefono) && int.TryParse(telefono, out int telefonoInt))
-                        cmdEmpleado.Parameters.AddWithValue("@telefono", telefonoInt);
-                    else
-                        cmdEmpleado.Parameters.AddWithValue("@telefono", DBNull.Value);
-                    
+                    cmdEmpleado.Parameters.AddWithValue("@telefono", telefono);                    
                     cmdEmpleado.Parameters.AddWithValue("@email", email ?? (object)DBNull.Value);
                     
                     legajo = (int)cmdEmpleado.ExecuteScalar();

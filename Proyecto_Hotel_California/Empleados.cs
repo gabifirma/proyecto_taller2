@@ -79,7 +79,7 @@ namespace HotelCalifornia
         private void BAgregarEmp_Click(object sender, EventArgs e)
         {
             // Abrir el nuevo formulario de agregar empleado con opción de crear usuario
-            AgregarEmpleadoConUsuario formAgregar = new AgregarEmpleadoConUsuario();
+            AgregarEmpleadoConUsuario1 formAgregar = new AgregarEmpleadoConUsuario1();
              if (formAgregar.ShowDialog() == DialogResult.OK)
              {
                  // Recargar la grilla de empleados después de agregar

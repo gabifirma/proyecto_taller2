@@ -31,10 +31,7 @@ namespace HotelCalifornia
         private readonly Color DisabledForeColor = Color.FromArgb(80, 80, 80);
         private readonly Color DisabledMouseOverBackColor = Color.FromArgb(160, 160, 160);
 
-        private int? numLegajo;
-        private string nombreCompleto;
-
-        public Main(string nombreComp, int? legajo)
+        public Main()
         {
             InitializeComponent();
             InitializeMenuButtonStyles();
@@ -43,11 +40,8 @@ namespace HotelCalifornia
             UpdateHeader();
             DatabaseHelper.InitializeDatabase();
 
-            numLegajo = legajo;
-            nombreCompleto = nombreComp;
-
-            LNumLegajo.Text = legajo.HasValue ? legajo.Value.ToString() : "Sin legajo";
-            LNomUsuario.Text = nombreCompleto;
+            LNumLegajo.Text = UserSession.GetUserLegajo();
+            LNomUsuario.Text = UserSession.GetUserDisplayName();
         }
 
         /// <summary>

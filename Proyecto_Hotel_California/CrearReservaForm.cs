@@ -252,7 +252,7 @@ namespace HotelCalifornia
         {
             string insertar = @"INSERT INTO Reserva (fecha_inicio, fecha_fin, fecha_creacion, id_cliente, legajo, id_estado)
                         OUTPUT INSERTED.id_reserva
-                        VALUES (@inicio, @fin, GETDATE(), @cliente, 1001, 2)";
+                        VALUES (@inicio, @fin, GETDATE(), @cliente, @legajo, 2)";
 
             SqlCommand cmd = new SqlCommand(insertar, conn, tran);
             DateTime hoy = DateTime.Today;
@@ -261,6 +261,7 @@ namespace HotelCalifornia
             cmd.Parameters.AddWithValue("@inicio", hoy);
             cmd.Parameters.AddWithValue("@fin", hoy.AddDays(noches));
             cmd.Parameters.AddWithValue("@cliente", idCliente);
+            //cmd.Parameters.AddWithValue("@legajo", UserSession.GetUserLegajo());
 
             return (int)cmd.ExecuteScalar();
         }

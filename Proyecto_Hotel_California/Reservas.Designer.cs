@@ -31,6 +31,17 @@ namespace HotelCalifornia
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reservas));
             this.LTituloReservas = new System.Windows.Forms.Label();
             this.GrillaReservas = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numero_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipo_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha_creacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RBSuite = new System.Windows.Forms.RadioButton();
             this.RBDoble = new System.Windows.Forms.RadioButton();
             this.RBSingle = new System.Windows.Forms.RadioButton();
@@ -56,17 +67,6 @@ namespace HotelCalifornia
             this.LFinalizarC = new System.Windows.Forms.Label();
             this.TReservaN = new System.Windows.Forms.TextBox();
             this.LReservaN = new System.Windows.Forms.Label();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.inicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numero_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipo_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha_creacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaReservas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -114,6 +114,94 @@ namespace HotelCalifornia
             this.GrillaReservas.Size = new System.Drawing.Size(981, 272);
             this.GrillaReservas.TabIndex = 1;
             this.GrillaReservas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaReservas_CellDoubleClick);
+            // 
+            // id
+            // 
+            this.id.DataPropertyName = "ID";
+            this.id.FillWeight = 25F;
+            this.id.HeaderText = "N°";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            // 
+            // inicio
+            // 
+            this.inicio.DataPropertyName = "Inicio";
+            this.inicio.FillWeight = 33.42974F;
+            this.inicio.HeaderText = "Inicio";
+            this.inicio.Name = "inicio";
+            this.inicio.ReadOnly = true;
+            // 
+            // fin
+            // 
+            this.fin.DataPropertyName = "Fin";
+            this.fin.FillWeight = 33.42974F;
+            this.fin.HeaderText = "Fin";
+            this.fin.Name = "fin";
+            this.fin.ReadOnly = true;
+            // 
+            // nombre
+            // 
+            this.nombre.DataPropertyName = "Nombre";
+            this.nombre.FillWeight = 33.42974F;
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.ReadOnly = true;
+            // 
+            // apellido
+            // 
+            this.apellido.DataPropertyName = "Apellido";
+            this.apellido.FillWeight = 33.42974F;
+            this.apellido.HeaderText = "Apellido";
+            this.apellido.Name = "apellido";
+            this.apellido.ReadOnly = true;
+            // 
+            // numero_hab
+            // 
+            this.numero_hab.DataPropertyName = "Habitaciones";
+            this.numero_hab.FillWeight = 33.42974F;
+            this.numero_hab.HeaderText = "Habitaciones";
+            this.numero_hab.Name = "numero_hab";
+            this.numero_hab.ReadOnly = true;
+            // 
+            // tipo_hab
+            // 
+            this.tipo_hab.DataPropertyName = "Tipos";
+            this.tipo_hab.FillWeight = 33.42974F;
+            this.tipo_hab.HeaderText = "Tipos";
+            this.tipo_hab.Name = "tipo_hab";
+            this.tipo_hab.ReadOnly = true;
+            // 
+            // subtotal
+            // 
+            this.subtotal.DataPropertyName = "Subtotal";
+            this.subtotal.FillWeight = 33.42974F;
+            this.subtotal.HeaderText = "Subtotal ($)";
+            this.subtotal.Name = "subtotal";
+            this.subtotal.ReadOnly = true;
+            // 
+            // total
+            // 
+            this.total.DataPropertyName = "Total";
+            this.total.FillWeight = 40F;
+            this.total.HeaderText = "Total ($)";
+            this.total.Name = "total";
+            this.total.ReadOnly = true;
+            // 
+            // estado
+            // 
+            this.estado.DataPropertyName = "Estado";
+            this.estado.HeaderText = "estado";
+            this.estado.Name = "estado";
+            this.estado.ReadOnly = true;
+            this.estado.Visible = false;
+            // 
+            // fecha_creacion
+            // 
+            this.fecha_creacion.DataPropertyName = "fecha_creacion";
+            this.fecha_creacion.HeaderText = "fecha_creacion";
+            this.fecha_creacion.Name = "fecha_creacion";
+            this.fecha_creacion.ReadOnly = true;
+            this.fecha_creacion.Visible = false;
             // 
             // RBSuite
             // 
@@ -388,94 +476,6 @@ namespace HotelCalifornia
             this.LReservaN.Size = new System.Drawing.Size(78, 19);
             this.LReservaN.TabIndex = 28;
             this.LReservaN.Text = "Reserva N°:";
-            // 
-            // id
-            // 
-            this.id.DataPropertyName = "ID";
-            this.id.FillWeight = 25F;
-            this.id.HeaderText = "N°";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            // 
-            // inicio
-            // 
-            this.inicio.DataPropertyName = "Inicio";
-            this.inicio.FillWeight = 33.42974F;
-            this.inicio.HeaderText = "Inicio";
-            this.inicio.Name = "inicio";
-            this.inicio.ReadOnly = true;
-            // 
-            // fin
-            // 
-            this.fin.DataPropertyName = "Fin";
-            this.fin.FillWeight = 33.42974F;
-            this.fin.HeaderText = "Fin";
-            this.fin.Name = "fin";
-            this.fin.ReadOnly = true;
-            // 
-            // nombre
-            // 
-            this.nombre.DataPropertyName = "Nombre";
-            this.nombre.FillWeight = 33.42974F;
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            this.nombre.ReadOnly = true;
-            // 
-            // apellido
-            // 
-            this.apellido.DataPropertyName = "Apellido";
-            this.apellido.FillWeight = 33.42974F;
-            this.apellido.HeaderText = "Apellido";
-            this.apellido.Name = "apellido";
-            this.apellido.ReadOnly = true;
-            // 
-            // numero_hab
-            // 
-            this.numero_hab.DataPropertyName = "Habitaciones";
-            this.numero_hab.FillWeight = 33.42974F;
-            this.numero_hab.HeaderText = "Habitaciones";
-            this.numero_hab.Name = "numero_hab";
-            this.numero_hab.ReadOnly = true;
-            // 
-            // tipo_hab
-            // 
-            this.tipo_hab.DataPropertyName = "Tipos";
-            this.tipo_hab.FillWeight = 33.42974F;
-            this.tipo_hab.HeaderText = "Tipos";
-            this.tipo_hab.Name = "tipo_hab";
-            this.tipo_hab.ReadOnly = true;
-            // 
-            // subtotal
-            // 
-            this.subtotal.DataPropertyName = "Subtotal";
-            this.subtotal.FillWeight = 33.42974F;
-            this.subtotal.HeaderText = "Subtotal ($)";
-            this.subtotal.Name = "subtotal";
-            this.subtotal.ReadOnly = true;
-            // 
-            // total
-            // 
-            this.total.DataPropertyName = "Total";
-            this.total.FillWeight = 40F;
-            this.total.HeaderText = "Total ($)";
-            this.total.Name = "total";
-            this.total.ReadOnly = true;
-            // 
-            // estado
-            // 
-            this.estado.DataPropertyName = "Estado";
-            this.estado.HeaderText = "estado";
-            this.estado.Name = "estado";
-            this.estado.ReadOnly = true;
-            this.estado.Visible = false;
-            // 
-            // fecha_creacion
-            // 
-            this.fecha_creacion.DataPropertyName = "fecha_creacion";
-            this.fecha_creacion.HeaderText = "fecha_creacion";
-            this.fecha_creacion.Name = "fecha_creacion";
-            this.fecha_creacion.ReadOnly = true;
-            this.fecha_creacion.Visible = false;
             // 
             // Reservas
             // 
