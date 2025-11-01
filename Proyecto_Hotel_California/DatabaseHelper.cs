@@ -1172,5 +1172,424 @@ namespace HotelCalifornia
                 return true; // por seguridad, asumimos que existe si hay error
             }
         }
+
+        // ============================================
+        // MÉTODOS PARA REPORTES Y ESTADÍSTICAS
+        // ============================================
+
+        /// <summary>
+        /// Obtiene lista de estados de reserva para filtros
+        /// </summary>
+        public static DataTable GetEstadosReserva()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("id_estado", typeof(int));
+            dt.Columns.Add("nombre", typeof(string));
+            
+            dt.Rows.Add(1, "Confirmada");
+            dt.Rows.Add(2, "En Espera");
+            dt.Rows.Add(3, "Terminada");
+            
+            return dt;
+        }
+
+        /// <summary>
+        /// Obtiene reporte de reservas con filtros dinámicos
+        /// </summary>
+        public static DataTable GetReporteReservas(DateTime? fechaDesde = null, 
+            DateTime? fechaHasta = null, int? idEstado = null, string textoBusqueda = null)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    
+                    string query = @"
+                        SELECT 
+                            r.id_reserva AS 'ID',
+                            c.nombre + ' ' + c.apellido AS 'Cliente',
+                            c.dni AS 'DNI',
+                            r.fecha_inicio AS 'Fecha Inicio',
+                            r.fecha_fin AS 'Fecha Fin',
+                            DATEDIFF(DAY, r.fecha_inicio, r.fecha_fin) AS 'Días',
+                            CASE 
+                                WHEN r.id_estado = 1 THEN 'Confirmada'
+                                WHEN r.id_estado = 2 THEN 'En Espera'
+                                WHEN r.id_estado = 3 THEN 'Terminada'
+                                ELSE 'Desconocido'
+                            END AS 'Estado',
+                            ISNULL(r.total, 0) AS 'Total'
+                        FROM Reserva r
+                        INNER JOIN Cliente c ON r.id_cliente = c.id_cliente
+                        WHERE 1=1";
+                    
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = connection;
+                    
+                    if (fechaDesde.HasValue)
+                    {
+                        query += " AND r.fecha_inicio >= @FechaDesde";
+                        cmd.Parameters.AddWithValue("@FechaDesde", fechaDesde.Value);
+                    }
+                    
+                    if (fechaHasta.HasValue)
+                    {
+                        query += " AND r.fecha_fin <= @FechaHasta";
+                        cmd.Parameters.AddWithValue("@FechaHasta", fechaHasta.Value);
+                    }
+                    
+                    if (idEstado.HasValue)
+                    {
+                        query += " AND r.id_estado = @IdEstado";
+                        cmd.Parameters.AddWithValue("@IdEstado", idEstado.Value);
+                    }
+                    
+                    if (!string.IsNullOrWhiteSpace(textoBusqueda))
+                    {
+                        query += " AND (c.nombre LIKE @Busqueda OR c.apellido LIKE @Busqueda OR c.dni LIKE @Busqueda)";
+                        cmd.Parameters.AddWithValue("@Busqueda", "%" + textoBusqueda + "%");
+                    }
+                    
+                    query += " ORDER BY r.fecha_inicio DESC";
+                    cmd.CommandText = query;
+                    
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetReporteReservas: {ex.Message}");
+            }
+            return dt;
+        }
+
+        /// <summary>
+        /// Obtiene reporte de pagos con filtros dinámicos
+        /// </summary>
+        public static DataTable GetReportePagos(DateTime? fechaDesde = null, 
+            DateTime? fechaHasta = null, string metodoPago = null, string textoBusqueda = null)
+        {
+            if (!connectionInitialized)
+                InitializeConnection();
+
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+        
+                    // CORREGIDO: Usar la estructura correcta de la base de datos
+        string query = @"
+          SELECT 
+          p.id_pago AS 'ID Pago',
+  p.id_reserva AS 'Reserva',
+             c.nombre + ' ' + c.apellido AS 'Cliente',
+        ISNULL(p.monto, 0) AS 'Monto',
+              p.fecha AS 'Fecha Pago',
+        mp.descripcion AS 'Método'
+          FROM Pago p
+ INNER JOIN Reserva r ON p.id_reserva = r.id_reserva
+         INNER JOIN Cliente c ON r.id_cliente = c.id_cliente
+    INNER JOIN MetodoPago mp ON p.id_metodoPago = mp.id_metodoPago
+       WHERE 1=1";
+         
+        SqlCommand cmd = new SqlCommand();
+         cmd.Connection = connection;
+        
+     if (fechaDesde.HasValue)
+  {
+          query += " AND p.fecha >= @FechaDesde";
+  cmd.Parameters.AddWithValue("@FechaDesde", fechaDesde.Value);
+        }
+                 
+     if (fechaHasta.HasValue)
+     {
+       query += " AND p.fecha <= @FechaHasta";
+     cmd.Parameters.AddWithValue("@FechaHasta", fechaHasta.Value);
+          }
+        
+  if (!string.IsNullOrWhiteSpace(metodoPago) && metodoPago != "Todos")
+        {
+     query += " AND mp.descripcion = @Metodo";
+          cmd.Parameters.AddWithValue("@Metodo", metodoPago);
+        }
+     
+           if (!string.IsNullOrWhiteSpace(textoBusqueda))
+          {
+          query += " AND (c.nombre LIKE @Busqueda OR c.apellido LIKE @Busqueda OR CAST(p.id_reserva AS VARCHAR) LIKE @Busqueda)";
+              cmd.Parameters.AddWithValue("@Busqueda", "%" + textoBusqueda + "%");
+              }
+           
+     query += " ORDER BY p.fecha DESC";
+      cmd.CommandText = query;
+           
+               using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+       {
+            adapter.Fill(dt);
+               }
+      }
+   }
+     catch (Exception ex)
+          {
+   System.Diagnostics.Debug.WriteLine($"Error en GetReportePagos: {ex.Message}");
+ }
+         return dt;
+        }
+
+        /// <summary>
+        /// Obtiene métodos de pago disponibles desde la base de datos
+     /// </summary>
+        public static DataTable GetMetodosPago()
+     {
+    if (!connectionInitialized)
+  InitializeConnection();
+
+            DataTable dt = new DataTable();
+    dt.Columns.Add("metodo", typeof(string));
+            
+      try
+            {
+   using (SqlConnection connection = new SqlConnection(connectionString))
+   {
+ connection.Open();
+        
+            // Agregar "Todos" como primera opción
+dt.Rows.Add("Todos");
+         
+    // Obtener métodos de pago desde la base de datos
+string query = "SELECT descripcion FROM MetodoPago ORDER BY id_metodoPago";
+       
+using (SqlCommand command = new SqlCommand(query, connection))
+          using (SqlDataReader reader = command.ExecuteReader())
+        {
+        while (reader.Read())
+        {
+   dt.Rows.Add(reader["descripcion"].ToString());
+    }
+         }
+      }
+            }
+          catch (Exception ex)
+            {
+     System.Diagnostics.Debug.WriteLine($"Error en GetMetodosPago: {ex.Message}");
+  // Si hay error, devolver valores por defecto
+              if (dt.Rows.Count == 0)
+                {
+         dt.Rows.Add("Todos");
+    dt.Rows.Add("Efectivo");
+           dt.Rows.Add("Transferencia");
+       dt.Rows.Add("Tarjeta de Crédito");
+    }
+       }
+            return dt;
+        }
+
+        /// <summary>
+        /// Obtiene estadísticas de pagos por método
+        /// </summary>
+     public static DataTable GetEstadisticasPagosPorMetodo()
+   {
+     if (!connectionInitialized)
+    InitializeConnection();
+
+      DataTable dt = new DataTable();
+    try
+   {
+       using (SqlConnection connection = new SqlConnection(connectionString))
+  {
+     connection.Open();
+      // CORREGIDO: Usar la estructura correcta con JOIN a MetodoPago
+  string query = @"
+   SELECT 
+           mp.descripcion AS 'Método',
+     COUNT(*) AS 'Cantidad',
+        ISNULL(SUM(p.monto), 0) AS 'Total'
+      FROM Pago p
+    INNER JOIN MetodoPago mp ON p.id_metodoPago = mp.id_metodoPago
+    GROUP BY mp.descripcion
+             ORDER BY SUM(p.monto) DESC";
+    
+      using (SqlCommand command = new SqlCommand(query, connection))
+  using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+    {
+     adapter.Fill(dt);
+       }
+    }
+ }
+   catch (Exception ex)
+  {
+       System.Diagnostics.Debug.WriteLine($"Error en GetEstadisticasPagosPorMetodo: {ex.Message}");
+   }
+       return dt;
+      }
+
+        /// <summary>
+        /// Obtiene estadísticas de ocupación por estado
+      /// </summary>
+        public static DataTable GetEstadisticasOcupacion()
+        {
+            if (!connectionInitialized)
+         InitializeConnection();
+
+ DataTable dt = new DataTable();
+         try
+            {
+ using (SqlConnection connection = new SqlConnection(connectionString))
+     {
+           connection.Open();
+     string query = @"
+    SELECT 
+CASE 
+       WHEN id_estado = 1 THEN 'Confirmada'
+       WHEN id_estado = 2 THEN 'En Espera'
+         WHEN id_estado = 3 THEN 'Terminada'
+           ELSE 'Desconocido'
+     END AS Estado,
+         COUNT(*) AS Cantidad
+         FROM Reserva
+              GROUP BY id_estado";
+         
+    using (SqlCommand command = new SqlCommand(query, connection))
+      using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+             {
+          adapter.Fill(dt);
+            }
+           }
+            }
+            catch (Exception ex)
+       {
+      System.Diagnostics.Debug.WriteLine($"Error en GetEstadisticasOcupacion: {ex.Message}");
+         }
+    return dt;
+        }
+
+        /// <summary>
+        /// Obtiene estadísticas de ingresos mensuales
+    /// </summary>
+public static DataTable GetEstadisticasIngresosMensuales(int año)
+        {
+      if (!connectionInitialized)
+        InitializeConnection();
+
+            DataTable dt = new DataTable();
+     try
+{
+           using (SqlConnection connection = new SqlConnection(connectionString))
+    {
+         connection.Open();
+         string query = @"
+      SELECT 
+    MONTH(fecha_inicio) AS Mes,
+            DATENAME(MONTH, fecha_inicio) AS NombreMes,
+COUNT(*) AS CantidadReservas,
+          ISNULL(SUM(total), 0) AS IngresoTotal
+    FROM Reserva
+   WHERE YEAR(fecha_inicio) = @Año
+          GROUP BY MONTH(fecha_inicio), DATENAME(MONTH, fecha_inicio)
+     ORDER BY MONTH(fecha_inicio)";
+             
+         using (SqlCommand command = new SqlCommand(query, connection))
+         {
+      command.Parameters.AddWithValue("@Año", año);
+           using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+              {
+           adapter.Fill(dt);
+     }
+      }
+}
+          }
+            catch (Exception ex)
+        {
+              System.Diagnostics.Debug.WriteLine($"Error en GetEstadisticasIngresosMensuales: {ex.Message}");
+            }
+     return dt;
+   }
+
+        /// <summary>
+        /// Obtiene habitaciones más reservadas
+  /// </summary>
+      public static DataTable GetHabitacionesPopulares()
+        {
+        if (!connectionInitialized)
+      InitializeConnection();
+
+    DataTable dt = new DataTable();
+         try
+{
+    using (SqlConnection connection = new SqlConnection(connectionString))
+         {
+         connection.Open();
+           string query = @"
+         SELECT TOP 10
+                 th.nombre AS 'Tipo',
+     COUNT(*) AS 'Reservas',
+              ISNULL(SUM(rh.subtotal), 0) AS 'Ingresos'
+             FROM ReservaHabitacion rh
+       INNER JOIN Habitacion h ON rh.numero_hab = h.numero_hab AND rh.piso = h.piso
+                INNER JOIN TipoHabitacion th ON h.id_tipo = th.id_tipo
+     GROUP BY th.nombre
+              ORDER BY COUNT(*) DESC";
+    
+    using (SqlCommand command = new SqlCommand(query, connection))
+        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+{
+    adapter.Fill(dt);
+        }
+                }
+ }
+         catch (Exception ex)
+{
+                System.Diagnostics.Debug.WriteLine($"Error en GetHabitacionesPopulares: {ex.Message}");
+            }
+            return dt;
+        }
+
+   /// <summary>
+      /// Obtiene top clientes frecuentes
+  /// </summary>
+      public static DataTable GetTopClientes(int top = 10)
+        {
+            if (!connectionInitialized)
+           InitializeConnection();
+
+  DataTable dt = new DataTable();
+        try
+       {
+           using (SqlConnection connection = new SqlConnection(connectionString))
+    {
+          connection.Open();
+           string query = $@"
+           SELECT TOP {top}
+             c.nombre + ' ' + c.apellido AS 'Cliente',
+       c.email AS 'Email',
+  COUNT(*) AS 'Reservas',
+   ISNULL(SUM(r.total), 0) AS 'Total Gastado'
+          FROM Cliente c
+       INNER JOIN Reserva r ON c.id_cliente = r.id_cliente
+         GROUP BY c.nombre, c.apellido, c.email
+        ORDER BY COUNT(*) DESC";
+           
+          using (SqlCommand command = new SqlCommand(query, connection))
+   using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+        {
+         adapter.Fill(dt);
+  }
+             }
+         }
+   catch (Exception ex)
+            {
+          System.Diagnostics.Debug.WriteLine($"Error en GetTopClientes: {ex.Message}");
+    }
+      return dt;
+        }
     }
 }
