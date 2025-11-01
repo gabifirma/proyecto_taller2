@@ -261,7 +261,7 @@ namespace HotelCalifornia
             cmd.Parameters.AddWithValue("@inicio", hoy);
             cmd.Parameters.AddWithValue("@fin", hoy.AddDays(noches));
             cmd.Parameters.AddWithValue("@cliente", idCliente);
-            //cmd.Parameters.AddWithValue("@legajo", UserSession.GetUserLegajo());
+            cmd.Parameters.AddWithValue("@legajo", UserSession.GetUserLegajo());
 
             return (int)cmd.ExecuteScalar();
         }
