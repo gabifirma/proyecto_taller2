@@ -199,60 +199,49 @@ namespace HotelCalifornia
         {
             try
             {
-                // Usar DataService para obtener estadísticas
-                var reservas = HotelCalifornia.Services.DataService.GetReservas();
-                var totalReservas = reservas.Count;
-                var reservasActivas = reservas.Count(r => r.Estado == "Activa" || r.Estado == "Confirmada");
+                int totalReservas = 0;
+                int reservasActivas = 0;
+                int totalClientes = 0;
+                int habitacionesOcupadas = 0;
+
+                if (DatabaseHelper.TestConnection())
+                {
+                    using (var conn = new System.Data.SqlClient.SqlConnection(DatabaseHelper.GetConnectionString()))
+                    {
+                        conn.Open();
+                        
+                        // Obtener el total de reservas
+                        var cmdTotal = new System.Data.SqlClient.SqlCommand("SELECT COUNT(*) FROM Reserva", conn);
+                        totalReservas = (int)cmdTotal.ExecuteScalar();
+
+                        // Obtener el total de reservas activas (id_estado = 1 para confirmadas/activas)
+                        var cmdActivas = new System.Data.SqlClient.SqlCommand(
+                            "SELECT COUNT(*) FROM Reserva WHERE id_estado IN (1, 2)", conn);
+                        reservasActivas = (int)cmdActivas.ExecuteScalar();
+
+                        // Obtener el total de clientes
+                        var cmdClientes = new System.Data.SqlClient.SqlCommand("SELECT COUNT(*) FROM Cliente", conn);
+                        totalClientes = (int)cmdClientes.ExecuteScalar();
+
+                        // Obtener habitaciones ocupadas (id_estado = 2 para ocupadas)
+                        var cmdHabitaciones = new System.Data.SqlClient.SqlCommand(
+                            "SELECT COUNT(*) FROM Habitacion WHERE id_estado = 2", conn);
+                        habitacionesOcupadas = (int)cmdHabitaciones.ExecuteScalar();
+                    }
+                }
 
                 return (
                     TotalReservas: totalReservas,
                     ReservasActivas: reservasActivas,
-                    TotalClientes: ObtenerTotalClientes(),
-                    HabitacionesOcupadas: ObtenerHabitacionesOcupadas()
+                    TotalClientes: totalClientes,
+                    HabitacionesOcupadas: habitacionesOcupadas
                 );
             }
-            catch
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"Error en ObtenerEstadisticas: {ex.Message}");
                 // En caso de error, devolver valores por defecto
                 return (0, 0, 0, 0);
-            }
-        }
-
-        private int ObtenerTotalClientes()
-        {
-            try
-            {
-                if (!DatabaseHelper.TestConnection()) return 0;
-                
-                using (var conn = new System.Data.SqlClient.SqlConnection(DatabaseHelper.GetConnectionString()))
-                {
-                    conn.Open();
-                    var cmd = new System.Data.SqlClient.SqlCommand("SELECT COUNT(*) FROM Cliente", conn);
-                    return (int)cmd.ExecuteScalar();
-                }
-            }
-            catch
-            {
-                return 0;
-            }
-        }
-
-        private int ObtenerHabitacionesOcupadas()
-        {
-            try
-            {
-                if (!DatabaseHelper.TestConnection()) return 0;
-                
-                using (var conn = new System.Data.SqlClient.SqlConnection(DatabaseHelper.GetConnectionString()))
-                {
-                    conn.Open();
-                    var cmd = new System.Data.SqlClient.SqlCommand("SELECT COUNT(*) FROM Habitacion WHERE estado = 'Ocupada'", conn);
-                    return (int)cmd.ExecuteScalar();
-                }
-            }
-            catch
-            {
-                return 0;
             }
         }
 
