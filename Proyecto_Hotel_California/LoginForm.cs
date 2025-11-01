@@ -87,20 +87,39 @@ namespace HotelCalifornia
         /// <returns>Objeto Usuario si las credenciales son válidas, null en caso contrario</returns>
         private Usuario ValidateUserSimple(string usuario, string password)
         {
-            // Validación simple sin base de datos usando usuarios predefinidos
+            // ===============================================
+            // USUARIOS HARDCODEADOS - COMENTADOS
+            // ===============================================
+            // NOTA: Este código de validación hardcodeada está comentado.
+            // Se utilizaba como fallback cuando no había conexión a la base de datos.
+            // 
+            // Para habilitar el modo offline con usuarios hardcodeados,
+            // descomente el código siguiente.
+            // ===============================================
+            
+            /*
+            // Usuario Administrador hardcodeado
             if (usuario == "admin" && password == "admin123")
             {
                 return new Usuario("admin", "admin123", "Administrador", "Administrador del Sistema");
             }
+            // Usuario Supervisor hardcodeado
             else if (usuario == "supervisor1" && password == "super123")
             {
                 return new Usuario("supervisor1", "super123", "Supervisor", "Supervisor General");
             }
+            // Usuario Recepcionista hardcodeado
             else if (usuario == "recepcion1" && password == "recepcion123")
             {
                 return new Usuario("recepcion1", "recepcion123", "Recepcionista", "Recepcionista Principal");
             }
+            */
             
+            // ===============================================
+            // FIN DE USUARIOS HARDCODEADOS
+            // ===============================================
+            
+            // Sin usuarios hardcodeados, siempre retorna null cuando no hay conexión a BD
             return null;
         }
 

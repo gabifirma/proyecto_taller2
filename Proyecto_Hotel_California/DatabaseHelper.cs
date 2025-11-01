@@ -180,6 +180,19 @@ namespace HotelCalifornia
         /// <param name="connection">Conexión activa a la base de datos</param>
         private static void CreateDefaultUsers(SqlConnection connection)
         {
+            // ===============================================
+            // USUARIOS HARDCODEADOS - COMENTADOS
+            // ===============================================
+            // NOTA: Este código está comentado porque crea usuarios hardcodeados
+            // automáticamente en la base de datos.
+            // 
+            // Para habilitar la creación automática de usuarios de prueba,
+            // descomente el código siguiente.
+            // 
+            // IMPORTANTE: Las contraseñas están en texto plano.
+            // ===============================================
+            
+            /*
             string insertUsersQuery = @"
                 INSERT INTO Usuarios (NombreUsuario, Contraseña, TipoUsuario, NombreCompleto, Activo, FechaCreacion)
                 VALUES 
@@ -191,6 +204,11 @@ namespace HotelCalifornia
             {
                 command.ExecuteNonQuery();
             }
+            */
+            
+            // ===============================================
+            // FIN DE USUARIOS HARDCODEADOS
+            // ===============================================
         }
 
         /// <summary>
