@@ -44,8 +44,9 @@ namespace HotelCalifornia
                     }
                     sb.AppendLine(string.Join(",", fields));
                 }
-                
-                File.WriteAllText(rutaArchivo, sb.ToString(), Encoding.UTF8);
+
+                // Escribir con BOM UTF-8 para que Excel lo detecte correctamente
+                File.WriteAllText(rutaArchivo, sb.ToString(), new UTF8Encoding(encoderShouldEmitUTF8Identifier: true));
                 return true;
             }
             catch (Exception ex)
@@ -69,14 +70,14 @@ namespace HotelCalifornia
                 sb.AppendLine("<meta charset='utf-8'>");
                 sb.AppendLine($"<title>{titulo}</title>");
                 sb.AppendLine("<style>");
-                sb.AppendLine("body { font-family: Arial, sans-serif; margin: 20px; }");
-                sb.AppendLine("table { border-collapse: collapse; width: 100%; margin-top: 20px; }");
-                sb.AppendLine("th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }");
+                sb.AppendLine("body { font-family: Arial, sans-serif; margin:20px; }");
+                sb.AppendLine("table { border-collapse: collapse; width:100%; margin-top:20px; }");
+                sb.AppendLine("th, td { border:1px solid #ddd; padding:8px; text-align: left; }");
                 sb.AppendLine("th { background-color: #4CAF50; color: white; font-weight: bold; }");
                 sb.AppendLine("tr:nth-child(even) { background-color: #f2f2f2; }");
                 sb.AppendLine("tr:hover { background-color: #ddd; }");
                 sb.AppendLine("h1 { color: #333; }");
-                sb.AppendLine(".info { color: #666; font-size: 14px; margin: 10px 0; }");
+                sb.AppendLine(".info { color: #666; font-size:14px; margin:10px0; }");
                 sb.AppendLine("</style>");
                 sb.AppendLine("</head><body>");
                 
@@ -124,8 +125,9 @@ namespace HotelCalifornia
                 
                 sb.AppendLine("</table>");
                 sb.AppendLine("</body></html>");
-                
-                File.WriteAllText(rutaArchivo, sb.ToString(), Encoding.UTF8);
+
+                // Escribir con BOM UTF-8
+                File.WriteAllText(rutaArchivo, sb.ToString(), new UTF8Encoding(encoderShouldEmitUTF8Identifier: true));
                 return true;
             }
             catch (Exception ex)

@@ -1286,32 +1286,32 @@ namespace HotelCalifornia
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-        
-                    // CORREGIDO: Usar la estructura correcta de la base de datos
+   
+             // CORREGIDO: Cambiar 'Método' por 'MetodoPago' para evitar problemas de codificación
         string query = @"
           SELECT 
-          p.id_pago AS 'ID Pago',
+  p.id_pago AS 'ID Pago',
   p.id_reserva AS 'Reserva',
-             c.nombre + ' ' + c.apellido AS 'Cliente',
+       c.nombre + ' ' + c.apellido AS 'Cliente',
         ISNULL(p.monto, 0) AS 'Monto',
-              p.fecha AS 'Fecha Pago',
-        mp.descripcion AS 'Método'
-          FROM Pago p
+  p.fecha AS 'Fecha Pago',
+     mp.descripcion AS 'MetodoPago'
+  FROM Pago p
  INNER JOIN Reserva r ON p.id_reserva = r.id_reserva
-         INNER JOIN Cliente c ON r.id_cliente = c.id_cliente
+  INNER JOIN Cliente c ON r.id_cliente = c.id_cliente
     INNER JOIN MetodoPago mp ON p.id_metodoPago = mp.id_metodoPago
        WHERE 1=1";
          
-        SqlCommand cmd = new SqlCommand();
-         cmd.Connection = connection;
+     SqlCommand cmd = new SqlCommand();
+ cmd.Connection = connection;
         
      if (fechaDesde.HasValue)
   {
-          query += " AND p.fecha >= @FechaDesde";
+  query += " AND p.fecha >= @FechaDesde";
   cmd.Parameters.AddWithValue("@FechaDesde", fechaDesde.Value);
         }
-                 
-     if (fechaHasta.HasValue)
+ 
+  if (fechaHasta.HasValue)
      {
        query += " AND p.fecha <= @FechaHasta";
      cmd.Parameters.AddWithValue("@FechaHasta", fechaHasta.Value);
@@ -1320,26 +1320,26 @@ namespace HotelCalifornia
   if (!string.IsNullOrWhiteSpace(metodoPago) && metodoPago != "Todos")
         {
      query += " AND mp.descripcion = @Metodo";
-          cmd.Parameters.AddWithValue("@Metodo", metodoPago);
+ cmd.Parameters.AddWithValue("@Metodo", metodoPago);
         }
-     
-           if (!string.IsNullOrWhiteSpace(textoBusqueda))
+   
+ if (!string.IsNullOrWhiteSpace(textoBusqueda))
           {
           query += " AND (c.nombre LIKE @Busqueda OR c.apellido LIKE @Busqueda OR CAST(p.id_reserva AS VARCHAR) LIKE @Busqueda)";
-              cmd.Parameters.AddWithValue("@Busqueda", "%" + textoBusqueda + "%");
-              }
-           
+  cmd.Parameters.AddWithValue("@Busqueda", "%" + textoBusqueda + "%");
+   }
+       
      query += " ORDER BY p.fecha DESC";
-      cmd.CommandText = query;
-           
-               using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+    cmd.CommandText = query;
+       
+      using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
        {
             adapter.Fill(dt);
-               }
+   }
       }
    }
      catch (Exception ex)
-          {
+        {
    System.Diagnostics.Debug.WriteLine($"Error en GetReportePagos: {ex.Message}");
  }
          return dt;
@@ -1404,32 +1404,32 @@ using (SqlCommand command = new SqlCommand(query, connection))
       DataTable dt = new DataTable();
     try
    {
-       using (SqlConnection connection = new SqlConnection(connectionString))
+     using (SqlConnection connection = new SqlConnection(connectionString))
   {
      connection.Open();
-      // CORREGIDO: Usar la estructura correcta con JOIN a MetodoPago
+ // CORREGIDO: Cambiar 'Método' por 'MetodoPago' para evitar problemas de codificación
   string query = @"
    SELECT 
-           mp.descripcion AS 'Método',
+  mp.descripcion AS 'MetodoPago',
      COUNT(*) AS 'Cantidad',
-        ISNULL(SUM(p.monto), 0) AS 'Total'
+      ISNULL(SUM(p.monto), 0) AS 'Total'
       FROM Pago p
     INNER JOIN MetodoPago mp ON p.id_metodoPago = mp.id_metodoPago
     GROUP BY mp.descripcion
-             ORDER BY SUM(p.monto) DESC";
+    ORDER BY SUM(p.monto) DESC";
     
       using (SqlCommand command = new SqlCommand(query, connection))
   using (SqlDataAdapter adapter = new SqlDataAdapter(command))
     {
      adapter.Fill(dt);
-       }
+   }
     }
  }
    catch (Exception ex)
   {
        System.Diagnostics.Debug.WriteLine($"Error en GetEstadisticasPagosPorMetodo: {ex.Message}");
    }
-       return dt;
+     return dt;
       }
 
         /// <summary>
