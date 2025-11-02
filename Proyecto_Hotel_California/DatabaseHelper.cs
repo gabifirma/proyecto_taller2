@@ -1272,7 +1272,7 @@ namespace HotelCalifornia
         }
 
         /// <summary>
-        /// Obtiene reporte de pagos con filtros dinámicos
+        /// Obtiene reporte de pagos with filters
         /// </summary>
         public static DataTable GetReportePagos(DateTime? fechaDesde = null, 
             DateTime? fechaHasta = null, string metodoPago = null, string textoBusqueda = null)
@@ -1519,39 +1519,65 @@ COUNT(*) AS CantidadReservas,
   /// </summary>
       public static DataTable GetHabitacionesPopulares()
         {
-        if (!connectionInitialized)
-      InitializeConnection();
+      if (!connectionInitialized)
+     InitializeConnection();
 
-    DataTable dt = new DataTable();
-         try
-{
+            DataTable dt = new DataTable();
+  try
+ {
     using (SqlConnection connection = new SqlConnection(connectionString))
-         {
-         connection.Open();
-           string query = @"
-         SELECT TOP 10
-                 th.nombre AS 'Tipo',
-     COUNT(*) AS 'Reservas',
-              ISNULL(SUM(rh.subtotal), 0) AS 'Ingresos'
-             FROM ReservaHabitacion rh
-       INNER JOIN Habitacion h ON rh.numero_hab = h.numero_hab AND rh.piso = h.piso
-                INNER JOIN TipoHabitacion th ON h.id_tipo = th.id_tipo
+     {
+      connection.Open();
+         
+   // DIAGNÓSTICO: Primero verificar si hay tipos de habitación
+        string checkQuery = "SELECT COUNT(*) FROM TipoHabitacion";
+   using (SqlCommand checkCmd = new SqlCommand(checkQuery, connection))
+            {
+     int tiposCount = (int)checkCmd.ExecuteScalar();
+   System.Diagnostics.Debug.WriteLine($"[DatabaseHelper] Tipos de habitación encontrados: {tiposCount}");
+   
+    if (tiposCount == 0)
+ {
+System.Diagnostics.Debug.WriteLine("[DatabaseHelper] ADVERTENCIA: No hay tipos de habitación en la base de datos");
+     }
+   }
+     
+        // DIAGNÓSTICO: Verificar si hay habitaciones
+ string checkHabQuery = "SELECT COUNT(*) FROM Habitacion";
+ using (SqlCommand checkHabCmd = new SqlCommand(checkHabQuery, connection))
+      {
+      int habCount = (int)checkHabCmd.ExecuteScalar();
+ System.Diagnostics.Debug.WriteLine($"[DatabaseHelper] Habitaciones encontradas: {habCount}");
+      }
+
+    // CORREGIDO: Usar LEFT JOIN para mostrar todas las habitaciones
+      // IMPORTANTE: ReservaHabitacion NO tiene columna 'piso', solo 'numero_hab'
+string query = @"
+  SELECT TOP 10
+th.nombre AS 'Tipo',
+    COUNT(rh.id_reserva) AS 'Reservas',
+        ISNULL(SUM(rh.subtotal), 0) AS 'Ingresos'
+      FROM TipoHabitacion th
+          INNER JOIN Habitacion h ON th.id_tipo = h.id_tipo
+  LEFT JOIN ReservaHabitacion rh ON h.numero_hab = rh.numero_hab
      GROUP BY th.nombre
-              ORDER BY COUNT(*) DESC";
+    ORDER BY COUNT(rh.id_reserva) DESC";
     
-    using (SqlCommand command = new SqlCommand(query, connection))
-        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-{
-    adapter.Fill(dt);
-        }
-                }
- }
-         catch (Exception ex)
-{
-                System.Diagnostics.Debug.WriteLine($"Error en GetHabitacionesPopulares: {ex.Message}");
-            }
+      using (SqlCommand command = new SqlCommand(query, connection))
+using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+         {
+      adapter.Fill(dt);
+      System.Diagnostics.Debug.WriteLine($"[DatabaseHelper] Filas retornadas por la consulta: {dt.Rows.Count}");
+     }
+    }
+    }
+       catch (Exception ex)
+            {
+     System.Diagnostics.Debug.WriteLine($"Error en GetHabitacionesPopulares: {ex.Message}");
+     System.Diagnostics.Debug.WriteLine($"StackTrace: {ex.StackTrace}");
+  }
             return dt;
-        }
+  }
 
    /// <summary>
       /// Obtiene top clientes frecuentes
