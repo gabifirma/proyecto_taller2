@@ -70,58 +70,74 @@ namespace HotelCalifornia
         private void ConfigureMenuByRole()
         {
             var managedButtons = GetRoleManagedButtons();
-            
-            // Primero ocultar todos los botones
-            foreach (var button in managedButtons)
-            {
-                if (button != null)
-                {
-                    SetMenuButtonState(button, false);
-                }
-            }
-
-            // Obtener el rol del usuario actual
-            string userRole = UserSession.CurrentUser?.TipoUsuario ?? "";
-
-            // Configurar visibilidad según rol
-            switch (userRole)
-            {
-                case "Administrador":
-                    // Administrador: acceso completo a todas las funcionalidades
-                    SetMenuButtonState(BGestionUsuarios, true);
-                    SetMenuButtonState(BReportesEstadisticas, true);
-                    SetMenuButtonState(BEmpleados, true);
-                    SetMenuButtonState(BReservas, true);
-                    SetMenuButtonState(BPagos, true);
-                    SetMenuButtonState(BClientes, true);
-                    SetMenuButtonState(BHabitaciones, true);
-                    break;
-
-                case "Supervisor":
-                    // Supervisor: acceso a reportes y la mayoría de funciones excepto gestión de usuarios
-                    SetMenuButtonState(BReportesEstadisticas, true);
-                    SetMenuButtonState(BEmpleados, true);
-                    SetMenuButtonState(BReservas, true);
-                    SetMenuButtonState(BPagos, true);
-                    SetMenuButtonState(BClientes, true);
-                    SetMenuButtonState(BHabitaciones, true);
-                    break;
-
-                case "Recepcionista":
-                case "Recepcion":
-                    // Recepcionista: acceso limitado solo a reservas y habitaciones
-                    SetMenuButtonState(BReservas, true);
-                    SetMenuButtonState(BHabitaciones, true);
-                    break;
-
-                default:
-                    // Por defecto, ocultar todo si el rol no es reconocido
-                    foreach (var button in managedButtons)
+      
+            // Primero deshabilitar todos los botones gestionados
+          foreach (var button in managedButtons)
+           {
+                    if (button != null)
                     {
-                        button.Visible = false;
-                    }
-                    break;
-            }
+         SetMenuButtonState(button, false);
+     }
+                }
+
+              // Obtener el rol del usuario actual
+  string userRole = UserSession.CurrentUser?.TipoUsuario ?? "";
+
+   // Configurar visibilidad según rol
+   switch (userRole)
+            {
+ case "Administrador":
+     // Administrador: acceso completo a todas las funcionalidades
+                SetMenuButtonState(BGestionUsuarios, true);
+         SetMenuButtonState(BReportesEstadisticas, true);
+     SetMenuButtonState(BEmpleados, true);
+      SetMenuButtonState(BReservas, true);
+   SetMenuButtonState(BPagos, true);
+            SetMenuButtonState(BClientes, true);
+        SetMenuButtonState(BHabitaciones, true);
+        SetMenuButtonState(BBackup, true); // Solo administrador ve Backup
+         break;
+
+       case "Supervisor":
+  // Supervisor: acceso a reportes y la mayoría de funciones excepto gestión de usuarios y backup
+      SetMenuButtonState(BReportesEstadisticas, true);
+ SetMenuButtonState(BEmpleados, true);
+         SetMenuButtonState(BReservas, true);
+    SetMenuButtonState(BPagos, true);
+    SetMenuButtonState(BClientes, true);
+        SetMenuButtonState(BHabitaciones, true);
+           
+   // Mostrar como deshabilitados
+      SetMenuButtonDisabled(BGestionUsuarios);
+         SetMenuButtonDisabled(BBackup);
+    break;
+
+           case "Recepcionista":
+           case "Recepcion":
+            // Recepcionista: acceso limitado solo a reservas y habitaciones
+             SetMenuButtonState(BReservas, true);
+        SetMenuButtonState(BHabitaciones, true);
+         
+      // Mostrar como deshabilitados
+        SetMenuButtonDisabled(BClientes);
+     SetMenuButtonDisabled(BEmpleados);
+              SetMenuButtonDisabled(BPagos);
+           SetMenuButtonDisabled(BGestionUsuarios);
+   SetMenuButtonDisabled(BReportesEstadisticas);
+ SetMenuButtonDisabled(BBackup);
+        break;
+
+         default:
+     // Por defecto, mostrar todo deshabilitado si el rol no es reconocido
+    foreach (var button in managedButtons)
+  {
+              if (button != null)
+            {
+        SetMenuButtonDisabled(button);
+       }
+         }
+      break;
+      }
         }
 
         /// <summary>
@@ -129,30 +145,50 @@ namespace HotelCalifornia
         /// </summary>
         /// <param name="button">Botón a modificar</param>
         /// <param name="enabled">True para habilitar, False para deshabilitar</param>
-        private void SetMenuButtonState(Button button, bool enabled)
+     private void SetMenuButtonState(Button button, bool enabled)
         {
-            if (button == null) return;
+         if (button == null) return;
 
-            button.Visible = enabled;
-            button.Enabled = enabled;
+            button.Visible = true;
+      button.Enabled = enabled;
 
-            if (enabled && menuButtonStyleCache.ContainsKey(button))
-            {
-                // Restaurar estilos originales
-                var style = menuButtonStyleCache[button];
-                button.BackColor = style.BackColor;
+      if (enabled && menuButtonStyleCache.ContainsKey(button))
+       {
+ // Restaurar estilos originales
+         var style = menuButtonStyleCache[button];
+   button.BackColor = style.BackColor;
                 button.ForeColor = style.ForeColor;
-                button.FlatAppearance.MouseOverBackColor = style.MouseOverBackColor;
+            button.FlatAppearance.MouseOverBackColor = style.MouseOverBackColor;
                 button.UseVisualStyleBackColor = style.UseVisualStyleBackColor;
             }
             else if (!enabled)
             {
-                // Aplicar estilos de deshabilitado
-                button.BackColor = DisabledBackColor;
-                button.ForeColor = DisabledForeColor;
-                button.FlatAppearance.MouseOverBackColor = DisabledMouseOverBackColor;
-                button.UseVisualStyleBackColor = false;
+    // Aplicar estilos de deshabilitado
+     button.BackColor = DisabledBackColor;
+        button.ForeColor = DisabledForeColor;
+         button.FlatAppearance.MouseOverBackColor = DisabledMouseOverBackColor;
+        button.UseVisualStyleBackColor = false;
             }
+      }
+
+        /// <summary>
+    /// Establece un botón como deshabilitado visualmente (gris) pero visible
+        /// </summary>
+        /// <param name="button">Botón a modificar</param>
+        private void SetMenuButtonDisabled(Button button)
+        {
+    if (button == null) return;
+
+button.Visible = true;
+     button.Enabled = false;
+            button.BackColor = DisabledBackColor;
+            button.ForeColor = DisabledForeColor;
+     button.FlatAppearance.MouseOverBackColor = DisabledMouseOverBackColor;
+     button.UseVisualStyleBackColor = false;
+   
+       // Opcional: Agregar tooltip para indicar que está deshabilitado
+          System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
+            toolTip.SetToolTip(button, "Acceso restringido - Requiere permisos adicionales");
         }
 
         /// <summary>
@@ -494,7 +530,8 @@ namespace HotelCalifornia
                 BReservas,
                 BPagos,
                 BGestionUsuarios,
-                BReportesEstadisticas
+                BReportesEstadisticas,
+                BBackup // Agregar Backup a la lista de botones gestionados
             };
         }
 
