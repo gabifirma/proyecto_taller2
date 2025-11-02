@@ -497,5 +497,14 @@ namespace HotelCalifornia
                 BReportesEstadisticas
             };
         }
+
+        /// <summary>
+        /// Maneja el evento click del botón Backup.
+        /// Abre el formulario para crear un backup de la base de datos.
+        /// </summary>
+        private void BBackup_Click(object sender, EventArgs e)
+        {
+            abrirFormHIjo(new Backup());
+        }
     }
 }

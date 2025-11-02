@@ -30,6 +30,10 @@ namespace HotelCalifornia
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.PTitulo = new System.Windows.Forms.Panel();
+            this.LNomUsuario = new System.Windows.Forms.Label();
+            this.LUsuario = new System.Windows.Forms.Label();
+            this.LNumLegajo = new System.Windows.Forms.Label();
+            this.LLegajo = new System.Windows.Forms.Label();
             this.PLateral = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.BGestionUsuarios = new System.Windows.Forms.Button();
@@ -50,10 +54,8 @@ namespace HotelCalifornia
             this.BEmpleados = new System.Windows.Forms.Button();
             this.BClientes = new System.Windows.Forms.Button();
             this.PContenedor = new System.Windows.Forms.Panel();
-            this.LLegajo = new System.Windows.Forms.Label();
-            this.LNumLegajo = new System.Windows.Forms.Label();
-            this.LNomUsuario = new System.Windows.Forms.Label();
-            this.LUsuario = new System.Windows.Forms.Label();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.BBackup = new System.Windows.Forms.Button();
             this.PTitulo.SuspendLayout();
             this.PLateral.SuspendLayout();
             this.SuspendLayout();
@@ -71,9 +73,51 @@ namespace HotelCalifornia
             this.PTitulo.Size = new System.Drawing.Size(884, 50);
             this.PTitulo.TabIndex = 0;
             // 
+            // LNomUsuario
+            // 
+            this.LNomUsuario.AutoSize = true;
+            this.LNomUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LNomUsuario.Location = new System.Drawing.Point(345, 18);
+            this.LNomUsuario.Name = "LNomUsuario";
+            this.LNomUsuario.Size = new System.Drawing.Size(11, 16);
+            this.LNomUsuario.TabIndex = 3;
+            this.LNomUsuario.Text = ".";
+            // 
+            // LUsuario
+            // 
+            this.LUsuario.AutoSize = true;
+            this.LUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LUsuario.Location = new System.Drawing.Point(203, 18);
+            this.LUsuario.Name = "LUsuario";
+            this.LUsuario.Size = new System.Drawing.Size(136, 16);
+            this.LUsuario.TabIndex = 2;
+            this.LUsuario.Text = "Nombre Completo:";
+            // 
+            // LNumLegajo
+            // 
+            this.LNumLegajo.AutoSize = true;
+            this.LNumLegajo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LNumLegajo.Location = new System.Drawing.Point(77, 18);
+            this.LNumLegajo.Name = "LNumLegajo";
+            this.LNumLegajo.Size = new System.Drawing.Size(11, 16);
+            this.LNumLegajo.TabIndex = 1;
+            this.LNumLegajo.Text = ".";
+            // 
+            // LLegajo
+            // 
+            this.LLegajo.AutoSize = true;
+            this.LLegajo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LLegajo.Location = new System.Drawing.Point(12, 18);
+            this.LLegajo.Name = "LLegajo";
+            this.LLegajo.Size = new System.Drawing.Size(59, 16);
+            this.LLegajo.TabIndex = 0;
+            this.LLegajo.Text = "Legajo:";
+            // 
             // PLateral
             // 
             this.PLateral.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.PLateral.Controls.Add(this.panel9);
+            this.PLateral.Controls.Add(this.BBackup);
             this.PLateral.Controls.Add(this.panel8);
             this.PLateral.Controls.Add(this.BGestionUsuarios);
             this.PLateral.Controls.Add(this.panel7);
@@ -160,7 +204,7 @@ namespace HotelCalifornia
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel5.Location = new System.Drawing.Point(1, 76);
+            this.panel5.Location = new System.Drawing.Point(1, 30);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(5, 40);
             this.panel5.TabIndex = 3;
@@ -201,7 +245,7 @@ namespace HotelCalifornia
             this.BInicio.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BInicio.Image = ((System.Drawing.Image)(resources.GetObject("BInicio.Image")));
             this.BInicio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BInicio.Location = new System.Drawing.Point(4, 76);
+            this.BInicio.Location = new System.Drawing.Point(4, 30);
             this.BInicio.Name = "BInicio";
             this.BInicio.Size = new System.Drawing.Size(146, 40);
             this.BInicio.TabIndex = 2;
@@ -332,45 +376,31 @@ namespace HotelCalifornia
             this.PContenedor.Size = new System.Drawing.Size(734, 511);
             this.PContenedor.TabIndex = 2;
             // 
-            // LLegajo
+            // panel9
             // 
-            this.LLegajo.AutoSize = true;
-            this.LLegajo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LLegajo.Location = new System.Drawing.Point(12, 18);
-            this.LLegajo.Name = "LLegajo";
-            this.LLegajo.Size = new System.Drawing.Size(59, 16);
-            this.LLegajo.TabIndex = 0;
-            this.LLegajo.Text = "Legajo:";
+            this.panel9.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel9.Location = new System.Drawing.Point(1, 76);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(5, 40);
+            this.panel9.TabIndex = 5;
             // 
-            // LNumLegajo
+            // BBackup
             // 
-            this.LNumLegajo.AutoSize = true;
-            this.LNumLegajo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LNumLegajo.Location = new System.Drawing.Point(77, 18);
-            this.LNumLegajo.Name = "LNumLegajo";
-            this.LNumLegajo.Size = new System.Drawing.Size(11, 16);
-            this.LNumLegajo.TabIndex = 1;
-            this.LNumLegajo.Text = ".";
-            // 
-            // LNomUsuario
-            // 
-            this.LNomUsuario.AutoSize = true;
-            this.LNomUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LNomUsuario.Location = new System.Drawing.Point(345, 18);
-            this.LNomUsuario.Name = "LNomUsuario";
-            this.LNomUsuario.Size = new System.Drawing.Size(11, 16);
-            this.LNomUsuario.TabIndex = 3;
-            this.LNomUsuario.Text = ".";
-            // 
-            // LUsuario
-            // 
-            this.LUsuario.AutoSize = true;
-            this.LUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LUsuario.Location = new System.Drawing.Point(203, 18);
-            this.LUsuario.Name = "LUsuario";
-            this.LUsuario.Size = new System.Drawing.Size(136, 16);
-            this.LUsuario.TabIndex = 2;
-            this.LUsuario.Text = "Nombre Completo:";
+            this.BBackup.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BBackup.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.BBackup.FlatAppearance.BorderSize = 0;
+            this.BBackup.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.BBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BBackup.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BBackup.Image = ((System.Drawing.Image)(resources.GetObject("BBackup.Image")));
+            this.BBackup.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BBackup.Location = new System.Drawing.Point(4, 76);
+            this.BBackup.Name = "BBackup";
+            this.BBackup.Size = new System.Drawing.Size(146, 40);
+            this.BBackup.TabIndex = 4;
+            this.BBackup.Text = "Backup";
+            this.BBackup.UseVisualStyleBackColor = false;
+            this.BBackup.Click += new System.EventHandler(this.BBackup_Click);
             // 
             // Main
             // 
@@ -418,5 +448,7 @@ namespace HotelCalifornia
         private System.Windows.Forms.Label LNumLegajo;
         private System.Windows.Forms.Panel panelReportes;
         private System.Windows.Forms.Button BReportesEstadisticas;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Button BBackup;
     }
 }
