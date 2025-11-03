@@ -42,7 +42,7 @@ namespace HotelCalifornia
             using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
                 conn.Open();
-                string query = "SELECT (SELECT SUM(subtotal) FROM ReservaHabitacion WHERE id_reserva = @id) AS Total";
+                string query = "SELECT total AS Total FROM Reserva WHERE id_reserva = @id";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", idReserva);
 

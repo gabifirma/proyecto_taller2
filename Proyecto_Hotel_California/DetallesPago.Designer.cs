@@ -61,6 +61,7 @@
             this.servicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.precio_servico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BImprimir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaHabitaciones)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaServicios)).BeginInit();
             this.SuspendLayout();
@@ -385,12 +386,23 @@
             this.precio_servico.Name = "precio_servico";
             this.precio_servico.ReadOnly = true;
             // 
+            // BImprimir
+            // 
+            this.BImprimir.Location = new System.Drawing.Point(461, 334);
+            this.BImprimir.Name = "BImprimir";
+            this.BImprimir.Size = new System.Drawing.Size(130, 42);
+            this.BImprimir.TabIndex = 25;
+            this.BImprimir.Text = "Imprimir factura";
+            this.BImprimir.UseVisualStyleBackColor = true;
+            this.BImprimir.Click += new System.EventHandler(this.BImprimir_Click);
+            // 
             // DetallesPago
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(628, 417);
+            this.Controls.Add(this.BImprimir);
             this.Controls.Add(this.GrillaServicios);
             this.Controls.Add(this.LServiciosOcup);
             this.Controls.Add(this.LNumRes);
@@ -462,5 +474,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn servicio;
         private System.Windows.Forms.DataGridViewTextBoxColumn cantidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn precio_servico;
+        private System.Windows.Forms.Button BImprimir;
     }
 }
