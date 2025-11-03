@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static HotelCalifornia.ModeloFactura;
 using Font = iTextSharp.text.Font;
+using System.Diagnostics;
 
 namespace HotelCalifornia
 {
@@ -270,14 +271,11 @@ namespace HotelCalifornia
         private void GenerarFacturaPDF_iTextSharp(FacturaCompleta datos)
         {
             var f = datos.Factura;
-
-            // 1. Crear el objeto Document (tamaño A4, márgenes)
-            // Document(float marginLeft, float marginRight, float marginTop, float marginBottom)
             iTextSharp.text.Document doc = new iTextSharp.text.Document(PageSize.A4, 40, 40, 40, 40);
 
             try
             {
-                // 2. Definir la ruta de destino (igual que tu código original)
+                // 2. Definir la ruta de destino (ruta completa del archivo)
                 string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"Factura_{f.Numero}.pdf");
 
                 // 3. Crear el escritor PDF
@@ -379,6 +377,18 @@ namespace HotelCalifornia
 
                 // 4. Cerrar el documento
                 doc.Close();
+
+                // 5. Abrir el PDF generado automáticamente
+                try
+                {
+                    // Usa el proceso de Windows para abrir el archivo con la aplicación predeterminada (lector de PDF)
+                    System.Diagnostics.Process.Start(path);
+                }
+                catch (Exception ex)
+                {
+                    // Manejar un posible error si no puede iniciar el proceso (e.g., permisos denegados)
+                    MessageBox.Show($"Advertencia: El PDF se generó, pero no se pudo abrir automáticamente. Error: {ex.Message}", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 MessageBox.Show($"Factura generada en el escritorio:\n{path}", "PDF generado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
