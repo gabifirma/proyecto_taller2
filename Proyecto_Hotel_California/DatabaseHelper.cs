@@ -1287,335 +1287,335 @@ namespace HotelCalifornia
                 {
                     connection.Open();
    
-             // CORREGIDO: Cambiar 'Método' por 'MetodoPago' para evitar problemas de codificación
-        string query = @"
-          SELECT 
-  p.id_pago AS 'ID Pago',
-  p.id_reserva AS 'Reserva',
-       c.nombre + ' ' + c.apellido AS 'Cliente',
-        ISNULL(p.monto, 0) AS 'Monto',
-  p.fecha AS 'Fecha Pago',
-     mp.descripcion AS 'MetodoPago'
-  FROM Pago p
- INNER JOIN Reserva r ON p.id_reserva = r.id_reserva
-  INNER JOIN Cliente c ON r.id_cliente = c.id_cliente
-    INNER JOIN MetodoPago mp ON p.id_metodoPago = mp.id_metodoPago
-       WHERE 1=1";
-         
-     SqlCommand cmd = new SqlCommand();
- cmd.Connection = connection;
+                     // CORREGIDO: Cambiar 'Método' por 'MetodoPago' para evitar problemas de codificación
+                    string query = @"
+                                SELECT 
+                                     p.id_pago AS 'ID Pago',
+                                     p.id_reserva AS 'Reserva',
+                                     c.nombre + ' ' + c.apellido AS 'Cliente',
+                                     ISNULL(p.monto, 0) AS 'Monto',
+                                     p.fecha AS 'Fecha Pago',
+                                     mp.descripcion AS 'MetodoPago'
+                                FROM Pago p
+                                INNER JOIN Reserva r ON p.id_reserva = r.id_reserva
+                                INNER JOIN Cliente c ON r.id_cliente = c.id_cliente
+                                INNER JOIN MetodoPago mp ON p.id_metodoPago = mp.id_metodoPago
+                                WHERE 1=1";
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = connection;
         
-     if (fechaDesde.HasValue)
-  {
-  query += " AND p.fecha >= @FechaDesde";
-  cmd.Parameters.AddWithValue("@FechaDesde", fechaDesde.Value);
-        }
+                    if (fechaDesde.HasValue)
+                    {
+                        query += " AND p.fecha >= @FechaDesde";
+                        cmd.Parameters.AddWithValue("@FechaDesde", fechaDesde.Value);
+                    }
  
-  if (fechaHasta.HasValue)
-     {
-       query += " AND p.fecha <= @FechaHasta";
-     cmd.Parameters.AddWithValue("@FechaHasta", fechaHasta.Value);
-          }
+                    if (fechaHasta.HasValue)
+                    {
+                        query += " AND p.fecha <= @FechaHasta";
+                        cmd.Parameters.AddWithValue("@FechaHasta", fechaHasta.Value);
+                    }
         
-  if (!string.IsNullOrWhiteSpace(metodoPago) && metodoPago != "Todos")
-        {
-     query += " AND mp.descripcion = @Metodo";
- cmd.Parameters.AddWithValue("@Metodo", metodoPago);
-        }
+                    if (!string.IsNullOrWhiteSpace(metodoPago) && metodoPago != "Todos")
+                    {
+                        query += " AND mp.descripcion = @Metodo";
+                        cmd.Parameters.AddWithValue("@Metodo", metodoPago);
+                    }
    
- if (!string.IsNullOrWhiteSpace(textoBusqueda))
-          {
-          query += " AND (c.nombre LIKE @Busqueda OR c.apellido LIKE @Busqueda OR CAST(p.id_reserva AS VARCHAR) LIKE @Busqueda)";
-  cmd.Parameters.AddWithValue("@Busqueda", "%" + textoBusqueda + "%");
-   }
+                    if (!string.IsNullOrWhiteSpace(textoBusqueda))
+                    {
+                        query += " AND (c.nombre LIKE @Busqueda OR c.apellido LIKE @Busqueda OR CAST(p.id_reserva AS VARCHAR) LIKE @Busqueda)";
+                        cmd.Parameters.AddWithValue("@Busqueda", "%" + textoBusqueda + "%");
+                    }
        
-     query += " ORDER BY p.fecha DESC";
-    cmd.CommandText = query;
+                    query += " ORDER BY p.fecha DESC";
+                    cmd.CommandText = query;
        
-      using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
-       {
-            adapter.Fill(dt);
-   }
-      }
-   }
-     catch (Exception ex)
-        {
-   System.Diagnostics.Debug.WriteLine($"Error en GetReportePagos: {ex.Message}");
- }
-         return dt;
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetReportePagos: {ex.Message}");
+            }
+            return dt;
         }
 
         /// <summary>
         /// Obtiene métodos de pago disponibles desde la base de datos
-     /// </summary>
-        public static DataTable GetMetodosPago()
-     {
-    if (!connectionInitialized)
-  InitializeConnection();
+         /// </summary>
+        public static DataTable GetMetodosPago(){
+            if (!connectionInitialized)
+            InitializeConnection();
 
             DataTable dt = new DataTable();
-    dt.Columns.Add("metodo", typeof(string));
+            dt.Columns.Add("metodo", typeof(string));
             
-      try
+            try
             {
-   using (SqlConnection connection = new SqlConnection(connectionString))
-   {
- connection.Open();
-        
-            // Agregar "Todos" como primera opción
-dt.Rows.Add("Todos");
-         
-    // Obtener métodos de pago desde la base de datos
-string query = "SELECT descripcion FROM MetodoPago ORDER BY id_metodoPago";
-       
-using (SqlCommand command = new SqlCommand(query, connection))
-          using (SqlDataReader reader = command.ExecuteReader())
-        {
-        while (reader.Read())
-        {
-   dt.Rows.Add(reader["descripcion"].ToString());
-    }
-         }
-      }
-            }
-          catch (Exception ex)
-            {
-     System.Diagnostics.Debug.WriteLine($"Error en GetMetodosPago: {ex.Message}");
-  // Si hay error, devolver valores por defecto
-              if (dt.Rows.Count == 0)
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-         dt.Rows.Add("Todos");
-    dt.Rows.Add("Efectivo");
-           dt.Rows.Add("Transferencia");
-       dt.Rows.Add("Tarjeta de Crédito");
-    }
-       }
+                    connection.Open();
+        
+                    // Agregar "Todos" como primera opción
+                    dt.Rows.Add("Todos");
+         
+                    // Obtener métodos de pago desde la base de datos
+                    string query = "SELECT descripcion FROM MetodoPago ORDER BY id_metodoPago";
+       
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            dt.Rows.Add(reader["descripcion"].ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetMetodosPago: {ex.Message}");
+                // Si hay error, devolver valores por defecto
+                if (dt.Rows.Count == 0)
+                {
+                    dt.Rows.Add("Todos");
+                    dt.Rows.Add("Efectivo");
+                    dt.Rows.Add("Transferencia");
+                    dt.Rows.Add("Tarjeta de Crédito");
+                }
+            }
             return dt;
         }
 
         /// <summary>
         /// Obtiene estadísticas de pagos por método
         /// </summary>
-     public static DataTable GetEstadisticasPagosPorMetodo()
-   {
-     if (!connectionInitialized)
-    InitializeConnection();
+        public static DataTable GetEstadisticasPagosPorMetodo()
+        {
+            if (!connectionInitialized)
+            InitializeConnection();
 
-      DataTable dt = new DataTable();
-    try
-   {
-     using (SqlConnection connection = new SqlConnection(connectionString))
-  {
-     connection.Open();
- // CORREGIDO: Cambiar 'Método' por 'MetodoPago' para evitar problemas de codificación
-  string query = @"
-   SELECT 
-  mp.descripcion AS 'MetodoPago',
-     COUNT(*) AS 'Cantidad',
-      ISNULL(SUM(p.monto), 0) AS 'Total'
-      FROM Pago p
-    INNER JOIN MetodoPago mp ON p.id_metodoPago = mp.id_metodoPago
-    GROUP BY mp.descripcion
-    ORDER BY SUM(p.monto) DESC";
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    // CORREGIDO: Cambiar 'Método' por 'MetodoPago' para evitar problemas de codificación
+                    string query = @"
+                        SELECT 
+                        mp.descripcion AS 'MetodoPago',
+                        COUNT(*) AS 'Cantidad',
+                        ISNULL(SUM(p.monto), 0) AS 'Total'
+                        FROM Pago p
+                        INNER JOIN MetodoPago mp ON p.id_metodoPago = mp.id_metodoPago
+                        GROUP BY mp.descripcion
+                        ORDER BY SUM(p.monto) DESC";
     
-      using (SqlCommand command = new SqlCommand(query, connection))
-  using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-    {
-     adapter.Fill(dt);
-   }
-    }
- }
-   catch (Exception ex)
-  {
-       System.Diagnostics.Debug.WriteLine($"Error en GetEstadisticasPagosPorMetodo: {ex.Message}");
-   }
-     return dt;
-      }
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetEstadisticasPagosPorMetodo: {ex.Message}");
+            }
+            return dt;
+        }
 
         /// <summary>
         /// Obtiene estadísticas de ocupación por estado
-      /// </summary>
+        /// </summary>
         public static DataTable GetEstadisticasOcupacion()
         {
             if (!connectionInitialized)
-         InitializeConnection();
+            InitializeConnection();
 
- DataTable dt = new DataTable();
-         try
+            DataTable dt = new DataTable();
+            try
             {
- using (SqlConnection connection = new SqlConnection(connectionString))
-     {
-           connection.Open();
-     string query = @"
-    SELECT 
-CASE 
-       WHEN id_estado = 1 THEN 'Confirmada'
-       WHEN id_estado = 2 THEN 'En Espera'
-         WHEN id_estado = 3 THEN 'Terminada'
-           ELSE 'Desconocido'
-     END AS Estado,
-         COUNT(*) AS Cantidad
-         FROM Reserva
-              GROUP BY id_estado";
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"
+                        SELECT 
+                        CASE 
+                        WHEN id_estado = 1 THEN 'Confirmada'
+                        WHEN id_estado = 2 THEN 'En Espera'
+                        WHEN id_estado = 3 THEN 'Terminada'
+                        ELSE 'Desconocido'
+                        END AS Estado,
+                        COUNT(*) AS Cantidad
+                        FROM Reserva
+                        GROUP BY id_estado";
          
-    using (SqlCommand command = new SqlCommand(query, connection))
-      using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-             {
-          adapter.Fill(dt);
-            }
-           }
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
             }
             catch (Exception ex)
-       {
-      System.Diagnostics.Debug.WriteLine($"Error en GetEstadisticasOcupacion: {ex.Message}");
-         }
-    return dt;
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetEstadisticasOcupacion: {ex.Message}");
+            }
+            return dt;
         }
 
         /// <summary>
         /// Obtiene estadísticas de ingresos mensuales
-    /// </summary>
-public static DataTable GetEstadisticasIngresosMensuales(int año)
+        /// </summary>
+        public static DataTable GetEstadisticasIngresosMensuales(int año)
         {
-      if (!connectionInitialized)
-        InitializeConnection();
+            if (!connectionInitialized)
+            InitializeConnection();
 
             DataTable dt = new DataTable();
-     try
-{
-           using (SqlConnection connection = new SqlConnection(connectionString))
-    {
-         connection.Open();
-         string query = @"
-      SELECT 
-    MONTH(fecha_inicio) AS Mes,
-            DATENAME(MONTH, fecha_inicio) AS NombreMes,
-COUNT(*) AS CantidadReservas,
-          ISNULL(SUM(total), 0) AS IngresoTotal
-    FROM Reserva
-   WHERE YEAR(fecha_inicio) = @Año
-          GROUP BY MONTH(fecha_inicio), DATENAME(MONTH, fecha_inicio)
-     ORDER BY MONTH(fecha_inicio)";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"
+                        SELECT 
+                        MONTH(fecha_inicio) AS Mes,
+                        DATENAME(MONTH, fecha_inicio) AS NombreMes,
+                        COUNT(*) AS CantidadReservas,
+                        ISNULL(SUM(total), 0) AS IngresoTotal
+                        FROM Reserva
+                        WHERE YEAR(fecha_inicio) = @Año
+                        GROUP BY MONTH(fecha_inicio), DATENAME(MONTH, fecha_inicio)
+                        ORDER BY MONTH(fecha_inicio)";
              
-         using (SqlCommand command = new SqlCommand(query, connection))
-         {
-      command.Parameters.AddWithValue("@Año", año);
-           using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-              {
-           adapter.Fill(dt);
-     }
-      }
-}
-          }
-            catch (Exception ex)
-        {
-              System.Diagnostics.Debug.WriteLine($"Error en GetEstadisticasIngresosMensuales: {ex.Message}");
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Año", año);
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        {
+                            adapter.Fill(dt);
+                        }
+                    }
+                }
             }
-     return dt;
-   }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetEstadisticasIngresosMensuales: {ex.Message}");
+            }
+            return dt;
+        }
 
         /// <summary>
         /// Obtiene habitaciones más reservadas
-  /// </summary>
-      public static DataTable GetHabitacionesPopulares()
-        {
-      if (!connectionInitialized)
-     InitializeConnection();
-
-            DataTable dt = new DataTable();
-  try
- {
-    using (SqlConnection connection = new SqlConnection(connectionString))
-     {
-      connection.Open();
-         
-   // DIAGNÓSTICO: Primero verificar si hay tipos de habitación
-        string checkQuery = "SELECT COUNT(*) FROM TipoHabitacion";
-   using (SqlCommand checkCmd = new SqlCommand(checkQuery, connection))
-            {
-     int tiposCount = (int)checkCmd.ExecuteScalar();
-   System.Diagnostics.Debug.WriteLine($"[DatabaseHelper] Tipos de habitación encontrados: {tiposCount}");
-   
-    if (tiposCount == 0)
- {
-System.Diagnostics.Debug.WriteLine("[DatabaseHelper] ADVERTENCIA: No hay tipos de habitación en la base de datos");
-     }
-   }
-     
-        // DIAGNÓSTICO: Verificar si hay habitaciones
- string checkHabQuery = "SELECT COUNT(*) FROM Habitacion";
- using (SqlCommand checkHabCmd = new SqlCommand(checkHabQuery, connection))
-      {
-      int habCount = (int)checkHabCmd.ExecuteScalar();
- System.Diagnostics.Debug.WriteLine($"[DatabaseHelper] Habitaciones encontradas: {habCount}");
-      }
-
-    // CORREGIDO: Usar LEFT JOIN para mostrar todas las habitaciones
-      // IMPORTANTE: ReservaHabitacion NO tiene columna 'piso', solo 'numero_hab'
-string query = @"
-  SELECT TOP 10
-th.nombre AS 'Tipo',
-    COUNT(rh.id_reserva) AS 'Reservas',
-        ISNULL(SUM(rh.subtotal), 0) AS 'Ingresos'
-      FROM TipoHabitacion th
-          INNER JOIN Habitacion h ON th.id_tipo = h.id_tipo
-  LEFT JOIN ReservaHabitacion rh ON h.numero_hab = rh.numero_hab
-     GROUP BY th.nombre
-    ORDER BY COUNT(rh.id_reserva) DESC";
-    
-      using (SqlCommand command = new SqlCommand(query, connection))
-using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-         {
-      adapter.Fill(dt);
-      System.Diagnostics.Debug.WriteLine($"[DatabaseHelper] Filas retornadas por la consulta: {dt.Rows.Count}");
-     }
-    }
-    }
-       catch (Exception ex)
-            {
-     System.Diagnostics.Debug.WriteLine($"Error en GetHabitacionesPopulares: {ex.Message}");
-     System.Diagnostics.Debug.WriteLine($"StackTrace: {ex.StackTrace}");
-  }
-            return dt;
-  }
-
-   /// <summary>
-      /// Obtiene top clientes frecuentes
-  /// </summary>
-      public static DataTable GetTopClientes(int top = 10)
+        /// </summary>
+        public static DataTable GetHabitacionesPopulares()
         {
             if (!connectionInitialized)
-           InitializeConnection();
+            InitializeConnection();
 
-  DataTable dt = new DataTable();
-        try
-       {
-           using (SqlConnection connection = new SqlConnection(connectionString))
-    {
-          connection.Open();
-           string query = $@"
-           SELECT TOP {top}
-             c.nombre + ' ' + c.apellido AS 'Cliente',
-       c.email AS 'Email',
-  COUNT(*) AS 'Reservas',
-   ISNULL(SUM(r.total), 0) AS 'Total Gastado'
-          FROM Cliente c
-       INNER JOIN Reserva r ON c.id_cliente = r.id_cliente
-         GROUP BY c.nombre, c.apellido, c.email
-        ORDER BY COUNT(*) DESC";
-           
-          using (SqlCommand command = new SqlCommand(query, connection))
-   using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-        {
-         adapter.Fill(dt);
-  }
-             }
-         }
-   catch (Exception ex)
+            DataTable dt = new DataTable();
+            try
             {
-          System.Diagnostics.Debug.WriteLine($"Error en GetTopClientes: {ex.Message}");
-    }
-      return dt;
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+         
+                    // DIAGNÓSTICO: Primero verificar si hay tipos de habitación
+                    string checkQuery = "SELECT COUNT(*) FROM TipoHabitacion";
+                    using (SqlCommand checkCmd = new SqlCommand(checkQuery, connection))
+                    {
+                        int tiposCount = (int)checkCmd.ExecuteScalar();
+                        System.Diagnostics.Debug.WriteLine($"[DatabaseHelper] Tipos de habitación encontrados: {tiposCount}");
+   
+                        if (tiposCount == 0)
+                        {
+                            System.Diagnostics.Debug.WriteLine("[DatabaseHelper] ADVERTENCIA: No hay tipos de habitación en la base de datos");
+                        }
+                    }
+     
+                    // DIAGNÓSTICO: Verificar si hay habitaciones
+                    string checkHabQuery = "SELECT COUNT(*) FROM Habitacion";
+                    using (SqlCommand checkHabCmd = new SqlCommand(checkHabQuery, connection))
+                    {
+                        int habCount = (int)checkHabCmd.ExecuteScalar();
+                        System.Diagnostics.Debug.WriteLine($"[DatabaseHelper] Habitaciones encontradas: {habCount}");
+                    }
+
+                    // CORREGIDO: Usar LEFT JOIN para mostrar todas las habitaciones
+                    // IMPORTANTE: ReservaHabitacion NO tiene columna 'piso', solo 'numero_hab'
+                    string query = @"
+                        SELECT TOP 10
+                        th.nombre AS 'Tipo',
+                        COUNT(rh.id_reserva) AS 'Reservas',
+                        ISNULL(SUM(rh.subtotal), 0) AS 'Ingresos'
+                        FROM TipoHabitacion th
+                        INNER JOIN Habitacion h ON th.id_tipo = h.id_tipo
+                        LEFT JOIN ReservaHabitacion rh ON h.numero_hab = rh.numero_hab
+                        GROUP BY th.nombre
+                        ORDER BY COUNT(rh.id_reserva) DESC";
+    
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dt);
+                        System.Diagnostics.Debug.WriteLine($"[DatabaseHelper] Filas retornadas por la consulta: {dt.Rows.Count}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetHabitacionesPopulares: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"StackTrace: {ex.StackTrace}");
+            }
+            return dt;
+        }
+
+        /// <summary>
+        /// Obtiene top clientes frecuentes
+        /// </summary>
+        public static DataTable GetTopClientes(int top = 10)
+        {
+            if (!connectionInitialized)
+            InitializeConnection();
+
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = $@"
+                    SELECT TOP {top}
+                        c.nombre + ' ' + c.apellido AS 'Cliente',
+                        c.email AS 'Email',
+                        COUNT(*) AS 'Reservas',
+                        ISNULL(SUM(r.total), 0) AS 'Total Gastado'
+                        FROM Cliente c
+                        INNER JOIN Reserva r ON c.id_cliente = r.id_cliente
+                        GROUP BY c.nombre, c.apellido, c.email
+                        ORDER BY COUNT(*) DESC";
+           
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en GetTopClientes: {ex.Message}");
+            }
+            return dt;
         }
     }
 }
+
+

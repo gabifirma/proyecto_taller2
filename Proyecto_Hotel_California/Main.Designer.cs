@@ -35,6 +35,8 @@ namespace HotelCalifornia
             this.LNumLegajo = new System.Windows.Forms.Label();
             this.LLegajo = new System.Windows.Forms.Label();
             this.PLateral = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.BBackup = new System.Windows.Forms.Button();
             this.panel8 = new System.Windows.Forms.Panel();
             this.BGestionUsuarios = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -54,8 +56,6 @@ namespace HotelCalifornia
             this.BEmpleados = new System.Windows.Forms.Button();
             this.BClientes = new System.Windows.Forms.Button();
             this.PContenedor = new System.Windows.Forms.Panel();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.BBackup = new System.Windows.Forms.Button();
             this.PTitulo.SuspendLayout();
             this.PLateral.SuspendLayout();
             this.SuspendLayout();
@@ -141,6 +141,32 @@ namespace HotelCalifornia
             this.PLateral.Name = "PLateral";
             this.PLateral.Size = new System.Drawing.Size(150, 511);
             this.PLateral.TabIndex = 1;
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel9.Location = new System.Drawing.Point(1, 76);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(5, 40);
+            this.panel9.TabIndex = 5;
+            // 
+            // BBackup
+            // 
+            this.BBackup.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BBackup.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.BBackup.FlatAppearance.BorderSize = 0;
+            this.BBackup.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.BBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BBackup.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BBackup.Image = ((System.Drawing.Image)(resources.GetObject("BBackup.Image")));
+            this.BBackup.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BBackup.Location = new System.Drawing.Point(4, 76);
+            this.BBackup.Name = "BBackup";
+            this.BBackup.Size = new System.Drawing.Size(146, 40);
+            this.BBackup.TabIndex = 4;
+            this.BBackup.Text = "Backup";
+            this.BBackup.UseVisualStyleBackColor = false;
+            this.BBackup.Click += new System.EventHandler(this.BBackup_Click);
             // 
             // panel8
             // 
@@ -375,32 +401,6 @@ namespace HotelCalifornia
             this.PContenedor.Name = "PContenedor";
             this.PContenedor.Size = new System.Drawing.Size(734, 511);
             this.PContenedor.TabIndex = 2;
-            // 
-            // panel9
-            // 
-            this.panel9.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel9.Location = new System.Drawing.Point(1, 76);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(5, 40);
-            this.panel9.TabIndex = 5;
-            // 
-            // BBackup
-            // 
-            this.BBackup.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.BBackup.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.BBackup.FlatAppearance.BorderSize = 0;
-            this.BBackup.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.BBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BBackup.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BBackup.Image = ((System.Drawing.Image)(resources.GetObject("BBackup.Image")));
-            this.BBackup.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BBackup.Location = new System.Drawing.Point(4, 76);
-            this.BBackup.Name = "BBackup";
-            this.BBackup.Size = new System.Drawing.Size(146, 40);
-            this.BBackup.TabIndex = 4;
-            this.BBackup.Text = "Backup";
-            this.BBackup.UseVisualStyleBackColor = false;
-            this.BBackup.Click += new System.EventHandler(this.BBackup_Click);
             // 
             // Main
             // 
