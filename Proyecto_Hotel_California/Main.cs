@@ -114,15 +114,15 @@ namespace HotelCalifornia
 
            case "Recepcionista":
            case "Recepcion":
-            // Recepcionista: acceso limitado solo a reservas y habitaciones
-             SetMenuButtonState(BReservas, true);
+ // Recepcionista: acceso a reservas, habitaciones y pagos
+       SetMenuButtonState(BReservas, true);
         SetMenuButtonState(BHabitaciones, true);
+        SetMenuButtonState(BPagos, true);
          
       // Mostrar como deshabilitados
-        SetMenuButtonDisabled(BClientes);
+     SetMenuButtonDisabled(BClientes);
      SetMenuButtonDisabled(BEmpleados);
-              SetMenuButtonDisabled(BPagos);
-           SetMenuButtonDisabled(BGestionUsuarios);
+   SetMenuButtonDisabled(BGestionUsuarios);
    SetMenuButtonDisabled(BReportesEstadisticas);
  SetMenuButtonDisabled(BBackup);
         break;

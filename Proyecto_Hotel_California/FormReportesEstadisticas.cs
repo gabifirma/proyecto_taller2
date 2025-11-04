@@ -415,7 +415,7 @@ namespace HotelCalifornia
  Series series = new Series();
  series.ChartType = SeriesChartType.Pie;
  series.IsValueShownAsLabel = true;
- series.Font = new Font("Arial",10, FontStyle.Bold);
+ series.Font = new Font("Arial",11, FontStyle.Bold);
 
  Color[] colores = { Color.FromArgb(76,175,80), Color.FromArgb(255,193,7),
  Color.FromArgb(33,150,243) };
@@ -430,7 +430,14 @@ namespace HotelCalifornia
  int cantidad = Convert.ToInt32(row["Cantidad"]);
  DataPoint point = new DataPoint();
  point.SetValueXY(estado, cantidad);
- point.Label = $"{estado}\n{cantidad} ({cantidad *100.0 / totalCantidad:0.0}%)";
+ 
+ // MEJORA UI/UX: Mostrar solo el porcentaje dentro de la porción
+ decimal porcentaje = cantidad * 100.0m / (decimal)totalCantidad;
+ point.Label = $"{porcentaje:0.0}%";
+ 
+ // Personalizar el texto de la leyenda con estado y cantidad
+ point.LegendText = $"{estado}: {cantidad} reservas";
+ 
  point.Color = colores[colorIndex % colores.Length];
  series.Points.Add(point);
  colorIndex++;
@@ -443,9 +450,12 @@ namespace HotelCalifornia
  title.ForeColor = Color.FromArgb(33,33,33);
  chartEstadisticas.Titles.Add(title);
 
+ // MEJORA UI/UX: La leyenda muestra el detalle completo
  Legend legend = new Legend();
  legend.Docking = Docking.Right;
  legend.Font = new Font("Arial",10);
+ legend.Title = "Detalle";
+ legend.TitleFont = new Font("Arial", 10, FontStyle.Bold);
  chartEstadisticas.Legends.Add(legend);
 
  panelGrafico.Controls.Add(chartEstadisticas);
@@ -471,19 +481,30 @@ namespace HotelCalifornia
 
  ChartArea area = new ChartArea();
  area.BackColor = Color.White;
+ 
+ // MEJORA UI/UX: Eliminar líneas de cuadrícula (grid lines)
+ area.AxisX.MajorGrid.Enabled = false;
+ area.AxisY.MajorGrid.Enabled = false;
+ area.AxisX.MinorGrid.Enabled = false;
+ area.AxisY.MinorGrid.Enabled = false;
+ 
+ // MEJORA UI/UX: Eliminar el eje Y (redundante con etiquetas en barras)
+ area.AxisY.LineWidth = 0;
+ area.AxisY.MajorTickMark.Enabled = false;
+ area.AxisY.LabelStyle.Enabled = false;
+ 
  area.AxisX.Title = "Mes";
  area.AxisX.TitleFont = new Font("Arial",11, FontStyle.Bold);
- area.AxisY.Title = "Ingresos ($)";
- area.AxisY.TitleFont = new Font("Arial",11, FontStyle.Bold);
- area.AxisY.LabelStyle.Format = "C0";
  chartEstadisticas.ChartAreas.Add(area);
 
  Series series = new Series();
  series.ChartType = SeriesChartType.Column;
  series.Color = Color.FromArgb(33,150,243);
+ 
+ // MEJORA UI/UX: Mostrar solo el valor sobre la barra
  series.IsValueShownAsLabel = true;
  series.LabelFormat = "${0:N0}";
- series.Font = new Font("Arial",9);
+ series.Font = new Font("Arial",10, FontStyle.Bold);
 
  foreach (DataRow row in datos.Rows)
  {
@@ -526,7 +547,7 @@ namespace HotelCalifornia
  Series series = new Series();
  series.ChartType = SeriesChartType.Pie;
  series.IsValueShownAsLabel = true;
- series.Font = new Font("Arial",10, FontStyle.Bold);
+ series.Font = new Font("Arial",11, FontStyle.Bold);
 
  Color[] colores = { Color.FromArgb(76,175,80), Color.FromArgb(33,150,243),
  Color.FromArgb(255,152,0) };
@@ -540,14 +561,17 @@ namespace HotelCalifornia
 
  foreach (DataRow row in datos.Rows)
  {
-  // CORREGIDO: Usar directamente el nuevo nombre de columna sin caracteres especiales
   string metodo = row["MetodoPago"].ToString();
   decimal total = Convert.ToDecimal(row["Total"]);
   int cantidad = Convert.ToInt32(row["Cantidad"]);
 
   DataPoint point = new DataPoint();
   point.SetValueXY(metodo, total);
-  point.Label = $"{metodo}\n${total:N2}\n({total *100 / totalGeneral:0.0}%)";
+  
+  // MEJORA UI/UX: Mostrar solo el porcentaje dentro de cada porción
+  decimal porcentaje = total * 100 / totalGeneral;
+  point.Label = $"{porcentaje:0.0}%";
+  
   point.Color = colores[colorIndex % colores.Length];
   series.Points.Add(point);
   colorIndex++;
@@ -560,10 +584,27 @@ namespace HotelCalifornia
  title.ForeColor = Color.FromArgb(33,33,33);
  chartEstadisticas.Titles.Add(title);
 
+ // MEJORA UI/UX: La leyenda muestra el detalle completo (método + monto)
  Legend legend = new Legend();
  legend.Docking = Docking.Right;
  legend.Font = new Font("Arial",10);
+ 
+ // Personalizar leyenda para mostrar método y monto
+ legend.Title = "Detalle";
+ legend.TitleFont = new Font("Arial", 10, FontStyle.Bold);
+ 
  chartEstadisticas.Legends.Add(legend);
+ 
+ // Agregar información de detalle en la leyenda
+ for (int i = 0; i < series.Points.Count; i++)
+ {
+     DataPoint point = series.Points[i];
+     string metodo = datos.Rows[i]["MetodoPago"].ToString();
+     decimal total = Convert.ToDecimal(datos.Rows[i]["Total"]);
+     
+     // Personalizar el texto de la leyenda con método y monto
+     point.LegendText = $"{metodo}: ${total:N0}";
+ }
 
  panelGrafico.Controls.Add(chartEstadisticas);
  }
@@ -612,17 +653,23 @@ namespace HotelCalifornia
 
  ChartArea area = new ChartArea();
  area.BackColor = Color.White;
+ 
+ // MEJORA UI/UX: Eliminar líneas de cuadrícula
+ area.AxisX.MajorGrid.Enabled = false;
+ area.AxisY.MajorGrid.Enabled = false;
+ area.AxisX.MinorGrid.Enabled = false;
+ area.AxisY.MinorGrid.Enabled = false;
+ 
  area.AxisX.Title = "Tipo de Habitación";
  area.AxisX.TitleFont = new Font("Arial",11, FontStyle.Bold);
- area.AxisY.Title = "Cantidad de Reservas";
- area.AxisY.TitleFont = new Font("Arial",11, FontStyle.Bold);
+ 
  chartEstadisticas.ChartAreas.Add(area);
 
  Series series = new Series();
  series.ChartType = SeriesChartType.Bar;
  series.Color = Color.FromArgb(156,39,176);
  series.IsValueShownAsLabel = true;
- series.Font = new Font("Arial",9);
+ series.Font = new Font("Arial",10, FontStyle.Bold);
 
  foreach (DataRow row in datos.Rows)
  {
@@ -633,7 +680,7 @@ namespace HotelCalifornia
 
  chartEstadisticas.Series.Add(series);
 
- Title title = new Title("Top10 Habitaciones Más Reservadas");
+ Title title = new Title("Top 10 Habitaciones Más Reservadas");
  title.Font = new Font("Arial",16, FontStyle.Bold);
  title.ForeColor = Color.FromArgb(33,33,33);
  chartEstadisticas.Titles.Add(title);
