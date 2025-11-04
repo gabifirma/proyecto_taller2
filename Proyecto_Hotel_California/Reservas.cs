@@ -16,19 +16,36 @@ using System.Windows.Forms;
 
 namespace HotelCalifornia
 {
+    /// <summary>
+    /// Formulario para la gestión de reservas del hotel, permitiendo visualizar,
+    /// buscar, filtrar y administrar el estado de las reservas existentes.
+    /// </summary>
     public partial class Reservas : BaseResponsiveForm
     {
+        /// <summary>
+        /// Inicializa una nueva instancia del formulario Reservas y carga
+        /// automáticamente todas las reservas existentes en el sistema.
+        /// </summary>
         public Reservas()
         {
             InitializeComponent();
             CargarReservas();
         }
 
+        /// <summary>
+        /// Valida que un texto contenga únicamente letras sin números ni caracteres especiales.
+        /// </summary>
+        /// <param name="texto">El texto a validar.</param>
+        /// <returns>True si el texto contiene solo letras, false en caso contrario.</returns>
         private bool SoloLetras(string texto)
         {
             return Regex.IsMatch(texto, @"^[a-zA-Z]+$");
         }
 
+        /// <summary>
+        /// Carga todas las reservas desde la base de datos y las muestra en el DataGridView.
+        /// Aplica colores según el estado de cada reserva (verde=confirmada, amarillo=en espera, rojo=terminada).
+        /// </summary>
         private void CargarReservas()
         {
             using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
@@ -63,7 +80,7 @@ namespace HotelCalifornia
                 GrillaReservas.AutoGenerateColumns = false;
                 GrillaReservas.DataSource = dt;
 
-                // Colorear según estado
+                // Aplicar colores según el estado de cada reserva
                 foreach (DataGridViewRow row in GrillaReservas.Rows)
                 {
                     if (row.Cells["Estado"].Value == null) continue;
@@ -80,13 +97,19 @@ namespace HotelCalifornia
             }
         }
 
+        /// <summary>
+        /// Maneja el evento del botón Buscar, aplicando filtros de búsqueda según los criterios
+        /// especificados por el usuario (fechas, nombre, apellido, tipo de habitación).
+        /// </summary>
+        /// <param name="sender">El objeto que generó el evento.</param>
+        /// <param name="e">Los argumentos del evento.</param>
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
                 conn.Open();
 
-                // Construimos la consulta base
+                // Construir la consulta base con filtros dinámicos
                 string query = @"SELECT
                         R.id_reserva AS ID,
                         R.fecha_inicio AS Inicio,
@@ -205,16 +228,28 @@ namespace HotelCalifornia
             }
         }
 
+        /// <summary>
+        /// Maneja el evento del botón Nueva Reserva, abriendo el formulario
+        /// de creación de reservas sin cliente preseleccionado.
+        /// </summary>
+        /// <param name="sender">El objeto que generó el evento.</param>
+        /// <param name="e">Los argumentos del evento.</param>
         private void btnNuevaReserva_Click(object sender, EventArgs e)
         {
-            //se pasa 0 para indicar que no hay cliente preseleccionado
+            // Se pasa 0 para indicar que no hay cliente preseleccionado
             CrearReservaForm frm = new CrearReservaForm(0);
             frm.ShowDialog();
         }
 
+        /// <summary>
+        /// Maneja el evento de doble clic en una celda del DataGridView de reservas.
+        /// Permite registrar un pago solo para reservas en estado "En espera" (estado 2).
+        /// </summary>
+        /// <param name="sender">El objeto que generó el evento.</param>
+        /// <param name="e">Los argumentos del evento con información de la celda seleccionada.</param>
         private void GrillaReservas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {            
-            if (e.RowIndex >= 0) // evitar encabezado
+            if (e.RowIndex >= 0) // Evitar procesar el encabezado
             {
                 // Obtener ID de la reserva seleccionada
                 int numReserva = Convert.ToInt32(GrillaReservas.Rows[e.RowIndex].Cells["ID"].Value);
@@ -244,7 +279,7 @@ namespace HotelCalifornia
                         CrearPagoForm frm = new CrearPagoForm(numReserva);
                         frm.ShowDialog();
 
-                        // refrescar la grilla
+                        // Refrescar la grilla después del pago
                         CargarReservas();
                     }
                     else
@@ -259,11 +294,22 @@ namespace HotelCalifornia
             }
         }
 
+        /// <summary>
+        /// Maneja el evento de carga del formulario, ejecutando la carga inicial de reservas.
+        /// </summary>
+        /// <param name="sender">El objeto que generó el evento.</param>
+        /// <param name="e">Los argumentos del evento.</param>
         private void Reservas_Load(object sender, EventArgs e)
         {
             CargarReservas();
         }
 
+        /// <summary>
+        /// Maneja el evento del botón Limpiar Filtros, restableciendo todos los
+        /// campos de búsqueda a sus valores por defecto y recargando todas las reservas.
+        /// </summary>
+        /// <param name="sender">El objeto que generó el evento.</param>
+        /// <param name="e">Los argumentos del evento.</param>
         private void btnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             TNombre.Clear();
@@ -276,6 +322,11 @@ namespace HotelCalifornia
             CargarReservas();
         }
 
+        /// <summary>
+        /// Marca una reserva como terminada (estado 3) y libera automáticamente
+        /// las habitaciones asociadas, cambiándolas a estado disponible.
+        /// </summary>
+        /// <param name="idReserva">El ID de la reserva a terminar.</param>
         private void TerminarReserva(int idReserva)
         {
             using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
@@ -286,7 +337,7 @@ namespace HotelCalifornia
 
                 try
                 {
-                    // Verificamos el estado actual de la reserva
+                    // Verificar el estado actual de la reserva
                     string queryEstado = @"SELECT id_estado FROM Reserva WHERE id_reserva = @id";
                     SqlCommand cmdEstado = new SqlCommand(queryEstado, conn, tran);
                     cmdEstado.Parameters.AddWithValue("@id", idReserva);
@@ -301,8 +352,8 @@ namespace HotelCalifornia
 
                     int estadoActual = Convert.ToInt32(estadoObj);
 
-                    // Validamos si se puede terminar
-                    // estados: 1 = Activa, 2 = En espera, 3 = Terminada
+                    // Validar si se puede terminar la reserva
+                    // Estados: 1 = Activa, 2 = En espera, 3 = Terminada
                     if (estadoActual == 3)
                     {
                         MessageBox.Show("La reserva ya está terminada.",
@@ -311,13 +362,13 @@ namespace HotelCalifornia
                         return;
                     }
                     
-                    // Actualizamos la reserva a estado 3 (terminada)
+                    // Actualizar la reserva a estado 3 (terminada)
                     string queryReserva = @"UPDATE Reserva SET id_estado = 3 WHERE id_reserva = @id";
                     SqlCommand cmdReserva = new SqlCommand(queryReserva, conn, tran);
                     cmdReserva.Parameters.AddWithValue("@id", idReserva);
                     cmdReserva.ExecuteNonQuery();
 
-                    // Obtenemos las habitaciones asociadas
+                    // Obtener las habitaciones asociadas a la reserva
                     string queryHab = @"SELECT numero_hab FROM ReservaHabitacion WHERE id_reserva = @id";
                     SqlCommand cmdHab = new SqlCommand(queryHab, conn, tran);
                     cmdHab.Parameters.AddWithValue("@id", idReserva);
@@ -331,7 +382,7 @@ namespace HotelCalifornia
                         }
                     }
 
-                    // Actualizamos las habitaciones a "disponible" (id_estado = 1)
+                    // Liberar las habitaciones cambiándolas a estado "disponible" (id_estado = 1)
                     foreach (int numHab in habitaciones)
                     {
                         string updateHab = @"UPDATE Habitacion SET id_estado = 1 WHERE numero_hab = @num";
@@ -342,10 +393,10 @@ namespace HotelCalifornia
 
                     tran.Commit();
 
-                    MessageBox.Show("Reserva marcada como terminada y habitaciones actualizadas.",
+                    MessageBox.Show("Reserva marcada como terminada y habitaciones liberadas correctamente.",
                         "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    CargarReservas(); // refresca la grilla
+                    CargarReservas(); // Refrescar la grilla
                 }
                 catch (Exception ex)
                 {
@@ -356,14 +407,26 @@ namespace HotelCalifornia
             }
         }
 
+        /// <summary>
+        /// Maneja el evento del botón Actualizar, recargando todas las reservas
+        /// desde la base de datos para refrescar la información mostrada.
+        /// </summary>
+        /// <param name="sender">El objeto que generó el evento.</param>
+        /// <param name="e">Los argumentos del evento.</param>
         private void BActualizar_Click(object sender, EventArgs e)
         {
             CargarReservas();
         }
 
+        /// <summary>
+        /// Maneja el evento del botón Finalizar, permitiendo terminar una reserva
+        /// específica ingresando su número de ID. Solicita confirmación antes de proceder.
+        /// </summary>
+        /// <param name="sender">El objeto que generó el evento.</param>
+        /// <param name="e">Los argumentos del evento.</param>
         private void BFinalizar_Click(object sender, EventArgs e)
         {
-            // Obtener ID de la reserva escrita
+            // Obtener y validar el ID de la reserva ingresada
             Boolean valorNum = int.TryParse(TReservaN.Text, out int idReserva);
 
             if (!valorNum)
@@ -372,7 +435,7 @@ namespace HotelCalifornia
                 return;
             }
 
-            // Verificar existencia para evitar errores
+            // Verificar que la reserva existe en la base de datos
             if (!DatabaseHelper.ReservaExiste(idReserva))
             {
                 MessageBox.Show($"La reserva {idReserva} NO existe en la base de datos.",
@@ -413,7 +476,7 @@ namespace HotelCalifornia
                     {
                         TerminarReserva(idReserva);
                     }
-                    // refrescar la grilla y limpiar campo
+                    // Refrescar la grilla y limpiar el campo de texto
                     TReservaN.Clear();
                     CargarReservas();
                 }

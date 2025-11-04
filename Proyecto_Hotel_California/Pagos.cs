@@ -20,14 +20,26 @@ using Font = iTextSharp.text.Font;
 
 namespace HotelCalifornia
 {
+    /// <summary>
+    /// Formulario para la gestión de pagos del hotel.
+    /// Permite visualizar, buscar y generar facturas PDF de los pagos realizados.
+    /// </summary>
     public partial class Pagos : BaseResponsiveForm
     {
+        /// <summary>
+        /// Inicializa una nueva instancia del formulario Pagos y
+        /// carga automáticamente todos los pagos existentes en el sistema.
+        /// </summary>
         public Pagos()
         {
             InitializeComponent();
             CargarPagos();
         }
 
+        /// <summary>
+        /// Carga todos los pagos desde la base de datos y los muestra en el DataGridView,
+        /// incluyendo información del cliente, reserva y método de pago.
+        /// </summary>
         private void CargarPagos()
         {
             using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))

@@ -4,14 +4,22 @@ using System.Configuration;
 
 namespace HotelCalifornia
 {
+    /// <summary>
+    /// Utilidad de consola para probar la conectividad con la base de datos SQL Server.
+    /// Verifica múltiples cadenas de conexión y muestra información del servidor.
+    /// </summary>
     class TestConnection
     {
+        /// <summary>
+        /// Punto de entrada principal de la aplicación de prueba de conexión.
+        /// Itera a través de diferentes cadenas de conexión hasta encontrar una que funcione.
+        /// </summary>
         static void Main()
         {
             Console.WriteLine("=== PRUEBA DE CONEXIÓN A BASE DE DATOS ===");
             Console.WriteLine();
 
-            // Cadenas de conexión a probar
+            // Cadenas de conexión predefinidas para probar
             string[] connectionStrings = {
                 "Data Source=DESKTOP-1Q3KGFE\\SQLEXPRESS;Initial Catalog=Hotel;Integrated Security=True",
                 "Data Source=DESKTOP-9V9JJ39\\SQLEXPRESS;Initial Catalog=Hotel;Integrated Security=True"
@@ -33,14 +41,14 @@ namespace HotelCalifornia
                         workingConnection = connStr;
                         connected = true;
                         
-                        // Probar una consulta simple
+                        // Ejecutar una consulta simple para obtener la versión del servidor
                         using (SqlCommand cmd = new SqlCommand("SELECT @@VERSION", connection))
                         {
                             string version = cmd.ExecuteScalar().ToString();
                             Console.WriteLine("Versión del servidor: " + version.Split('\n')[0]);
                         }
                         
-                        // Verificar si existe la base de datos Hotel
+                        // Verificar la existencia de la base de datos Hotel
                         using (SqlCommand cmd = new SqlCommand("SELECT DB_ID('Hotel')", connection))
                         {
                             var result = cmd.ExecuteScalar();
@@ -54,7 +62,7 @@ namespace HotelCalifornia
                             }
                         }
                         
-                        break;
+                        break; // Salir del bucle si la conexión fue exitosa
                     }
                 }
                 catch (Exception ex)
@@ -86,6 +94,11 @@ namespace HotelCalifornia
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Extrae el nombre del servidor desde una cadena de conexión SQL Server.
+        /// </summary>
+        /// <param name="connectionStr">La cadena de conexión completa.</param>
+        /// <returns>El nombre del servidor (DataSource) o "Servidor desconocido" si hay error.</returns>
         private static string GetServerName(string connectionStr)
         {
             try

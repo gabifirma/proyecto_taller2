@@ -13,8 +13,16 @@ using System.Windows.Forms;
 
 namespace HotelCalifornia
 {
+    /// <summary>
+    /// Formulario para la gestión de empleados del hotel.
+    /// Permite visualizar, buscar, agregar, editar y eliminar empleados del sistema.
+    /// </summary>
     public partial class Empleados : BaseResponsiveForm
     {
+        /// <summary>
+        /// Inicializa una nueva instancia del formulario Empleados.
+        /// Carga automáticamente todos los empleados y configura el menú contextual.
+        /// </summary>
         public Empleados()
         {
             InitializeComponent();
@@ -25,6 +33,10 @@ namespace HotelCalifornia
             // La clase base BaseResponsiveForm se encarga del responsive design automáticamente
         }
 
+        /// <summary>
+        /// Carga todos los empleados desde la base de datos y los muestra en el DataGridView.
+        /// Incluye información completa como legajo, nombre, apellido, DNI, cargo y departamento.
+        /// </summary>
         private void CargarEmpleados()
         {
             try

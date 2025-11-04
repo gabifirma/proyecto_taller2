@@ -12,14 +12,27 @@ using HotelCalifornia.Styles;
 
 namespace HotelCalifornia
 {
+    /// <summary>
+    /// Formulario para la gestión de habitaciones del hotel.
+    /// Permite visualizar, buscar y administrar el estado de todas las habitaciones disponibles.
+    /// Incluye filtros por tipo de habitación y estado.
+    /// </summary>
     public partial class Habitaciones : BaseResponsiveForm
     {
+        /// <summary>
+        /// Inicializa una nueva instancia del formulario Habitaciones y
+        /// carga automáticamente todas las habitaciones existentes en el sistema.
+        /// </summary>
         public Habitaciones()
         {
             InitializeComponent();
             CargarHabitaciones();
         }
 
+        /// <summary>
+        /// Carga todas las habitaciones desde la base de datos y las muestra en el DataGridView.
+        /// Incluye información de número, piso, tipo, estado y precio de cada habitación.
+        /// </summary>
         private void CargarHabitaciones()
         {
             using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
