@@ -38,13 +38,6 @@ namespace HotelCalifornia
             this.btnCancelar = new System.Windows.Forms.Button();
             this.LNumHab = new System.Windows.Forms.Label();
             this.GrillaHabDisp = new System.Windows.Forms.DataGridView();
-            this.numero_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.piso = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.capacidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.base_precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Reservar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.TApellido = new System.Windows.Forms.TextBox();
             this.lblApellido = new System.Windows.Forms.Label();
             this.TDni = new System.Windows.Forms.TextBox();
@@ -59,6 +52,13 @@ namespace HotelCalifornia
             this.CHMinibar = new System.Windows.Forms.CheckBox();
             this.CHPool = new System.Windows.Forms.CheckBox();
             this.BListaClientes = new System.Windows.Forms.Button();
+            this.numero_hab = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.piso = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.capacidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.base_precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Reservar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaHabDisp)).BeginInit();
             this.SuspendLayout();
             // 
@@ -175,55 +175,6 @@ namespace HotelCalifornia
             this.GrillaHabDisp.TabIndex = 18;
             this.GrillaHabDisp.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrillaHabDisp_CellContentClick);
             this.GrillaHabDisp.CurrentCellDirtyStateChanged += new System.EventHandler(this.GrillaHabDisp_CurrentCellDirtyStateChanged);
-            // 
-            // numero_hab
-            // 
-            this.numero_hab.DataPropertyName = "numero_hab";
-            this.numero_hab.HeaderText = "Número";
-            this.numero_hab.Name = "numero_hab";
-            this.numero_hab.ReadOnly = true;
-            // 
-            // piso
-            // 
-            this.piso.DataPropertyName = "piso";
-            this.piso.HeaderText = "Piso";
-            this.piso.Name = "piso";
-            this.piso.ReadOnly = true;
-            // 
-            // nombre
-            // 
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            this.nombre.ReadOnly = true;
-            // 
-            // capacidad
-            // 
-            this.capacidad.DataPropertyName = "capacidad";
-            this.capacidad.HeaderText = "Capacidad";
-            this.capacidad.Name = "capacidad";
-            this.capacidad.ReadOnly = true;
-            // 
-            // descripcion
-            // 
-            this.descripcion.DataPropertyName = "descripcion";
-            this.descripcion.HeaderText = "Descripción";
-            this.descripcion.Name = "descripcion";
-            this.descripcion.ReadOnly = true;
-            // 
-            // base_precio
-            // 
-            this.base_precio.DataPropertyName = "base_precio";
-            this.base_precio.HeaderText = "Precio Base";
-            this.base_precio.Name = "base_precio";
-            this.base_precio.ReadOnly = true;
-            // 
-            // Reservar
-            // 
-            this.Reservar.DataPropertyName = "reservar";
-            this.Reservar.HeaderText = "Reservar";
-            this.Reservar.Name = "Reservar";
-            this.Reservar.ReadOnly = true;
-            this.Reservar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // TApellido
             // 
@@ -359,6 +310,56 @@ namespace HotelCalifornia
             this.BListaClientes.UseVisualStyleBackColor = true;
             this.BListaClientes.Click += new System.EventHandler(this.BListaClientes_Click);
             // 
+            // numero_hab
+            // 
+            this.numero_hab.DataPropertyName = "numero_hab";
+            this.numero_hab.HeaderText = "Número";
+            this.numero_hab.Name = "numero_hab";
+            this.numero_hab.ReadOnly = true;
+            // 
+            // piso
+            // 
+            this.piso.DataPropertyName = "piso";
+            this.piso.HeaderText = "Piso";
+            this.piso.Name = "piso";
+            this.piso.ReadOnly = true;
+            // 
+            // nombre
+            // 
+            this.nombre.DataPropertyName = "nombre";
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.ReadOnly = true;
+            // 
+            // capacidad
+            // 
+            this.capacidad.DataPropertyName = "capacidad";
+            this.capacidad.HeaderText = "Capacidad";
+            this.capacidad.Name = "capacidad";
+            this.capacidad.ReadOnly = true;
+            // 
+            // descripcion
+            // 
+            this.descripcion.DataPropertyName = "descripcion";
+            this.descripcion.HeaderText = "Descripción";
+            this.descripcion.Name = "descripcion";
+            this.descripcion.ReadOnly = true;
+            // 
+            // base_precio
+            // 
+            this.base_precio.DataPropertyName = "base_precio";
+            this.base_precio.HeaderText = "Precio Base";
+            this.base_precio.Name = "base_precio";
+            this.base_precio.ReadOnly = true;
+            // 
+            // Reservar
+            // 
+            this.Reservar.DataPropertyName = "reservar";
+            this.Reservar.HeaderText = "Reservar";
+            this.Reservar.Name = "Reservar";
+            this.Reservar.ReadOnly = true;
+            this.Reservar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
             // CrearReservaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -427,6 +428,7 @@ namespace HotelCalifornia
         private System.Windows.Forms.CheckBox CHJacuzzi;
         private System.Windows.Forms.CheckBox CHMinibar;
         private System.Windows.Forms.CheckBox CHPool;
+        private System.Windows.Forms.Button BListaClientes;
         private System.Windows.Forms.DataGridViewTextBoxColumn numero_hab;
         private System.Windows.Forms.DataGridViewTextBoxColumn piso;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
@@ -434,6 +436,5 @@ namespace HotelCalifornia
         private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn base_precio;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Reservar;
-        private System.Windows.Forms.Button BListaClientes;
     }
 }
