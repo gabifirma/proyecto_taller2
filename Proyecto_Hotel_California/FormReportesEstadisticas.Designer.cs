@@ -30,12 +30,13 @@ namespace HotelCalifornia
 {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabReservas = new System.Windows.Forms.TabPage();
+            this.dgvReporteReservas = new System.Windows.Forms.DataGridView();
+            this.panelBottomReservas = new System.Windows.Forms.Panel();
             this.lblTotalIngresosReservas = new System.Windows.Forms.Label();
             this.lblTotalRegistrosReservas = new System.Windows.Forms.Label();
             this.btnExportarReservas = new System.Windows.Forms.Button();
             this.btnLimpiarFiltrosReservas = new System.Windows.Forms.Button();
             this.btnBuscarReservas = new System.Windows.Forms.Button();
-            this.dgvReporteReservas = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtBusquedaReservas = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,6 +54,7 @@ namespace HotelCalifornia
             this.btnLimpiarFiltrosPagos = new System.Windows.Forms.Button();
             this.btnBuscarPagos = new System.Windows.Forms.Button();
             this.dgvReportePagos = new System.Windows.Forms.DataGridView();
+            this.panelBottomPagos = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtBusquedaPagos = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -64,10 +66,11 @@ namespace HotelCalifornia
             this.dtpFechaDesdeePagos = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
             this.tabEstadisticas = new System.Windows.Forms.TabPage();
+            this.panelGrafico = new System.Windows.Forms.Panel();
+            this.panelBottomEstadisticas = new System.Windows.Forms.Panel();
             this.btnTopClientes = new System.Windows.Forms.Button();
             this.btnExportarGrafico = new System.Windows.Forms.Button();
             this.btnGenerarEstadisticas = new System.Windows.Forms.Button();
-            this.panelGrafico = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.rbHabitacionesPopulares = new System.Windows.Forms.RadioButton();
             this.rbPagosPorMetodo = new System.Windows.Forms.RadioButton();
@@ -101,12 +104,8 @@ namespace HotelCalifornia
             // 
             // tabReservas
             // 
-            this.tabReservas.Controls.Add(this.lblTotalIngresosReservas);
-            this.tabReservas.Controls.Add(this.lblTotalRegistrosReservas);
-            this.tabReservas.Controls.Add(this.btnExportarReservas);
-            this.tabReservas.Controls.Add(this.btnLimpiarFiltrosReservas);
-            this.tabReservas.Controls.Add(this.btnBuscarReservas);
             this.tabReservas.Controls.Add(this.dgvReporteReservas);
+            this.tabReservas.Controls.Add(this.panelBottomReservas);
             this.tabReservas.Controls.Add(this.groupBox1);
             this.tabReservas.Location = new System.Drawing.Point(4, 22);
             this.tabReservas.Name = "tabReservas";
@@ -116,71 +115,90 @@ namespace HotelCalifornia
             this.tabReservas.Text = "Reportes de Reservas";
             this.tabReservas.UseVisualStyleBackColor = true;
             // 
-            // lblTotalIngresosReservas
-            // 
-            this.lblTotalIngresosReservas.AutoSize = true;
-            this.lblTotalIngresosReservas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.lblTotalIngresosReservas.Location = new System.Drawing.Point(300, 635);
-            this.lblTotalIngresosReservas.Name = "lblTotalIngresosReservas";
-            this.lblTotalIngresosReservas.Size = new System.Drawing.Size(162, 15);
-            this.lblTotalIngresosReservas.TabIndex = 6;
-            this.lblTotalIngresosReservas.Text = "?? Total Ingresos: $0.00";
-            // 
-            // lblTotalRegistrosReservas
-            // 
-            this.lblTotalRegistrosReservas.AutoSize = true;
-            this.lblTotalRegistrosReservas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.lblTotalRegistrosReservas.Location = new System.Drawing.Point(20, 635);
-            this.lblTotalRegistrosReservas.Name = "lblTotalRegistrosReservas";
-            this.lblTotalRegistrosReservas.Size = new System.Drawing.Size(155, 15);
-            this.lblTotalRegistrosReservas.TabIndex = 5;
-            this.lblTotalRegistrosReservas.Text = "?? Total de registros: 0";
-            // 
-            // btnExportarReservas
-            // 
-            this.btnExportarReservas.Location = new System.Drawing.Point(970, 625);
-            this.btnExportarReservas.Name = "btnExportarReservas";
-            this.btnExportarReservas.Size = new System.Drawing.Size(100, 35);
-            this.btnExportarReservas.TabIndex = 4;
-            this.btnExportarReservas.Text = "Exportar";
-            this.btnExportarReservas.UseVisualStyleBackColor = true;
-            this.btnExportarReservas.Click += new System.EventHandler(this.btnExportarReservas_Click);
-            // 
-            // btnLimpiarFiltrosReservas
-            // 
-            this.btnLimpiarFiltrosReservas.Location = new System.Drawing.Point(850, 625);
-            this.btnLimpiarFiltrosReservas.Name = "btnLimpiarFiltrosReservas";
-            this.btnLimpiarFiltrosReservas.Size = new System.Drawing.Size(100, 35);
-            this.btnLimpiarFiltrosReservas.TabIndex = 3;
-            this.btnLimpiarFiltrosReservas.Text = "Limpiar";
-            this.btnLimpiarFiltrosReservas.UseVisualStyleBackColor = true;
-            this.btnLimpiarFiltrosReservas.Click += new System.EventHandler(this.btnLimpiarFiltrosReservas_Click);
-            // 
-            // btnBuscarReservas
-            // 
-            this.btnBuscarReservas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.btnBuscarReservas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscarReservas.ForeColor = System.Drawing.Color.White;
-            this.btnBuscarReservas.Location = new System.Drawing.Point(730, 625);
-            this.btnBuscarReservas.Name = "btnBuscarReservas";
-            this.btnBuscarReservas.Size = new System.Drawing.Size(100, 35);
-            this.btnBuscarReservas.TabIndex = 2;
-            this.btnBuscarReservas.Text = "Buscar";
-            this.btnBuscarReservas.UseVisualStyleBackColor = false;
-            this.btnBuscarReservas.Click += new System.EventHandler(this.btnBuscarReservas_Click);
-            // 
             // dgvReporteReservas
             // 
             this.dgvReporteReservas.AllowUserToAddRows = false;
             this.dgvReporteReservas.AllowUserToDeleteRows = false;
             this.dgvReporteReservas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvReporteReservas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvReporteReservas.Location = new System.Drawing.Point(20, 180);
+            this.dgvReporteReservas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvReporteReservas.Location = new System.Drawing.Point(3, 153);
             this.dgvReporteReservas.Name = "dgvReporteReservas";
             this.dgvReporteReservas.ReadOnly = true;
             this.dgvReporteReservas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvReporteReservas.Size = new System.Drawing.Size(1050, 430);
+            this.dgvReporteReservas.Size = new System.Drawing.Size(1086, 448);
             this.dgvReporteReservas.TabIndex = 1;
+            // 
+            // panelBottomReservas
+            // 
+            this.panelBottomReservas.Controls.Add(this.lblTotalIngresosReservas);
+            this.panelBottomReservas.Controls.Add(this.lblTotalRegistrosReservas);
+            this.panelBottomReservas.Controls.Add(this.btnExportarReservas);
+            this.panelBottomReservas.Controls.Add(this.btnLimpiarFiltrosReservas);
+            this.panelBottomReservas.Controls.Add(this.btnBuscarReservas);
+            this.panelBottomReservas.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBottomReservas.Location = new System.Drawing.Point(3, 601);
+            this.panelBottomReservas.Name = "panelBottomReservas";
+            this.panelBottomReservas.Size = new System.Drawing.Size(1086, 70);
+            this.panelBottomReservas.TabIndex = 7;
+            // 
+            // lblTotalIngresosReservas
+            // 
+            this.lblTotalIngresosReservas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+    this.lblTotalIngresosReservas.AutoSize = true;
+      this.lblTotalIngresosReservas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+     this.lblTotalIngresosReservas.Location = new System.Drawing.Point(280, 28);
+this.lblTotalIngresosReservas.Name = "lblTotalIngresosReservas";
+            this.lblTotalIngresosReservas.Size = new System.Drawing.Size(162, 15);
+            this.lblTotalIngresosReservas.TabIndex = 6;
+  this.lblTotalIngresosReservas.Text = "Total Ingresos: $0.00";
+            // 
+            // lblTotalRegistrosReservas
+     // 
+            this.lblTotalRegistrosReservas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+      this.lblTotalRegistrosReservas.AutoSize = true;
+       this.lblTotalRegistrosReservas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.lblTotalRegistrosReservas.Location = new System.Drawing.Point(17, 28);
+            this.lblTotalRegistrosReservas.Name = "lblTotalRegistrosReservas";
+     this.lblTotalRegistrosReservas.Size = new System.Drawing.Size(155, 15);
+      this.lblTotalRegistrosReservas.TabIndex = 5;
+ this.lblTotalRegistrosReservas.Text = "Total de registros: 0";
+  // 
+     // btnExportarReservas
+            // 
+   this.btnExportarReservas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+    this.btnExportarReservas.Location = new System.Drawing.Point(967, 18);
+       this.btnExportarReservas.Name = "btnExportarReservas";
+     this.btnExportarReservas.Size = new System.Drawing.Size(100, 35);
+    this.btnExportarReservas.TabIndex = 4;
+            this.btnExportarReservas.Text = "Exportar";
+            this.btnExportarReservas.UseVisualStyleBackColor = true;
+            this.btnExportarReservas.Click += new System.EventHandler(this.btnExportarReservas_Click);
+            // 
+         // btnLimpiarFiltrosReservas
+            // 
+  this.btnLimpiarFiltrosReservas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLimpiarFiltrosReservas.Location = new System.Drawing.Point(847, 18);
+ this.btnLimpiarFiltrosReservas.Name = "btnLimpiarFiltrosReservas";
+  this.btnLimpiarFiltrosReservas.Size = new System.Drawing.Size(100, 35);
+     this.btnLimpiarFiltrosReservas.TabIndex = 3;
+        this.btnLimpiarFiltrosReservas.Text = "Limpiar";
+   this.btnLimpiarFiltrosReservas.UseVisualStyleBackColor = true;
+   this.btnLimpiarFiltrosReservas.Click += new System.EventHandler(this.btnLimpiarFiltrosReservas_Click);
+            // 
+       // btnBuscarReservas
+       // 
+      this.btnBuscarReservas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBuscarReservas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+   this.btnBuscarReservas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+    this.btnBuscarReservas.ForeColor = System.Drawing.Color.White;
+    this.btnBuscarReservas.Location = new System.Drawing.Point(727, 18);
+this.btnBuscarReservas.Name = "btnBuscarReservas";
+    this.btnBuscarReservas.Size = new System.Drawing.Size(100, 35);
+   this.btnBuscarReservas.TabIndex = 2;
+            this.btnBuscarReservas.Text = "Buscar";
+            this.btnBuscarReservas.UseVisualStyleBackColor = false;
+  this.btnBuscarReservas.Click += new System.EventHandler(this.btnBuscarReservas_Click);
             // 
             // groupBox1
             // 
@@ -193,9 +211,10 @@ namespace HotelCalifornia
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.dtpFechaDesdeReservas);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(20, 15);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1050, 150);
+            this.groupBox1.Size = new System.Drawing.Size(1086, 150);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de Búsqueda";
@@ -281,73 +300,87 @@ namespace HotelCalifornia
             // 
             // tabPagos
             // 
-            this.tabPagos.Controls.Add(this.lblTotalesPagos);
-            this.tabPagos.Controls.Add(this.lblTotalRegistrosPagos);
-            this.tabPagos.Controls.Add(this.btnExportarPagos);
-            this.tabPagos.Controls.Add(this.btnLimpiarFiltrosPagos);
-            this.tabPagos.Controls.Add(this.btnBuscarPagos);
-            this.tabPagos.Controls.Add(this.dgvReportePagos);
-            this.tabPagos.Controls.Add(this.groupBox2);
-            this.tabPagos.Location = new System.Drawing.Point(4, 22);
-            this.tabPagos.Name = "tabPagos";
+   this.tabPagos.Controls.Add(this.dgvReportePagos);
+     this.tabPagos.Controls.Add(this.panelBottomPagos);
+      this.tabPagos.Controls.Add(this.groupBox2);
+    this.tabPagos.Location = new System.Drawing.Point(4, 22);
+    this.tabPagos.Name = "tabPagos";
             this.tabPagos.Padding = new System.Windows.Forms.Padding(3);
             this.tabPagos.Size = new System.Drawing.Size(1092, 674);
             this.tabPagos.TabIndex = 1;
             this.tabPagos.Text = "Reportes de Pagos";
             this.tabPagos.UseVisualStyleBackColor = true;
             // 
-            // lblTotalesPagos
+   // panelBottomPagos
+       // 
+      this.panelBottomPagos.Controls.Add(this.lblTotalesPagos);
+            this.panelBottomPagos.Controls.Add(this.lblTotalRegistrosPagos);
+            this.panelBottomPagos.Controls.Add(this.btnExportarPagos);
+ this.panelBottomPagos.Controls.Add(this.btnLimpiarFiltrosPagos);
+      this.panelBottomPagos.Controls.Add(this.btnBuscarPagos);
+         this.panelBottomPagos.Dock = System.Windows.Forms.DockStyle.Bottom;
+      this.panelBottomPagos.Location = new System.Drawing.Point(3, 601);
+            this.panelBottomPagos.Name = "panelBottomPagos";
+            this.panelBottomPagos.Size = new System.Drawing.Size(1086, 70);
+this.panelBottomPagos.TabIndex = 7;
+  // 
+ // lblTotalesPagos
             // 
+          this.lblTotalesPagos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.lblTotalesPagos.AutoSize = true;
-            this.lblTotalesPagos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.lblTotalesPagos.Location = new System.Drawing.Point(20, 655);
-            this.lblTotalesPagos.Name = "lblTotalesPagos";
+this.lblTotalesPagos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.lblTotalesPagos.Location = new System.Drawing.Point(17, 40);
+   this.lblTotalesPagos.Name = "lblTotalesPagos";
             this.lblTotalesPagos.Size = new System.Drawing.Size(450, 13);
-            this.lblTotalesPagos.TabIndex = 6;
-            this.lblTotalesPagos.Text = "?? Efectivo: $0.00 | ?? Tarjeta: $0.00 | ?? Transfer.: $0.00 | ?? TOTAL: $0.00";
+ this.lblTotalesPagos.TabIndex = 6;
+ this.lblTotalesPagos.Text = "Efectivo: $0.00 | Tarjeta: $0.00 | Transfer.: $0.00 | TOTAL: $0.00";
             // 
-            // lblTotalRegistrosPagos
-            // 
-            this.lblTotalRegistrosPagos.AutoSize = true;
-            this.lblTotalRegistrosPagos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.lblTotalRegistrosPagos.Location = new System.Drawing.Point(20, 635);
-            this.lblTotalRegistrosPagos.Name = "lblTotalRegistrosPagos";
-            this.lblTotalRegistrosPagos.Size = new System.Drawing.Size(118, 15);
-            this.lblTotalRegistrosPagos.TabIndex = 5;
-            this.lblTotalRegistrosPagos.Text = "?? Total: 0 pagos";
-            // 
-            // btnExportarPagos
-            // 
-            this.btnExportarPagos.Location = new System.Drawing.Point(970, 625);
+    // lblTotalRegistrosPagos
+       // 
+            this.lblTotalRegistrosPagos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+this.lblTotalRegistrosPagos.AutoSize = true;
+   this.lblTotalRegistrosPagos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+   this.lblTotalRegistrosPagos.Location = new System.Drawing.Point(17, 18);
+      this.lblTotalRegistrosPagos.Name = "lblTotalRegistrosPagos";
+this.lblTotalRegistrosPagos.Size = new System.Drawing.Size(118, 15);
+      this.lblTotalRegistrosPagos.TabIndex = 5;
+   this.lblTotalRegistrosPagos.Text = "Total: 0 pagos";
+    // 
+     // btnExportarPagos
+     // 
+    this.btnExportarPagos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+          this.btnExportarPagos.Location = new System.Drawing.Point(967, 18);
             this.btnExportarPagos.Name = "btnExportarPagos";
-            this.btnExportarPagos.Size = new System.Drawing.Size(100, 35);
+     this.btnExportarPagos.Size = new System.Drawing.Size(100, 35);
             this.btnExportarPagos.TabIndex = 4;
-            this.btnExportarPagos.Text = "Exportar";
+       this.btnExportarPagos.Text = "Exportar";
             this.btnExportarPagos.UseVisualStyleBackColor = true;
-            this.btnExportarPagos.Click += new System.EventHandler(this.btnExportarPagos_Click);
-            // 
-            // btnLimpiarFiltrosPagos
-            // 
-            this.btnLimpiarFiltrosPagos.Location = new System.Drawing.Point(850, 625);
+    this.btnExportarPagos.Click += new System.EventHandler(this.btnExportarPagos_Click);
+   // 
+    // btnLimpiarFiltrosPagos
+      // 
+            this.btnLimpiarFiltrosPagos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+ this.btnLimpiarFiltrosPagos.Location = new System.Drawing.Point(847, 18);
             this.btnLimpiarFiltrosPagos.Name = "btnLimpiarFiltrosPagos";
             this.btnLimpiarFiltrosPagos.Size = new System.Drawing.Size(100, 35);
-            this.btnLimpiarFiltrosPagos.TabIndex = 3;
-            this.btnLimpiarFiltrosPagos.Text = "Limpiar";
-            this.btnLimpiarFiltrosPagos.UseVisualStyleBackColor = true;
-            this.btnLimpiarFiltrosPagos.Click += new System.EventHandler(this.btnLimpiarFiltrosPagos_Click);
+ this.btnLimpiarFiltrosPagos.TabIndex = 3;
+this.btnLimpiarFiltrosPagos.Text = "Limpiar";
+         this.btnLimpiarFiltrosPagos.UseVisualStyleBackColor = true;
+    this.btnLimpiarFiltrosPagos.Click += new System.EventHandler(this.btnLimpiarFiltrosPagos_Click);
             // 
-            // btnBuscarPagos
-            // 
-            this.btnBuscarPagos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.btnBuscarPagos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      // btnBuscarPagos
+    // 
+    this.btnBuscarPagos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+       this.btnBuscarPagos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+       this.btnBuscarPagos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscarPagos.ForeColor = System.Drawing.Color.White;
-            this.btnBuscarPagos.Location = new System.Drawing.Point(730, 625);
-            this.btnBuscarPagos.Name = "btnBuscarPagos";
-            this.btnBuscarPagos.Size = new System.Drawing.Size(100, 35);
-            this.btnBuscarPagos.TabIndex = 2;
-            this.btnBuscarPagos.Text = "Buscar";
-            this.btnBuscarPagos.UseVisualStyleBackColor = false;
-            this.btnBuscarPagos.Click += new System.EventHandler(this.btnBuscarPagos_Click);
+  this.btnBuscarPagos.Location = new System.Drawing.Point(727, 18);
+ this.btnBuscarPagos.Name = "btnBuscarPagos";
+    this.btnBuscarPagos.Size = new System.Drawing.Size(100, 35);
+      this.btnBuscarPagos.TabIndex = 2;
+     this.btnBuscarPagos.Text = "Buscar";
+ this.btnBuscarPagos.UseVisualStyleBackColor = false;
+ this.btnBuscarPagos.Click += new System.EventHandler(this.btnBuscarPagos_Click);
             // 
             // dgvReportePagos
             // 
@@ -355,11 +388,12 @@ namespace HotelCalifornia
             this.dgvReportePagos.AllowUserToDeleteRows = false;
             this.dgvReportePagos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvReportePagos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvReportePagos.Location = new System.Drawing.Point(20, 180);
+            this.dgvReportePagos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvReportePagos.Location = new System.Drawing.Point(3, 153);
             this.dgvReportePagos.Name = "dgvReportePagos";
             this.dgvReportePagos.ReadOnly = true;
             this.dgvReportePagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvReportePagos.Size = new System.Drawing.Size(1050, 430);
+            this.dgvReportePagos.Size = new System.Drawing.Size(1086, 448);
             this.dgvReportePagos.TabIndex = 1;
             // 
             // groupBox2
@@ -373,9 +407,10 @@ namespace HotelCalifornia
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.dtpFechaDesdeePagos);
             this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Location = new System.Drawing.Point(20, 15);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1050, 150);
+            this.groupBox2.Size = new System.Drawing.Size(1086, 150);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Filtros de Búsqueda";
@@ -461,10 +496,8 @@ namespace HotelCalifornia
             // 
             // tabEstadisticas
             // 
-            this.tabEstadisticas.Controls.Add(this.btnTopClientes);
-            this.tabEstadisticas.Controls.Add(this.btnExportarGrafico);
-            this.tabEstadisticas.Controls.Add(this.btnGenerarEstadisticas);
             this.tabEstadisticas.Controls.Add(this.panelGrafico);
+            this.tabEstadisticas.Controls.Add(this.panelBottomEstadisticas);
             this.tabEstadisticas.Controls.Add(this.groupBox3);
             this.tabEstadisticas.Location = new System.Drawing.Point(4, 22);
             this.tabEstadisticas.Name = "tabEstadisticas";
@@ -473,50 +506,65 @@ namespace HotelCalifornia
             this.tabEstadisticas.Text = "Estadísticas";
             this.tabEstadisticas.UseVisualStyleBackColor = true;
             // 
-            // btnTopClientes
-            // 
-            this.btnTopClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(39)))), ((int)(((byte)(176)))));
-            this.btnTopClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTopClientes.ForeColor = System.Drawing.Color.White;
-            this.btnTopClientes.Location = new System.Drawing.Point(230, 625);
-            this.btnTopClientes.Name = "btnTopClientes";
-            this.btnTopClientes.Size = new System.Drawing.Size(150, 35);
-            this.btnTopClientes.TabIndex = 4;
-            this.btnTopClientes.Text = "Top 10 Clientes";
-            this.btnTopClientes.UseVisualStyleBackColor = false;
-            this.btnTopClientes.Click += new System.EventHandler(this.btnTopClientes_Click);
-            // 
-            // btnExportarGrafico
-            // 
-            this.btnExportarGrafico.Location = new System.Drawing.Point(970, 625);
-            this.btnExportarGrafico.Name = "btnExportarGrafico";
-            this.btnExportarGrafico.Size = new System.Drawing.Size(100, 35);
-            this.btnExportarGrafico.TabIndex = 3;
-            this.btnExportarGrafico.Text = "Exportar Gráfico";
-            this.btnExportarGrafico.UseVisualStyleBackColor = true;
-            this.btnExportarGrafico.Click += new System.EventHandler(this.btnExportarGrafico_Click);
-            // 
-            // btnGenerarEstadisticas
-            // 
-            this.btnGenerarEstadisticas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.btnGenerarEstadisticas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGenerarEstadisticas.ForeColor = System.Drawing.Color.White;
-            this.btnGenerarEstadisticas.Location = new System.Drawing.Point(20, 625);
-            this.btnGenerarEstadisticas.Name = "btnGenerarEstadisticas";
-            this.btnGenerarEstadisticas.Size = new System.Drawing.Size(180, 35);
-            this.btnGenerarEstadisticas.TabIndex = 2;
-            this.btnGenerarEstadisticas.Text = "Generar Estadísticas";
-            this.btnGenerarEstadisticas.UseVisualStyleBackColor = false;
-            this.btnGenerarEstadisticas.Click += new System.EventHandler(this.btnGenerarEstadisticas_Click);
-            // 
             // panelGrafico
             // 
             this.panelGrafico.BackColor = System.Drawing.Color.White;
             this.panelGrafico.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelGrafico.Location = new System.Drawing.Point(20, 180);
+            this.panelGrafico.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelGrafico.Location = new System.Drawing.Point(0, 150);
             this.panelGrafico.Name = "panelGrafico";
-            this.panelGrafico.Size = new System.Drawing.Size(1050, 430);
+            this.panelGrafico.Size = new System.Drawing.Size(1092, 454);
             this.panelGrafico.TabIndex = 1;
+            // 
+            // panelBottomEstadisticas
+            // 
+            this.panelBottomEstadisticas.Controls.Add(this.btnTopClientes);
+            this.panelBottomEstadisticas.Controls.Add(this.btnExportarGrafico);
+            this.panelBottomEstadisticas.Controls.Add(this.btnGenerarEstadisticas);
+            this.panelBottomEstadisticas.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBottomEstadisticas.Location = new System.Drawing.Point(0, 604);
+            this.panelBottomEstadisticas.Name = "panelBottomEstadisticas";
+            this.panelBottomEstadisticas.Size = new System.Drawing.Size(1092, 70);
+            this.panelBottomEstadisticas.TabIndex = 8;
+            // 
+            // btnTopClientes
+            // 
+            this.btnTopClientes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+     this.btnTopClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(39)))), ((int)(((byte)(176)))));
+            this.btnTopClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+     this.btnTopClientes.ForeColor = System.Drawing.Color.White;
+            this.btnTopClientes.Location = new System.Drawing.Point(210, 18);
+            this.btnTopClientes.Name = "btnTopClientes";
+         this.btnTopClientes.Size = new System.Drawing.Size(150, 35);
+   this.btnTopClientes.TabIndex = 4;
+     this.btnTopClientes.Text = "Top 10 Clientes";
+        this.btnTopClientes.UseVisualStyleBackColor = false;
+   this.btnTopClientes.Click += new System.EventHandler(this.btnTopClientes_Click);
+            // 
+            // btnExportarGrafico
+        // 
+         this.btnExportarGrafico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+       this.btnExportarGrafico.Location = new System.Drawing.Point(967, 18);
+       this.btnExportarGrafico.Name = "btnExportarGrafico";
+            this.btnExportarGrafico.Size = new System.Drawing.Size(100, 35);
+    this.btnExportarGrafico.TabIndex = 3;
+  this.btnExportarGrafico.Text = "Exportar Gráfico";
+     this.btnExportarGrafico.UseVisualStyleBackColor = true;
+    this.btnExportarGrafico.Click += new System.EventHandler(this.btnExportarGrafico_Click);
+  // 
+            // btnGenerarEstadisticas
+            // 
+            this.btnGenerarEstadisticas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+          this.btnGenerarEstadisticas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+   this.btnGenerarEstadisticas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+  this.btnGenerarEstadisticas.ForeColor = System.Drawing.Color.White;
+   this.btnGenerarEstadisticas.Location = new System.Drawing.Point(17, 18);
+    this.btnGenerarEstadisticas.Name = "btnGenerarEstadisticas";
+    this.btnGenerarEstadisticas.Size = new System.Drawing.Size(180, 35);
+            this.btnGenerarEstadisticas.TabIndex = 2;
+          this.btnGenerarEstadisticas.Text = "Generar Estadísticas";
+        this.btnGenerarEstadisticas.UseVisualStyleBackColor = false;
+       this.btnGenerarEstadisticas.Click += new System.EventHandler(this.btnGenerarEstadisticas_Click);
             // 
             // groupBox3
             // 
@@ -526,9 +574,10 @@ namespace HotelCalifornia
             this.groupBox3.Controls.Add(this.numAño);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.rbOcupacion);
-            this.groupBox3.Location = new System.Drawing.Point(20, 15);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1050, 150);
+            this.groupBox3.Size = new System.Drawing.Size(1092, 150);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Tipo de Estadística";
@@ -620,8 +669,7 @@ namespace HotelCalifornia
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Reportes y Estadísticas - Hotel California";
-            this.Load += new System.EventHandler(this.FormReportesEstadisticas_Load);
-            this.tabControl.ResumeLayout(false);
+ this.tabControl.ResumeLayout(false);
             this.tabReservas.ResumeLayout(false);
             this.tabReservas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporteReservas)).EndInit();
@@ -687,7 +735,10 @@ private System.Windows.Forms.NumericUpDown numAño;
  private System.Windows.Forms.RadioButton rbHabitacionesPopulares;
     private System.Windows.Forms.Panel panelGrafico;
         private System.Windows.Forms.Button btnGenerarEstadisticas;
-        private System.Windows.Forms.Button btnExportarGrafico;
-     private System.Windows.Forms.Button btnTopClientes;
+  private System.Windows.Forms.Button btnExportarGrafico;
+    private System.Windows.Forms.Button btnTopClientes;
+        private System.Windows.Forms.Panel panelBottomReservas;
+        private System.Windows.Forms.Panel panelBottomPagos;
+  private System.Windows.Forms.Panel panelBottomEstadisticas;
     }
 }

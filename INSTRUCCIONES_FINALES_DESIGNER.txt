@@ -1,0 +1,69 @@
+========================================
+INSTRUCCIONES FINALES PARA COMPLETAR
+FormReportesEstadisticas.Designer.cs
+========================================
+
+PASO 1: Agregar Declaraciones de Campos
+----------------------------------------
+Al final del archivo FormReportesEstadisticas.Designer.cs, 
+ANTES de los dos últimos "}" (que cierran la clase y el namespace),
+agregar estas tres líneas:
+
+ private System.Windows.Forms.Panel panelBottomReservas;
+        private System.Windows.Forms.Panel panelBottomPagos;
+        private System.Windows.Forms.Panel panelBottomEstadisticas;
+
+La sección completa debería quedar así:
+
+  #endregion
+
+  private System.Windows.Forms.TabControl tabControl;
+  private System.Windows.Forms.TabPage tabReservas;
+      private System.Windows.Forms.TabPage tabPagos;
+      private System.Windows.Forms.TabPage tabEstadisticas;
+        private System.Windows.Forms.GroupBox groupBox1;
+    // ... (resto de declaraciones existentes) ...
+private System.Windows.Forms.Panel panelGrafico;
+        private System.Windows.Forms.Button btnGenerarEstadisticas;
+        private System.Windows.Forms.Button btnExportarGrafico;
+        private System.Windows.Forms.Button btnTopClientes;
+  private System.Windows.Forms.Panel panelBottomReservas;
+        private System.Windows.Forms.Panel panelBottomPagos;
+     private System.Windows.Forms.Panel panelBottomEstadisticas;
+    }
+}
+
+
+PASO 2: Configurar groupBox3 con Dock=Top
+------------------------------------------
+Buscar la sección que configura groupBox3 (aproximadamente línea 550-570)
+y asegurarse que tenga:
+
+        this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
+
+
+PASO 3: Verificar Build
+------------------------
+Guardar el archivo y compilar el proyecto.
+El build debería completarse sin errores.
+
+
+CAMBIOS REALIZADOS EXITOSAMENTE:
+=================================
+
+? Main.cs
+   - Habilitado módulo de Pagos para Recepcionista
+
+? FormReportesEstadisticas.cs
+   - Eliminado código AutoScroll
+   - Eliminado método FormReportesEstadisticas_Load
+   - Mejorados gráficos (sin grid lines, porcentajes en tortas, etc.)
+
+? FormReportesEstadisticas.Designer.cs (PARCIAL)
+   - Corregida coma extra en btnBuscarReservas
+   - Configurado tabReservas con layout responsive
+   - Configurado tabPagos con layout responsive
+   - Configurado tabEstadisticas con layout responsive
+   - Eliminada referencia al evento Load que no existe
+
+?? PENDIENTE: Agregar las 3 declaraciones de paneles al final (ver PASO 1)

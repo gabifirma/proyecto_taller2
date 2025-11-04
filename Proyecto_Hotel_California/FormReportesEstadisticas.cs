@@ -13,12 +13,6 @@ namespace HotelCalifornia
  public FormReportesEstadisticas()
  {
  InitializeComponent();
-
- // Configurar scroll antes de inicializar
- this.AutoScroll = true;
- this.AutoScrollMargin = new Size(10,10);
- this.HScroll = false; // Solo scroll vertical
-
  InicializarFormulario();
  }
 
@@ -765,62 +759,6 @@ namespace HotelCalifornia
  MessageBox.Show($"Error al obtener top clientes: {ex.Message}",
  "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
  }
- }
-
- private void FormReportesEstadisticas_Load(object sender, EventArgs e)
- {
- // Asegurar que el scroll esté habilitado después de cargar
- this.AutoScroll = true;
-
- // Forzar el cálculo del tamaño del contenido
- int maxBottom =0;
- int maxRight =0;
-
- // Buscar el control que está más abajo y más a la derecha
- foreach (Control ctrl in this.Controls)
- {
- if (ctrl.Visible)
- {
- int bottom = ctrl.Bottom + ctrl.Margin.Bottom;
- int right = ctrl.Right + ctrl.Margin.Right;
-
- if (bottom > maxBottom)
- maxBottom = bottom;
- if (right > maxRight)
- maxRight = right;
- }
- }
-
- // Si hay un TabControl, también verificar sus páginas
- foreach (Control ctrl in this.Controls)
- {
- if (ctrl is TabControl tabCtrl)
- {
- foreach (TabPage page in tabCtrl.TabPages)
- {
- foreach (Control pageCtrl in page.Controls)
- {
- if (pageCtrl.Visible)
- {
- int bottom = tabCtrl.Top + pageCtrl.Bottom + pageCtrl.Margin.Bottom;
- int right = tabCtrl.Left + pageCtrl.Right + pageCtrl.Margin.Right;
-
- if (bottom > maxBottom)
- maxBottom = bottom;
- if (right > maxRight)
- maxRight = right;
- }
- }
- }
- }
- }
-
- // Establecer el tamaño mínimo para forzar el scroll
- // Agregamos margen adicional para asegurar que aparezca el scroll
- this.AutoScrollMinSize = new Size(maxRight +40, maxBottom +40);
-
- // Forzar actualización del layout
- this.PerformLayout();
  }
  }
 }
