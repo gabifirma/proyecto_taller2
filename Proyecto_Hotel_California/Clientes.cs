@@ -1,7 +1,9 @@
+using HotelCalifornia.Styles;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,7 +11,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using HotelCalifornia.Styles;
 
 namespace HotelCalifornia
 {
@@ -27,76 +28,123 @@ namespace HotelCalifornia
         public Clientes()
         {
             InitializeComponent();
-            // La clase base BaseResponsiveForm se encarga del responsive design automáticamente
+            CargarClientes();
         }
 
-        /// <summary>
-        /// Realiza la búsqueda y filtrado de clientes en la grilla.
-        /// Filtra por texto en cualquier campo y por rango de fechas.
-        /// </summary>
-        /// <param name="texto">Texto a buscar en cualquier campo del cliente</param>
-        /// <param name="desde">Fecha inicial del rango de búsqueda</param>
-        /// <param name="hasta">Fecha final del rango de búsqueda</param>
-        private void Buscar(string texto, DateTime desde, DateTime hasta)
+        private void CargarClientes()
         {
-            foreach (DataGridViewRow fila in GrillaClientes.Rows)
+            try
             {
-                if (fila.IsNewRow) continue; // Saltar la fila vacía del DataGridView
-
-                // Obtener la fecha de registro del cliente (última columna)
-                DateTime fecha = DateTime.Parse(fila.Cells[6].Value.ToString());
-
-                // Verificar si alguna celda contiene el texto buscado
-                bool coincideTexto = false;
-                foreach (DataGridViewCell celda in fila.Cells)
+                using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
                 {
-                    if (celda.Value != null && celda.Value.ToString().ToLower().Contains(texto.ToLower()))
-                    {
-                        coincideTexto = true;
-                        break;
-                    }
-                }
+                    conn.Open();
 
-                // Validar que el rango de fechas sea correcto
-                if (desde > hasta)
-                {
-                    MessageBox.Show("La fecha 'Desde' no puede ser mayor que la fecha 'Hasta'.", 
-                        "Error de búsqueda", 
-                        MessageBoxButtons.OK, 
-                        MessageBoxIcon.Error);
-                    return;
-                }
+                    string query = @"
+                        SELECT 
+                            c.id_cliente,
+                            c.dni,
+                            c.telefono,
+                            c.email,
+                            c.nombre,
+                            c.apellido,
+                            c.fecha_alta AS fechaAlta
+                        FROM Cliente c
+                        WHERE 1=1";
 
-                if (coincideTexto && fecha >= desde && fecha <= hasta)
-                {
-                    fila.Visible = true;
+                    SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    GrillaClientes.AutoGenerateColumns = false;
+                    GrillaClientes.DataSource = dt;
                 }
-                else
-                {
-                    fila.Visible = false;
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar empleados: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void BBuscar_Click(object sender, EventArgs e)
         {
-            string texto = TBuscar.Text;     // lo que escribe el usuario
-            DateTime desde = DTDesde.Value;  // fecha inicial
-            DateTime hasta = DTHasta.Value;  // fecha final
+            string texto = TBuscar.Text.Trim(); // texto que escribe el usuario
 
-            Buscar(texto, desde, hasta);
+            using (SqlConnection conn = new SqlConnection(DatabaseHelper.GetConnectionString()))
+            {
+                conn.Open();
+
+                // Construir la consulta base con filtros dinámicos
+                string query = @"
+                    SELECT 
+                        c.id_cliente,
+                        c.dni,
+                        c.telefono,
+                        c.email,
+                        c.nombre,
+                        c.apellido,
+                        c.fecha_alta AS fechaAlta
+                    FROM Cliente c
+                    WHERE 1=1";
+
+                // Creamos el comando
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+
+                // Filtro por fechas
+                if (dtpFechaInicio.Value <= dtpFechaFin.Value) // rango de fechas
+                {
+                    query += " AND c.fecha_alta BETWEEN @desde AND @hasta";
+                    cmd.Parameters.AddWithValue("@desde", dtpFechaInicio.Value.Date);
+                    cmd.Parameters.AddWithValue("@hasta", dtpFechaFin.Value.Date.AddDays(1).AddSeconds(-1)); // incluye el día completo
+                }
+                else
+                {
+                    MessageBox.Show("La fecha 'Desde' no puede ser mayor que la fecha 'Hasta'.",
+                        "Error de fechas",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Filtro de texto general
+                if (!string.IsNullOrEmpty(texto))
+                {
+                    query += @" AND (
+                            c.nombre LIKE @texto OR
+                            c.apellido LIKE @texto OR
+                            c.email LIKE @texto OR
+                            c.dni LIKE @texto OR
+                            c.telefono LIKE @texto
+                        )";
+                    cmd.Parameters.AddWithValue("@texto", "%" + texto + "%");
+                }
+
+                // Orden final
+                query += " ORDER BY c.fecha_alta DESC";
+                cmd.CommandText = query;
+
+                // Llenar la grilla
+                DataTable dt = new DataTable();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+
+                GrillaClientes.AutoGenerateColumns = false;
+                GrillaClientes.DataSource = dt;
+            }
         }
 
         private void Clientes_Load(object sender, EventArgs e)
         {
-            // Agrego datos de ejemplo
-            GrillaClientes.Rows.Add("40101101", "Pérez", "Juan", "3794001122", "juan@hotmail.com", "Las Heras 1200, Corrientes", "2025-10-12");
-            GrillaClientes.Rows.Add("40101102", "Gomez", "Maria", "3794001133", "maria@hotmail.com", "Ex Via 750, Corrientes", "2025-06-30");
-            GrillaClientes.Rows.Add("40101103", "Lopez", "Carlos", "3794001144", "Carlos@gmail.com", "Yrigoyen 2750, Goya", "2025-01-23");
-            GrillaClientes.Rows.Add("40101104", "Ibarra", "Rita", "3794001155", "rita@gmail.com", "Maipu 600, Itati", "2025-07-09");
-            GrillaClientes.Rows.Add("40101105", "Benitez", "Mia", "3794001166", "mia@gmail.com", "Pujol 1300, Mburucuya", "2024-11-16");
-            GrillaClientes.Rows.Add("40101106", "Sanchez", "Jose", "3794001177", "jose@gmail.com", "Maipu 2600, Corrientes", "2025-01-09");
+            CargarClientes();
+        }
 
+        private void BActualizar_Click(object sender, EventArgs e)
+        {
+            TBuscar.Clear();
+            dtpFechaFin.Value = DateTime.Today;
+            dtpFechaInicio.Value = DateTime.Today;
+            CargarClientes();
         }
     }
 }

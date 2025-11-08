@@ -41,9 +41,10 @@ namespace HotelCalifornia
             this.TBuscar = new System.Windows.Forms.TextBox();
             this.BBuscar = new System.Windows.Forms.Button();
             this.LDesde = new System.Windows.Forms.Label();
-            this.DTDesde = new System.Windows.Forms.DateTimePicker();
-            this.DTHasta = new System.Windows.Forms.DateTimePicker();
             this.LHasta = new System.Windows.Forms.Label();
+            this.BActualizar = new System.Windows.Forms.Button();
+            this.dtpFechaInicio = new System.Windows.Forms.DateTimePicker();
+            this.dtpFechaFin = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,42 +71,50 @@ namespace HotelCalifornia
             // 
             // DNI
             // 
+            this.DNI.DataPropertyName = "dni";
             this.DNI.HeaderText = "DNI";
             this.DNI.Name = "DNI";
             this.DNI.ReadOnly = true;
             // 
             // Apellido
             // 
+            this.Apellido.DataPropertyName = "apellido";
             this.Apellido.HeaderText = "Apellido";
             this.Apellido.Name = "Apellido";
             this.Apellido.ReadOnly = true;
             // 
             // Nombre
             // 
+            this.Nombre.DataPropertyName = "nombre";
             this.Nombre.HeaderText = "Nombre";
             this.Nombre.Name = "Nombre";
             this.Nombre.ReadOnly = true;
             // 
             // Teléfono
             // 
+            this.Teléfono.DataPropertyName = "telefono";
             this.Teléfono.HeaderText = "Teléfono";
             this.Teléfono.Name = "Teléfono";
             this.Teléfono.ReadOnly = true;
             // 
             // Email
             // 
+            this.Email.DataPropertyName = "email";
             this.Email.HeaderText = "Email";
             this.Email.Name = "Email";
             this.Email.ReadOnly = true;
             // 
             // Dirección
             // 
+            this.Dirección.DataPropertyName = "direccion";
             this.Dirección.HeaderText = "Dirección";
             this.Dirección.Name = "Dirección";
             this.Dirección.ReadOnly = true;
+            this.Dirección.Visible = false;
             // 
             // FechaAlta
             // 
+            this.FechaAlta.DataPropertyName = "fechaAlta";
             this.FechaAlta.HeaderText = "Fecha de Alta";
             this.FechaAlta.Name = "FechaAlta";
             this.FechaAlta.ReadOnly = true;
@@ -144,7 +153,7 @@ namespace HotelCalifornia
             // 
             // BBuscar
             // 
-            this.BBuscar.Location = new System.Drawing.Point(765, 112);
+            this.BBuscar.Location = new System.Drawing.Point(724, 71);
             this.BBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.BBuscar.Name = "BBuscar";
             this.BBuscar.Size = new System.Drawing.Size(133, 46);
@@ -164,22 +173,6 @@ namespace HotelCalifornia
             this.LDesde.TabIndex = 11;
             this.LDesde.Text = "Desde";
             // 
-            // DTDesde
-            // 
-            this.DTDesde.Location = new System.Drawing.Point(106, 139);
-            this.DTDesde.Margin = new System.Windows.Forms.Padding(4);
-            this.DTDesde.Name = "DTDesde";
-            this.DTDesde.Size = new System.Drawing.Size(233, 25);
-            this.DTDesde.TabIndex = 17;
-            // 
-            // DTHasta
-            // 
-            this.DTHasta.Location = new System.Drawing.Point(462, 139);
-            this.DTHasta.Margin = new System.Windows.Forms.Padding(4);
-            this.DTHasta.Name = "DTHasta";
-            this.DTHasta.Size = new System.Drawing.Size(233, 25);
-            this.DTHasta.TabIndex = 19;
-            // 
             // LHasta
             // 
             this.LHasta.AutoSize = true;
@@ -191,15 +184,45 @@ namespace HotelCalifornia
             this.LHasta.TabIndex = 18;
             this.LHasta.Text = "Hasta";
             // 
+            // BActualizar
+            // 
+            this.BActualizar.Location = new System.Drawing.Point(724, 130);
+            this.BActualizar.Margin = new System.Windows.Forms.Padding(4);
+            this.BActualizar.Name = "BActualizar";
+            this.BActualizar.Size = new System.Drawing.Size(133, 46);
+            this.BActualizar.TabIndex = 20;
+            this.BActualizar.Text = "Limpiar";
+            this.BActualizar.UseVisualStyleBackColor = true;
+            this.BActualizar.Click += new System.EventHandler(this.BActualizar_Click);
+            // 
+            // dtpFechaInicio
+            // 
+            this.dtpFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaInicio.Location = new System.Drawing.Point(92, 133);
+            this.dtpFechaInicio.Margin = new System.Windows.Forms.Padding(4);
+            this.dtpFechaInicio.Name = "dtpFechaInicio";
+            this.dtpFechaInicio.Size = new System.Drawing.Size(116, 25);
+            this.dtpFechaInicio.TabIndex = 21;
+            // 
+            // dtpFechaFin
+            // 
+            this.dtpFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaFin.Location = new System.Drawing.Point(432, 133);
+            this.dtpFechaFin.Margin = new System.Windows.Forms.Padding(4);
+            this.dtpFechaFin.Name = "dtpFechaFin";
+            this.dtpFechaFin.Size = new System.Drawing.Size(116, 25);
+            this.dtpFechaFin.TabIndex = 22;
+            // 
             // Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(1008, 667);
-            this.Controls.Add(this.DTHasta);
+            this.Controls.Add(this.dtpFechaFin);
+            this.Controls.Add(this.dtpFechaInicio);
+            this.Controls.Add(this.BActualizar);
             this.Controls.Add(this.LHasta);
-            this.Controls.Add(this.DTDesde);
             this.Controls.Add(this.BBuscar);
             this.Controls.Add(this.LDesde);
             this.Controls.Add(this.TBuscar);
@@ -226,8 +249,6 @@ namespace HotelCalifornia
         private System.Windows.Forms.TextBox TBuscar;
         private System.Windows.Forms.Button BBuscar;
         private System.Windows.Forms.Label LDesde;
-        private System.Windows.Forms.DateTimePicker DTDesde;
-        private System.Windows.Forms.DateTimePicker DTHasta;
         private System.Windows.Forms.Label LHasta;
         private System.Windows.Forms.DataGridViewTextBoxColumn DNI;
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
@@ -236,5 +257,8 @@ namespace HotelCalifornia
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn Dirección;
         private System.Windows.Forms.DataGridViewTextBoxColumn FechaAlta;
+        private System.Windows.Forms.Button BActualizar;
+        private System.Windows.Forms.DateTimePicker dtpFechaInicio;
+        private System.Windows.Forms.DateTimePicker dtpFechaFin;
     }
 }
