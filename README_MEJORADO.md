@@ -72,7 +72,7 @@
 #### 📅 Gestión de Reservas
 - Crear y modificar reservas
 - Check-in / Check-out
-- Estados: Pendiente, Confirmada, Cancelada
+- Estados: En espera, Confirmada, Terminada/Cancelada
 - Calendario de disponibilidad
 - Búsqueda y filtros avanzados
 
@@ -87,15 +87,14 @@
 <td width="50%">
 
 #### 🏠 Control de Habitaciones
-- Estado: Disponible, Ocupada, Mantenimiento, Limpieza
-- Tipos: Individual, Doble, Suite, Deluxe
+- Estado: Disponible, Ocupada, Inhabilitada
+- Tipos: Single, Doble, Suite
 - Asignación automática
 - Gestión de inventario
-- Mantenimiento programado
 
 #### 💰 Gestión de Pagos
 - Métodos: Efectivo, Tarjeta, Transferencia
-- Estados: Pendiente, Parcial, Completado
+- Estados: Pendiente, Completado
 - Historial de transacciones
 - Generación de facturas PDF
 - Conciliación bancaria
@@ -117,7 +116,7 @@
 |-----|----------|--------|
 | **🔴 Administrador** | Control total del sistema | Dashboard, Reservas, Clientes, Habitaciones, Pagos, Empleados, Usuarios, Configuración, Backups, Reportes |
 | **🟡 Supervisor** | Gestión operativa completa | Dashboard, Reservas, Clientes, Habitaciones, Pagos, Reportes |
-| **🟢 Recepcionista** | Operaciones básicas | Reservas (limitado), Clientes (consulta), Habitaciones (consulta) |
+| **🟢 Recepcionista** | Operaciones básicas | Dashboard, Reservas, Habitaciones, Pagos |
 
 ### 🎨 Características de Interfaz
 
@@ -612,8 +611,11 @@ C:\
    | `admin` | `admin123` | Administrador | Acceso completo al sistema |
    | `supervisor1` | `super123` | Supervisor | Gestión operativa |
    | `recepcion1` | `recepcion123` | Recepcionista | Operaciones básicas |
+   | `pepe1` | `pepe2000` | Administrador | Acceso completo al sistema |
+   | `jose1` | `jose2001` | Supervisor | Gestión operativa |
+   | `juan1` | `juan2001` | Recepcionista | Operaciones básicas |
 
-3. **Primer Inicio de Sesión**
+4. **Primer Inicio de Sesión**
    - Usar credenciales de administrador
    - Se recomienda cambiar las contraseñas inmediatamente
    - El sistema puede pedir crear la base de datos si no existe
@@ -646,7 +648,7 @@ El dashboard muestra:
 1. **Ir a Reservas** → Click en "Nueva Reserva"
 2. **Seleccionar Cliente**
    - Buscar cliente existente
-   - O crear nuevo cliente
+   - O crear nuevo cliente (Este se añadirá a la lista de clientes existentes)
 3. **Seleccionar Fechas**
    - Fecha de entrada (check-in)
    - Fecha de salida (check-out)
@@ -662,13 +664,10 @@ El dashboard muestra:
 
 - **🟡 Pendiente**: Reserva creada, esperando confirmación
 - **🟢 Confirmada**: Reserva confirmada, habitación asignada
-- **🔵 En Curso**: Cliente ya hizo check-in
-- **⚫ Finalizada**: Check-out realizado
-- **🔴 Cancelada**: Reserva cancelada
+- **🔴 Terminada/Cancelada**: Reserva cancelada o terminada
 
 #### Operaciones sobre Reservas
 
-- **✏️ Editar**: Modificar fechas o habitación
 - **✅ Check-in**: Marcar llegada del cliente
 - **🚪 Check-out**: Finalizar estancia
 - **❌ Cancelar**: Cancelar reserva
@@ -681,9 +680,7 @@ El dashboard muestra:
 1. **Seleccionar Reserva** con saldo pendiente
 2. **Click en "Nuevo Pago"**
 3. **Ingresar Datos**:
-   - Monto a pagar
    - Método de pago (Efectivo/Tarjeta/Transferencia)
-   - Referencia (opcional)
 4. **Confirmar Pago**
 
 #### Generar Factura
@@ -695,21 +692,10 @@ El dashboard muestra:
 
 ### 👥 Gestión de Clientes
 
-#### Agregar Nuevo Cliente
-
-1. **Ir a Clientes** → "Nuevo Cliente"
-2. **Completar Datos**:
-   - Nombre y Apellido
-   - DNI/Documento
-   - Teléfono
-   - Email
-   - Dirección
-3. **Guardar Cliente**
-
 #### Buscar Clientes
 
 - **Búsqueda rápida**: Por nombre, DNI o teléfono
-- **Filtros avanzados**: Fecha de registro, estado
+- **Filtros avanzados**: Fecha de alta
 - **Ordenamiento**: Por nombre, última visita, etc.
 
 ### 🏠 Gestión de Habitaciones
@@ -717,16 +703,14 @@ El dashboard muestra:
 #### Estados de Habitación
 
 - **🟢 Disponible**: Lista para ocupar
-- **🔴 Ocupada**: Actualmente en uso
-- **🟡 Mantenimiento**: En reparación
-- **🔵 Limpieza**: En proceso de limpieza
+- **🔴 Inhabilitada**: En reparación, limpieza, etc.
+- **🟡 Ocupada**: Actualmente en uso
 
 #### Tipos de Habitación
 
-- **Individual**: 1 persona
+- **Single**: 1 persona
 - **Doble**: 2 personas
 - **Suite**: 3-4 personas con sala
-- **Deluxe**: Suite premium con amenities
 
 ### 📊 Reportes y Estadísticas
 
